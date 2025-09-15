@@ -5,6 +5,7 @@ const Home = () => {
     <div>
       This is Home
       <h3>Mithun</h3>
+      <p>hello</p>
     </div>
   );
 };
