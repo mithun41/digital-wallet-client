@@ -9,7 +9,6 @@ const Navbar = ({ isLoggedIn }) => {
   };
 
   return (
-    <div className="my-4 flex">
       <nav className="bg-blue-600 text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -105,7 +104,6 @@ const Navbar = ({ isLoggedIn }) => {
           )}
         </div>
       </nav>
-    </div>
   );
 };
 
