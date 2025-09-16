@@ -8,6 +8,7 @@ const Home = () => {
       <p>hello</p>
       <p>Mithun</p>
       <p>my name is Sumaiya .....</p>
+      <p>my name is afroza.....</p>
       
     </div>
   );
