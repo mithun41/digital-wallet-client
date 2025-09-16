@@ -12,7 +12,7 @@ const SecuritySection = () => {
     {
       icon: <FaShieldAlt />,
       title: "Secure Wallet",
-      description: "Two-factor authentication and strong password policies protect your account.",
+      description: "Two-factor authentication and strong password policies can protect your account.",
       color: "from-green-400 to-green-600",
     },
     {
