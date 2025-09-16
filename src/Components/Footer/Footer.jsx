@@ -36,7 +36,7 @@ const Footer = () => {
               <li>
                 <span
                   className="hover:text-gray-200 cursor-pointer"
-                  title="লগইন করলে এক্সেস পাবেন"
+                  title="access when logged in"
                 >
                   Wallet
                 </span>
