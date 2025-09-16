@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { HiMenu, HiX } from "react-icons/hi"; // React Icons
+import { HiMenu, HiX } from "react-icons/hi";
 import navberImg from '../../assets/logo2.png'
 
 const Navbar = ({ isLoggedIn }) => {
