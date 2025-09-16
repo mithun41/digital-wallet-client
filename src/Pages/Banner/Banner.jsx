@@ -4,31 +4,35 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const banners = [
     {
         id: 1,
-        image: 'https://i.ibb.co.com/0RFw5ZF6/download-5.jpg',
+        image: 'https://i.ibb.co/0RFw5ZF6/download-5.jpg',
         alt: 'PayMate Digital Wallet',
         title: 'PayMate',
-        subtitle: 'A Secure Digital Wallet Platform built with cutting-edge MERN Stack technology.',
+        subtitle:
+            'A Secure Digital Wallet Platform built with cutting-edge MERN Stack technology.',
     },
     {
         id: 2,
-        image: 'https://i.ibb.co.com/3mJZn4Jd/images-15.jpg',
+        image: 'https://i.ibb.co/t2vfrH2/tech2.jpg',
         alt: 'Powerful Features',
         title: 'Powerful Features',
-        subtitle: 'Everything you need for seamless digital payments and financial management.',
+        subtitle:
+            'Everything you need for seamless digital payments and financial management.',
     },
     {
         id: 3,
-        image: 'https://i.ibb.co.com/Ps5Npg8x/images-16.jpg',
+        image: 'https://i.ibb.co/9b4nGtx/mern-stack.jpg',
         alt: 'Modern Tech Stack',
         title: 'Modern Tech Stack',
-        subtitle: 'Built with industry-leading technologies for scalability, performance, and security.',
+        subtitle:
+            'Built with industry-leading technologies for scalability, performance, and security.',
     },
     {
         id: 4,
-        image: 'https://i.ibb.co/nrwF3v0/team.jpg',
+        image: 'https://i.ibb.co.com/v6TcH6D3/images-20.jpg',
         alt: 'Built For Everyone',
         title: 'Built For Everyone',
-        subtitle: 'Designed to serve diverse user groups with tailored financial solutions.',
+        subtitle:
+            'Designed to serve diverse user groups with tailored financial solutions.',
     },
 ];
 
@@ -39,13 +43,17 @@ export default function Banner() {
     useEffect(() => {
         if (isPaused) return;
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
+            setCurrent((prev) =>
+                prev === banners.length - 1 ? 0 : prev + 1
+            );
         }, 4000);
         return () => clearInterval(interval);
     }, [isPaused]);
 
-    const prevSlide = () => setCurrent(current === 0 ? banners.length - 1 : current - 1);
-    const nextSlide = () => setCurrent(current === banners.length - 1 ? 0 : current + 1);
+    const prevSlide = () =>
+        setCurrent(current === 0 ? banners.length - 1 : current - 1);
+    const nextSlide = () =>
+        setCurrent(current === banners.length - 1 ? 0 : current + 1);
 
     return (
         <>
@@ -58,13 +66,15 @@ export default function Banner() {
                 {banners.map((banner, index) => (
                     <div
                         key={banner.id}
-                        className={`absolute top-0 left-0 w-full h-full transition-all duration-1000 ease-in-out ${index === current ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                        className={`absolute top-0 left-0 w-full h-full transition-all duration-1000 ease-in-out ${index === current
+                            ? 'opacity-100 scale-100'
+                            : 'opacity-0 scale-105'
                             }`}
                     >
                         <img
                             src={banner.image}
                             alt={banner.alt}
-                            className="w-full h-full object-cover "
+                            className="w-full h-full "
                         />
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                             <div className="relative max-w-3xl px-4">
@@ -85,9 +95,7 @@ export default function Banner() {
                                         className={`px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 ${index === current ? 'animate-bounceIn' : ''
                                             }`}
                                     >
-                                        <span className="text-white">
-                                            Get Started
-                                        </span>
+                                        <span className="text-white">Get Started</span>
                                     </button>
                                 </div>
                             </div>
@@ -95,6 +103,7 @@ export default function Banner() {
                     </div>
                 ))}
 
+                {/* Navigation Buttons */}
                 <button
                     onClick={prevSlide}
                     className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-gray-900/70 hover:bg-gray-900/90 p-4 rounded-full text-white z-10 transition-all duration-300 hover:scale-110 shadow-md"
@@ -111,6 +120,7 @@ export default function Banner() {
                     <ChevronRightIcon className="w-8 h-8" />
                 </button>
 
+                {/* Dots Indicator */}
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
                     {banners.map((_, index) => (
                         <button
@@ -126,41 +136,38 @@ export default function Banner() {
                 </div>
             </div>
 
-            <style jsx>{`
-                @keyframes slideIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
+            {/* CSS Animations */}
+            <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-                @keyframes bounceIn {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.8);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
+        @keyframes bounceIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
 
-                .animate-slideIn {
-                    animation: slideIn 0.8s ease-out;
-                }
+        .animate-slideIn {
+          animation: slideIn 0.8s ease-out;
+        }
 
-                .animate-bounceIn {
-                    animation: bounceIn 0.6s ease-out;
-                }
-
-                html {
-                    scroll-behavior: smooth;
-                }
-            `}</style>
+        .animate-bounceIn {
+          animation: bounceIn 0.6s ease-out;
+        }
+      `}</style>
         </>
     );
 }
