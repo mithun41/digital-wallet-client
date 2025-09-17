@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { HiMenu, HiX } from "react-icons/hi";
-import navberImg from '../../assets/logo2.png'
+import navberImg from "../../assets/logo2.png";
 
 const Navbar = ({ isLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,9 @@ const Navbar = ({ isLoggedIn }) => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="hover:text-gray-200">Home</Link>
+            <Link to="/" className="hover:text-gray-200">
+              Home
+            </Link>
 
             {!isLoggedIn && (
               <>
@@ -65,34 +67,111 @@ const Navbar = ({ isLoggedIn }) => {
                   Signup
                 </Link>
               </>
-
             )}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-white focus:outline-none text-2xl">
+            <button
+              onClick={toggleMenu}
+              className="text-white focus:outline-none text-2xl"
+            >
               {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
             </button>
           </div>
+
+          {/* Mobile Menu Links */}
+          {isOpen && (
+            <div className="md:hidden mt-2 space-y-2">
+              <Link
+                to="/"
+                className="block px-2 py-1 hover:bg-blue-500 rounded"
+              >
+                Home
+              </Link>
+
+              {!isLoggedIn && (
+                <>
+                  <span
+                    className="block px-2 py-1 hover:bg-blue-500 rounded cursor-pointer"
+                    title="লগইন করলে এক্সেস পাবেন"
+                  >
+                    Wallet
+                  </span>
+                  <span
+                    className="block px-2 py-1 hover:bg-blue-500 rounded cursor-pointer"
+                    title="লগইন করলে এক্সেস পাবেন"
+                  >
+                    Transfer
+                  </span>
+                  <span
+                    className="block px-2 py-1 hover:bg-blue-500 rounded cursor-pointer"
+                    title="লগইন করলে এক্সেস পাবেন"
+                  >
+                    Rewards
+                  </span>
+                  <Link
+                    to="/login"
+                    className="block px-2 py-1 bg-white text-blue-600 rounded hover:bg-gray-200"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="block px-2 py-1 bg-green-500 rounded hover:bg-green-400"
+                  >
+                    Signup
+                  </Link>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Mobile Menu Drawer */}
       <div
-        className={`fixed top-20 right-0 h-full w-1/2 bg-gray-600 text-white transform ${isOpen ? "translate-x-0" : "translate-x-full"
-          } transition-transform duration-300 ease-in-out md:hidden z-40`}
+        className={`fixed top-20 right-0 h-full w-1/2 bg-gray-600 text-white transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-300 ease-in-out md:hidden z-40`}
       >
         <div className="mt-2 px-4 space-y-4">
-          <Link to="/" className="block hover:bg-gray-100 rounded px-2 py-1">Home</Link>
+          <Link to="/" className="block hover:bg-gray-100 rounded px-2 py-1">
+            Home
+          </Link>
 
           {!isLoggedIn && (
             <>
-              <span className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer" title="লগইন করলে এক্সেস পাবেন">Wallet</span>
-              <span className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer" title="লগইন করলে এক্সেস পাবেন">Transfer</span>
-              <span className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer" title="লগইন করলে এক্সেস পাবেন">Rewards</span>
-              <Link to="/login" className="block bg-white text-blue-600 text-center rounded hover:bg-gray-200 px-2 py-1">Login</Link>
-              <Link to="/signup" className="block bg-green-500 text-center rounded hover:bg-green-400 px-2 py-1">Signup</Link>
+              <span
+                className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer"
+                title="লগইন করলে এক্সেস পাবেন"
+              >
+                Wallet
+              </span>
+              <span
+                className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer"
+                title="লগইন করলে এক্সেস পাবেন"
+              >
+                Transfer
+              </span>
+              <span
+                className="block hover:bg-blue-500 rounded px-2 py-1 cursor-pointer"
+                title="লগইন করলে এক্সেস পাবেন"
+              >
+                Rewards
+              </span>
+              <Link
+                to="/login"
+                className="block bg-white text-blue-600 text-center rounded hover:bg-gray-200 px-2 py-1"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="block bg-green-500 text-center rounded hover:bg-green-400 px-2 py-1"
+              >
+                Signup
+              </Link>
             </>
           )}
         </div>

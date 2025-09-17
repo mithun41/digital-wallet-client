@@ -1,11 +1,17 @@
 import React from "react";
-import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
+import {
+  FaWallet,
+  FaMoneyBillWave,
+  FaGift,
+  FaExchangeAlt,
+} from "react-icons/fa";
 
 const Features = () => {
   const features = [
     {
       title: "Add Money",
-      description: "Top up your wallet instantly from your bank account or card.",
+      description:
+        "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
       color: "from-green-400 to-green-600",
     },
