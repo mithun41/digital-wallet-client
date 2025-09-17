@@ -12,7 +12,7 @@ const Navbar = ({ isLoggedIn }) => {
 
   return (
     <nav className="shadow-md fixed top-0 left-0 w-full z-50 bg-blue-600 text-white">
-      <div className="px-4 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-6">
+      <div className="px-4 w-10/12 mx-auto lg:px-8 py-2 sm:py-2 lg:py-2">
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex justify-center items-center">
