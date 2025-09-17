@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const banners = [
     {
         id: 1,
-        image: 'https://i.ibb.co/0RFw5ZF6/download-5.jpg',
+        image: 'https://i.ibb.co.com/bVGMZCn/images-15-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg',
         alt: 'PayMate Digital Wallet',
         title: 'PayMate',
         subtitle:
@@ -12,7 +12,7 @@ const banners = [
     },
     {
         id: 2,
-        image: 'https://i.ibb.co/t2vfrH2/tech2.jpg',
+        image: 'https://i.ibb.co.com/CKfG5YgN/images-19-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg',
         alt: 'Powerful Features',
         title: 'Powerful Features',
         subtitle:
@@ -20,7 +20,7 @@ const banners = [
     },
     {
         id: 3,
-        image: 'https://i.ibb.co/9b4nGtx/mern-stack.jpg',
+        image: 'https://i.ibb.co.com/Gj65TZq/images-21-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg',
         alt: 'Modern Tech Stack',
         title: 'Modern Tech Stack',
         subtitle:
@@ -28,7 +28,7 @@ const banners = [
     },
     {
         id: 4,
-        image: 'https://i.ibb.co.com/v6TcH6D3/images-20.jpg',
+        image: 'https://i.ibb.co.com/twqLywWz/images-23-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg',
         alt: 'Built For Everyone',
         title: 'Built For Everyone',
         subtitle:
@@ -59,14 +59,14 @@ export default function Banner() {
         <>
             {/* Banner Section */}
             <div
-                className="relative w-full h-screen overflow-hidden"
+                className="relative w-full h-screen "
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
                 {banners.map((banner, index) => (
                     <div
                         key={banner.id}
-                        className={`absolute top-0 left-0 w-full h-full transition-all duration-1000 ease-in-out ${index === current
+                        className={`absolute top-0 left-0 w-full transition-all duration-1000 ease-in-out ${index === current
                             ? 'opacity-100 scale-100'
                             : 'opacity-0 scale-105'
                             }`}
@@ -74,7 +74,7 @@ export default function Banner() {
                         <img
                             src={banner.image}
                             alt={banner.alt}
-                            className="w-full h-full "
+                            className="w-full h-[800px] "
                         />
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                             <div className="relative max-w-3xl px-4">
