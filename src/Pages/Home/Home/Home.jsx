@@ -1,16 +1,19 @@
-import React from "react";
 import PaymentCard from "../../../Components/PaymentCard";
+import Banner from "../../Banner/Banner";
+import Features from "../Features/Features";
 
 const Home = () => {
   return (
     <div>
-      This is Home
-      <h3>Mithun</h3>
-      <p>hello</p>
-      <p>Mithun</p>
-      <p>my name is Sumaiya .....</p>
-      <PaymentCard></PaymentCard>
-      
+      <section>
+        <Banner></Banner>
+      </section>
+      <section className="mt-40">
+        <Features></Features>
+      </section>
+      <section>
+        <PaymentCard></PaymentCard>
+      </section>
     </div>
   );
 };

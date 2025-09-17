@@ -15,7 +15,7 @@ const PaymentCard = () => {
   ];
 
   return (
-    <div className=" mx-auto bg-white p-4 rounded-xl shadow-md">
+    <div className="w-10/12  mx-auto bg-white p-4 rounded-xl shadow-md">
       <h2 className="text-lg font-semibold mb-4">Payment List</h2>
       <div className="grid grid-cols-4 gap-4">
         {payments.map((item, index) => (
@@ -28,11 +28,6 @@ const PaymentCard = () => {
             <span className="text-sm mt-2 text-center">{item.name}</span>
           </Link>
         ))}
-      </div>
-      <div className="text-right mt-3">
-        <Link to="/more" className="text-green-500 text-sm font-medium hover:underline">
-          See More
-        </Link>
       </div>
     </div>
   );

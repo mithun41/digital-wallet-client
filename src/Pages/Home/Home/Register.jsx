@@ -122,7 +122,7 @@ const Register = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 flex">
+    <div className="min-h-screen mt-26 bg-gradient-to-br from-indigo-100 via-white to-purple-100 flex">
       
       {/* Left Side - Registration Form */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
