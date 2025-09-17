@@ -59,14 +59,14 @@ export default function Banner() {
         <>
             {/* Banner Section */}
             <div
-                className="relative w-full h-screen "
+                className="relative w-full h-[65vh] md:h-[70vh] lg:h-[75vh] overflow-hidden  shadow-lg"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
                 {banners.map((banner, index) => (
                     <div
                         key={banner.id}
-                        className={`absolute top-0 left-0 w-full transition-all duration-1000 ease-in-out ${index === current
+                        className={`absolute top-0 left-0 w-full h-full transition-all duration-1000 ease-in-out ${index === current
                             ? 'opacity-100 scale-100'
                             : 'opacity-0 scale-105'
                             }`}
@@ -74,25 +74,25 @@ export default function Banner() {
                         <img
                             src={banner.image}
                             alt={banner.alt}
-                            className="w-full h-[800px] "
+                            className="w-full h-full object-cover "
                         />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                            <div className="relative max-w-3xl px-4">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                            <div className="relative max-w-2xl px-4">
                                 <h2
-                                    className={`text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 drop-shadow-2xl ${index === current ? 'animate-slideIn' : ''
+                                    className={`text-2xl sm:text-3xl md:text-4xl font-extrabold mb-3 drop-shadow-2xl ${index === current ? 'animate-slideIn' : ''
                                         }`}
                                 >
                                     {banner.title}
                                 </h2>
                                 <p
-                                    className={`text-lg sm:text-xl md:text-2xl font-medium mb-8 drop-shadow-lg ${index === current ? 'animate-slideIn' : ''
+                                    className={`text-base sm:text-lg md:text-xl font-medium mb-6 drop-shadow-lg ${index === current ? 'animate-slideIn' : ''
                                         }`}
                                 >
                                     {banner.subtitle}
                                 </p>
                                 <div className="text-center">
                                     <button
-                                        className={`px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 ${index === current ? 'animate-bounceIn' : ''
+                                        className={`px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-full text-base sm:text-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 ${index === current ? 'animate-bounceIn' : ''
                                             }`}
                                     >
                                         <span className="text-white">Get Started</span>
@@ -106,28 +106,28 @@ export default function Banner() {
                 {/* Navigation Buttons */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-gray-900/70 hover:bg-gray-900/90 p-4 rounded-full text-white z-10 transition-all duration-300 hover:scale-110 shadow-md"
+                    className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-gray-900/70 hover:bg-gray-900/90 p-3 md:p-4 rounded-full text-white z-10 transition-all duration-300 hover:scale-110 shadow-md"
                     aria-label="Previous slide"
                 >
-                    <ChevronLeftIcon className="w-8 h-8" />
+                    <ChevronLeftIcon className="w-6 h-6 md:w-8 md:h-8" />
                 </button>
 
                 <button
                     onClick={nextSlide}
-                    className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-gray-900/70 hover:bg-gray-900/90 p-4 rounded-full text-white z-10 transition-all duration-300 hover:scale-110 shadow-md"
+                    className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-gray-900/70 hover:bg-gray-900/90 p-3 md:p-4 rounded-full text-white z-10 transition-all duration-300 hover:scale-110 shadow-md"
                     aria-label="Next slide"
                 >
-                    <ChevronRightIcon className="w-8 h-8" />
+                    <ChevronRightIcon className="w-6 h-6 md:w-8 md:h-8" />
                 </button>
 
                 {/* Dots Indicator */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
+                <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
                     {banners.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => setCurrent(index)}
-                            className={`w-4 h-4 rounded-full transition-all duration-300 shadow-sm ${index === current
-                                ? 'bg-blue-500 scale-150'
+                            className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 shadow-sm ${index === current
+                                ? 'bg-blue-500 scale-125'
                                 : 'bg-gray-300/60 hover:bg-gray-200/80'
                                 }`}
                             aria-label={`Go to slide ${index + 1}`}
