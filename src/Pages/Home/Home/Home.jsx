@@ -1,4 +1,5 @@
 import React from "react";
+import PaymentCard from "../../../Components/PaymentCard";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <p>hello</p>
       <p>Mithun</p>
       <p>my name is Sumaiya .....</p>
+      <PaymentCard></PaymentCard>
       
     </div>
   );
