@@ -7,7 +7,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/register",
+        "https://digital-wallet-server-tau.vercel.app/api/register",
         userData
       );
 
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        "https://digital-wallet-server-tau.vercel.app/api/login",
         userData
       );
 
