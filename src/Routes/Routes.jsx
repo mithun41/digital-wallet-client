@@ -8,6 +8,7 @@ import DashboardLayout from "../Layouts/dashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/dashboard/DashboardHome";
 import Transaction from "../Pages/dashboard/Transaction";
 import Profile from "../Pages/dashboard/Profile";
+import DashboardCashOut from "../Pages/dashboard/DashboardCashOut";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
           {
             path: '/dashboard/Profile',
             Component: Profile
+          },
+          {
+            path: '/dashboard/cashOut',
+            Component: DashboardCashOut
           }
         ]
       }
