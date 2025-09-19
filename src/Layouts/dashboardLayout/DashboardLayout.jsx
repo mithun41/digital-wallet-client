@@ -62,6 +62,12 @@ const DashboardLayout = () => {
           >
             Profile
           </Link>
+          <Link
+            to="/dashboard/cashOut"
+            className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+          >
+            CashOut
+          </Link>
           <button className="hover:text-gray-200 cursor-pointer px-5 py-1 bg-[#155DFC] rounded block">
             LogOut
           </button>
