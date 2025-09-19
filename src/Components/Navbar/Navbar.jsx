@@ -19,7 +19,7 @@ const Navbar = ({ isLoggedIn }) => {
             <Link to="/" className="flex items-center">
               <img
                 src={navberImg}
-                alt="PayMate Logo"
+                alt="PayNate Logo"
                 className="h-12 w-auto object-contain"
               />
             </Link>
@@ -33,6 +33,9 @@ const Navbar = ({ isLoggedIn }) => {
 
             {!isLoggedIn && (
               <>
+              <Link to='/dashboard' className="hover:text-gray-200 px-2 py-1 rounded block">
+              Dashboard
+              </Link>
                 <Link
                   to="/wallet"
                   className="hover:text-gray-200 px-2 py-1 rounded block"

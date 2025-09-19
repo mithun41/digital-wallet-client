@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router";
+import logo from '../../assets/logo2.png'
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-600 text-white mt-10">
+    <footer className="bg-blue-600 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
           {/* Logo & About */}
           <div>
-            <h2 className="text-2xl font-bold">PayMate</h2>
+            <h2 className=""><img src={logo} alt="" /></h2>
             <p className="text-sm mt-2 text-gray-200">
               A smart way to manage your money. Safe, fast, and reliable.
             </p>
