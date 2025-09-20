@@ -10,10 +10,10 @@ export default function CashOut() {
     const [loading, setLoading] = useState(false);
 
     const nearbyAgents = [
-        { name: "আব্দুর রহমান স্টোর", distance: "50m", number: "01712345678", available: true, rating: 4.8, verified: true },
-        { name: "সিটি মার্ট", distance: "120m", number: "01812345679", available: true, rating: 4.6, verified: true },
-        { name: "আলম এন্টারপ্রাইজ", distance: "200m", number: "01912345680", available: false, rating: 4.3, verified: false },
-        { name: "নিউ বাজার সেন্টার", distance: "300m", number: "01612345681", available: true, rating: 4.9, verified: true },
+        { name: "Mhamudul Hasan Mithun", distance: "50m", number: "01712345678", available: true, rating: 4.8, verified: true },
+        { name: "Sazzsad Hossain", distance: "120m", number: "01812345679", available: true, rating: 4.6, verified: true },
+        { name: "Monir Khan", distance: "200m", number: "01912345680", available: false, rating: 4.3, verified: false },
+        { name: "Musddek Hossain Summon", distance: "300m", number: "01612345681", available: true, rating: 4.9, verified: true },
     ];
 
     const quickAmounts = [500, 1000, 2000, 5000];
@@ -35,7 +35,7 @@ export default function CashOut() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
             {/* Modern Header with Glassmorphism */}
-            <div className="relative bg-gradient-to-r from-pink-600 via-pink-500 to-purple-600 overflow-hidden">
+            <div className="relative bg-gradient-to-r bg-[#155DFC]   overflow-hidden">
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
                 <div className="relative px-6 py-6 flex items-center justify-between text-white">
                     <div className="flex items-center gap-4">
@@ -49,7 +49,7 @@ export default function CashOut() {
                         )}
                         <div>
                             <h1 className="text-xl font-bold tracking-tight">Cash Out</h1>
-                            <p className="text-sm opacity-90 font-medium">টাকা উত্তোলন করুন</p>
+                            <p className="text-sm opacity-90 font-medium">Withdraw money</p>
                         </div>
                     </div>
                     <div className="text-right bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/20">
@@ -64,7 +64,7 @@ export default function CashOut() {
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="flex items-center">
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 ${step >= i
-                                    ? 'bg-white text-pink-600 shadow-lg'
+                                    ? 'bg-white text-blue-600 shadow-lg'
                                     : 'bg-white/20 text-white border border-white/30'
                                     }`}>
                                     {step > i ? <CheckCircle size={18} /> : i}
@@ -85,27 +85,27 @@ export default function CashOut() {
                         {/* Amount Input Card */}
                         <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
                                     <Zap className="text-white" size={24} />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-800">পরিমাণ নির্বাচন করুন</h2>
-                                    <p className="text-sm text-gray-500">আপনি কত টাকা তুলতে চান?</p>
+                                    <h2 className="text-xl font-bold text-gray-800">Select amount</h2>
+                                    <p className="text-sm text-gray-500">How much money would you like to withdraw?</p>
                                 </div>
                             </div>
 
                             <div className="relative mb-6">
-                                <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-pink-600">৳</div>
+                                <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-blue-600">৳</div>
                                 <input
                                     type="number"
                                     value={amount}
                                     onChange={(e) => setAmount(e.target.value)}
-                                    className="w-full pl-14 pr-6 py-6 text-3xl font-bold border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white"
+                                    className="w-full pl-14 pr-6 py-6 text-3xl font-bold border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white"
                                     placeholder="0"
                                 />
                                 {amount && (
                                     <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-sm text-gray-500">
-                                        চার্জ: ৳{calculateCharge(amount)}
+                                        Charge: ৳{calculateCharge(amount)}
                                     </div>
                                 )}
                             </div>
@@ -115,10 +115,10 @@ export default function CashOut() {
                                     <button
                                         key={amt}
                                         onClick={() => setAmount(amt.toString())}
-                                        className="p-4 bg-gradient-to-br from-pink-50 to-purple-50 hover:from-pink-100 hover:to-purple-100 border-2 border-pink-200 hover:border-pink-400 rounded-2xl transition-all duration-300 group"
+                                        className="p-4 bg-gradient-to-br from-blue-50 to-blue-50 hover:from-blue-100 hover:to-blue-100 border-2 border-blue-200 hover:border-blue-400 rounded-2xl transition-all duration-300 group"
                                     >
-                                        <div className="font-bold text-lg text-pink-700 group-hover:text-pink-800">৳{amt.toLocaleString()}</div>
-                                        <div className="text-xs text-gray-500 mt-1">চার্জ: ৳{calculateCharge(amt.toString())}</div>
+                                        <div className="font-bold text-lg text-blue-700 group-hover:text-blue-800">৳{amt.toLocaleString()}</div>
+                                        <div className="text-xs text-gray-500 mt-1">Charge: ৳{calculateCharge(amt.toString())}</div>
                                     </button>
                                 ))}
                             </div>
@@ -131,8 +131,8 @@ export default function CashOut() {
                                     <User className="text-white" size={24} />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-800">এজেন্ট নির্বাচন</h2>
-                                    <p className="text-sm text-gray-500">কার কাছ থেকে টাকা নিবেন?</p>
+                                    <h2 className="text-xl font-bold text-gray-800">Select agent</h2>
+                                    <p className="text-sm text-gray-500">From whom will you take the money?</p>
                                 </div>
                             </div>
 
@@ -143,14 +143,14 @@ export default function CashOut() {
                                     value={agentNumber}
                                     onChange={(e) => setAgentNumber(e.target.value)}
                                     className="w-full pl-14 pr-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white font-medium"
-                                    placeholder="এজেন্ট নম্বর লিখুন"
+                                    placeholder="Enter agent number"
                                 />
                             </div>
 
                             <div className="border-t-2 border-gray-100 pt-6">
                                 <div className="flex items-center gap-2 mb-4">
                                     <MapPin className="text-blue-600" size={18} />
-                                    <span className="font-bold text-gray-800">কাছের ভেরিফাইড এজেন্ট</span>
+                                    <span className="font-bold text-gray-800">Nearest verified agent</span>
                                 </div>
 
                                 <div className="space-y-3">
@@ -193,9 +193,9 @@ export default function CashOut() {
                         <button
                             onClick={() => setStep(2)}
                             disabled={!amount || !agentNumber}
-                            className="w-full py-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100"
+                            className="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100"
                         >
-                            পরবর্তী ধাপে যান
+                            Proceed to the next step
                         </button>
                     </>
                 )}
@@ -209,28 +209,28 @@ export default function CashOut() {
                                     <AlertCircle className="text-white" size={24} />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-800">লেনদেন নিশ্চিত করুন</h2>
-                                    <p className="text-sm text-gray-500">সব তথ্য ঠিক আছে কি?</p>
+                                    <h2 className="text-xl font-bold text-gray-800">Confirm transaction</h2>
+                                    <p className="text-sm text-gray-500">Is all the information correct?</p>
                                 </div>
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 space-y-4">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600 font-medium">উত্তোলনের পরিমাণ:</span>
+                                    <span className="text-gray-600 font-medium">Withdrawal amount:</span>
                                     <span className="font-bold text-2xl text-gray-800">৳ {amount}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600 font-medium">এজেন্ট নম্বর:</span>
+                                    <span className="text-gray-600 font-medium">agentNumber:</span>
                                     <span className="font-bold text-gray-800">{agentNumber}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600 font-medium">সার্ভিস চার্জ:</span>
+                                    <span className="text-gray-600 font-medium">sevice charge:</span>
                                     <span className="font-bold text-orange-600">৳ {calculateCharge(amount)}</span>
                                 </div>
                                 <div className="border-t-2 border-gray-200 pt-4">
                                     <div className="flex justify-between items-center">
-                                        <span className="font-bold text-lg text-gray-800">সর্বমোট খরচ:</span>
-                                        <span className="font-bold text-2xl text-pink-600">
+                                        <span className="font-bold text-lg text-gray-800">Total cost:</span>
+                                        <span className="font-bold text-2xl text-blue-600">
                                             ৳ {(parseFloat(amount || 0) + calculateCharge(amount)).toFixed(2)}
                                         </span>
                                     </div>
@@ -241,12 +241,12 @@ export default function CashOut() {
                         {/* PIN Input */}
                         <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center">
                                     <Shield className="text-white" size={24} />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-800">PIN দিয়ে নিশ্চিত করুন</h2>
-                                    <p className="text-sm text-gray-500">আপনার 5-ডিজিট PIN লিখুন</p>
+                                    <h2 className="text-xl font-bold text-gray-800">Confirm with PIN</h2>
+                                    <p className="text-sm text-gray-500">Enter your 5-digit PIN</p>
                                 </div>
                             </div>
 
@@ -256,7 +256,7 @@ export default function CashOut() {
                                     value={pin}
                                     onChange={(e) => setPin(e.target.value)}
                                     maxLength={5}
-                                    className="w-full px-6 py-6 text-3xl font-bold border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:outline-none text-center tracking-widest bg-gray-50 focus:bg-white transition-all duration-300"
+                                    className="w-full px-6 py-6 text-3xl font-bold border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none text-center tracking-widest bg-gray-50 focus:bg-white transition-all duration-300"
                                     placeholder="• • • • •"
                                 />
                                 <button
@@ -272,17 +272,17 @@ export default function CashOut() {
                         <button
                             onClick={handleCashOut}
                             disabled={pin.length !== 5 || loading}
-                            className="w-full py-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100 flex items-center justify-center gap-3"
+                            className="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100 flex items-center justify-center gap-3"
                         >
                             {loading ? (
                                 <>
                                     <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
-                                    প্রসেসিং হচ্ছে...
+                                    Processing...
                                 </>
                             ) : (
                                 <>
                                     <Shield size={20} />
-                                    ক্যাশ আউট নিশ্চিত করুন
+                                    Confirm cash out
                                 </>
                             )}
                         </button>
@@ -297,8 +297,8 @@ export default function CashOut() {
                                 <CheckCircle className="text-white" size={40} />
                             </div>
 
-                            <h2 className="text-3xl font-bold text-green-600 mb-3">সফলভাবে সম্পন্ন!</h2>
-                            <p className="text-gray-600 mb-8 text-lg">আপনার ক্যাশ আউট সম্পূর্ণ হয়েছে</p>
+                            <h2 className="text-3xl font-bold text-green-600 mb-3">Successfully completed!</h2>
+                            <p className="text-gray-600 mb-8 text-lg">Your cash out is complete</p>
 
                             {/* Transaction Receipt */}
                             <div className="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl p-6 space-y-4 mb-8">
@@ -307,16 +307,16 @@ export default function CashOut() {
                                     <span className="font-bold text-lg font-mono">9BM41H7G2P</span>
                                 </div>
                                 <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                    <span className="text-gray-600 font-medium">উত্তোলিত টাকা:</span>
+                                    <span className="text-gray-600 font-medium">Withdrawn money:</span>
                                     <span className="font-bold text-xl text-green-600">৳ {amount}</span>
                                 </div>
                                 <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                    <span className="text-gray-600 font-medium">তারিখ ও সময়:</span>
+                                    <span className="text-gray-600 font-medium">Date and Time:</span>
                                     <span className="font-bold">{new Date().toLocaleString('bn-BD')}</span>
                                 </div>
                                 <div className="flex justify-between items-center py-2">
-                                    <span className="text-gray-600 font-medium">বর্তমান ব্যালেন্স:</span>
-                                    <span className="font-bold text-xl text-pink-600">
+                                    <span className="text-gray-600 font-medium">present Balance:</span>
+                                    <span className="font-bold text-xl text-blue-600">
                                         ৳ {(12500 - parseFloat(amount || 0) - calculateCharge(amount)).toFixed(2)}
                                     </span>
                                 </div>
@@ -324,7 +324,7 @@ export default function CashOut() {
 
                             <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 mb-8">
                                 <p className="text-blue-800 font-medium">
-                                    📱 আপনার এজেন্টের কাছ থেকে টাকা নিন এবং Transaction ID দেখান
+                                    📱 Collect the money from your agent and show the Transaction ID
                                 </p>
                             </div>
                         </div>
@@ -337,9 +337,9 @@ export default function CashOut() {
                                 setAgentNumber('');
                                 setPin('');
                             }}
-                            className="w-full py-5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl transform hover:scale-[1.02]"
+                            className="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl transform hover:scale-[1.02]"
                         >
-                            নতুন লেনদেন করুন
+                            Make a new transaction
                         </button>
                     </>
                 )}
@@ -349,8 +349,8 @@ export default function CashOut() {
             <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 px-6 py-4 shadow-2xl">
                 <div className="flex justify-center items-center gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <Clock size={18} className="text-pink-600" />
-                    <span className="font-bold text-gray-800">24/7 নিরাপদ সেবা</span>
+                    <Clock size={18} className="text-blue-600" />
+                    <span className="font-bold text-gray-800">24/7 Secure service</span>
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 </div>
             </div>

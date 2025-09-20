@@ -28,6 +28,12 @@ const DashboardLayout = () => {
         >
           Profile
         </Link>
+        <Link
+          to="/dashboard/cashOut"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          CashOut
+        </Link>
         <button className="hover:text-gray-200 cursor-pointer px-5 py-1 bg-[#155DFC] rounded block">
           LogOut
         </button>
@@ -38,11 +44,7 @@ const DashboardLayout = () => {
           className="absolute top-20 cursor-pointer opacity-50 hover:opacity-100 transition-all duration-500 ease-linear bg-[#155DFC] h-16 w-16 ml-10 p-3 rounded-full left-2 z-50 flex lg:hidden"
         />
         <div
-          className={`lg:hidden
-    absolute bg-gray-700/50 backdrop-blur p-5 rounded-2xl  flex flex-col gap-5 
-    transition-all duration-300 
-    ${menuBar ? "left-10 top-38 opacity-100" : "-left-20 top-38 opacity-0"}
-  `}
+          className={`lg:hidden     absolute bg-gray-700/50 backdrop-blur p-5 rounded-2xl  flex flex-col gap-5     transition-all duration-300     ${menuBar ? "left-10 top-38 opacity-100" : "-left-20 top-38 opacity-0"}  `}
         >
           <Link
             to="/dashboard"
@@ -73,7 +75,7 @@ const DashboardLayout = () => {
           </button>
         </div>
       </div>
-      <div>
+      <div className="flex-1 flex items-center justify-center mt-8">
         <Outlet></Outlet>
       </div>
     </div>
