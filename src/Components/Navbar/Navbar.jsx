@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { HiMenu, HiX } from "react-icons/hi";
 import navberImg from "../../assets/logo2.png";
+import Theme from "../theme/Theme";
 
 const Navbar = ({ isLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ const Navbar = ({ isLoggedIn }) => {
 
   return (
     <nav className="shadow-md fixed top-0 left-0 w-full z-50 bg-blue-600 text-white h-16 flex items-center px-6">
+    <Theme></Theme>
       <div className="px-4 w-10/12 mx-auto lg:px-8 py-2 sm:py-2 lg:py-2">
         <div className="flex justify-between h-16">
           {/* Logo */}
