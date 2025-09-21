@@ -185,9 +185,9 @@ const Profile = () => {
 
                 <div className="space-y-4">
                     {[
-                        { action: 'cashout', amount: '-2,০০০ taka', time: '২ ঘন্টা আগে', status: 'Success' },
-                        { action: 'Mobile Recharge', amount: '-100 taka', time: '৫ ঘন্টা আগে', status: 'Success' },
-                        { action: 'Receive Money', amount: '+5,০০০ taka', time: '১ দিন আগে', status: 'Success' }
+                        { action: 'cashout', amount: '-2,০০০ taka', time: '2 hours ago"', status: 'Success' },
+                        { action: 'Mobile Recharge', amount: '-100 taka', time: '5 hours ago"', status: 'Success' },
+                        { action: 'Receive Money', amount: '+5,০০০ taka', time: '1 hours ago"', status: 'Success' }
                     ].map((activity, index) => (
                         <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div className="flex items-center gap-4">
