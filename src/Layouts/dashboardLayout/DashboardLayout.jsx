@@ -75,7 +75,7 @@ const DashboardLayout = () => {
           </button>
         </div>
       </div>
-      <div className="flex-1 flex items-center justify-center mt-8">
+      <div className="flex-1 flex items-center justify-center mt-8 w-full">
         <Outlet></Outlet>
       </div>
     </div>
