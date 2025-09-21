@@ -56,7 +56,7 @@ const Features = () => {
               {feature.icon}
             </div>
             <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-gray-600 text-sm">{feature.description}</p>
+            <p className="text-var(--color-sazzad) text-sm">{feature.description}</p>
           </Link>
         ))}
       </div>

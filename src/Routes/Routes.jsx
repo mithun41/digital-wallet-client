@@ -9,6 +9,8 @@ import DashboardHome from "../Pages/dashboard/DashboardHome";
 import Transaction from "../Pages/dashboard/Transaction";
 import Profile from "../Pages/dashboard/Profile";
 import DashboardCashOut from "../Pages/dashboard/DashboardCashOut";
+import AddMoney from "../Pages/dashboard/AddMoney";
+import MobileRecharge from "../Pages/dashboard/MobileRecharge";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ export const router = createBrowserRouter([
           {
             path: '/dashboard/cashOut',
             Component: DashboardCashOut
+          },
+          {
+            path: '/dashboard/AddMoney',
+            Component: AddMoney
+          },
+          {
+            path: '/dashboard/MobileRecharge',
+            Component: MobileRecharge
           }
         ]
       }
