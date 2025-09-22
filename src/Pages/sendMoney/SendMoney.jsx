@@ -8,14 +8,18 @@ const SendMoney = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
-    console.log(data)
-    const response = await axios.post('http://localhost:5000/api/send-many',data);
-    console.log(response.data)
-    alert(`Data sent successfully. Inserted count: ${response.data.insertedCount}`);
+  const onSubmit = async (data) => {
+    console.log(data);
+    const response = await axios.post(
+      "https://digital-wallet-server-tau.vercel.app/api/send-many",
+      data
+    );
+    console.log(response.data);
+    alert(
+      `Data sent successfully. Inserted count: ${response.data.insertedCount}`
+    );
     // console.log("Send Money Data:", data);
     // alert(`Successfully sent ${data.amount} BDT to ${data.receiverId}`);
-
   };
   // console.log(onSubmit)
 
@@ -23,7 +27,6 @@ const SendMoney = () => {
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 mt-20">
       <h2 className="text-xl font-semibold mb-4">Send Money</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
         {/* Receiver ID */}
         <div>
           <label className="block text-sm font-medium mb-1">Receiver ID</label>
@@ -57,7 +60,9 @@ const SendMoney = () => {
 
         {/* Note */}
         <div>
-          <label className="block text-sm font-medium mb-1">Note (optional)</label>
+          <label className="block text-sm font-medium mb-1">
+            Note (optional)
+          </label>
           <input
             type="text"
             {...register("note")}
