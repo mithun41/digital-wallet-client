@@ -31,7 +31,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center">
               <img
                 src={navberImg}
-                alt="PayMate Logo"
+                alt="PayNate Logo"
                 className="h-12 w-auto object-contain"
               />
             </Link>
@@ -79,6 +79,9 @@ const Navbar = () => {
               </button>
             ) : (
               <>
+              <Link to='/dashboard' className="hover:text-gray-200 px-2 py-1 rounded block">
+              Dashboard
+              </Link>
                 <Link
                   to="/login"
                   className="bg-white text-blue-600 px-4 py-1 rounded hover:bg-gray-200"

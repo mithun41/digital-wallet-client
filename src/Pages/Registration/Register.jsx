@@ -10,7 +10,11 @@ const Register = () => {
   const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ name: "", phone: "", pin: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "+880",
+    pin: "",
+  });
   const [showPin, setShowPin] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
@@ -19,10 +23,22 @@ const Register = () => {
   const [otp, setOtp] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
 
+  // 🔹 Phone error state
+  const [phoneError, setPhoneError] = useState("");
+  const phoneRegex = /^\+8801[3-9]\d{8}$/;
+
   // 🔹 Input handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "pin" && !/^\d{0,4}$/.test(value)) return;
+
+    if (name === "phone") {
+      setPhoneError(
+        phoneRegex.test(value) ? "" : "Invalid Bangladeshi phone number"
+      );
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -31,6 +47,15 @@ const Register = () => {
     if (!formData.phone) {
       return Swal.fire("Invalid Phone", "Enter your phone number", "warning");
     }
+
+    if (!phoneRegex.test(formData.phone)) {
+      return Swal.fire(
+        "Invalid Phone",
+        "Please enter a valid Bangladeshi number",
+        "error"
+      );
+    }
+
     const otpCode = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(otpCode);
     setOtpSent(true);
@@ -40,8 +65,9 @@ const Register = () => {
 
   // 🔹 Verify OTP + Register
   const handleVerifyOtpAndRegister = async () => {
-    if (!otp || otp !== generatedOtp)
+    if (!otp || otp !== generatedOtp) {
       return Swal.fire("Invalid OTP", "Enter correct OTP", "error");
+    }
 
     if (!formData.name || !formData.phone || !formData.pin) {
       return Swal.fire(
@@ -107,12 +133,23 @@ const Register = () => {
               <input
                 name="phone"
                 value={formData.phone}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  let value = e.target.value;
+
+                  if (!value.startsWith("+880")) {
+                    value = "+880" + value.replace(/^\+?880?/, "");
+                  }
+
+                  setFormData((prev) => ({ ...prev, phone: value }));
+                }}
                 placeholder="+8801XXXXXXXXX"
                 disabled={otpSent}
                 className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
+            {phoneError && (
+              <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+            )}
           </div>
 
           {/* OTP */}
