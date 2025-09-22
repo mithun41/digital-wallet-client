@@ -1,7 +1,7 @@
 // src/redux/features/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+export const { logout } = authSlice.actions;
 // ✅ Register
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -36,6 +36,22 @@ export const loginUser = createAsyncThunk(
       return rejectWithValue(
         error.response?.data || { message: "Login failed" }
       );
+    }
+  }
+);
+// ✅ Reset Pin thunk
+export const resetPinUser = createAsyncThunk(
+  "auth/resetPinUser",
+  async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("https://digital-wallet-server-tau.vercel.app/api/reset-pin", {
+        phone,
+        oldPin,
+        newPin,
+      });
+      return response.data; // { message: "PIN updated successfully" }
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: "Reset failed" });
     }
   }
 );
@@ -109,6 +125,17 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+      .addCase(resetPinUser.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(resetPinUser.fulfilled, (state) => {
+    state.loading = false;
+  })
+  .addCase(resetPinUser.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload.message;
+  })
       // Fetch User
       .addCase(fetchUser.pending, (state) => {
         state.loading = true;
@@ -126,5 +153,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+
 export default authSlice.reducer;
