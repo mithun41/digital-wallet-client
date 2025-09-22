@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ✅ Register user + get JWT token
+// ✅ Register user
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -11,18 +11,17 @@ export const registerUser = createAsyncThunk(
         userData
       );
 
-      // response = { user: {...}, token: "JWT_TOKEN" }
-      localStorage.setItem("token", response.data.token); // save token
-      return response.data;
+      localStorage.setItem("token", response.data.token); // Save JWT token
+      return response.data; // { user: {...}, token: "..." }
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: "Something went wrong" }
+        error.response?.data || { message: "Registration failed" }
       );
     }
   }
 );
 
-// ✅ Login user + get JWT token
+// ✅ Login user
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -32,8 +31,7 @@ export const loginUser = createAsyncThunk(
         userData
       );
 
-      // response = { user: {...}, token: "JWT_TOKEN" }
-      localStorage.setItem("token", response.data.token); // save token
+      localStorage.setItem("token", response.data.token); // Save JWT token
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -47,7 +45,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    token: localStorage.getItem("token") || null, // ✅ token saved
+    token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
   },
@@ -55,7 +53,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem("token"); // remove token on logout
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -72,7 +70,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Something went wrong";
+        state.error = action.payload.message || "Registration failed";
       })
 
       // Login
