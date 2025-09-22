@@ -81,6 +81,9 @@ const Navbar = () => {
                     className="w-10 h-10 rounded-full object-cover border-2 border-white"
                   />
                 )}
+                <Link to='dashboard'>
+                  Dashboard
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 px-4 py-1 rounded hover:bg-red-600"
