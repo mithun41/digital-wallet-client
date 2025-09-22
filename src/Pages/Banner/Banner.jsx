@@ -57,7 +57,7 @@ export default function Banner() {
 
     return (
         <>
-            {/* Banner Section */}
+
             <div
                 className="relative w-full h-[65vh] md:h-[70vh] lg:h-[75vh] overflow-hidden  shadow-lg"
                 onMouseEnter={() => setIsPaused(true)}
