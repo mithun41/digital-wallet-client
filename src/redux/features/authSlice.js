@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ✅ Register user
+// ✅ Register user thunk
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -10,9 +10,8 @@ export const registerUser = createAsyncThunk(
         "https://digital-wallet-server-tau.vercel.app/api/register",
         userData
       );
-
-      localStorage.setItem("token", response.data.token); // Save JWT token
-      return response.data; // { user: {...}, token: "..." }
+      localStorage.setItem("token", response.data.token);
+      return response.data; // { user, token }
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Registration failed" }
@@ -21,7 +20,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// ✅ Login user
+// ✅ Login user thunk
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -30,8 +29,7 @@ export const loginUser = createAsyncThunk(
         "https://digital-wallet-server-tau.vercel.app/api/login",
         userData
       );
-
-      localStorage.setItem("token", response.data.token); // Save JWT token
+      localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -58,7 +56,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Register
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -70,10 +67,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Registration failed";
+        state.error = action.payload.message;
       })
-
-      // Login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -85,7 +80,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Login failed";
+        state.error = action.payload.message;
       });
   },
 });

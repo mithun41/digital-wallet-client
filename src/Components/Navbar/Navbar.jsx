@@ -38,7 +38,8 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Navigation Links */}
             <Link to="/" className="hover:text-gray-200">
               Home
             </Link>
@@ -71,17 +72,24 @@ const Navbar = () => {
             </Link>
 
             {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 px-4 py-1 rounded hover:bg-red-600"
-              >
-                Logout
-              </button>
+              <div className="flex items-center gap-3">
+                {/* User Photo */}
+                {user.photo && (
+                  <img
+                    src={user.photo}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-white"
+                  />
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 px-4 py-1 rounded hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <>
-              <Link to='/dashboard' className="hover:text-gray-200 px-2 py-1 rounded block">
-              Dashboard
-              </Link>
                 <Link
                   to="/login"
                   className="bg-white text-blue-600 px-4 py-1 rounded hover:bg-gray-200"
