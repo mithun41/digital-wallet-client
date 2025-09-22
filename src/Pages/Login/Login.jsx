@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Wallet,
-  Lock,
-  Eye,
-  EyeOff,
-  ArrowRight,
-  Shield,
-  Smartphone,
-  CreditCard,
-  CheckCircle,
-} from "lucide-react";
+import { Wallet, Lock, Eye, EyeOff, ArrowRight, CheckCircle, Shield, Smartphone, CreditCard } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-import { loginUser } from "../../redux/features/authSlice";
+import Swal from "sweetalert2";
+import { loginUser,resetPinUser  } from "../../redux/features/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
 
+  // Login form
   const [formData, setFormData] = useState({ phone: "", pin: "" });
   const [showPin, setShowPin] = useState(false);
+
+  // Reset PIN form
+  const [showResetPin, setShowResetPin] = useState(false);
+  const [oldPin, setOldPin] = useState("");
+  const [newPin, setNewPin] = useState("");
+  const [showOldPin, setShowOldPin] = useState(false);
+  const [showNewPin, setShowNewPin] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,32 +28,41 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleResetInputChange = (e) => {
+    const { name, value } = e.target;
+    if (!/^\d{0,4}$/.test(value)) return;
+
+    if (name === "oldPin") setOldPin(value);
+    if (name === "newPin") setNewPin(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(loginUser(formData))
       .unwrap()
-      .then(() => {
-        navigate("/"); // login successful -> home
-      })
+      .then(() => navigate("/"))
       .catch(() => {});
   };
 
+  const handleResetPin = async (e) => {
+  e.preventDefault();
+  if (!oldPin || !newPin) return Swal.fire("Error", "Both fields are required", "error");
+
+  dispatch(resetPinUser({ phone: formData.phone, oldPin, newPin }))
+    .unwrap()
+    .then(() => {
+      Swal.fire("Success", "PIN updated successfully", "success");
+      setOldPin("");
+      setNewPin("");
+      setShowResetPin(false);
+    })
+    .catch((err) => Swal.fire("Error", err, "error"));
+};
+
   const features = [
-    {
-      icon: Shield,
-      title: "Bank-Level Security",
-      description: "256-bit encryption protects your data",
-    },
-    {
-      icon: Smartphone,
-      title: "Instant Transfers",
-      description: "Send money in seconds, not days",
-    },
-    {
-      icon: CreditCard,
-      title: "Multi-Card Support",
-      description: "Manage all your cards in one place",
-    },
+    { icon: Shield, title: "Bank-Level Security", description: "256-bit encryption protects your data" },
+    { icon: Smartphone, title: "Instant Transfers", description: "Send money in seconds, not days" },
+    { icon: CreditCard, title: "Multi-Card Support", description: "Manage all your cards in one place" },
   ];
 
   return (
@@ -75,96 +84,162 @@ const Login = () => {
             <p className="text-gray-600">Sign in with your phone & PIN</p>
           </div>
 
-          {/* Form */}
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Phone */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number
-              </label>
-              <div className="relative">
-                <input
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="+880 1XXXXXXXXX"
-                  required
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white/70 backdrop-blur-sm"
-                />
-              </div>
-            </div>
+          {!showResetPin ? (
+  // 👈 Login Form
+  <form className="space-y-6" onSubmit={handleSubmit}>
+  {/* Phone */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+    <input
+      name="phone"
+      type="tel"
+      value={formData.phone}
+      onChange={handleInputChange}
+      placeholder="+8801XXXXXXXXX"
+      required
+      className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+  </div>
 
-            {/* PIN */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                4-Digit PIN
-              </label>
-              <div className="relative">
-                <input
-                  name="pin"
-                  type={showPin ? "text" : "password"}
-                  value={formData.pin}
-                  onChange={handleInputChange}
-                  placeholder="••••"
-                  required
-                  className="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white/70 backdrop-blur-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPin(!showPin)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showPin ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
-                </button>
-              </div>
-            </div>
+  {/* PIN */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-2">4-Digit PIN</label>
+    <div className="relative">
+      <input
+        name="pin"
+        type={showPin ? "text" : "password"}
+        value={formData.pin}
+        onChange={handleInputChange}
+        placeholder="••••"
+        required
+        className="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+      <button
+        type="button"
+        onClick={() => setShowPin(!showPin)}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+      >
+        {showPin ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+      </button>
+    </div>
+  </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex justify-center py-3 px-4 text-sm font-medium rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-            >
-              {loading ? (
-                "Signing in..."
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <span>Sign In</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              )}
-            </button>
+  {/* Forgot PIN */}
+  <div className="text-right mt-1">
+    <button
+      type="button"
+      onClick={() => setShowResetPin(true)} // toggle to reset PIN form
+      className="text-sm cursor-pointer text-indigo-600 hover:underline"
+    >
+      Forgot PIN?
+    </button>
+  </div>
 
-            {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+  {/* Submit */}
+  <button
+    type="submit"
+    disabled={loading}
+    className="w-full flex justify-center py-3 px-4 text-sm font-medium rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 shadow-lg"
+  >
+    {loading ? "Signing in..." : <div className="flex cursor-pointer items-center space-x-2"><span>Sign In</span><ArrowRight className="w-4 h-4" /></div>}
+  </button>
 
-            {/* Register Link */}
-            <p className="text-center text-gray-600 mt-4">
-              Don't have an account?{" "}
-              <Link
-                to="/signup"
-                className="text-indigo-600 hover:text-indigo-500"
-              >
-                Sign up
-              </Link>
-            </p>
-          </form>
+  {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
-          {/* Security Notice */}
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-start space-x-3">
-            <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
-            <div>
-              <p className="text-sm text-green-800 font-medium">Secure Login</p>
-              <p className="text-xs text-green-700 mt-1">
-                Your connection is encrypted and protected by advanced security
-                measures.
-              </p>
-            </div>
-          </div>
+  {/* Register link */}
+  <p className="text-center text-gray-600 mt-4">
+    Don't have an account?{" "}
+    <Link to="/signup" className="text-indigo-600 hover:text-indigo-500">
+      Sign up
+    </Link>
+  </p>
+</form>
+
+) : (
+  // 👈 Reset PIN Form
+  <div className="mt-6 p-6 bg-white border border-gray-200 rounded-xl shadow-inner space-y-4">
+    <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">Reset PIN</h3>
+   <form className="space-y-4" onSubmit={handleResetPin}>
+  {/* Phone Number */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+    <input
+      name="phone"
+      type="tel"
+      value={formData.phone || "+880"}
+      onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+      placeholder="+8801XXXXXXXXX"
+      required
+      className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+  </div>
+
+  {/* Old PIN */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">Old PIN</label>
+    <div className="relative">
+      <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+      <input
+        name="oldPin"
+        type={showOldPin ? "text" : "password"}
+        value={oldPin}
+        onChange={handleResetInputChange}
+        placeholder="••••"
+        maxLength={4}
+        className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+      <button
+        type="button"
+        onClick={() => setShowOldPin(!showOldPin)}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center "
+      >
+        {showOldPin ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+      </button>
+    </div>
+  </div>
+
+  {/* New PIN */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1">New PIN</label>
+    <div className="relative">
+      <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+      <input
+        name="newPin"
+        type={showNewPin ? "text" : "password"}
+        value={newPin}
+        onChange={handleResetInputChange}
+        placeholder="••••"
+        maxLength={4}
+        className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+      />
+      <button
+        type="button"
+        onClick={() => setShowNewPin(!showNewPin)}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+      >
+        {showNewPin ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+      </button>
+    </div>
+  </div>
+
+  {/* Buttons */}
+  <div className="flex justify-between">
+    <button type="button" onClick={() => setShowResetPin(false)} className="cursor-pointer text-indigo-600 hover:underline">
+      Cancel
+    </button>
+    <button
+      type="submit"
+      disabled={resetLoading}
+      className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md disabled:opacity-50"
+    >
+      {resetLoading ? "Updating..." : "Reset PIN"}
+    </button>
+  </div>
+</form>
+
+  </div>
+)}
+
         </div>
       </div>
 
@@ -173,12 +248,9 @@ const Login = () => {
         <div className="max-w-lg text-white">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-6">
-              The Future of Digital Payments
-            </h1>
+            <h1 className="text-4xl font-bold mb-6">The Future of Digital Payments</h1>
             <p className="text-indigo-200 text-lg leading-relaxed">
-              Experience seamless transactions, secure payments, and complete
-              financial control with PayMate.
+              Experience seamless transactions, secure payments, and complete financial control with PayMate.
             </p>
           </div>
 
@@ -192,9 +264,7 @@ const Login = () => {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">
-                      {feature.title}
-                    </h3>
+                    <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                     <p className="text-indigo-200">{feature.description}</p>
                   </div>
                 </div>
