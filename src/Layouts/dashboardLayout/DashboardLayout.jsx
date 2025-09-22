@@ -16,6 +16,12 @@ const DashboardLayout = () => {
         >
           Home
         </Link>
+        <Link
+          to="/dashboard/profile"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          Profile
+        </Link>
 
         <Link
           to="/dashboard/AddMoney"
@@ -28,7 +34,7 @@ const DashboardLayout = () => {
           to="/dashboard/MobileRecharge"
           className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
         >
-         Mobile Recharge 
+          Mobile Recharge
         </Link>
 
         <Link
@@ -37,12 +43,7 @@ const DashboardLayout = () => {
         >
           Transaction
         </Link>
-        <Link
-          to="/dashboard/profile"
-          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
-        >
-          Profile
-        </Link>
+
         <Link
           to="/dashboard/cashOut"
           className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
@@ -53,7 +54,7 @@ const DashboardLayout = () => {
           LogOut
         </button>
       </div>
-      
+
 
       {/* mobile */}
       <div>
