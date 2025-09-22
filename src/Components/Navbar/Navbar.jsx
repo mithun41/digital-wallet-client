@@ -13,9 +13,7 @@ const Navbar = () => {
 
   const isLoggedIn = !!user;
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -27,19 +25,16 @@ const Navbar = () => {
       <div className="px-4 w-10/12 mx-auto lg:px-8 py-2">
         <div className="flex justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <img
-                src={navberImg}
-                alt="PayNate Logo"
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
-          </div>
+          <Link to="/" className="flex items-center">
+            <img
+              src={navberImg}
+              alt="PayNate Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Navigation Links */}
             <Link to="/" className="hover:text-gray-200">
               Home
             </Link>
@@ -81,7 +76,10 @@ const Navbar = () => {
                     className="w-10 h-10 rounded-full object-cover border-2 border-white"
                   />
                 )}
-                <Link to='dashboard'>
+                <Link
+                  to="/dashboard"
+                  className="hover:text-gray-200 px-2 py-1 rounded"
+                >
                   Dashboard
                 </Link>
                 <button
@@ -150,12 +148,27 @@ const Navbar = () => {
           </span>
 
           {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="w-full bg-red-500 px-2 py-1 rounded hover:bg-red-600"
-            >
-              Logout
-            </button>
+            <>
+              {user.photo && (
+                <img
+                  src={user.photo}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-white mx-auto"
+                />
+              )}
+              <Link
+                to="/dashboard"
+                className="block text-center hover:bg-blue-500 rounded px-2 py-1"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-500 px-2 py-1 rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <>
               <Link
