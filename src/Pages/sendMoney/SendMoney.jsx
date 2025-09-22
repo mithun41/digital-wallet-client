@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const SendMoney = () => {
@@ -7,28 +8,21 @@ const SendMoney = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Send Money Data:", data);
-    alert(`Successfully sent ${data.amount} BDT to ${data.receiverId}`);
+  const onSubmit = async(data) => {
+    console.log(data)
+    const response = await axios.post('http://localhost:5000/api/send-many',data);
+    console.log(response.data)
+    alert(`Data sent successfully. Inserted count: ${response.data.insertedCount}`);
+    // console.log("Send Money Data:", data);
+    // alert(`Successfully sent ${data.amount} BDT to ${data.receiverId}`);
+
   };
+  // console.log(onSubmit)
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 mt-20">
       <h2 className="text-xl font-semibold mb-4">Send Money</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Sender ID */}
-        <div>
-          <label className="block text-sm font-medium mb-1">Your ID</label>
-          <input
-            type="text"
-            {...register("senderId", { required: "Sender ID is required" })}
-            className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-green-300"
-            placeholder="Enter your ID"
-          />
-          {errors.senderId && (
-            <p className="text-red-500 text-sm">{errors.senderId.message}</p>
-          )}
-        </div>
 
         {/* Receiver ID */}
         <div>
