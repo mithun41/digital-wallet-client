@@ -7,7 +7,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/register",
+        "https://digital-wallet-server-tau.vercel.app/api/register",
         userData
       );
       localStorage.setItem("token", response.data.token);
@@ -26,7 +26,7 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        "https://digital-wallet-server-tau.vercel.app/api/login",
         userData
       );
       localStorage.setItem("token", response.data.token);
@@ -43,7 +43,7 @@ export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/reset-pin", {
+      const response = await axios.post("https://digital-wallet-server-tau.vercel.app/api/reset-pin", {
         phone,
         oldPin,
         newPin,

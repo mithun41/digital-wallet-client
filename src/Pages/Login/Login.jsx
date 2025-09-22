@@ -56,7 +56,7 @@ const Login = () => {
       setNewPin("");
       setShowResetPin(false);
     })
-    .catch((err) => Swal.fire("Error", err, "error"));
+    .catch((err) => Swal.fire("Error", err.message, "error"));
 };
 
   const features = [
