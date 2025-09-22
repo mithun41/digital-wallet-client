@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ✅ Register user + get JWT token
+// ✅ Register user thunk
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -10,19 +10,17 @@ export const registerUser = createAsyncThunk(
         "https://digital-wallet-server-tau.vercel.app/api/register",
         userData
       );
-
-      // response = { user: {...}, token: "JWT_TOKEN" }
-      localStorage.setItem("token", response.data.token); // save token
-      return response.data;
+      localStorage.setItem("token", response.data.token);
+      return response.data; // { user, token }
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: "Something went wrong" }
+        error.response?.data || { message: "Registration failed" }
       );
     }
   }
 );
 
-// ✅ Login user + get JWT token
+// ✅ Login user thunk
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -31,9 +29,7 @@ export const loginUser = createAsyncThunk(
         "https://digital-wallet-server-tau.vercel.app/api/login",
         userData
       );
-
-      // response = { user: {...}, token: "JWT_TOKEN" }
-      localStorage.setItem("token", response.data.token); // save token
+      localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -47,7 +43,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    token: localStorage.getItem("token") || null, // ✅ token saved
+    token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
   },
@@ -55,12 +51,11 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem("token"); // remove token on logout
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
     builder
-      // Register
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -72,10 +67,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Something went wrong";
+        state.error = action.payload.message;
       })
-
-      // Login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -87,7 +80,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message || "Login failed";
+        state.error = action.payload.message;
       });
   },
 });
