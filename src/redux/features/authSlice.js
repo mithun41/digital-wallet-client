@@ -1,7 +1,7 @@
 // src/redux/features/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-export const { logout } = authSlice.actions;
+
 // ✅ Register
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -147,11 +147,11 @@ const authSlice = createSlice({
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
-        // ❌ এখানে আর token clear করব না, শুধু user null করব
+        
         state.user = null;
       });
   },
 });
-
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;
