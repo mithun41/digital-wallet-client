@@ -88,6 +88,19 @@ const DashboardLayout = () => {
           >
             Profile
           </Link>
+           <Link
+          to="/dashboard/AddMoney"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          Add Money
+        </Link>
+
+        <Link
+          to="/dashboard/MobileRecharge"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          Mobile Recharge
+        </Link>
           <Link
             to="/dashboard/cashOut"
             className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
