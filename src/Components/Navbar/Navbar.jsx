@@ -4,6 +4,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import navberImg from "../../assets/logo2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
+import Theme from "../theme/Theme";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -105,6 +106,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
+            <Theme></Theme>
           </div>
 
           {/* Mobile Menu Button */}
@@ -116,7 +118,9 @@ const Navbar = () => {
               {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
             </button>
           </div>
+          
         </div>
+        
       </div>
 
       {/* Mobile Menu Drawer */}
@@ -187,6 +191,7 @@ const Navbar = () => {
           )}
         </div>
       )}
+      
     </nav>
   );
 };
