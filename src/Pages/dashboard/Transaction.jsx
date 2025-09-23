@@ -439,7 +439,7 @@ const Transaction = () => {
                                     <div className="flex items-center gap-5">
                                         <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg ${transaction.type === 'sent'
                                             ? 'bg-gradient-to-r from-red-500 to-pink-500'
-                                            : 'bg-gradient-to-r from-green-500 to-emerald-500'
+                                            : 'bg-gradient-to-r from-blue-600 to-emerald-500'
                                             }`}>
                                             {transaction.type === 'sent' ? '↑' : '↓'}
                                         </div>
@@ -458,7 +458,7 @@ const Transaction = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className={`font-bold text-xl ${transaction.type === 'sent' ? 'text-red-600' : 'text-green-600'
+                                    <div className={`font-bold text-xl ${transaction.type === 'sent' ? 'text-red-600' : 'text-blue-600'
                                         }`}>
                                         {transaction.type === 'sent' ? '-' : '+'}৳{transaction.amount.toLocaleString()}
                                     </div>
