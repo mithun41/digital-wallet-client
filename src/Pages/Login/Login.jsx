@@ -173,7 +173,7 @@ const Login = () => {
                   placeholder="+8801XXXXXXXXX"
                   required
                   className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 "
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  
                 />
               </div>
 
@@ -263,7 +263,7 @@ const Login = () => {
                   placeholder="+8801XXXXXXXXX"
                   required
                   className="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  
                 />
               </div>
 
