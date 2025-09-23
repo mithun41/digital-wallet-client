@@ -104,8 +104,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 flex justify-center items-center px-4 py-10">
-      <div className="relative max-w-md w-full p-8 bg-white rounded-3xl shadow-2xl space-y-6 border border-gray-100">
+    <div className="min-h-screen bg-base-100 flex justify-center items-center px-4 py-10">
+      <div className="relative max-w-md w-full p-8 bg-base-100 rounded-3xl shadow-2xl space-y-6 border border-gray-100">
         {/* Logo */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
@@ -113,7 +113,7 @@ const Register = () => {
               <Wallet className="w-8 h-8 text-white" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-1">
+          <h2 className="text-3xl font-bold text-primary mb-1">
             Join <span className="text-indigo-600">Pay</span>
             <span className="text-purple-600">Mate</span>
           </h2>
