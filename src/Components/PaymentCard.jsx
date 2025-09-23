@@ -15,14 +15,14 @@ const PaymentCard = () => {
   ];
 
   return (
-    <div className="w-10/12 dark:bg-blue-600 mx-auto  p-4 rounded-xl shadow-md">
+    <div className="w-10/12  mx-auto  p-4 rounded-xl shadow-md">
       <h2 className="text-lg font-semibold mb-4">Payment List</h2>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {payments.map((item, index) => (
           <Link
             key={index}
             to={item.path}
-            className="flex flex-col items-center justify-center bg-[#155DFC] rounded-lg p-3 text-white hover:bg-[#155efcf3] transition"
+            className="flex flex-col items-center justify-center bg-base-100 rounded-lg p-3 hover:scale-105 text-primary shadow-2xl transition"
           >
             {item.icon}
             <span className="text-sm mt-2 text-center">{item.name}</span>

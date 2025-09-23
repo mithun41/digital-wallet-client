@@ -131,7 +131,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 flex">
+    <div className="min-h-screen bg-base-100 flex">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="max-w-md w-full space-y-8">
@@ -142,13 +142,21 @@ const Login = () => {
                 <Wallet className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold text-primary mb-2">
               Welcome to <span className="text-indigo-600">Pay</span>
               <span className="text-purple-600">Mate</span>
             </h2>
             <p className="text-gray-600">Sign in with your phone & PIN</p>
           </div>
 
+          {/* Form */}
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Phone */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Phone Number
+              </label>
+              <div className="relative">
           {!showResetPin ? (
             // 👈 Login Form
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -164,10 +172,17 @@ const Login = () => {
                   onChange={handleInputChange}
                   placeholder="+8801XXXXXXXXX"
                   required
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 "
+                  
                 />
               </div>
 
+            {/* PIN */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                4-Digit PIN
+              </label>
+              <div className="relative">
               {/* PIN */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -212,6 +227,8 @@ const Login = () => {
                   </div>
                 )}
               </button>
+              </div>
+              </div>
 
               {/* Forgot PIN */}
               <p
@@ -245,7 +262,8 @@ const Login = () => {
                   }
                   placeholder="+8801XXXXXXXXX"
                   required
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  
                 />
               </div>
 
@@ -332,6 +350,17 @@ const Login = () => {
                 </div>
               </div>
 
+          {/* Security Notice */}
+          <div className="mt-6 p-4 bg-base-100 border border-green-200 rounded-xl flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+            <div>
+              <p className="text-sm text-green-800 font-medium">Secure Login</p>
+              <p className="text-xs text-green-700 mt-1">
+                Your connection is encrypted and protected by advanced security
+                measures.
+              </p>
+            </div>
+          </div>
               {/* Buttons */}
               <div className="flex justify-between">
                 <button
@@ -353,9 +382,12 @@ const Login = () => {
           )}
         </div>
       </div>
+      </form>
+      </div>
+      </div>
 
       {/* Right Side - Features & Branding */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-indigo-600 to-purple-700 items-center justify-center p-12">
+      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-indigo-600 to-purple-700 items-center justify-center ">
         <div className="max-w-lg text-white">
           {/* Hero Section */}
           <div className="text-center mb-12">
