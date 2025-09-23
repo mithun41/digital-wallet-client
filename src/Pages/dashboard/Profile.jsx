@@ -244,7 +244,7 @@ const Profile = () => {
             </motion.div>
 
             {/* Recent Activity */}
-            <motion.div variants={itemVariants} className="bg-[#A2B9A7] rounded-lg shadow-md p-6 mt-6">
+            <motion.div variants={itemVariants} className="bg-[#a2a2b9] rounded-lg shadow-md p-6 mt-6">
                 <h2 className="text-xl font-bold text-gray-800 mb-6">Recent Activity</h2>
 
                 <motion.div
