@@ -37,15 +37,15 @@ const SecuritySection = () => {
         {securityFeatures.map((feature, index) => (
           <div
             key={index}
-            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105"
+            className="bg-base-100 p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105"
           >
             <div
-              className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${feature.color} text-white text-2xl`}
+              className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${feature.color} text-primary text-2xl`}
             >
               {feature.icon}
             </div>
             <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
+            <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
           </div>
         ))}
       </div>
