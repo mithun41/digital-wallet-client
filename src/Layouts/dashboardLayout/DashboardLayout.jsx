@@ -59,8 +59,8 @@ const DashboardLayout = () => {
 
 
       {/* mobile */}
-      <div>
-        <div onClick={handleMenuBar}
+      <div onClick={handleMenuBar}>
+        <div 
           >
             {
               menuBar ? <ImCross className="fixed top-20 cursor-pointer opacity-50 hover:opacity-100 transition-all duration-500 ease-linear bg-[#155DFC] h-16 w-16 ml-10 p-3 rounded-full left-2 z-50 flex lg:hidden" /> : <CiMenuBurger className="fixed top-20 cursor-pointer opacity-50 hover:opacity-100 transition-all duration-500 ease-linear bg-[#155DFC] h-16 w-16 ml-10 p-3 rounded-full left-2 z-50 flex lg:hidden" />
