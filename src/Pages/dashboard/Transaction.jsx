@@ -458,7 +458,7 @@ const Transaction = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className={`font-bold text-xl ${transaction.type === 'sent' ? 'text-red-600' : 'text-blue-600'
+                                    <div className={`font-bold text-xl ${transaction.type === 'sent' ? 'text-red-600' : 'text-green-600'
                                         }`}>
                                         {transaction.type === 'sent' ? '-' : '+'}৳{transaction.amount.toLocaleString()}
                                     </div>

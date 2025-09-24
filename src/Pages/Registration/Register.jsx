@@ -20,10 +20,16 @@ const Register = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    phone: "+880",
+    phone: "",
     pin: "",
-    photo: null,
+    balance: 0.0,
+    currency: "BDT",
+    transactions: [],
+    isVerified: true,
+    role: "user",
+    status: "active",
   });
+
   const [showPin, setShowPin] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [preview, setPreview] = useState(null); // 🔹 Photo preview
