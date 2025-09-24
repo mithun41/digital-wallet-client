@@ -18,7 +18,7 @@ import { loginUser, resetPinUser } from "../../redux/features/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
 
   // Login form
   const [formData, setFormData] = useState({ phone: "", pin: "" });

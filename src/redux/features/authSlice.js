@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ✅ Register
+// ✅ Register User
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk(
         userData
       );
       localStorage.setItem("token", response.data.token);
-      return response.data; // { user, token }
+      return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Registration failed" }
@@ -21,7 +21,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// ✅ Login
+// ✅ Login User
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
         userData
       );
       localStorage.setItem("token", response.data.token);
-      return response.data; // { user, token }
+      return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Login failed" }
@@ -39,19 +39,25 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-// ✅ Reset Pin thunk
+
+// ✅ Reset Pin
 export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://digital-wallet-server-tau.vercel.app/api/reset-pin", {
-        phone,
-        oldPin,
-        newPin,
-      });
-      return response.data; // { message: "PIN updated successfully" }
+      const response = await axios.post(
+        "https://digital-wallet-server-tau.vercel.app/api/reset-pin",
+        {
+          phone,
+          oldPin,
+          newPin,
+        }
+      );
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: "Reset failed" });
+      return rejectWithValue(
+        error.response?.data || { message: "Reset failed" }
+      );
     }
   }
 );
@@ -71,7 +77,7 @@ export const fetchUser = createAsyncThunk(
         }
       );
 
-      return response.data; // { user }
+      return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Failed to fetch user" }
@@ -125,17 +131,18 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+      // Reset Pin
       .addCase(resetPinUser.pending, (state) => {
-    state.loading = true;
-    state.error = null;
-  })
-  .addCase(resetPinUser.fulfilled, (state) => {
-    state.loading = false;
-  })
-  .addCase(resetPinUser.rejected, (state, action) => {
-    state.loading = false;
-    state.error = action.payload.message;
-  })
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPinUser.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(resetPinUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
       // Fetch User
       .addCase(fetchUser.pending, (state) => {
         state.loading = true;
@@ -147,13 +154,11 @@ const authSlice = createSlice({
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
-        
+
         state.user = null;
       });
   },
 });
-export const { logout } = authSlice.actions;
-
-
 
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;

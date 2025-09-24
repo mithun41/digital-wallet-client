@@ -10,7 +10,8 @@ const DashboardLayout = () => {
   };
   return (
     <div className="flex gap-10 min-h-[calc(100vh-100px)] w-12/12 mx-auto relative">
-      <div className=" w-2/12  flex-col gap-5 text-white text-center px-5 xl:px-10 bg-gray-700 py-10 hidden lg:flex">
+      <div className=" w-2/12 bg-gray-700 py-10">
+        <div className=" flex-col gap-5 text-white text-center px-5 xl:px-10  hidden lg:flex" >
         <Link
           to="/dashboard"
           className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
@@ -88,6 +89,19 @@ const DashboardLayout = () => {
           >
             Profile
           </Link>
+           <Link
+          to="/dashboard/AddMoney"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          Add Money
+        </Link>
+
+        <Link
+          to="/dashboard/MobileRecharge"
+          className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
+        >
+          Mobile Recharge
+        </Link>
           <Link
             to="/dashboard/cashOut"
             className="hover:text-gray-200 px-5 py-1 bg-[#155DFC] rounded block"
@@ -98,6 +112,7 @@ const DashboardLayout = () => {
             LogOut
           </button>
         </div>
+      </div>
       </div>
       <div className="flex-1 flex items-center justify-center mt-8 w-full">
         <Outlet></Outlet>
