@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
           {/* Logo & About */}
           <div>
-            <h2 className=""><img src={logo} alt="" /></h2>
+            <h2 className=""><img src={logo} className="w-1/2 mx-auto" alt="" /></h2>
             <p className="text-sm mt-2 text-gray-200">
               A smart way to manage your money. Safe, fast, and reliable.
             </p>
