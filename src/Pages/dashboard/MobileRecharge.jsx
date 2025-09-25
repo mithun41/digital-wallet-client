@@ -1,192 +1,189 @@
-import React, { useState } from 'react';
-import { ArrowLeft, Smartphone, Phone, Contact, Star, Clock, Zap, Shield, Info } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, Smartphone, CreditCard, Shield, Star } from 'lucide-react';
 
-const MobileRecharge = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [selectedOperator, setSelectedOperator] = useState('');
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [activeTab, setActiveTab] = useState('prepaid');
+export default function MobileRecharge() {
+  const [selectedType, setSelectedType] = useState('prepaid');
+  const [promoCode, setPromoCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('017xxxxxxxx');
 
-  const operators = [
-    { id: 'grameenphone', name: 'Grameenphone', logo: '🟢', prefix: ['017', '013'] },
-    { id: 'robi', name: 'Robi', logo: '🟠', prefix: ['018'] },
-    { id: 'banglalink', name: 'Banglalink', logo: '🟡', prefix: ['019'] },
-    { id: 'airtel', name: 'Airtel', logo: '🔴', prefix: ['016'] },
-    { id: 'teletalk', name: 'Teletalk', logo: '🔵', prefix: ['015'] },
+  const rechargeHistory = [
+    {
+      number: '017xxxxxxxx',
+      operator: 'Grameenphone',
+      amount: 100,
+      status: 'Success',
+      date: 'Apr 5, 16:12'
+    }
   ];
 
-  const quickAmounts = [20, 50, 100, 200, 500];
-
-  const detectOperator = (number) => {
-    const prefix = number.substring(0, 3);
-    for (const op of operators) {
-      if (op.prefix.includes(prefix)) {
-        return op.id;
-      }
+  const rechargePlans = [
+    {
+      type: 'Data Pack',
+      description: '1GB for 3 Days',
+      price: 49
+    },
+    {
+      type: 'Talktime',
+      description: '100 Min for 7 Days',
+      price: 100
     }
-    return '';
-  };
-
-  const handleNumberChange = (value) => {
-    setPhoneNumber(value);
-    if (value.length >= 3) {
-      const detected = detectOperator(value);
-      setSelectedOperator(detected);
-      setSelectedPackage(null);
-    }
-  };
-
-  const handleRecharge = () => {
-    if (!phoneNumber || !selectedPackage) return;
-    setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      alert(`Recharge successful! ৳${selectedPackage.amount} recharged to ${phoneNumber}`);
-    }, 2000);
-  };
+  ];
 
   return (
-    <div className="min-h-screen mx-[50px] w-[800px] mt-20 bg-gradient-to-br from-pink-50 to-purple-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4">
-        <div className="flex items-center gap-3">
-          <ArrowLeft className="w-6 h-6 cursor-pointer hover:bg-white/20 rounded p-1" />
-          <h1 className="text-xl font-bold">Mobile Recharge</h1>
-        </div>
-        <p className="text-pink-100 text-sm mt-1">Recharge your mobile instantly</p>
-      </div>
+    <div className="bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 p-4 sm:p-6 md:p-8 w-full rounded-2xl mb-10 mr-10">
+      <div className="min-w-md sm:max-w-lg md:max-w-2xl mx-auto">
 
-      {/* Balance Display */}
-      <div className="mx-4 -mt-2 relative">
-        <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100">
-          <div className="text-center">
-            <p className="text-gray-600 text-sm">Available Balance</p>
-            <p className="text-3xl font-bold text-blue-600 mt-2">৳ 2,450.50</p>
-            <div className="flex items-center justify-center gap-1 mt-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span className="text-xs text-green-600">Instant & Secure</span>
+        {/* Header */}
+        <div className="flex items-center text-white mb-6 pt-4">
+          <ArrowLeft className="w-6 h-6 mr-4 cursor-pointer" />
+          <div className="flex-1">
+            <h1 className="text-2xl md:text-3xl font-bold">Mobile Recharge</h1>
+            <p className="text-purple-100 text-sm md:text-base mt-1">
+              Recharge your mobile instantly with offers
+            </p>
+          </div>
+        </div>
+
+        {/* Balance Card */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 mb-6 shadow-xl">
+          <div className="text-center mb-6">
+            <p className="text-gray-600 text-sm mb-2">Available Balance</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-600 mb-3">
+              ৳ 2,450.50
+            </h2>
+            <div className="flex items-center justify-center text-green-600 text-sm">
+              <Shield className="w-4 h-4 mr-2" />
+              Instant & Secure
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Tabs */}
-      <div className="mx-4 mt-6">
-        <div className="flex bg-white rounded-xl p-1 shadow-sm border border-pink-100">
-          {[{ id: 'prepaid', label: 'Prepaid', icon: <Phone className="w-4 h-4" /> },
-            { id: 'postpaid', label: 'Postpaid', icon: <Contact className="w-4 h-4" /> }].map((tab) => (
+          {/* Prepaid/Postpaid Toggle */}
+          <div className="flex flex-col sm:flex-row bg-gray-100 rounded-2xl p-1 mb-6 gap-2 sm:gap-0">
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-medium transition-all ${
-                activeTab === tab.id
-                  ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md'
-                  : 'text-gray-600 hover:bg-gray-50'
+              onClick={() => setSelectedType('prepaid')}
+              className={` flex items-center justify-center py-3 px-4 rounded-xl font-semibold transition-all ${
+                selectedType === 'prepaid'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                  : 'text-gray-600'
               }`}
             >
-              {tab.icon}
-              {tab.label}
+              <Smartphone className="w-4 h-4 mr-2" />
+              Prepaid
             </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Phone Number Input */}
-      <div className="p-4">
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-pink-100">
-          <label className="block text-gray-700 font-medium mb-3">Mobile Number</label>
-          <div className="relative">
-            <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={(e) => handleNumberChange(e.target.value)}
-              placeholder="017xxxxxxxx"
-              className="w-full pl-12 pr-4 py-4 text-lg border-2 border-pink-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
-              maxLength="11"
-            />
-            {selectedOperator && (
-              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                <span className="text-2xl">{operators.find(op => op.id === selectedOperator)?.logo}</span>
-              </div>
-            )}
+            <button
+              onClick={() => setSelectedType('postpaid')}
+              className={`flex-1 flex items-center justify-center py-3 px-4 rounded-xl font-semibold transition-all ${
+                selectedType === 'postpaid'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                  : 'text-gray-600'
+              }`}
+            >
+              <CreditCard className="w-4 h-4 mr-2" />
+              Postpaid
+            </button>
           </div>
-        </div>
-      </div>
 
-      {/* Quick Recharge */}
-      {selectedOperator && (
-        <div className="px-4 pb-4">
-          <div className="bg-white rounded-xl p-6 shadow-lg border border-pink-100">
-            <h3 className="font-semibold text-gray-800 mb-4">Quick Recharge</h3>
-            <div className="grid grid-cols-5 gap-2">
-              {quickAmounts.map((amount) => (
-                <button
-                  key={amount}
-                  onClick={() => setSelectedPackage({ amount })}
-                  className={`py-3 px-2 rounded-lg text-sm font-medium transition-all ${
-                    selectedPackage?.amount === amount
-                      ? 'bg-pink-500 text-white shadow-lg'
-                      : 'bg-pink-50 hover:bg-pink-100 text-pink-600'
-                  }`}
+          {/* Mobile Number */}
+          <div className="mb-6">
+            <label className="block text-gray-700 font-semibold mb-3">
+              Mobile Number
+            </label>
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="flex-1 text-lg sm:text-xl font-mono text-gray-800 bg-transparent border-b-2 border-gray-200 focus:border-purple-500 outline-none py-2"
+              />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full ml-4 flex-shrink-0"></div>
+            </div>
+            <button className="flex items-center text-pink-500 font-semibold mt-3 text-sm">
+              <Star className="w-4 h-4 mr-1" />
+              Save as Favorite
+            </button>
+          </div>
+
+          {/* Recharge Plans */}
+          <div className="mb-6">
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-4">
+              Recharge Plans & Offers
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {rechargePlans.map((plan, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 rounded-2xl p-4 cursor-pointer hover:bg-gray-100 transition-colors"
                 >
-                  ৳{amount}
-                </button>
+                  <h4 className="font-semibold text-gray-800 mb-1">{plan.type}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{plan.description}</p>
+                  <p className="text-lg font-bold text-purple-600">৳{plan.price}</p>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Info Banner */}
-      <div className="mx-4 mb-6">
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <div className="flex gap-3">
-            <Info className="w-5 h-5 text-blue-500 mt-0.5" />
-            <div>
-              <p className="text-sm text-blue-800">
-                <span className="font-medium">Notice:</span> Recharge is instant and protected with bank-level security.
-              </p>
+          {/* Promo Code */}
+          <div className="mb-6">
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3">
+              Promo Code
+            </h3>
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <input
+                type="text"
+                placeholder="Enter code"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+                className="flex-1 px-4 py-3 bg-gray-100 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full"
+              />
+              <button className="px-6 py-3 text-purple-600 font-semibold hover:bg-purple-50 rounded-xl transition-colors w-full sm:w-auto">
+                Apply
+              </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Action Button */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
-        <button
-          onClick={handleRecharge}
-          disabled={!phoneNumber || !selectedPackage || phoneNumber.length !== 11 || isProcessing}
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
-            !phoneNumber || !selectedPackage || phoneNumber.length !== 11 || isProcessing
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:-translate-y-1'
-          }`}
-        >
-          {isProcessing ? (
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Processing...
-            </div>
-          ) : (
-            `Recharge ${selectedPackage ? `৳${selectedPackage.amount}` : ''}`
-          )}
+          {/* Recharge History */}
+          <div className="mb-6">
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-4">
+              Recharge History
+            </h3>
+            {rechargeHistory.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2 sm:gap-0"
+              >
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">{item.number}</p>
+                  <p className="text-sm text-gray-600">{item.operator}</p>
+                </div>
+                <div className="text-left sm:text-center sm:mx-4">
+                  <p className="font-bold text-gray-800">৳{item.amount}</p>
+                </div>
+                <div className="text-left sm:text-right">
+                  <p className="text-sm font-semibold text-green-600">
+                    {item.status}
+                  </p>
+                  <p className="text-xs text-gray-500">{item.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Recharge Button */}
+        <button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-4 rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center">
+          <Star className="w-5 h-5 mr-2" />
+          Recharge Now + 40
         </button>
 
-        {selectedPackage && (
-          <div className="text-center mt-2">
-            <p className="text-sm text-gray-500">
-              To: {phoneNumber} • {operators.find(op => op.id === selectedOperator)?.name}
-            </p>
-          </div>
-        )}
+
+
       </div>
+
     </div>
   );
-};
+}
 
-export default MobileRecharge;
+
 
 
 
