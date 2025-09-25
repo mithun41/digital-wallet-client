@@ -30,8 +30,8 @@ export default function MobileRecharge() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 p-4 sm:p-6 md:p-8">
-      <div className="max-w-md sm:max-w-lg md:max-w-2xl mx-auto">
+    <div className="bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 p-4 sm:p-6 md:p-8 w-full rounded-2xl mb-10 mr-10">
+      <div className="min-w-md sm:max-w-lg md:max-w-2xl mx-auto">
 
         {/* Header */}
         <div className="flex items-center text-white mb-6 pt-4">
