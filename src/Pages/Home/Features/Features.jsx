@@ -42,13 +42,13 @@ const Features = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-center mb-12">What You Can Do</h2>
+      <h2 className="text-3xl text-primary font-bold text-center mb-12">What You Can Do</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {features.map((feature, index) => (
           <Link to={feature.link}
             key={index}
-            className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl"
+            className="bg-cardColor p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div
               className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${feature.color} text-white text-2xl`}
@@ -56,7 +56,7 @@ const Features = () => {
               {feature.icon}
             </div>
             <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-var(--color-sazzad) text-sm">{feature.description}</p>
+            <p className="text-sazzad text-sm">{feature.description}</p>
           </Link>
         ))}
       </div>

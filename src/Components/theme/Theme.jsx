@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
+
 
 const Theme = () => {
 
@@ -11,8 +14,8 @@ const Theme = () => {
   }, [darkMode]);
 
     return (
-        <div onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ? 'dark' : 'Light'}
+        <div onClick={() => setDarkMode(!darkMode)} >
+            {darkMode ? <CiLight className='w-10 h-10 cursor-pointer'/> : <MdDarkMode className='w-10 h-10 cursor-pointer' />}
         </div>
     );
 };

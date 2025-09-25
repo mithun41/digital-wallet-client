@@ -1,221 +1,181 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { Pencil, Check, X } from "lucide-react";
+import axios from "axios";
+import { fetchUser } from "../../redux/features/authSlice";
 
 const Profile = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [userInfo, setUserInfo] = useState({
-        name: 'ABC',
-        email: 'john.doe@example.com',
-        phone: '+880 1712-345678',
-        address: 'Dhaka, Bangladesh',
-        balance: '12,500.00',
-        accountType: 'Premium Account'
-    });
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
 
-    const handleEdit = () => {
-        setIsEditing(!isEditing);
-    };
+  const [editingName, setEditingName] = useState(false);
+  const [nameInput, setNameInput] = useState("");
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const fileInputRef = useRef();
 
-    const handleSave = () => {
-        setIsEditing(false);
-        // Here you would typically save to backend
-    };
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchUser());
+    } else {
+      setNameInput(user.name || "");
+      setPhotoPreview(user.photo || "");
+    }
+  }, [dispatch, user]);
 
-    const handleInputChange = (field, value) => {
-        setUserInfo(prev => ({
-            ...prev,
-            [field]: value
-        }));
-    };
-
+  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
+  if (!user)
     return (
-        <div className="w-full mx-auto p-6 bg-gray-100 min-h-screen">
-            {/* Header */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                    {/* Profile Image */}
-                    <div className="relative">
-                        <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold">
-                            {userInfo.name.charAt(0)}
-                        </div>
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                            <span className="w-2 h-2 bg-white rounded-full"></span>
-                        </div>
-                    </div>
-
-                    {/* User Info */}
-                    <div className="flex-1 text-center md:text-left">
-                        {isEditing ? (
-                            <input
-                                type="text"
-                                value={userInfo.name}
-                                onChange={(e) => handleInputChange('name', e.target.value)}
-                                className="text-2xl font-bold mb-2 border-b-2 border-blue-500 bg-transparent outline-none w-full"
-                            />
-                        ) : (
-                            <h1 className="text-2xl font-bold text-gray-800 mb-2">{userInfo.name}</h1>
-                        )}
-                        <p className="text-blue-600 font-medium mb-1">{userInfo.accountType}</p>
-                        <p className="text-gray-600">Member since January 2024</p>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-3">
-                        {isEditing ? (
-                            <>
-                                <button
-                                    onClick={handleSave}
-                                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                                >
-                                    Save changes
-                                </button>
-                                <button
-                                    onClick={() => setIsEditing(false)}
-                                    className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                            </>
-                        ) : (
-                            <button
-                                onClick={handleEdit}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                            >
-                                Profile Edit
-                            </button>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-green-600 text-xl">৳</span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Available Balance</h3>
-                    <p className="text-2xl font-bold text-green-600">৳ {userInfo.balance}</p>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-blue-600 text-xl">📊</span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">This Month's Transactions</h3>
-                    <p className="text-2xl font-bold text-blue-600">24ti</p>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-purple-600 text-xl">⭐</span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Reward Points</h3>
-                    <p className="text-2xl font-bold text-purple-600">১,২৩৫</p>
-                </div>
-            </div>
-
-            {/* Profile Details */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-6">Personal Information</h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Email */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        {isEditing ? (
-                            <input
-                                type="email"
-                                value={userInfo.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                            />
-                        ) : (
-                            <p className="px-3 py-2 bg-gray-50 rounded-lg text-gray-800">{userInfo.email}</p>
-                        )}
-                    </div>
-
-                    {/* Phone */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
-                        {isEditing ? (
-                            <input
-                                type="tel"
-                                value={userInfo.phone}
-                                onChange={(e) => handleInputChange('phone', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                            />
-                        ) : (
-                            <p className="px-3 py-2 bg-gray-50 rounded-lg text-gray-800">{userInfo.phone}</p>
-                        )}
-                    </div>
-
-                    {/* Address */}
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
-                        {isEditing ? (
-                            <input
-                                type="text"
-                                value={userInfo.address}
-                                onChange={(e) => handleInputChange('address', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                            />
-                        ) : (
-                            <p className="px-3 py-2 bg-gray-50 rounded-lg text-gray-800">{userInfo.address}</p>
-                        )}
-                    </div>
-                </div>
-
-                {/* Security Section */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Security</h3>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
-                            Change Password
-                        </button>
-                        <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-                            Two-Factor Authentication
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-6">Recent Activity</h2>
-
-                <div className="space-y-4">
-                    {[
-                        { action: 'cashout', amount: '-2,০০০ taka', time: '2 hours ago"', status: 'Success' },
-                        { action: 'Mobile Recharge', amount: '-100 taka', time: '5 hours ago"', status: 'Success' },
-                        { action: 'Receive Money', amount: '+5,০০০ taka', time: '1 hours ago"', status: 'Success' }
-                    ].map((activity, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                            <div className="flex items-center gap-4">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${activity.amount.startsWith('-') ? 'bg-red-100' : 'bg-green-100'
-                                    }`}>
-                                    <span className={`text-lg ${activity.amount.startsWith('-') ? 'text-red-600' : 'text-green-600'
-                                        }`}>
-                                        {activity.amount.startsWith('-') ? '↓' : '↑'}
-                                    </span>
-                                </div>
-                                <div>
-                                    <p className="font-medium text-gray-800">{activity.action}</p>
-                                    <p className="text-sm text-gray-600">{activity.time}</p>
-                                </div>
-                            </div>
-                            <div className="text-right">
-                                <p className={`font-semibold ${activity.amount.startsWith('-') ? 'text-red-600' : 'text-green-600'
-                                    }`}>
-                                    {activity.amount}
-                                </p>
-                                <p className="text-sm text-green-600">{activity.status}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
+      <p className="text-center mt-20 text-gray-500">No user data found.</p>
     );
+
+  const triggerFileInput = () => fileInputRef.current.click();
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhotoFile(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleUpdateName = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        { name: nameInput },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      Swal.fire("Success", "Name updated successfully!", "success");
+      setEditingName(false);
+      dispatch(fetchUser());
+    } catch (err) {
+      Swal.fire("Error", err.message || "Failed to update name", "error");
+    }
+  };
+
+  const handleUpdatePhoto = async () => {
+    if (!photoFile) return Swal.fire("Info", "Choose a photo first", "info");
+
+    try {
+      const formData = new FormData();
+      formData.append("image", photoFile);
+
+      const res = await fetch(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+        { method: "POST", body: formData }
+      );
+      const data = await res.json();
+      if (!data.success) throw new Error("Image upload failed");
+
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        { photo: data.data.url },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      Swal.fire("Success", "Profile photo updated!", "success");
+      setPhotoFile(null);
+      dispatch(fetchUser());
+    } catch (err) {
+      Swal.fire("Error", err.message || "Photo update failed", "error");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex justify-center items-start py-12 bg-gradient-to-r from-purple-100 via-indigo-100 to-pink-100">
+      <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 relative">
+        {/* Photo */}
+        <div className="flex flex-col items-center relative">
+          <div className="relative w-36 h-36">
+            <img
+              src={photoPreview || "https://via.placeholder.com/150"}
+              alt="User Profile"
+              className="w-36 h-36 rounded-full border-4 border-indigo-400 object-cover shadow-lg"
+            />
+            <div
+              className="absolute bottom-2 right-2 bg-gradient-to-br from-purple-600 to-indigo-600 p-2 rounded-full cursor-pointer hover:scale-110 transition-transform shadow-lg"
+              onClick={triggerFileInput}
+            >
+              <Pencil className="w-5 h-5 text-white" />
+            </div>
+            {photoFile && (
+              <button
+                onClick={handleUpdatePhoto}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-green-500 hover:bg-green-600 px-4 py-1 rounded-full text-white font-semibold shadow-md transition-all mt-2"
+              >
+                Save Photo
+              </button>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handlePhotoChange}
+              className="hidden"
+            />
+          </div>
+
+          {/* Name */}
+          <div className="mt-4 flex items-center space-x-2">
+            {editingName ? (
+              <>
+                <input
+                  type="text"
+                  value={nameInput}
+                  onChange={(e) => setNameInput(e.target.value)}
+                  className="border px-3 py-2 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                />
+                <button
+                  onClick={handleUpdateName}
+                  className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg transition-all shadow-md"
+                >
+                  <Check className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => {
+                    setEditingName(false);
+                    setNameInput(user.name);
+                  }}
+                  className="bg-red-400 hover:bg-red-500 text-white px-3 py-2 rounded-lg transition-all shadow-md"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {nameInput}
+                </h2>
+                <button
+                  onClick={() => setEditingName(true)}
+                  className="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-full transition-all shadow-md"
+                >
+                  <Pencil className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Phone */}
+          <p className="text-gray-600 mt-2 text-lg">{user.phone}</p>
+          {/* Balance & Status */}
+          <div className="mt-3 flex flex-wrap justify-center gap-6">
+            <div className="bg-indigo-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
+              Balance: {user.balance} {user.currency}
+            </div>
+            <div className="bg-purple-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
+              Status: {user.status}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Profile;

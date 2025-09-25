@@ -21,38 +21,21 @@ export const router = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
       {
-        path: 'Send_money', Component: SendMoney
+        path: "Send_money",
+        Component: SendMoney,
       },
       {
-        path: '/dashboard',
+        path: "/dashboard",
         Component: DashboardLayout,
         children: [
-          {
-            index: true,
-            Component: DashboardHome
-          },
-          {
-            path: '/dashboard/transaction',
-            Component: Transaction
-          },
-          {
-            path: '/dashboard/Profile',
-            Component: Profile
-          },
-          {
-            path: '/dashboard/cashOut',
-            Component: DashboardCashOut
-          },
-          {
-            path: '/dashboard/AddMoney',
-            Component: AddMoney
-          },
-          {
-            path: '/dashboard/MobileRecharge',
-            Component: MobileRecharge
-          }
-        ]
-      }
+          { index: true, Component: DashboardHome },
+          { path: "transaction", Component: Transaction },
+          { path: "profile", Component: Profile },
+          { path: "cashOut", Component: DashboardCashOut },
+          { path: "addMoney", Component: AddMoney },
+          { path: "mobileRecharge", Component: MobileRecharge },
+        ],
+      },
     ],
   },
 ]);
