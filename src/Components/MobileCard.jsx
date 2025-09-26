@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import React, { useState, useReducer, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { motion } from "framer-motion";
+=======
+import React from 'react';
+>>>>>>> cf33da6c4e0e8e111c623b86cff17e761aeff672
 
 // Chart Data
 const monthlyData = [
@@ -182,85 +186,6 @@ const appReducer = (state, action) => {
 
 // Main Component
 const MobileCard = () => {
-    const [state, dispatch] = useReducer(appReducer, initialState);
-    const [selectedAction, setSelectedAction] = useState(null);
-
-    // Action Creators
-    const setUser = (userData) => {
-        dispatch({ type: ACTIONS.SET_USER, payload: userData });
-    };
-
-    const updateBalance = (amount) => {
-        dispatch({ type: ACTIONS.UPDATE_BALANCE, payload: amount });
-    };
-
-    const addTransaction = (transaction) => {
-        dispatch({ type: ACTIONS.ADD_TRANSACTION, payload: transaction });
-    };
-
-    const setLoading = (isLoading) => {
-        dispatch({ type: ACTIONS.SET_LOADING, payload: isLoading });
-    };
-
-    const updateStats = (stats) => {
-        dispatch({ type: ACTIONS.UPDATE_STATS, payload: stats });
-    };
-
-    const toggleRegistration = () => {
-        dispatch({ type: ACTIONS.TOGGLE_REGISTRATION });
-    };
-
-    const handleGetStarted = () => {
-        toggleRegistration();
-    };
-
-    const handleSendMoney = () => {
-        setSelectedAction('send');
-        const amount = -50.00;
-        addTransaction({
-            type: 'expense',
-            description: 'Money Transfer',
-            amount: amount,
-            icon: '📤',
-            color: '#667eea'
-        });
-        updateStats({ expenses: state.stats.expenses + Math.abs(amount) });
-    };
-
-    const handleAddMoney = () => {
-        setSelectedAction('add');
-        const amount = 200.00;
-        addTransaction({
-            type: 'income',
-            description: 'Money Added',
-            amount: amount,
-            icon: '💰',
-            color: '#4CAF50'
-        });
-        updateStats({ income: state.stats.income + amount });
-    };
-
-    const handlePayBill = () => {
-        setSelectedAction('pay');
-        const amount = -75.50;
-        addTransaction({
-            type: 'expense',
-            description: 'Bill Payment',
-            amount: amount,
-            icon: '💳',
-            color: '#ff4757'
-        });
-        updateStats({ expenses: state.stats.expenses + Math.abs(amount) });
-    };
-
-    // Clear selected action after 2 seconds
-    useEffect(() => {
-        if (selectedAction) {
-            const timer = setTimeout(() => setSelectedAction(null), 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [selectedAction]);
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">
             {/* Floating Elements */}
@@ -468,6 +393,9 @@ const MobileCard = () => {
                 <p>Loading: {state.loading ? 'Yes' : 'No'}</p>
             </div>
         </div >
+        <div>
+            
+        </div>
     );
 };
 
