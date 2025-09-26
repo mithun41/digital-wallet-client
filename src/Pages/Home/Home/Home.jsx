@@ -19,16 +19,20 @@ const Home = () => {
       <HeroSection></HeroSection>
 
       <section>
+        <section>
+          <MobileCard></MobileCard>
+        </section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
         <SecuritySection />
       </section>
-      <section><Guarantee></Guarantee></section>
       <section>
-        <MobileCard></MobileCard>
+        <Guarantee></Guarantee>
       </section>
-      <section><Subscription></Subscription></section>
+      <section>
+        <Subscription></Subscription>
+      </section>
     </div>
   );
 };
