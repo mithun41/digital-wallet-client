@@ -168,10 +168,10 @@ const Transaction = () => {
     const [state, dispatch] = useReducer(transactionReducer, initialState);
 
     const paymentMethods = [
-        { id: 'bkash', name: 'bKash', icon: '📱' },
-        { id: 'nagad', name: 'Nagad', icon: '💳' },
-        { id: 'rocket', name: 'Rocket', icon: '🚀' },
-        { id: 'bank', name: 'Bank', icon: '🏦' }
+        { id: 'bkash', name: 'bKash', icon: '📱', color: 'from-pink-500 to-rose-600' },
+        { id: 'nagad', name: 'Nagad', icon: '💳', color: 'from-orange-500 to-amber-600' },
+        { id: 'rocket', name: 'Rocket', icon: '🚀', color: 'from-purple-500 to-indigo-600' },
+        { id: 'bank', name: 'Bank', icon: '🏦', color: 'from-blue-600 to-cyan-600' }
     ];
 
     // Auto-hide messages effect
@@ -184,286 +184,179 @@ const Transaction = () => {
         }
     }, [state.ui.message]);
 
-    // Form handlers
-    const handleInputChange = (field, value) => {
-        dispatch(actionCreators.updateFormData(field, value));
-    };
-
-    const handleMethodSelect = (method) => {
-        dispatch(actionCreators.setSelectedMethod(method));
-    };
-
-    const setQuickAmount = (amount) => {
-        dispatch(actionCreators.updateFormData('amount', amount.toString()));
-    };
-
-    // Transaction processing
-    const processTransaction = () => {
-        const { recipient, amount } = state.form;
-        const numAmount = parseFloat(amount);
-
-        // Validation
-        if (!recipient.trim()) {
-            dispatch(actionCreators.processTransactionError({
-                type: 'error',
-                text: 'Please enter recipient information!'
-            }));
-            return;
-        }
-
-        if (!numAmount || numAmount <= 0) {
-            dispatch(actionCreators.processTransactionError({
-                type: 'error',
-                text: 'Please enter a valid amount!'
-            }));
-            return;
-        }
-
-        if (numAmount > state.wallet.balance) {
-            dispatch(actionCreators.processTransactionError({
-                type: 'error',
-                text: `Insufficient balance! Your current balance is ৳${state.wallet.balance.toLocaleString()}`
-            }));
-            return;
-        }
-
-        // Start processing
-        dispatch(actionCreators.processTransactionStart());
-
-        // Simulate API call
-        setTimeout(() => {
-            const newTransaction = {
-                id: Date.now(),
-                type: 'sent',
-                amount: numAmount,
-                contact: recipient,
-                method: state.ui.selectedMethod.charAt(0).toUpperCase() + state.ui.selectedMethod.slice(1),
-                time: 'Just now',
-                reference: state.form.reference || 'Payment sent',
-                status: 'completed'
-            };
-
-            dispatch(actionCreators.processTransactionSuccess({
-                amount: numAmount,
-                transaction: newTransaction,
-                message: {
-                    type: 'success',
-                    text: `৳${numAmount.toLocaleString()} sent successfully to ${recipient} via ${state.ui.selectedMethod.toUpperCase()}`
-                }
-            }));
-        }, 3000);
-    };
-
     const refreshHistory = () => {
         dispatch(actionCreators.setMessage({
             type: 'success',
-            text: 'Transaction history refreshed successfully! 🔄'
+            text: 'Transaction history refreshed successfully! ✨'
         }));
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br bg-[#155DFC] via-purple-600 to-[#155DFC] p-5">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-gradient-to-br w-full from-blue-600 via-blue-600 to-blue-600 p-4 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400 opacity-10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-400 opacity-5 rounded-full blur-3xl animate-ping delay-2000"></div>
+            </div>
 
-                {/* Container with glass effect */}
-                <div className="bg-white bg-opacity-10 backdrop-blur-xl rounded-3xl border border-white border-opacity-20 p-10 shadow-2xl">
-
-                    {/* Header */}
-                    <div className="flex flex-col lg:flex-row justify-between items-center mb-10 pb-6 border-b border-white border-opacity-30">
-                        <h1 className="text-4xl font-extrabold text-white mb-4 lg:mb-0 flex items-center gap-4">
-                            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 p-3 rounded-2xl text-3xl">
-                                💳
+            <div className="max-w-7xl mx-auto relative z-10">
+                {/* Message display */}
+                {state.ui.message.text && (
+                    <div className={`fixed top-6 right-6 z-50 px-6 py-4 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/20 transform transition-all duration-500 ${state.ui.message.type === 'success'
+                        ? 'bg-emerald-500/90 text-white'
+                        : 'bg-red-500/90 text-white'
+                        }`}>
+                        <div className="flex items-center gap-3">
+                            <span className="text-xl">
+                                {state.ui.message.type === 'success' ? '✅' : '❌'}
                             </span>
-                            Digital Transaction Hub
-                        </h1>
-
-                        <div className="bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-2xl p-6 text-center min-w-64 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-20 h-20 bg-white bg-opacity-10 rounded-full -translate-y-10 translate-x-10 animate-pulse"></div>
-                            <div className="text-3xl font-bold text-white mb-2 relative z-10">
-                                ৳{state.wallet.balance.toLocaleString()}
-                            </div>
-                            <div className="text-white text-opacity-90 text-base font-medium relative z-10">
-                                Available Balance
-                            </div>
+                            <span className="font-semibold">{state.ui.message.text}</span>
                         </div>
                     </div>
+                )}
 
-                    {/* Transaction Form */}
-                    <div className="bg-white bg-opacity-95 rounded-3xl p-10 mb-10 shadow-xl">
-                        <h2 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-                            💸 Send Money
-                        </h2>
+                {/* Main container with enhanced glass effect */}
+                <div className="bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 p-8 shadow-2xl relative overflow-hidden">
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-pink-400/20 to-purple-500/20 rounded-full blur-2xl"></div>
 
-                        {/* Message Display */}
-                        {state.ui.message.text && (
-                            <div className={`mb-6 p-5 rounded-xl flex items-center gap-3 ${state.ui.message.type === 'success'
-                                ? 'bg-gradient-to-r from-green-50 to-green-100 text-green-800 border-2 border-green-200'
-                                : 'bg-gradient-to-r from-red-50 to-red-100 text-red-800 border-2 border-red-200'
-                                }`}>
-                                <span className="text-xl">
-                                    {state.ui.message.type === 'success' ? '✅' : '❌'}
+                    {/* Enhanced Header */}
+                    <div className="flex flex-col lg:flex-row justify-between items-center mb-12 pb-8 border-b border-white/30 relative z-10">
+                        <div className="text-center lg:text-left mb-6 lg:mb-0">
+                            <h1 className="text-5xl font-black text-white mb-3 tracking-tight">
+                                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                                    Digital
                                 </span>
-                                <span className="font-semibold">{state.ui.message.text}</span>
-                            </div>
-                        )}
+                                <br />
+                                <span className="text-white/90">Transaction Hub</span>
+                            </h1>
+                            <p className="text-white/70 text-lg font-medium">Seamlessly manage your digital payments</p>
+                        </div>
 
-                        <div className="space-y-8">
-                            {/* Recipient and Amount */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label className="block text-gray-700 font-bold mb-3 text-base">
-                                        📱 Recipient Account/Phone
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={state.form.recipient}
-                                        onChange={(e) => handleInputChange('recipient', e.target.value)}
-                                        placeholder="01XXXXXXXXX or account number"
-                                        className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all text-lg"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-gray-700 font-bold mb-3 text-base">
-                                        💰 Amount (৳)
-                                    </label>
-                                    <input
-                                        type="number"
-                                        value={state.form.amount}
-                                        onChange={(e) => handleInputChange('amount', e.target.value)}
-                                        placeholder="Enter amount"
-                                        min="1"
-                                        className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all text-lg"
-                                    />
-                                    <div className="flex gap-2 mt-3 flex-wrap">
-                                        {[500, 1000, 2000, 5000].map(amount => (
-                                            <button
-                                                key={amount}
-                                                onClick={() => setQuickAmount(amount)}
-                                                className="px-4 py-2 bg-gray-100 hover:bg-purple-100 text-gray-700 hover:text-purple-700 rounded-lg text-sm font-semibold transition-all hover:scale-105"
-                                            >
-                                                ৳{amount}
-                                            </button>
-                                        ))}
+                        {/* Enhanced Balance Card */}
+                        <div className="relative group cursor-pointer">
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl opacity-75 blur-lg group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="relative bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 rounded-3xl p-8 text-center min-w-80 transform group-hover:scale-105 transition-all duration-300">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full -translate-y-12 translate-x-12 animate-bounce delay-300"></div>
+                                <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-full translate-y-10 -translate-x-10 animate-pulse"></div>
+
+                                <div className="relative z-10">
+                                    <div className="text-4xl font-black text-white mb-2 tracking-tight">
+                                        ৳{state.wallet.balance.toLocaleString()}
+                                    </div>
+                                    <div className="text-white/90 text-lg font-semibold mb-2">
+                                        Available Balance
+                                    </div>
+                                    <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
+                                        <div className="h-full bg-white/40 rounded-full animate-pulse"></div>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Payment Methods */}
-                            <div>
-                                <label className="block text-gray-700 font-bold mb-4 text-base">
-                                    💳 Payment Method
-                                </label>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {paymentMethods.map(method => (
-                                        <button
-                                            key={method.id}
-                                            onClick={() => handleMethodSelect(method.id)}
-                                            className={`p-6 rounded-2xl border-3 transition-all duration-300 relative overflow-hidden group ${state.ui.selectedMethod === method.id
-                                                ? 'bg-gradient-to-r from-blue-400 to-cyan-400 text-white border-blue-400 transform -translate-y-1 shadow-lg'
-                                                : 'bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200 hover:shadow-lg hover:-translate-y-1'
-                                                }`}
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-all duration-700"></div>
-                                            <div className="text-3xl mb-3 relative z-10">{method.icon}</div>
-                                            <div className="font-bold text-lg relative z-10">{method.name}</div>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Reference */}
-                            <div>
-                                <label className="block text-gray-700 font-bold mb-3 text-base">
-                                    📝 Reference/Note (Optional)
-                                </label>
-                                <textarea
-                                    value={state.form.reference}
-                                    onChange={(e) => handleInputChange('reference', e.target.value)}
-                                    placeholder="Add a note for this transaction..."
-                                    rows="3"
-                                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all resize-none"
-                                />
-                            </div>
-
-                            {/* Loading State */}
-                            {state.ui.loading && (
-                                <div className="text-center py-8">
-                                    <div className="inline-block w-12 h-12 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mb-4"></div>
-                                    <div className="text-purple-600 font-bold text-lg">Processing your transaction...</div>
-                                </div>
-                            )}
-
-                            {/* Submit Button */}
-                            <button
-                                onClick={processTransaction}
-                                disabled={state.ui.loading}
-                                className="w-full bg-gradient-to-r from-[#155DFC] to-[#155DFC] text-white py-5 px-8 rounded-xl font-bold text-xl hover:from-[#155DFC] hover:to-purple-800 transform hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
-                                <span className="relative z-10 flex items-center justify-center gap-3">
-                                    {state.ui.loading ? (
-                                        <>
-                                            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            Processing...
-                                        </>
-                                    ) : (
-                                        <>
-                                            🚀 Send Money Now
-                                        </>
-                                    )}
-                                </span>
-                            </button>
                         </div>
                     </div>
 
-                    {/* Transaction History */}
-                    <div className="bg-white bg-opacity-95 rounded-3xl p-10 shadow-xl">
+                    {/* Enhanced Transaction History */}
+                    <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                        {/* Decorative gradient overlay */}
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500"></div>
+
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-                            <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-                                📊 Transaction History
-                            </h2>
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                                    <span className="text-2xl">📊</span>
+                                </div>
+                                <div>
+                                    <h2 className="text-3xl font-black text-gray-800 mb-1">Transaction History</h2>
+                                    <p className="text-gray-600 font-medium">Track your recent activities</p>
+                                </div>
+                            </div>
                             <button
                                 onClick={refreshHistory}
-                                className="bg-gradient-to-r from-blue-400 to-cyan-400 text-white px-6 py-3 rounded-xl font-bold hover:from-blue-500 hover:to-cyan-500 transition-all transform hover:scale-105 flex items-center gap-2"
+                                className="group relative bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center gap-3 overflow-hidden"
                             >
-                                🔄 Refresh
+                                <div className="absolute inset-0 bg-white/10 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                                <span className="text-xl">🔄</span>
+                                <span className="relative z-10">Refresh</span>
                             </button>
                         </div>
 
                         <div className="space-y-4">
-                            {state.transactions.map(transaction => (
+                            {state.transactions.map((transaction, index) => (
                                 <div
                                     key={transaction.id}
-                                    className="flex items-center justify-between p-6 border-2 border-gray-100 rounded-2xl hover:bg-gray-50 hover:border-blue-200 hover:transform hover:translate-x-2 transition-all duration-300 bg-white shadow-sm"
+                                    className="group flex items-center justify-between p-6 border border-gray-200 rounded-2xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:border-blue-300 hover:shadow-xl transition-all duration-300 bg-white relative overflow-hidden"
+                                    style={{ animationDelay: `${index * 100}ms` }}
                                 >
-                                    <div className="flex items-center gap-5">
-                                        <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg ${transaction.type === 'sent'
-                                            ? 'bg-gradient-to-r from-red-500 to-pink-500'
-                                            : 'bg-gradient-to-r from-blue-600 to-emerald-500'
+                                    {/* Hover effect overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+                                    <div className="flex items-center gap-6 relative z-10">
+                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg transform group-hover:scale-110 transition-all duration-300 ${transaction.type === 'sent'
+                                            ? 'bg-gradient-to-br from-red-500 via-pink-500 to-rose-600'
+                                            : 'bg-gradient-to-br from-emerald-500 via-green-500 to-cyan-500'
                                             }`}>
-                                            {transaction.type === 'sent' ? '↑' : '↓'}
+                                            <span className={`transform transition-transform duration-300 ${transaction.type === 'sent' ? 'rotate-45' : '-rotate-45'
+                                                }`}>
+                                                {transaction.type === 'sent' ? '↗' : '↙'}
+                                            </span>
                                         </div>
-                                        <div>
-                                            <h4 className="font-bold text-gray-800 text-lg mb-1">
-                                                {transaction.type === 'sent' ? 'Money Sent' : 'Money Received'}
+                                        <div className="flex-1">
+                                            <h4 className="font-black text-gray-800 text-xl mb-2 group-hover:text-blue-700 transition-colors">
+                                                {transaction.type === 'sent' ? '💸 Money Sent' : '💰 Money Received'}
                                             </h4>
-                                            <p className="text-gray-600 text-sm mb-1">
-                                                {transaction.type === 'sent' ? 'To: ' : 'From: '}{transaction.contact}
-                                            </p>
-                                            <p className="text-gray-500 text-sm mb-1">
-                                                via {transaction.method} • {transaction.time}
-                                            </p>
-                                            <p className="text-gray-400 text-sm">
-                                                Reference: {transaction.reference}
-                                            </p>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                                <p className="text-gray-600 font-semibold">
+                                                    <span className="text-gray-500">{transaction.type === 'sent' ? 'To:' : 'From:'}</span> {transaction.contact}
+                                                </p>
+                                                <p className="text-gray-600 font-semibold">
+                                                    <span className="text-gray-500">Via:</span> {transaction.method}
+                                                </p>
+                                                <p className="text-gray-500">
+                                                    <span className="text-gray-400">Time:</span> {transaction.time}
+                                                </p>
+                                                <p className="text-gray-500">
+                                                    <span className="text-gray-400">Ref:</span> {transaction.reference}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className={`font-bold text-xl ${transaction.type === 'sent' ? 'text-red-600' : 'text-green-600'
-                                        }`}>
-                                        {transaction.type === 'sent' ? '-' : '+'}৳{transaction.amount.toLocaleString()}
+
+                                    <div className={`font-black text-2xl relative z-10 ${transaction.type === 'sent' ? 'text-red-600' : 'text-emerald-600'
+                                        } group-hover:scale-110 transition-all duration-300`}>
+                                        <span className="text-lg opacity-80">
+                                            {transaction.type === 'sent' ? '-' : '+'}
+                                        </span>
+                                        ৳{transaction.amount.toLocaleString()}
                                     </div>
                                 </div>
                             ))}
+                        </div>
+
+                        {/* Summary stats */}
+                        <div className="mt-8 pt-8 border-t border-gray-200">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <div className="text-center p-4 bg-gradient-to-br from-emerald-100 to-cyan-100 rounded-2xl">
+                                    <div className="text-2xl mb-2">💸</div>
+                                    <div className="font-black text-emerald-700 text-lg">
+                                        ৳{state.transactions.filter(t => t.type === 'received').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+                                    </div>
+                                    <div className="text-emerald-600 font-semibold text-sm">Total Received</div>
+                                </div>
+                                <div className="text-center p-4 bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl">
+                                    <div className="text-2xl mb-2">💰</div>
+                                    <div className="font-black text-red-700 text-lg">
+                                        ৳{state.transactions.filter(t => t.type === 'sent').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+                                    </div>
+                                    <div className="text-red-600 font-semibold text-sm">Total Sent</div>
+                                </div>
+                                <div className="text-center p-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl">
+                                    <div className="text-2xl mb-2">📈</div>
+                                    <div className="font-black text-blue-700 text-lg">{state.transactions.length}</div>
+                                    <div className="text-blue-600 font-semibold text-sm">Total Transactions</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

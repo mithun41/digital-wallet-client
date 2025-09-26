@@ -8,6 +8,8 @@ import {
   Info,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../redux/features/authSlice";
 
 const methods = [
   {
@@ -37,7 +39,16 @@ const AddMoney = () => {
   const [selectedMethod, setSelectedMethod] = useState("");
   const [amount, setAmount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
-  console.log(amount);
+  const dispatch = useDispatch();
+  // const {user, loading, error} = useSelector((state) => state.auth);
+
+// console.log(user);
+
+// useEffect(() => {
+//   dispatch(fetchUser())
+// }, [])
+
+  // console.log(amount);
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
       amount: 0,
