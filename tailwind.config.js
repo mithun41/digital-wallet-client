@@ -15,3 +15,7 @@
 //   plugins: [require("daisyui")],
 // };
 
+//primary color #06923E
+// Secondary color #FF6600
+// bg color #F5F7FA
+//Secondary Background: #E0E6ED
