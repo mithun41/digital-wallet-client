@@ -30,7 +30,7 @@ const Navbar = () => {
             <img
               src={navberImg}
               alt="PayNate Logo"
-              className="h-12 w-auto object-contain"
+              className="h-30 w-22  object-contain"
             />
           </Link>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Wallet
             </Link>
@@ -53,7 +53,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Transfer
             </Link>
@@ -62,7 +62,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Rewards
             </Link>

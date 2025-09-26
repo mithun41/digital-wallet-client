@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { Pencil, Check, X } from "lucide-react";
+import { Pencil, Check, X, Lock, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
-import { fetchUser } from "../../redux/features/authSlice";
+import { fetchUser, resetPinUser } from "../../redux/features/authSlice";
+
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,23 @@ const Profile = () => {
   const fileInputRef = useRef();
   console.log(user);
 
+  // Change PIN state
+  const [showChangePin, setShowChangePin] = useState(false);
+  const [oldPin, setOldPin] = useState("");
+  const [newPin, setNewPin] = useState("");
+  const [showOldPin, setShowOldPin] = useState(false);
+  const [showNewPin, setShowNewPin] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [pinLoading, setPinLoading] = useState(false);
+useEffect(() => {
+  if (error) {
+    Swal.fire("Error", error, "error");
+  }
+}, [error]);
   useEffect(() => {
+
     if (!user) {
       dispatch(fetchUser());
     } else {
@@ -25,8 +42,7 @@ const Profile = () => {
     }
   }, [dispatch, user]);
 
-  if (loading) return <p className="text-center mt-20">Loading...</p>;
-  if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
+  
   if (!user)
     return (
       <p className="text-center mt-20 text-gray-500">No user data found.</p>
@@ -41,6 +57,7 @@ const Profile = () => {
       setPhotoPreview(URL.createObjectURL(file));
     }
   };
+console.log(localStorage.getItem("token"));
 
   const handleUpdateName = async () => {
     try {
@@ -87,9 +104,55 @@ const Profile = () => {
     }
   };
 
+  // ------------------- Change PIN Handlers -------------------
+  const phoneRegex = /^\+8801[3-9]\d{8}$/;
+  const handleSendOtp = () => {
+    if (!phoneRegex.test(user.phone)) {
+      return Swal.fire(
+        "Invalid Phone",
+        "Your phone number is not valid",
+        "error"
+      );
+    }
+    const otpCode = Math.floor(1000 + Math.random() * 9000).toString();
+    setGeneratedOtp(otpCode);
+    setOtpSent(true);
+    Swal.fire("OTP Sent!", `Your OTP is: <b>${otpCode}</b>`, "info");
+  };
+
+ const handleChangePin = async (e) => {
+  e.preventDefault();
+
+  if (!otpSent) return Swal.fire("OTP Not Sent", "Please generate OTP first", "error");
+  if (!otp) return Swal.fire("OTP Required", "Please enter the OTP", "error");
+  if (otp !== generatedOtp) return Swal.fire("Invalid OTP", "Please enter the correct OTP", "error");
+  if (!oldPin || !newPin) return Swal.fire("Error", "Both Old PIN and New PIN are required", "error");
+
+  const token = localStorage.getItem("token");
+  if (!token) return Swal.fire("Unauthorized", "Please login again", "error");
+
+  dispatch(resetPinUser({ phone: user.phone, oldPin, newPin, token }))
+    .unwrap()
+    .then(() => {
+      Swal.fire("Success", "PIN updated successfully!", "success");
+      setOldPin("");
+      setNewPin("");
+      setOtp("");
+      setOtpSent(false);
+      setShowChangePin(false);
+    })
+    .catch((err) => {
+      Swal.fire("Error", err.message || "Failed to update PIN", "error");
+    });
+};
+
+
+
+
+
   return (
-    <div className="min-h-screen flex justify-center items-start py-12 bg-gradient-to-r from-purple-100 via-indigo-100 to-pink-100">
-      <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 relative">
+    <div className="min-h-screen flex justify-center bg-white items-start py-12">
+      <div className="w-full max-w-3xl rounded-3xl p-8 relative">
         {/* Photo */}
         <div className="flex flex-col items-center relative">
           <div className="relative w-36 h-36">
@@ -149,9 +212,7 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  {nameInput}
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-800">{nameInput}</h2>
                 <button
                   onClick={() => setEditingName(true)}
                   className="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-full transition-all shadow-md"
@@ -164,6 +225,7 @@ const Profile = () => {
 
           {/* Phone */}
           <p className="text-gray-600 mt-2 text-lg">{user.phone}</p>
+
           {/* Balance & Status */}
           <div className="mt-3 flex flex-wrap justify-center gap-6">
             <div className="bg-indigo-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
@@ -173,6 +235,124 @@ const Profile = () => {
               Status: {user.status}
             </div>
           </div>
+
+          {/* Change PIN Button */}
+          {!showChangePin && (
+            <button
+              onClick={() => setShowChangePin(true)}
+              className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl shadow-md transition-all"
+            >
+              Change PIN
+            </button>
+          )}
+
+          {/* Change PIN Form */}
+          {showChangePin && (
+            <form
+              className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow-inner space-y-4 w-full max-w-md"
+              onSubmit={handleChangePin}
+            >
+              <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
+                Change PIN
+              </h3>
+
+              {!otpSent ? (
+                <button
+                  type="button"
+                  onClick={handleSendOtp}
+                  className="w-full py-2 text-white font-medium bg-indigo-600 rounded-lg hover:bg-indigo-700"
+                >
+                  Send OTP
+                </button>
+              ) : (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Enter OTP
+                  </label>
+                  <input
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    placeholder="1234"
+                    className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Old PIN
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <input
+                    type={showOldPin ? "text" : "password"}
+                    value={oldPin}
+                    onChange={(e) => setOldPin(e.target.value)}
+                    placeholder="••••"
+                    maxLength={4}
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowOldPin(!showOldPin)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {showOldPin ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  New PIN
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <input
+                    type={showNewPin ? "text" : "password"}
+                    value={newPin}
+                    onChange={(e) => setNewPin(e.target.value)}
+                    placeholder="••••"
+                    maxLength={4}
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPin(!showNewPin)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {showNewPin ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => setShowChangePin(false)}
+                  className="cursor-pointer text-indigo-600 hover:underline"
+                >
+                  Cancel
+                </button>
+                <button
+  type="submit"
+  className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md"
+>
+  Change PIN
+</button>
+
+
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
