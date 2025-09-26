@@ -279,8 +279,7 @@ const MobileCard = () => {
                     </h1>
 
                     <p className="text-gray-300 text-lg leading-relaxed mb-10">
-                        Lorem ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem ipsum has been the industry's standard dummy text ever since the 1500s.
+                        Creating your account is simple: verify your identity, set your location, and add your first transaction. Your data stays encrypted, with balance and transactions available anytime.
                     </p>
 
                     <div className="grid grid-cols-2 gap-6 mb-10">
