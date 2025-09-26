@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { Link } from 'react-router';
-
+import { motion } from "framer-motion";
 // Redux-style Action Types
 const ACTIONS = {
     SET_USER: 'SET_USER',
@@ -175,7 +175,7 @@ const MobileCard = () => {
                     <h1 className="text-6xl font-bold text-white leading-tight mb-8">
                         Our Easy Steps For<br />
                         <span className="bg-gradient-to-r from-purple-400 to-gray-400 bg-clip-text text-transparent">
-                            Registration
+                            SignUp
                         </span>
                     </h1>
 
@@ -316,23 +316,30 @@ const MobileCard = () => {
 
                     {/* Stats Widgets */}
                     <div className="absolute -right-24 top-1/2 transform -translate-y-1/2 space-y-6">
-                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1, transition: { duration: 2 } }}
+                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
                             <p className="text-gray-300 text-sm mb-2">Incomes</p>
                             <p className="text-green-400 text-2xl font-bold">${state.stats.income.toFixed(2)}</p>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1, transition: { duration: 2 } }}
+                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
                             <p className="text-gray-300 text-sm mb-2">Expenses</p>
                             <p className="text-blue-400 text-2xl font-bold">${state.stats.expenses.toFixed(2)}</p>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-                            <p className="text-gray-300 text-sm mb-4">Monthly Graph</p>
-                            <div className="w-32 h-20 bg-gradient-to-r from-purple-500 to-gray-500 rounded-lg relative overflow-hidden">
+                        <motion.div
+                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                            <p className="text-white text-sm mb-4">Monthly Graph</p>
+                            <div className="w-32 h-20 rounded-lg relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white/10 to-transparent animate-pulse"></div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
@@ -345,7 +352,7 @@ const MobileCard = () => {
                 <p>User: {state.user.isLoggedIn ? 'Logged In' : 'Guest'}</p>
                 <p>Loading: {state.loading ? 'Yes' : 'No'}</p>
             </div>
-        </div>
+        </div >
     );
 };
 
