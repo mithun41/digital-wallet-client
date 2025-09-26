@@ -26,7 +26,7 @@ const Home = () => {
       </section>
       <section><Guarantee></Guarantee></section>
       <section>
-        {/* <MobileCard></MobileCard> */}
+        <MobileCard></MobileCard>
       </section>
       <section><Subscription></Subscription></section>
     </div>
