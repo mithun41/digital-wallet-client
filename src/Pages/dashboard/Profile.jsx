@@ -27,8 +27,13 @@ const Profile = () => {
   const [otp, setOtp] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
   const [pinLoading, setPinLoading] = useState(false);
-
+useEffect(() => {
+  if (error) {
+    Swal.fire("Error", error, "error");
+  }
+}, [error]);
   useEffect(() => {
+
     if (!user) {
       dispatch(fetchUser());
     } else {
@@ -37,8 +42,7 @@ const Profile = () => {
     }
   }, [dispatch, user]);
 
-  if (loading) return <p className="text-center mt-20">Loading...</p>;
-  if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
+  
   if (!user)
     return (
       <p className="text-center mt-20 text-gray-500">No user data found.</p>
@@ -116,7 +120,7 @@ console.log(localStorage.getItem("token"));
     Swal.fire("OTP Sent!", `Your OTP is: <b>${otpCode}</b>`, "info");
   };
 
-  const handleChangePin = async (e) => {
+ const handleChangePin = async (e) => {
   e.preventDefault();
 
   if (!otpSent) return Swal.fire("OTP Not Sent", "Please generate OTP first", "error");
@@ -127,7 +131,6 @@ console.log(localStorage.getItem("token"));
   const token = localStorage.getItem("token");
   if (!token) return Swal.fire("Unauthorized", "Please login again", "error");
 
-  setPinLoading(true);
   dispatch(resetPinUser({ phone: user.phone, oldPin, newPin, token }))
     .unwrap()
     .then(() => {
@@ -140,9 +143,10 @@ console.log(localStorage.getItem("token"));
     })
     .catch((err) => {
       Swal.fire("Error", err.message || "Failed to update PIN", "error");
-    })
-    .finally(() => setPinLoading(false));
+    });
 };
+
+
 
 
 
@@ -339,12 +343,13 @@ console.log(localStorage.getItem("token"));
                   Cancel
                 </button>
                 <button
-                  type="submit"
-                  disabled={pinLoading}
-                  className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md disabled:opacity-50"
-                >
-                  {pinLoading ? "Updating..." : "Change PIN"}
-                </button>
+  type="submit"
+  className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md"
+>
+  Change PIN
+</button>
+
+
               </div>
             </form>
           )}
