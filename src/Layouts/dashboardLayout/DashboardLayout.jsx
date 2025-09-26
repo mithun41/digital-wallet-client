@@ -67,11 +67,18 @@ const DashboardLayout = () => {
             )}
           </div>
           <div
+<<<<<<< HEAD
+            className={`lg:hidden  z-10   fixed bg-gray-700/50 backdrop-blur p-5 rounded-2xl  flex flex-col gap-5     transition-all duration-300     ${menuBar
+              ? "left-10 top-38 opacity-100"
+              : "-left-20 top-38 opacity-0"
+              }  `}
+=======
             className={`lg:hidden  z-10   fixed bg-gray-700/50 backdrop-blur p-5 rounded-2xl  flex flex-col gap-5     transition-all duration-300     ${
               menuBar
                 ? "left-10 top-38 opacity-100"
                 : "-left-20 top-38 opacity-0"
             }  `}
+>>>>>>> da7072d76b733ed89529a5135ff988d10c0475c3
           >
             <Link
               to="/dashboard"
