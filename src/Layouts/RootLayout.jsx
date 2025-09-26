@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/features/authSlice";
+import Loading from "../Components/loading/Loading";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,7 @@ const RootLayout = () => {
 
   // ✅ নতুন লজিক: লোডিং অবস্থায় একটি লোডিং স্ক্রিন দেখাও
   if (token && loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-lg font-semibold">Loading...</p>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   return (
