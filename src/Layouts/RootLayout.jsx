@@ -24,7 +24,7 @@ const RootLayout = () => {
   return (
     <div >
       <Navbar />
-      <div className="bg-blue-100 dark:bg-gray-900 pt-16">
+      <div className=" dark:bg-gray-900 pt-16">
         <Outlet />
       </div>
       <Footer />
