@@ -45,22 +45,27 @@ export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token"); // get token
+      if (!token) throw new Error("No token found");
+
       const response = await axios.post(
         "http://localhost:5000/api/reset-pin",
+        { phone, oldPin, newPin },
         {
-          phone,
-          oldPin,
-          newPin,
+          headers: {
+            Authorization: `Bearer ${token}`, // attach token
+          },
         }
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: "Reset failed" }
+        error.response?.data || { message: error.message || "Reset failed" }
       );
     }
   }
 );
+
 
 // ✅ Fetch user from token
 export const fetchUser = createAsyncThunk(
