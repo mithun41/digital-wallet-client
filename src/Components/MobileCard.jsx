@@ -1,6 +1,105 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { Link } from 'react-router';
-import { motion } from "framer-motion";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+
+// Chart Data
+const monthlyData = [
+    { month: 'Nov', income: 2000, expenses: 1800 },
+    { month: 'Dec', income: 3000, expenses: 2500 },
+    { month: 'Jan', income: 2500, expenses: 2200 },
+    { month: 'Feb', income: 3500, expenses: 3000 },
+    { month: 'Mar', income: 3200, expenses: 2800 },
+    { month: 'Apr', income: 4000, expenses: 3500 },
+    { month: 'May', income: 4200, expenses: 3800 },
+];
+
+// Monthly Graph Component
+const MonthlyGraph = ({ income, expenses }) => {
+    return (
+        <div className="bg-gradient-to-br from-purple-600 via-purple-500 to-blue-600 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-white/20">
+            <div className="flex justify-between items-center mb-6">
+                <h3 className="text-white text-lg font-semibold">Monthly Graph</h3>
+                <span className="bg-purple-400 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    Incomes
+                </span>
+            </div>
+
+            <div className="h-48 mb-4">
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={monthlyData}>
+                        <XAxis
+                            dataKey="month"
+                            axisLine={false}
+                            tickLine={false}
+                            tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 500 }}
+                            className="text-white"
+                        />
+                        <YAxis hide />
+
+                        {/* Income Line */}
+                        <Line
+                            type="monotone"
+                            dataKey="income"
+                            stroke="#ffffff"
+                            strokeWidth={3}
+                            dot={{ fill: '#ffffff', strokeWidth: 2, r: 5 }}
+                            activeDot={{
+                                r: 7,
+                                fill: '#ffffff',
+                                stroke: '#8b5cf6',
+                                strokeWidth: 3
+                            }}
+                            filter="drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3))"
+                        />
+
+                        {/* Expenses Line (Optional - can be toggled) */}
+                        <Line
+                            type="monotone"
+                            dataKey="expenses"
+                            stroke="rgba(255, 255, 255, 0.6)"
+                            strokeWidth={2}
+                            strokeDasharray="5 5"
+                            dot={false}
+                            activeDot={{ r: 5, fill: 'rgba(255, 255, 255, 0.8)' }}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+
+            {/* Chart Legend */}
+            <div className="flex justify-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-white rounded-full"></div>
+                    <span className="text-white/90">Income</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-0.5 bg-white/60 rounded-full"></div>
+                    <span className="text-white/70">Expenses</span>
+                </div>
+            </div>
+
+            {/* Current Month Stats */}
+            <div className="mt-4 pt-4 border-t border-white/20">
+                <div className="flex justify-between text-white">
+                    <div className="text-center">
+                        <p className="text-xs text-white/70 mb-1">This Month</p>
+                        <p className="font-bold text-lg">${income.toFixed(0)}</p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-xs text-white/70 mb-1">Expenses</p>
+                        <p className="font-bold text-lg">${expenses.toFixed(0)}</p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-xs text-white/70 mb-1">Profit</p>
+                        <p className="font-bold text-lg text-green-300">
+                            ${(income - expenses).toFixed(0)}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // Redux-style Action Types
 const ACTIONS = {
     SET_USER: 'SET_USER',
@@ -24,8 +123,8 @@ const initialState = {
         { id: 2, type: 'expense', description: 'Monthly Shopping', amount: -120.90, icon: '🛍', color: '#ff9500' }
     ],
     stats: {
-        income: 2570.50,
-        expenses: 2570.50
+        income: 4200,
+        expenses: 3800
     },
     loading: false,
     showRegistration: false
@@ -203,12 +302,12 @@ const MobileCard = () => {
                     </div>
 
                     <div className="flex gap-6">
-                        <Link to='/signup'
-
+                        <a
+                            href="/signup"
                             className="bg-gradient-to-r from-purple-500 to-gray-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {state.loading ? 'Processing...' : 'SignUp Now'}
-                        </Link>
+                        </a>
                         <button
                             onClick={handleGetStarted}
                             className="bg-transparent text-white px-8 py-4 rounded-full font-semibold border-2 border-white/20 hover:bg-white/10 hover:border-white/30 transition-all duration-300"
@@ -223,6 +322,9 @@ const MobileCard = () => {
                             <p className="text-green-300">✅ Successfully registered as {state.user.name}!</p>
                         </div>
                     )}
+
+                    {/* Monthly Graph Chart - Added Here */}
+
                 </div>
 
                 {/* Right Content */}
@@ -315,31 +417,24 @@ const MobileCard = () => {
                     </div>
 
                     {/* Stats Widgets */}
-                    <div className="absolute -right-24 top-1/2 transform -translate-y-1/2 space-y-6">
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1, transition: { duration: 2 } }}
-                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
+                    <div
+                        className="absolute -right-24 top-1/2 transform -translate-y-1/2 space-y-6">
+                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
                             <p className="text-gray-300 text-sm mb-2">Incomes</p>
                             <p className="text-green-400 text-2xl font-bold">${state.stats.income.toFixed(2)}</p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1, transition: { duration: 2 } }}
-                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
+                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
                             <p className="text-gray-300 text-sm mb-2">Expenses</p>
                             <p className="text-blue-400 text-2xl font-bold">${state.stats.expenses.toFixed(2)}</p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-                            <p className="text-white text-sm mb-4">Monthly Graph</p>
-                            <div className="w-32 h-20 rounded-lg relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
-                                <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white/10 to-transparent animate-pulse"></div>
-                            </div>
-                        </motion.div>
+                        <div className="mt-12">
+                            <MonthlyGraph
+                                income={state.stats.income}
+                                expenses={state.stats.expenses}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
