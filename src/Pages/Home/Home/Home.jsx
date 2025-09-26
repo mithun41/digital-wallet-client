@@ -2,7 +2,9 @@ import MobileCard from "../../../Components/MobileCard";
 import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
+import Guarantee from "../Guarantee/Guarantee";
 import SecuritySection from "../SecuritySection/SecuritySection";
+import Subscription from "../Subscription/Subscription";
 
 const Home = () => {
   return (
@@ -20,9 +22,11 @@ const Home = () => {
       <section>
         <SecuritySection />
       </section>
+      <section><Guarantee></Guarantee></section>
       <section>
         <MobileCard></MobileCard>
       </section>
+      <section><Subscription></Subscription></section>
     </div>
   );
 };
