@@ -14,6 +14,7 @@ const Profile = () => {
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const fileInputRef = useRef();
+  console.log(user);
 
   useEffect(() => {
     if (!user) {

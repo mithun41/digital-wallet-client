@@ -3,6 +3,7 @@ import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
 import Guarantee from "../Guarantee/Guarantee";
+import HeroSection from "../hero/HeroSection";
 import SecuritySection from "../SecuritySection/SecuritySection";
 import Subscription from "../Subscription/Subscription";
 
@@ -15,6 +16,7 @@ const Home = () => {
       <section>
         <Features></Features>
       </section>
+      <HeroSection></HeroSection>
 
       <section>
         <PaymentCard></PaymentCard>
