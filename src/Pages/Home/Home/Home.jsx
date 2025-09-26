@@ -1,3 +1,4 @@
+import MobileCard from "../../../Components/MobileCard";
 import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -14,11 +15,15 @@ const Home = () => {
         <Features></Features>
       </section>
       <HeroSection></HeroSection>
+
       <section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
         <SecuritySection />
+      </section>
+      <section>
+        <MobileCard></MobileCard>
       </section>
     </div>
   );

@@ -134,7 +134,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 flex">
+    <div className="pt-16 min-h-screen   flex">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="max-w-md w-full space-y-8">
@@ -145,7 +145,7 @@ const Login = () => {
                 <Wallet className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold  mb-2">
               Welcome to <span className="text-indigo-600">Pay</span>
               <span className="text-purple-600">Mate</span>
             </h2>
