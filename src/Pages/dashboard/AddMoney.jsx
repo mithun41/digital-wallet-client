@@ -51,6 +51,8 @@ const AddMoney = () => {
         <p className="text-pink-100 text-sm mt-1">Add money to your bKash wallet</p>
       </div>
 
+
+
       {/* Balance Display */}
       <div className="mx-4 -mt-4 relative">
         <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100">
