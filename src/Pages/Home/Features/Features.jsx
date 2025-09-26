@@ -42,7 +42,7 @@ const Features = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 bg-[#F5F7FA] dark:bg-gray-900">
-      <h2 className="text-3xl font-bold text-center mb-12 text-[#06923E] dark:text-[#69F27E]">
+      <h2 className="text-3xl font-bold text-center mb-12 text-primary">
         What You Can Do
       </h2>
 

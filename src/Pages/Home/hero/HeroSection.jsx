@@ -70,7 +70,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="bg-[#F5F7FA] dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-500 bg-cover bg-center"
+      className="bg-base-100 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-500 bg-cover bg-center"
       style={{
         backgroundImage:
           "url('https://zdblogs.zohowebstatic.com/sites/payments/academy/files/04_2.png')",
