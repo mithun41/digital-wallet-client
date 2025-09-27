@@ -1,4 +1,5 @@
 import MobileCard from "../../../Components/MobileCard";
+import MutionCard from "../../../Components/MutionCard";
 import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -29,6 +30,9 @@ const Home = () => {
         <MobileCard></MobileCard>
       </section>
       <section><Subscription></Subscription></section>
+      <section>
+        <MutionCard></MutionCard>
+      </section>
     </div>
   );
 };
