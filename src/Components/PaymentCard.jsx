@@ -14,17 +14,59 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import React from "react";
 
+
 const PaymentCard = () => {
   const payments = [
-    { name: "Electricity", icon: <FaBolt />, color: "from-yellow-400 to-yellow-600", path: "/electricity" },
-    { name: "Internet", icon: <FaWifi />, color: "from-red-400 to-red-600", path: "/internet" },
-    { name: "Voucher", icon: <FaTicketAlt />, color: "from-green-400 to-green-600", path: "/voucher" },
-    { name: "Assurance", icon: <FaShieldAlt />, color: "from-pink-400 to-pink-600", path: "/assurance" },
-    { name: "Merchant", icon: <FaStore />, color: "from-green-500 to-green-700", path: "/merchant" },
-    { name: "Mobile Credit", icon: <FaMobileAlt />, color: "from-blue-400 to-blue-600", path: "/mobile-credit" },
-    { name: "Bill", icon: <FaFileInvoice />, color: "from-orange-400 to-orange-600", path: "/bill" },
-    { name: "More", icon: <FaEllipsisH />, color: "from-indigo-400 to-indigo-600", path: "/more" },
+    {
+      name: "Electricity",
+      icon: <FaBolt />,
+      color: "from-yellow-400 to-yellow-600",
+      path: "/electricity",
+    },
+    {
+      name: "Internet",
+      icon: <FaWifi />,
+      color: "from-red-400 to-red-600",
+      path: "/internet",
+    },
+    {
+      name: "Voucher",
+      icon: <FaTicketAlt />,
+      color: "from-green-400 to-green-600",
+      path: "/voucher",
+    },
+    {
+      name: "Assurance",
+      icon: <FaShieldAlt />,
+      color: "from-pink-400 to-pink-600",
+      path: "/assurance",
+    },
+    {
+      name: "Merchant",
+      icon: <FaStore />,
+      color: "from-green-500 to-green-700",
+      path: "/merchant",
+    },
+    {
+      name: "Mobile Credit",
+      icon: <FaMobileAlt />,
+      color: "from-blue-400 to-blue-600",
+      path: "/mobile-credit",
+    },
+    {
+      name: "Bill",
+      icon: <FaFileInvoice />,
+      color: "from-orange-400 to-orange-600",
+      path: "/bill",
+    },
+    {
+      name: "More",
+      icon: <FaEllipsisH />,
+      color: "from-indigo-400 to-indigo-600",
+      path: "/more",
+    },
   ];
+// swiper
 
   // Animation controls
   const controls = useAnimation();
@@ -42,7 +84,11 @@ const PaymentCard = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
@@ -50,7 +96,7 @@ const PaymentCard = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
         Payment List
       </h2>
-
+      
       <motion.div
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
         variants={containerVariants}
@@ -82,7 +128,6 @@ const PaymentCard = () => {
 };
 
 export default PaymentCard;
-
 
 // const App = () => {
 //   return (
