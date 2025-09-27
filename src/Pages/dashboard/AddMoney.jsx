@@ -40,13 +40,16 @@ const AddMoney = () => {
   const [amount, setAmount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
-  // const {user, loading, error} = useSelector((state) => state.auth);
+  const {user, loading, error} = useSelector((state) => state.auth);
 
-// console.log(user);
+console.log(user);
 
-// useEffect(() => {
-//   dispatch(fetchUser())
-// }, [])
+useEffect(() => {
+
+    if (!user) {
+      dispatch(fetchUser());
+    } 
+  }, [dispatch, user]);
 
   // console.log(amount);
   const { handleSubmit, register, setValue } = useForm({
@@ -100,7 +103,7 @@ const AddMoney = () => {
         <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100">
           <div className="text-center">
             <p className="text-gray-600 text-sm">Current Balance</p>
-            <p className="text-3xl font-bold text-pink-600 mt-2">৳ 2,450.50</p>
+            <p className="text-3xl font-bold text-pink-600 mt-2">{user?.balance}</p>
             <div className="flex items-center justify-center gap-1 mt-2">
               <Shield className="w-4 h-4 text-green-500" />
               <span className="text-xs text-green-600">Verified Account</span>
