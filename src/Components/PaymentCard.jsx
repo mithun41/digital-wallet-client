@@ -1,4 +1,4 @@
-// App.jsx
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   FaBolt,
@@ -12,8 +12,6 @@ import {
 } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import React from "react";
-
 
 const PaymentCard = () => {
   const payments = [
@@ -66,7 +64,6 @@ const PaymentCard = () => {
       path: "/more",
     },
   ];
-// swiper
 
   // Animation controls
   const controls = useAnimation();
@@ -96,7 +93,7 @@ const PaymentCard = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
         Payment List
       </h2>
-      
+
       <motion.div
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
         variants={containerVariants}
@@ -107,11 +104,16 @@ const PaymentCard = () => {
           <motion.div key={index} variants={cardVariants}>
             <Link
               to={item.path}
-              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500"
+              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg 
+              dark:shadow-gray-900/50 flex flex-col items-center text-center 
+              transform transition duration-300 hover:scale-105 hover:shadow-2xl 
+              hover:ring-2 hover:ring-indigo-500"
             >
               {/* Icon wrapper with gradient */}
               <div
-                className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${item.color} text-white text-2xl shadow-md`}
+                className={`w-16 h-16 flex items-center justify-center mb-4 
+                rounded-full bg-gradient-to-br ${item.color} text-white 
+                text-2xl shadow-md`}
               >
                 {item.icon}
               </div>
@@ -128,23 +130,3 @@ const PaymentCard = () => {
 };
 
 export default PaymentCard;
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<PaymentList />} />
-//         <Route path="/electricity" element={<h1>Electricity Page</h1>} />
-//         <Route path="/internet" element={<h1>Internet Page</h1>} />
-//         <Route path="/voucher" element={<h1>Voucher Page</h1>} />
-//         <Route path="/assurance" element={<h1>Assurance Page</h1>} />
-//         <Route path="/merchant" element={<h1>Merchant Page</h1>} />
-//         <Route path="/mobile-credit" element={<h1>Mobile Credit Page</h1>} />
-//         <Route path="/bill" element={<h1>Bill Page</h1>} />
-//         <Route path="/more" element={<h1>More Services</h1>} />
-//       </Routes>
-//     </Router>
-//   );
-// };
-
-// export default App;

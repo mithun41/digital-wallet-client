@@ -15,16 +15,18 @@ const MutionCard = () => {
             name: "David",
             role: "Project Designer",
             rating: 5,
-            text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            text: "David transformed our vision into reality with modern design ideas and a professional touch that perfectly matched our needs.",
             image:
                 "https://i.ibb.co.com/Nd08nMVN/pexels-italo-melo-881954-2379004.jpg",
+
+
         },
         {
             id: 2,
             name: "Emily",
             role: "Designer",
             rating: 5,
-            text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            text: "Our Family Designers bring creativity and warmth together, crafting solutions that blend professional design with a personal touch for every client.",
             image: "https://i.ibb.co.com/hJ6v4Yv8/images-9.jpg",
         },
     ];
@@ -88,7 +90,7 @@ const MutionCard = () => {
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl lg:text-6xl font-extrabold leading-tight mb-8 bg-black bg-clip-text text-transparent"
+                        className="text-secondary mx-auto lg:mx-0 max-w-md text-5xl lg:text-6xl font-extrabold leading-tight mb-8 bg-clip-text "
                     >
                         What Customers Say About US
                     </motion.h1>
@@ -97,7 +99,7 @@ const MutionCard = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl text-black leading-relaxed mb-12"
+                        className="text-secondary  mx-auto lg:mx-0 max-w-md text-xl leading-relaxed mb-12"
                     >
                         👉 Discover how our customers experience trust, quality, and
                         reliability. We value every voice and every story that inspires us
@@ -125,14 +127,14 @@ const MutionCard = () => {
                                 whileHover={{ scale: 1.05, y: -5 }}
                                 className="text-center cursor-pointer"
                             >
-                                <div className="text-4xl lg:text-5xl font-black bg-black bg-clip-text text-transparent mb-2">
+                                <div className="text-4xl lg:text-5xl font-black text-secondary mx-auto lg:mx-0 max-w-mdbg-clip-text mb-2">
                                     <CountUp
                                         end={stat.number}
                                         duration={2}
                                         suffix={stat.suffix}
                                     />
                                 </div>
-                                <div className="text-white/70 font-medium">{stat.label}</div>
+                                <div className="text-secondary  mx-auto lg:mx-0 max-w-md font-medium">{stat.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -185,7 +187,7 @@ const MutionCard = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4, delay: 0.8 + index * 0.2 }}
-                                        className="text-black text-xl font-semibold"
+                                        className="text-secondary  mx-auto lg:mx-0 max-w-md"
                                     >
                                         {testimonial.name}
                                     </motion.h4>
@@ -193,7 +195,7 @@ const MutionCard = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4, delay: 0.9 + index * 0.2 }}
-                                        className="text-black text-sm"
+                                        className="text-secondary  mx-auto lg:mx-0 max-w-md"
                                     >
                                         {testimonial.role}
                                     </motion.div>
@@ -205,6 +207,7 @@ const MutionCard = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, delay: 1 + index * 0.2 }}
+                                className="text-secondary  mx-auto lg:mx-0 max-w-md"
                             >
                                 <StarRating rating={testimonial.rating} />
                             </motion.div>
@@ -214,7 +217,7 @@ const MutionCard = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 1.1 + index * 0.2 }}
-                                className="text-black text-lg leading-relaxed"
+                                className="text-secondary mx-auto lg:mx-0 max-w-md"
                             >
                                 {testimonial.text}
                             </motion.p>
