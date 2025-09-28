@@ -84,22 +84,3 @@ const PaymentCard = () => {
 export default PaymentCard;
 
 
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<PaymentList />} />
-//         <Route path="/electricity" element={<h1>Electricity Page</h1>} />
-//         <Route path="/internet" element={<h1>Internet Page</h1>} />
-//         <Route path="/voucher" element={<h1>Voucher Page</h1>} />
-//         <Route path="/assurance" element={<h1>Assurance Page</h1>} />
-//         <Route path="/merchant" element={<h1>Merchant Page</h1>} />
-//         <Route path="/mobile-credit" element={<h1>Mobile Credit Page</h1>} />
-//         <Route path="/bill" element={<h1>Bill Page</h1>} />
-//         <Route path="/more" element={<h1>More Services</h1>} />
-//       </Routes>
-//     </Router>
-//   );
-// };
-
-// export default App;
