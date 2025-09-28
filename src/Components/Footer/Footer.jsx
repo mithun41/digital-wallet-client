@@ -4,13 +4,13 @@ import logo from '../../assets/logo2.png'
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-600 text-white">
+    <footer className="bg-base-100 text-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
           {/* Logo & About */}
           <div>
             <h2 className=""><img src={logo} className="w-1/2 mx-auto" alt="" /></h2>
-            <p className="text-sm mt-2 text-gray-200">
+            <p className="text-sm mt-2 text-secondary">
               A smart way to manage your money. Safe, fast, and reliable.
             </p>
           </div>
@@ -18,7 +18,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-secondary">
               <li>
                 <Link to="/" className="hover:text-gray-200">
                   Home
@@ -48,9 +48,9 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Contact</h3>
-            <p className="text-sm">Email: paymate.support@gmail.com</p>
-            <p className="text-sm">Phone: +8801711121212</p>
-            <p className="text-sm mt-2">
+            <p className="text-sm text-secondary">Email: paymate.support@gmail.com</p>
+            <p className="text-sm text-secondary">Phone: +8801711121212</p>
+            <p className="text-sm mt-2 text-secondary">
               © {new Date().getFullYear()} PayMate. All rights reserved.
             </p>
           </div>

@@ -52,7 +52,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser(formData))
       .unwrap()
-      .then(() => navigate("/"))
+      .then(() => navigate("/dashboard"))
       .catch((err) => {
         // Show error with SweetAlert
         Swal.fire("Login Failed", err.message, "error");
@@ -134,7 +134,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="pt-16 min-h-screen   flex">
+    <div className="pt- min-h-screen  flex">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="max-w-md w-full space-y-8">
@@ -145,11 +145,11 @@ const Login = () => {
                 <Wallet className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold  mb-2">
+            <h2 className="text-3xl font-bold dark:text-white  text-gray-900 mb-2">
               Welcome to <span className="text-indigo-600">Pay</span>
               <span className="text-purple-600">Mate</span>
             </h2>
-            <p className="text-gray-600">Sign in with your phone & PIN</p>
+            <p className="text-gray-600 dark:text-white">Sign in with your phone & PIN</p>
           </div>
 
           {!showResetPin ? (
@@ -157,13 +157,13 @@ const Login = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium dark:text-white text-gray-700 mb-2">
                   Phone Number
                 </label>
                 <input
                   name="phone"
                   type="tel"
-                  value={formData.phone}
+                  value={formData.phone || "+880"}
                   onChange={handleInputChange}
                   placeholder="+8801XXXXXXXXX"
                   required
@@ -173,7 +173,7 @@ const Login = () => {
 
               {/* PIN */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm dark:text-white font-medium text-gray-700 mb-2">
                   4-Digit PIN
                 </label>
                 <div className="relative">

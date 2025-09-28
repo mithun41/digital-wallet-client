@@ -1,453 +1,178 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import React from "react";
+import { motion } from "framer-motion";
+import { FaCheckCircle } from "react-icons/fa";
 
-// Chart Data
-const monthlyData = [
-    { month: 'Nov', income: 2000, expenses: 1800 },
-    { month: 'Dec', income: 3000, expenses: 2500 },
-    { month: 'Jan', income: 2500, expenses: 2200 },
-    { month: 'Feb', income: 3500, expenses: 3000 },
-    { month: 'Mar', income: 3200, expenses: 2800 },
-    { month: 'Apr', income: 4000, expenses: 3500 },
-    { month: 'May', income: 4200, expenses: 3800 },
-];
-
-// Monthly Graph Component
-const MonthlyGraph = ({ income, expenses }) => {
-    return (
-        <div className="bg-gradient-to-br from-purple-600 via-purple-500 to-blue-600 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-white/20">
-            <div className="flex justify-between items-center mb-6">
-                <h3 className="text-white text-lg font-semibold">Monthly Graph</h3>
-                <span className="bg-purple-400 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Incomes
-                </span>
-            </div>
-
-            <div className="h-48 mb-4">
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={monthlyData}>
-                        <XAxis
-                            dataKey="month"
-                            axisLine={false}
-                            tickLine={false}
-                            tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 500 }}
-                            className="text-white"
-                        />
-                        <YAxis hide />
-
-                        {/* Income Line */}
-                        <Line
-                            type="monotone"
-                            dataKey="income"
-                            stroke="#ffffff"
-                            strokeWidth={3}
-                            dot={{ fill: '#ffffff', strokeWidth: 2, r: 5 }}
-                            activeDot={{
-                                r: 7,
-                                fill: '#ffffff',
-                                stroke: '#8b5cf6',
-                                strokeWidth: 3
-                            }}
-                            filter="drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3))"
-                        />
-
-                        {/* Expenses Line (Optional - can be toggled) */}
-                        <Line
-                            type="monotone"
-                            dataKey="expenses"
-                            stroke="rgba(255, 255, 255, 0.6)"
-                            strokeWidth={2}
-                            strokeDasharray="5 5"
-                            dot={false}
-                            activeDot={{ r: 5, fill: 'rgba(255, 255, 255, 0.8)' }}
-                        />
-                    </LineChart>
-                </ResponsiveContainer>
-            </div>
-
-            {/* Chart Legend */}
-            <div className="flex justify-center gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-white rounded-full"></div>
-                    <span className="text-white/90">Income</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <div className="w-3 h-0.5 bg-white/60 rounded-full"></div>
-                    <span className="text-white/70">Expenses</span>
-                </div>
-            </div>
-
-            {/* Current Month Stats */}
-            <div className="mt-4 pt-4 border-t border-white/20">
-                <div className="flex justify-between text-white">
-                    <div className="text-center">
-                        <p className="text-xs text-white/70 mb-1">This Month</p>
-                        <p className="font-bold text-lg">${income.toFixed(0)}</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-xs text-white/70 mb-1">Expenses</p>
-                        <p className="font-bold text-lg">${expenses.toFixed(0)}</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-xs text-white/70 mb-1">Profit</p>
-                        <p className="font-bold text-lg text-green-300">
-                            ${(income - expenses).toFixed(0)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// Redux-style Action Types
-const ACTIONS = {
-    SET_USER: 'SET_USER',
-    UPDATE_BALANCE: 'UPDATE_BALANCE',
-    ADD_TRANSACTION: 'ADD_TRANSACTION',
-    SET_LOADING: 'SET_LOADING',
-    UPDATE_STATS: 'UPDATE_STATS',
-    TOGGLE_REGISTRATION: 'TOGGLE_REGISTRATION'
-};
-
-// Initial State
-const initialState = {
-    user: {
-        name: 'Mike Joe',
-        id: null,
-        isLoggedIn: false
-    },
-    balance: 1450.00,
-    transactions: [
-        { id: 1, type: 'expense', description: 'Netflix Subscription', amount: -5.00, icon: 'N', color: '#e50914' },
-        { id: 2, type: 'expense', description: 'Monthly Shopping', amount: -120.90, icon: '🛍', color: '#ff9500' }
-    ],
-    stats: {
-        income: 4200,
-        expenses: 3800
-    },
-    loading: false,
-    showRegistration: false
-};
-
-// Reducer Function
-const appReducer = (state, action) => {
-    switch (action.type) {
-        case ACTIONS.SET_USER:
-            return {
-                ...state,
-                user: { ...state.user, ...action.payload }
-            };
-
-        case ACTIONS.UPDATE_BALANCE:
-            return {
-                ...state,
-                balance: state.balance + action.payload
-            };
-
-        case ACTIONS.ADD_TRANSACTION:
-            const newTransaction = {
-                id: Date.now(),
-                ...action.payload
-            };
-            return {
-                ...state,
-                transactions: [newTransaction, ...state.transactions],
-                balance: state.balance + action.payload.amount
-            };
-
-        case ACTIONS.SET_LOADING:
-            return {
-                ...state,
-                loading: action.payload
-            };
-
-        case ACTIONS.UPDATE_STATS:
-            return {
-                ...state,
-                stats: { ...state.stats, ...action.payload }
-            };
-
-        case ACTIONS.TOGGLE_REGISTRATION:
-            return {
-                ...state,
-                showRegistration: !state.showRegistration
-            };
-
-        default:
-            return state;
-    }
-};
-
-// Main Component
 const MobileCard = () => {
-    const [state, dispatch] = useReducer(appReducer, initialState);
-    const [selectedAction, setSelectedAction] = useState(null);
+  return (
+    <section className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center px-4 py-16 lg:px-24 overflow-hidden">
+      {/* Background blobs */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
+      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-purple-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
+      <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-indigo-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
 
-    // Action Creators
-    const setUser = (userData) => {
-        dispatch({ type: ACTIONS.SET_USER, payload: userData });
-    };
+      {/* Left Content */}
+      <div className="flex-1 max-w-lg space-y-6 z-10 text-center lg:text-left mb-12 lg:mb-0">
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl lg:text-5xl font-bold leading-tight"
+        >
+          Our Easy Steps For <span className="text-primary">SignUp</span>
+        </motion.h1>
 
-    const updateBalance = (amount) => {
-        dispatch({ type: ACTIONS.UPDATE_BALANCE, payload: amount });
-    };
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-secondary bg-base-100 mx-auto lg:mx-0 max-w-md"
+        >
+          Follow these simple steps to quickly create your account, set up your
+          preferences, and start using our platform seamlessly. No hassle, no
+          confusion—just a few easy actions to get you started.
+        </motion.p>
 
-    const addTransaction = (transaction) => {
-        dispatch({ type: ACTIONS.ADD_TRANSACTION, payload: transaction });
-    };
+        <motion.ul
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, staggerChildren: 0.15 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mx-auto lg:mx-0 max-w-md"
+        >
+          {[
+            "Sign in with Mobile Number",
+            "User Configuration",
+            "Select Country Location",
+            "Enter the Transaction",
+            "Enjoy the Full Access",
+            "Complete Setup",
+          ].map((item, index) => (
+            <motion.li
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6 + index * 0.1 }}
+              className="flex items-center gap-2 dark:text-gray-200  text-lg"
+            >
+              <FaCheckCircle className="text-primary" /> {item}
+            </motion.li>
+          ))}
+        </motion.ul>
 
-    const setLoading = (isLoading) => {
-        dispatch({ type: ACTIONS.SET_LOADING, payload: isLoading });
-    };
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5 }}
+          className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start"
+        >
+          <a
+            href="/signup"
+            className="bg-[#9F7AEA] hover:bg-[#805AD5] px-8 py-3 rounded-full font-semibold shadow-lg transition-all text-white text-lg"
+          >
+            SignUp Now
+          </a>
+          <a
+            href="/get-started"
+            className="border border-[#9F7AEA] hover:bg-[#9F7AEA]/20 px-8 py-3 rounded-full font-semibold transition-all text-[#9F7AEA] text-lg"
+          >
+            Get Started
+          </a>
+        </motion.div>
+      </div>
 
-    const updateStats = (stats) => {
-        dispatch({ type: ACTIONS.UPDATE_STATS, payload: stats });
-    };
+      {/* Right Content - Phone Mockup */}
+      <div className="flex-1 relative hidden lg:flex justify-center items-center z-10 min-h-[600px]">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0, rotateY: 20 }}
+          animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative w-80 h-[580px] rounded-[3rem] bg-[#0A0D18] p-4 shadow-2xl overflow-hidden border-8 border-gray-700/50"
+        >
+          {/* Top Notch */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-gray-800 rounded-full z-20"></div>
 
-    const toggleRegistration = () => {
-        dispatch({ type: ACTIONS.TOGGLE_REGISTRATION });
-    };
-
-    const handleGetStarted = () => {
-        toggleRegistration();
-    };
-
-    const handleSendMoney = () => {
-        setSelectedAction('send');
-        const amount = -50.00;
-        addTransaction({
-            type: 'expense',
-            description: 'Money Transfer',
-            amount: amount,
-            icon: '📤',
-            color: '#667eea'
-        });
-        updateStats({ expenses: state.stats.expenses + Math.abs(amount) });
-    };
-
-    const handleAddMoney = () => {
-        setSelectedAction('add');
-        const amount = 200.00;
-        addTransaction({
-            type: 'income',
-            description: 'Money Added',
-            amount: amount,
-            icon: '💰',
-            color: '#4CAF50'
-        });
-        updateStats({ income: state.stats.income + amount });
-    };
-
-    const handlePayBill = () => {
-        setSelectedAction('pay');
-        const amount = -75.50;
-        addTransaction({
-            type: 'expense',
-            description: 'Bill Payment',
-            amount: amount,
-            icon: '💳',
-            color: '#ff4757'
-        });
-        updateStats({ expenses: state.stats.expenses + Math.abs(amount) });
-    };
-
-    // Clear selected action after 2 seconds
-    useEffect(() => {
-        if (selectedAction) {
-            const timer = setTimeout(() => setSelectedAction(null), 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [selectedAction]);
-
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">
-            {/* Floating Elements */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-r from-purple-400 to-gray-400 rounded-full opacity-10 animate-pulse"></div>
-                <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-10 animate-bounce"></div>
+          {/* Phone Screen */}
+          <div className="relative h-full w-full rounded-[2.5rem] bg-black text-white p-6 pt-12 flex flex-col justify-between">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-sm font-semibold">9:41</span>
+              <div className="flex items-center space-x-1">
+                <span className="w-4 h-3 bg-white rounded-[2px]"></span>
+                <span className="w-1 h-3 bg-white rounded-[2px]"></span>
+                <span className="w-1 h-3 bg-gray-500 rounded-[2px]"></span>
+              </div>
             </div>
 
-            <div className="flex items-center justify-between p-16 min-h-screen max-w-7xl mx-auto relative z-10">
-                {/* Left Content */}
-                <div className="flex-1 max-w-xl">
-                    <h1 className="text-6xl font-bold text-white leading-tight mb-8">
-                        Our Easy Steps For<br />
-                        <span className="bg-gradient-to-r from-purple-400 to-gray-400 bg-clip-text text-transparent">
-                            SignUp
-                        </span>
-                    </h1>
+            {/* Welcome & Balance */}
+            <div className="text-center mb-8">
+              <p className="text-gray-400 text-sm">Welcome.</p>
+              <h3 className="text-white text-xl font-bold mb-1">Mike Joe</h3>
+              <h2 className="text-white text-4xl font-bold mt-2">
+                $1450.<span className="text-gray-400 text-3xl">00</span>
+              </h2>
+            </div>
 
-                    <p className="text-gray-300 text-lg leading-relaxed mb-10">
-                        Creating your account is simple: verify your identity, set your location, and add your first transaction. Your data stays encrypted, with balance and transactions available anytime.
-                    </p>
+            {/* Action Buttons */}
+            <div className="flex justify-around mb-8">
+              {[
+                { icon: "💰", label: "Incomes" },
+                { icon: "📊", label: "Expenses" },
+                { icon: "💳", label: "Cards" },
+                { icon: "•••", label: "More" },
+              ].map((item, i) => (
+                <motion.button
+                  key={i}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="flex flex-col items-center justify-center space-y-1 text-sm text-gray-400"
+                >
+                  <span className="bg-gray-800 w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-md">
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </motion.button>
+              ))}
+            </div>
 
-                    <div className="grid grid-cols-2 gap-6 mb-10">
-                        {[
-                            'Sign in with ID Card',
-                            'User Configuration',
-                            'Select Country Location',
-                            'Enter the Transaction',
-                            'Enjoy the Full Access',
-                            'Complete Setup'
-                        ].map((step, index) => (
-                            <div key={index} className="flex items-center gap-4">
-                                <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-gray-500 rounded-full flex items-center justify-center">
-                                    <span className="text-white text-sm font-bold">✓</span>
-                                </div>
-                                <span className="text-white">{step}</span>
-                            </div>
-                        ))}
+            {/* Last Activity */}
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-3">
+                <p className="text-gray-400 text-sm">Last Activity</p>
+                <a href="#" className="text-[#9F7AEA] text-sm">
+                  See All
+                </a>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between bg-gray-900 p-3 rounded-xl">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-lg">
+                      N
                     </div>
-
-                    <div className="flex gap-6">
-                        <a
-                            href="/signup"
-                            className="bg-gradient-to-r from-purple-500 to-gray-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {state.loading ? 'Processing...' : 'SignUp Now'}
-                        </a>
-                        <button
-                            onClick={handleGetStarted}
-                            className="bg-transparent text-white px-8 py-4 rounded-full font-semibold border-2 border-white/20 hover:bg-white/10 hover:border-white/30 transition-all duration-300"
-                        >
-                            Get Started
-                        </button>
+                    <div>
+                      <p className="font-semibold">Netflix Subscription</p>
+                      <p className="text-gray-500 text-xs">Just now</p>
                     </div>
-
-                    {/* Registration Status */}
-                    {state.user.isLoggedIn && (
-                        <div className="mt-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
-                            <p className="text-green-300">✅ Successfully registered as {state.user.name}!</p>
-                        </div>
-                    )}
-
-                    {/* Monthly Graph Chart - Added Here */}
-
+                  </div>
+                  <span className="font-bold">-$5.00</span>
                 </div>
-
-                {/* Right Content */}
-                <div className="flex-1 flex justify-center items-center relative">
-                    {/* Phone Mockup */}
-                    <div className="relative w-80 h-[600px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem] p-4 shadow-2xl transform rotate-y-12 hover:rotate-y-6 transition-transform duration-500">
-                        <div className="w-full h-full bg-gradient-to-b from-gray-900 to-black rounded-[2rem] p-6 overflow-hidden">
-                            {/* Status Bar */}
-                            <div className="flex justify-between items-center text-white text-sm mb-6">
-                                <span>9:41</span>
-                                <div className="flex gap-1">
-                                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                                </div>
-                            </div>
-
-                            {/* Welcome Section */}
-                            <div className="text-center mb-8">
-                                <p className="text-gray-400 text-sm">Welcome,</p>
-                                <h2 className="text-white text-xl font-semibold">{state.user.name}</h2>
-                                {state.user.isLoggedIn && (
-                                    <span className="text-green-400 text-xs">● Online</span>
-                                )}
-                            </div>
-
-                            {/* Balance */}
-                            <div className="text-center mb-8">
-                                <h3 className="text-white text-3xl font-bold">
-                                    ${state.balance.toFixed(2)}
-                                </h3>
-                                {state.loading && (
-                                    <div className="mt-2 h-1 bg-gray-700 rounded overflow-hidden">
-                                        <div className="h-full bg-gradient-to-r from-purple-500 to-gray-500 animate-pulse"></div>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Action Buttons */}
-                            <div className="flex justify-around mb-8">
-                                {[
-                                    { icon: '↗', action: handleSendMoney, key: 'send' },
-                                    { icon: '+', action: handleAddMoney, key: 'add' },
-                                    { icon: '💳', action: handlePayBill, key: 'pay' },
-                                    { icon: '⋯', action: () => setSelectedAction('more'), key: 'more' }
-                                ].map((btn, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={btn.action}
-                                        className={`w-12 h-12 rounded-xl ${selectedAction === btn.key
-                                            ? 'bg-gradient-to-r from-purple-600 to-gray-600 scale-110'
-                                            : 'bg-gradient-to-r from-purple-500 to-gray-500 hover:scale-105'
-                                            } text-white font-bold transition-all duration-200 shadow-lg`}
-                                    >
-                                        {btn.icon}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Recent Activity */}
-                            <div>
-                                <div className="flex justify-between items-center mb-4">
-                                    <h4 className="text-white font-semibold">Last Activity</h4>
-                                    <span className="text-gray-400 text-xs">See All</span>
-                                </div>
-
-                                <div className="space-y-3 max-h-48 overflow-y-auto">
-                                    {state.transactions.map((transaction) => (
-                                        <div key={transaction.id} className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-                                            <div className="flex items-center gap-3">
-                                                <div
-                                                    className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold"
-                                                    style={{ backgroundColor: transaction.color }}
-                                                >
-                                                    {transaction.icon}
-                                                </div>
-                                                <div>
-                                                    <p className="text-white text-sm font-medium">{transaction.description}</p>
-                                                    <p className="text-gray-400 text-xs">Just now</p>
-                                                </div>
-                                            </div>
-                                            <span className={`font-semibold ${transaction.amount < 0 ? 'text-blue-400' : 'text-green-400'}`}>
-                                                {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                <div className="flex items-center justify-between bg-gray-900 p-3 rounded-xl">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-lg">
+                      🛒
                     </div>
-
-                    {/* Stats Widgets */}
-                    <div
-                        className="absolute -right-24 top-1/2 transform -translate-y-1/2 space-y-6">
-                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
-                            <p className="text-gray-300 text-sm mb-2">Incomes</p>
-                            <p className="text-green-400 text-2xl font-bold">${state.stats.income.toFixed(2)}</p>
-                        </div>
-
-                        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-center">
-                            <p className="text-gray-300 text-sm mb-2">Expenses</p>
-                            <p className="text-blue-400 text-2xl font-bold">${state.stats.expenses.toFixed(2)}</p>
-                        </div>
-
-                        <div className="mt-12">
-                            <MonthlyGraph
-                                income={state.stats.income}
-                                expenses={state.stats.expenses}
-                            />
-                        </div>
+                    <div>
+                      <p className="font-semibold">Monthly Shopping</p>
+                      <p className="text-gray-500 text-xs">Just now</p>
                     </div>
+                  </div>
+                  <span className="font-bold">-$120.90</span>
                 </div>
+              </div>
             </div>
-
-            {/* Debug Panel */}
-            <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-lg p-4 rounded-lg text-white text-xs max-w-xs">
-                <h4 className="font-bold mb-2">Redux State Debug:</h4>
-                <p>Balance: ${state.balance.toFixed(2)}</p>
-                <p>Transactions: {state.transactions.length}</p>
-                <p>User: {state.user.isLoggedIn ? 'Logged In' : 'Guest'}</p>
-                <p>Loading: {state.loading ? 'Yes' : 'No'}</p>
-            </div>
-        </div >
-    );
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default MobileCard;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const HeroSection = () => {
-  // Features for animation
   const features = [
     {
       title: "Send Money",
@@ -62,7 +61,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFeatureIndex((prevIndex) => (prevIndex + 1) % features.length);
-    }, 1500); // ⏩ এখন প্রতি 2.5 সেকেন্ডে পরিবর্তন হবে
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [features.length]);
@@ -70,30 +69,32 @@ const HeroSection = () => {
   const currentFeature = features[currentFeatureIndex];
 
   return (
-    <div className="bg-[##DBEAFE] text-base-content min-h-screen transition-colors duration-500">
-      {/* Hero Section Container */}
-      <div className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 -z-10">
-          <div className="h-full w-full bg-gradient-to-br from-primary/20 via-base-200 to-secondary/20 dark:from-primary/30 dark:via-base-300 dark:to-secondary/30"></div>
-        </div>
-
+    <div
+      className="bg-base-100 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-500 bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://zdblogs.zohowebstatic.com/sites/payments/academy/files/04_2.png')",
+      }}
+    >
+      <div className="relative overflow-hidden py-16 sm:py-24 lg:py-32 bg-black/40 dark:bg-black/50">
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left space-y-6">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                <span className="block">Experience the</span>
-                <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="block text-[#06923E] dark:text-[#69F27E]">
+                  Experience the
+                </span>
+                <span className="block text-[#FF6600] dark:text-[#FFA347]">
                   Future of Finance
                 </span>
               </h1>
-              <p className="mt-4 max-w-md mx-auto sm:text-lg lg:mx-0 opacity-90">
+              <p className="mt-4 max-w-md mx-auto sm:text-lg lg:mx-0 opacity-90 text-gray-100 dark:text-gray-300">
                 Your all-in-one digital wallet for secure, instant, and
                 effortless transactions. Manage your money with ease.
               </p>
               <div className="mt-6">
-                <button className="btn btn-primary btn-lg rounded-xl shadow-md hover:scale-105 transition-transform dark:text-black">
+                <button className="bg-[#FF6600] dark:bg-[#FFA347] text-white px-8 py-4 rounded-xl shadow-md hover:bg-[#CC5200] dark:hover:bg-[#FF8C40] hover:scale-105 transition-transform duration-300 font-semibold">
                   🚀 Get Started
                 </button>
               </div>
@@ -101,13 +102,13 @@ const HeroSection = () => {
 
             {/* Right Content: Animated Wallet */}
             <div className="mt-12 lg:mt-0 flex justify-center">
-              <div className="relative w-80 h-[420px] bg-base-200/70 dark:bg-base-300/70 backdrop-blur-lg rounded-3xl shadow-2xl border border-base-300 dark:border-base-100 hover:scale-105 transition-transform duration-500">
+              <div className="relative w-80 h-[420px] bg-white dark:bg-gray-800 backdrop-blur-lg rounded-3xl shadow-2xl border-4 border-[#06923E] hover:scale-105 transition-transform duration-500">
                 {/* Wallet Screen */}
-                <div className="absolute inset-4 rounded-2xl bg-base-100 dark:bg-base-200 flex flex-col p-6 items-center justify-center space-y-5 shadow-inner transition-all duration-500">
-                  <div className="w-24 h-24 rounded-full flex items-center justify-center bg-primary/10 dark:bg-primary/20 shadow-lg">
+                <div className="absolute inset-4 rounded-2xl bg-[#F5F7FA] dark:bg-gray-700 flex flex-col p-6 items-center justify-center space-y-5 shadow-inner transition-all duration-500">
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center bg-[#06923E]/10 shadow-lg">
                     <svg
                       key={currentFeatureIndex}
-                      className="w-12 h-12 text-primary animate-pulse"
+                      className="w-12 h-12 text-[#06923E] dark:text-[#69F27E] animate-pulse"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -117,20 +118,20 @@ const HeroSection = () => {
                   </div>
                   <h3
                     key={`title-${currentFeatureIndex}`}
-                    className="text-lg font-bold text-center text-primary"
+                    className="text-lg font-bold text-center text-[#06923E] dark:text-[#69F27E]"
                   >
                     {currentFeature.title}
                   </h3>
                   <p
                     key={`description-${currentFeatureIndex}`}
-                    className="text-sm text-center opacity-80"
+                    className="text-sm text-center text-gray-600 dark:text-gray-300 opacity-80"
                   >
                     {currentFeature.description}
                   </p>
                 </div>
 
                 {/* Glow effect */}
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary/30 to-secondary/30 blur-2xl opacity-40 animate-pulse"></div>
+                <div className="absolute -inset-1 rounded-3xl bg-[#06923E]/20 dark:bg-[#FF6600]/20 blur-2xl opacity-40 animate-pulse"></div>
               </div>
             </div>
           </div>

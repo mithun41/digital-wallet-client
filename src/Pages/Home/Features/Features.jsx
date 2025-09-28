@@ -14,49 +14,57 @@ const Features = () => {
       description:
         "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
-      color: "from-green-400 to-green-600",
-      link:''
+      color: "#06923E", // primary
+      link: "",
     },
     {
       title: "Send Money",
       description: "Transfer funds to friends, family, or merchants securely.",
       icon: <FaExchangeAlt />,
-      color: "from-blue-400 to-blue-600",
-      link: '/Send_money'
+      color: "#FF6600", // secondary
+      link: "/Send_money",
     },
     {
       title: "Wallet",
       description: "Check your wallet balance and manage your funds easily.",
       icon: <FaWallet />,
-      color: "from-purple-400 to-purple-600",
-      link:''
+      color: "#06923E",
+      link: "",
     },
     {
       title: "Rewards",
       description: "Earn cashback and rewards on your transactions.",
       icon: <FaGift />,
-      color: "from-yellow-400 to-yellow-500",
-      link:''
+      color: "#FF6600",
+      link: "",
     },
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12">
-      <h2 className="text-3xl text-primary font-bold text-center mb-12">What You Can Do</h2>
+    <section className="max-w-7xl mx-auto px-4 py-12 bg-[#F5F7FA] dark:bg-gray-900">
+      <h2 className="text-3xl font-bold text-center mb-12 text-primary">
+        What You Can Do
+      </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {features.map((feature, index) => (
-          <Link to={feature.link}
+          <Link
+            to={feature.link}
             key={index}
-            className="bg-cardColor p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl"
+            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-xl"
           >
             <div
-              className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${feature.color} text-white text-2xl`}
+              className="w-16 h-16 flex items-center justify-center mb-4 rounded-full text-white text-2xl"
+              style={{ backgroundColor: feature.color }}
             >
               {feature.icon}
             </div>
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-sazzad text-sm">{feature.description}</p>
+            <h3 className="text-xl font-semibold mb-2 dark:text-white">
+              {feature.title}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {feature.description}
+            </p>
           </Link>
         ))}
       </div>
