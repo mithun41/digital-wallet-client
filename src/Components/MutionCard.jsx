@@ -15,16 +15,18 @@ const MutionCard = () => {
             name: "David",
             role: "Project Designer",
             rating: 5,
-            text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            text: "David transformed our vision into reality with modern design ideas and a professional touch that perfectly matched our needs.",
             image:
                 "https://i.ibb.co.com/Nd08nMVN/pexels-italo-melo-881954-2379004.jpg",
+
+
         },
         {
             id: 2,
             name: "Emily",
             role: "Designer",
             rating: 5,
-            text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            text: "Our Family Designers bring creativity and warmth together, crafting solutions that blend professional design with a personal touch for every client.",
             image: "https://i.ibb.co.com/hJ6v4Yv8/images-9.jpg",
         },
     ];
