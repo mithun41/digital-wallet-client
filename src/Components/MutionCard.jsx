@@ -1,11 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
+import CountUp from "react-countup";
 
 const MutionCard = () => {
     const stats = [
-        { number: "93K+", label: "Satisfied user" },
-        { number: "4.9/5", label: "Client Rating" },
-        { number: "100K+", label: "App Download" },
+        { number: 930, suffix: "+", label: "Satisfied user" },
+        { number: 4.9, suffix: "/5", label: "Client Rating" },
+        { number: 1000, suffix: "+", label: "App Download" },
     ];
 
     const testimonials = [
@@ -15,7 +16,8 @@ const MutionCard = () => {
             role: "Project Designer",
             rating: 5,
             text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            avatar: "D",
+            image:
+                "https://i.ibb.co.com/Nd08nMVN/pexels-italo-melo-881954-2379004.jpg",
         },
         {
             id: 2,
@@ -23,7 +25,7 @@ const MutionCard = () => {
             role: "Designer",
             rating: 5,
             text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            avatar: "E",
+            image: "https://i.ibb.co.com/hJ6v4Yv8/images-9.jpg",
         },
     ];
 
@@ -97,10 +99,9 @@ const MutionCard = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="text-xl text-black leading-relaxed mb-12"
                     >
-                        Lorem ipsum dolor sit amet consectetur. Scelerisque tincidunt nisl
-                        molestie nisi egestas nulla massa. Scelerisque ipsum sem sed nisl
-                        molestie tortor tincidunt. Lacus nisl eget egestas tempor consequat.
-                        Malesuada tincidunt quam quis phasellus dolor enim congue lacus.
+                        👉 Discover how our customers experience trust, quality, and
+                        reliability. We value every voice and every story that inspires us
+                        to do better every day.
                     </motion.p>
 
                     {/* Animated Stats */}
@@ -124,8 +125,12 @@ const MutionCard = () => {
                                 whileHover={{ scale: 1.05, y: -5 }}
                                 className="text-center cursor-pointer"
                             >
-                                <div className="text-4xl lg:text-5xl font-black bg-black  bg-clip-text text-transparent mb-2">
-                                    {stat.number}
+                                <div className="text-4xl lg:text-5xl font-black bg-black bg-clip-text text-transparent mb-2">
+                                    <CountUp
+                                        end={stat.number}
+                                        duration={2}
+                                        suffix={stat.suffix}
+                                    />
                                 </div>
                                 <div className="text-white/70 font-medium">{stat.label}</div>
                             </motion.div>
@@ -168,13 +173,13 @@ const MutionCard = () => {
                                 transition={{ duration: 0.5, delay: 0.7 + index * 0.2 }}
                                 className="flex items-center gap-4 mb-5"
                             >
-                                <motion.div
+                                <motion.img
+                                    src={testimonial.image}
+                                    alt={testimonial.name}
                                     whileHover={{ rotate: 360, scale: 1.1 }}
                                     transition={{ duration: 0.3 }}
-                                    className="w-16 h-16 rounded-full -black  flex items-center justify-center text-black text-2xl font-bold cursor-pointer"
-                                >
-                                    {testimonial.avatar}
-                                </motion.div>
+                                    className="w-16 h-16 rounded-full object-cover"
+                                />
                                 <div>
                                     <motion.h4
                                         initial={{ opacity: 0, y: 10 }}
