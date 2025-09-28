@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // App.jsx
 import { Link } from "react-router";
+=======
+import React from "react";
+import { Link } from "react-router-dom";
+>>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
 import {
   FaBolt,
   FaWifi,
@@ -10,20 +15,59 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-import { motion, useAnimation } from "framer-motion";
+import {  useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import React from "react";
 
 const PaymentCard = () => {
   const payments = [
-    { name: "Electricity", icon: <FaBolt />, color: "from-yellow-400 to-yellow-600", path: "/electricity" },
-    { name: "Internet", icon: <FaWifi />, color: "from-red-400 to-red-600", path: "/internet" },
-    { name: "Voucher", icon: <FaTicketAlt />, color: "from-green-400 to-green-600", path: "/voucher" },
-    { name: "Assurance", icon: <FaShieldAlt />, color: "from-pink-400 to-pink-600", path: "/assurance" },
-    { name: "Merchant", icon: <FaStore />, color: "from-green-500 to-green-700", path: "/merchant" },
-    { name: "Mobile Credit", icon: <FaMobileAlt />, color: "from-blue-400 to-blue-600", path: "/mobile-credit" },
-    { name: "Bill", icon: <FaFileInvoice />, color: "from-orange-400 to-orange-600", path: "/bill" },
-    { name: "More", icon: <FaEllipsisH />, color: "from-indigo-400 to-indigo-600", path: "/more" },
+    {
+      name: "Electricity",
+      icon: <FaBolt />,
+      color: "from-yellow-400 to-yellow-600",
+      path: "/electricity",
+    },
+    {
+      name: "Internet",
+      icon: <FaWifi />,
+      color: "from-red-400 to-red-600",
+      path: "/internet",
+    },
+    {
+      name: "Voucher",
+      icon: <FaTicketAlt />,
+      color: "from-green-400 to-green-600",
+      path: "/voucher",
+    },
+    {
+      name: "Assurance",
+      icon: <FaShieldAlt />,
+      color: "from-pink-400 to-pink-600",
+      path: "/assurance",
+    },
+    {
+      name: "Merchant",
+      icon: <FaStore />,
+      color: "from-green-500 to-green-700",
+      path: "/merchant",
+    },
+    {
+      name: "Mobile Credit",
+      icon: <FaMobileAlt />,
+      color: "from-blue-400 to-blue-600",
+      path: "/mobile-credit",
+    },
+    {
+      name: "Bill",
+      icon: <FaFileInvoice />,
+      color: "from-orange-400 to-orange-600",
+      path: "/bill",
+    },
+    {
+      name: "More",
+      icon: <FaEllipsisH />,
+      color: "from-indigo-400 to-indigo-600",
+      path: "/more",
+    },
   ];
 
   // Animation controls
@@ -42,7 +86,11 @@ const PaymentCard = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
@@ -61,11 +109,16 @@ const PaymentCard = () => {
           <motion.div key={index} variants={cardVariants}>
             <Link
               to={item.path}
-              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500"
+              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg 
+              dark:shadow-gray-900/50 flex flex-col items-center text-center 
+              transform transition duration-300 hover:scale-105 hover:shadow-2xl 
+              hover:ring-2 hover:ring-indigo-500"
             >
               {/* Icon wrapper with gradient */}
               <div
-                className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${item.color} text-white text-2xl shadow-md`}
+                className={`w-16 h-16 flex items-center justify-center mb-4 
+                rounded-full bg-gradient-to-br ${item.color} text-white 
+                text-2xl shadow-md`}
               >
                 {item.icon}
               </div>
@@ -82,24 +135,3 @@ const PaymentCard = () => {
 };
 
 export default PaymentCard;
-
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<PaymentList />} />
-//         <Route path="/electricity" element={<h1>Electricity Page</h1>} />
-//         <Route path="/internet" element={<h1>Internet Page</h1>} />
-//         <Route path="/voucher" element={<h1>Voucher Page</h1>} />
-//         <Route path="/assurance" element={<h1>Assurance Page</h1>} />
-//         <Route path="/merchant" element={<h1>Merchant Page</h1>} />
-//         <Route path="/mobile-credit" element={<h1>Mobile Credit Page</h1>} />
-//         <Route path="/bill" element={<h1>Bill Page</h1>} />
-//         <Route path="/more" element={<h1>More Services</h1>} />
-//       </Routes>
-//     </Router>
-//   );
-// };
-
-// export default App;
