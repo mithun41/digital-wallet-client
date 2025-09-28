@@ -1,5 +1,9 @@
 import MobileCard from "../../../Components/MobileCard";
+<<<<<<< HEAD
+import MutionCard from "../../../Components/MutionCard";
+=======
 import OurHistory from "../../../Components/OurHistory";
+>>>>>>> cc091c258ea7867500e142e5109650bd1930ab58
 import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -37,6 +41,13 @@ const Home = () => {
       <section>
         <Subscription></Subscription>
       </section>
+<<<<<<< HEAD
+      <section><Subscription></Subscription></section>
+      <section>
+        <MutionCard></MutionCard>
+      </section>
+=======
+>>>>>>> cc091c258ea7867500e142e5109650bd1930ab58
     </div>
   );
 };
