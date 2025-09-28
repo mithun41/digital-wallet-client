@@ -1,5 +1,5 @@
 // App.jsx
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   FaBolt,
   FaWifi,

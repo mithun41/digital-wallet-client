@@ -5,6 +5,7 @@ import Footer from "../Components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/features/authSlice";
 import Loading from "../Components/loading/Loading";
+import Extra from "../Components/Extra";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const RootLayout = () => {
       <div className=" dark:bg-gray-900 pt-16">
         <Outlet />
       </div>
+      <Extra></Extra>
       <Footer />
     </div>
   );
