@@ -33,7 +33,7 @@ export default function CashOut() {
     const calculateCharge = (amt) => Math.max(5, Math.ceil(parseFloat(amt || 0) * 0.0185));
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 w-screen to-slate-100  max-w-none">
+        <div className="min-h-screen bg-base-100  max-w-none">
             {/* Modern Header with Glassmorphism */}
             <div className="relative bg-gradient-to-r bg-[#155DFC] overflow-hidden w-full">
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
