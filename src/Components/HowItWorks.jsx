@@ -1,13 +1,12 @@
 import React from "react";
 
-
 const steps = [
     {
         id: 1,
         title: "Sign Up & Verify",
         description:
             "Create your account with email verification and complete KYC for enhanced security and higher transaction limits.",
-        img: "https://i.ibb.co.com/v6w5BJxx/images-10.jpg",
+        img: "https://i.ibb.co.com/MDJRV1n8/images-10-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg",
     },
     {
         id: 2,
@@ -21,10 +20,8 @@ const steps = [
         title: "Pay, Transfer & Track Securely",
         description:
             "Make payments, transfer funds, pay bills, and track all transactions with real-time notifications and detailed history.",
-        img: "https://i.ibb.co.com/MD7dNR4z/download-8.jpg",
+        img: "https://i.ibb.co.com/d0FQXXP2/images-11-LE-upscale-ultra-x4-size-of-changes-10-intensity-10.jpg",
     },
-
-
 ];
 
 const HowItWorks = () => {
@@ -34,10 +31,7 @@ const HowItWorks = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
                     How PayMate Works
                 </h2>
-                <p className="text-gray-600 mb-10">
-                    Get started in just 4 simple steps
-                </p>
-
+                <p className="text-gray-600 mb-10">Get started in just 3 simple steps</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {steps.map((step) => (
@@ -45,20 +39,20 @@ const HowItWorks = () => {
                             <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-lg">
                                 {step.id}
                             </div>
-                            <div
-                                key={step.id}
-                                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
-                            >
-
-                                <img
-                                    src={step.img}
-                                    alt={step.title}
-                                    className="mx-auto mb-4 w-full h-28 object-contain"
-                                />
-                                <h3 className="text-lg font-semibold mb-2 text-gray-800">
-                                    {step.title}
-                                </h3>
-                                <p className="text-sm text-gray-600">{step.description}</p>
+                            <div key={step.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
+                                <div className="relative w-full h-48">
+                                    <img
+                                        src={step.img}
+                                        alt={step.title}
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-sm text-gray-600">{step.description}</p>
+                                </div>
                             </div>
                         </div>
                     ))}
