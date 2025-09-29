@@ -60,7 +60,7 @@ const HowItWorks = () => {
                             <div
 
                                 data-aos={step.animation}
-                                className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 overflow-hidden "
+                                className=" rounded-2xl shadow-md hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 overflow-hidden "
                             >
 
                                 <div className="relative w-full h-48 mt-4">
