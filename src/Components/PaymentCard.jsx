@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   FaBolt,
   FaWifi,
@@ -10,7 +10,7 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-import {  useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const PaymentCard = () => {

@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const steps = [
     {
         id: 1,
@@ -22,13 +23,7 @@ const steps = [
             "Make payments, transfer funds, pay bills, and track all transactions with real-time notifications and detailed history.",
         img: "https://i.ibb.co.com/MD7dNR4z/download-8.jpg",
     },
-    {
-        id: 4,
-        title: "Cashout & Track Securely",
-        description:
-            "Easily cash out money from your wallet to your bank or mobile account. Track every cashout with instant notifications and detailed history.",
-        img: "https://i.ibb.co.com/2388hWvB/images-11.jpg",
-    }
+
 
 ];
 
@@ -43,24 +38,28 @@ const HowItWorks = () => {
                     Get started in just 4 simple steps
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {steps.map((step) => (
-                        <div
-                            key={step.id}
-                            className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
-                        >
+                        <div>
                             <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-lg">
                                 {step.id}
                             </div>
-                            <img
-                                src={step.img}
-                                alt={step.title}
-                                className="mx-auto mb-4 w-full h-28 object-contain"
-                            />
-                            <h3 className="text-lg font-semibold mb-2 text-gray-800">
-                                {step.title}
-                            </h3>
-                            <p className="text-sm text-gray-600">{step.description}</p>
+                            <div
+                                key={step.id}
+                                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition"
+                            >
+
+                                <img
+                                    src={step.img}
+                                    alt={step.title}
+                                    className="mx-auto mb-4 w-full h-28 object-contain"
+                                />
+                                <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                                    {step.title}
+                                </h3>
+                                <p className="text-sm text-gray-600">{step.description}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
