@@ -45,7 +45,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        "https://digital-wallet-server-tau.vercel.appapi/update-profile",
         { name: nameInput },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -73,7 +73,7 @@ const Profile = () => {
 
       const token = localStorage.getItem("token");
       await axios.put(
-        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        "https://digital-wallet-server-tau.vercel.appapi/update-profile",
         { photo: data.data.url },
         { headers: { Authorization: `Bearer ${token}` } }
       );
