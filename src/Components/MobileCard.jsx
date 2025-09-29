@@ -4,7 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 const MobileCard = () => {
   return (
-    <section className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center bg-gradient-to-br from-[#1A0033] via-[#330066] to-[#590080] text-white px-4 py-16 lg:px-24 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center px-4 py-16 lg:px-24 overflow-hidden">
       {/* Background blobs */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
       <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-purple-500 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -18,14 +18,14 @@ const MobileCard = () => {
           transition={{ duration: 0.8 }}
           className="text-4xl lg:text-5xl font-bold leading-tight"
         >
-          Our Easy Steps For <span className="text-[#9F7AEA]">SignUp</span>
+          Our Easy Steps For <span className="text-primary">SignUp</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-gray-300 mx-auto lg:mx-0 max-w-md"
+          className="text-secondary bg-base-100 mx-auto lg:mx-0 max-w-md"
         >
           Follow these simple steps to quickly create your account, set up your
           preferences, and start using our platform seamlessly. No hassle, no
@@ -51,9 +51,9 @@ const MobileCard = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 + index * 0.1 }}
-              className="flex items-center gap-2 text-gray-200 text-lg"
+              className="flex items-center gap-2 dark:text-gray-200  text-lg"
             >
-              <FaCheckCircle className="text-[#9F7AEA]" /> {item}
+              <FaCheckCircle className="text-primary" /> {item}
             </motion.li>
           ))}
         </motion.ul>

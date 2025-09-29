@@ -1,19 +1,32 @@
-// /** @type {import('tailwindcss').Config} */
+// // tailwind.config.js
 // export default {
 //   content: [
 //     "./index.html",
 //     "./src/**/*.{js,ts,jsx,tsx}",
 //   ],
-//   theme: {
-//     extend: {
-//       colors: {
-//         sazzad: "var(--color-base-100)",
-//         cardColor: "var(--color-base-300)",
-//       },
-//     },
-//   },
 //   plugins: [require("daisyui")],
+//   daisyui: {
+//     themes: [
+//       {
+//         light: {
+//           "primary": "#06923E",
+//           "secondary": "#000000",
+//           "card": "#FFFFFF",
+//           "base-100": "#F5F7FA",
+//         },
+//       },
+//       {
+//         dark: {
+//           "primary": "#34D399",
+//           "secondary": "#FFFFFF",
+//           "card": "#000000",
+//           "base-100": "#1A1C1E",
+//         },
+//       },
+//     ],
+//   },
 // };
+
 
 //primary color #06923E
 // Secondary color #FF6600

@@ -141,6 +141,20 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to="/dashboard/mycard"
+              className={({ isActive }) =>
+                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
+                  isActive
+                    ? "bg-white text-[#06923E] font-semibold"
+                    : "hover:bg-[#057a33]"
+                }`
+              }
+            >
+              <FaMoneyBillWave /> My Cards
+            </NavLink>
+          </li>
+          <li>
             <button className="flex items-center gap-2 rounded-lg px-3 py-2 bg-red-600 hover:bg-red-700 transition-all text-white font-semibold">
               <FaSignOutAlt /> LogOut
             </button>

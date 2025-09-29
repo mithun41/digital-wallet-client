@@ -1,4 +1,7 @@
+import HowItWorks from "../../../Components/HowItWorks";
 import MobileCard from "../../../Components/MobileCard";
+import MutionCard from "../../../Components/MutionCard";
+import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -14,6 +17,9 @@ const Home = () => {
         <Banner></Banner>
       </section>
       <section>
+        <OurHistory></OurHistory>
+      </section>
+      <section>
         <Features></Features>
       </section>
       <HeroSection></HeroSection>
@@ -21,6 +27,9 @@ const Home = () => {
       <section>
         <section>
           <MobileCard></MobileCard>
+        </section>
+        <section>
+          <HowItWorks></HowItWorks>
         </section>
         <PaymentCard></PaymentCard>
       </section>
@@ -32,6 +41,10 @@ const Home = () => {
       </section>
       <section>
         <Subscription></Subscription>
+      </section>
+      <section><Subscription></Subscription></section>
+      <section>
+        <MutionCard></MutionCard>
       </section>
     </div>
   );
