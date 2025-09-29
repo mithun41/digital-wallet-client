@@ -1,3 +1,4 @@
+import HowItWorks from "../../../Components/HowItWorks";
 import MobileCard from "../../../Components/MobileCard";
 import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
@@ -26,6 +27,9 @@ const Home = () => {
       <section>
         <section>
           <MobileCard></MobileCard>
+        </section>
+        <section>
+          <HowItWorks></HowItWorks>
         </section>
         <PaymentCard></PaymentCard>
       </section>
