@@ -1,15 +1,45 @@
 import React from "react";
-import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import {  useAnimation } from "framer-motion";
+import {
+  FaWallet,
+  FaMoneyBillWave,
+  FaGift,
+  FaExchangeAlt,
+} from "react-icons/fa";
+import { Link } from "react-router";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {
   const features = [
-    { title: "Add Money", description: "Top up your wallet instantly from your bank account or card.", icon: <FaMoneyBillWave />, color: "from-green-400 to-green-600", link: '' },
-    { title: "Send Money", description: "Transfer funds to friends, family, or merchants securely.", icon: <FaExchangeAlt />, color: "from-blue-400 to-blue-600", link: '/Send_money' },
-    { title: "Wallet", description: "Check your wallet balance and manage your funds easily.", icon: <FaWallet />, color: "from-purple-400 to-purple-600", link: '' },
-    { title: "Rewards", description: "Earn cashback and rewards on your transactions.", icon: <FaGift />, color: "from-yellow-400 to-yellow-500", link: '' },
+    {
+      title: "Add Money",
+      description:
+        "Top up your wallet instantly from your bank account or card.",
+      icon: <FaMoneyBillWave />,
+      color: "from-green-400 to-green-600",
+      link: "",
+    },
+    {
+      title: "Send Money",
+      description: "Transfer funds to friends, family, or merchants securely.",
+      icon: <FaExchangeAlt />,
+      color: "from-blue-400 to-blue-600",
+      link: "/Send_money",
+    },
+    {
+      title: "Wallet",
+      description: "Check your wallet balance and manage your funds easily.",
+      icon: <FaWallet />,
+      color: "from-purple-400 to-purple-600",
+      link: "",
+    },
+    {
+      title: "Rewards",
+      description: "Earn cashback and rewards on your transactions.",
+      icon: <FaGift />,
+      color: "from-yellow-400 to-yellow-500",
+      link: "",
+    },
   ];
 
   const controls = useAnimation();
@@ -34,24 +64,34 @@ const Features = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const CardContent = ({ feature }) => (
     <>
       <div
-  className={`w-20 h-20 flex items-center justify-center mb-5 rounded-full bg-gradient-to-br ${feature.color} text-white text-3xl shadow-md`}
->
-  {feature.icon}
-</div>
-      <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{feature.title}</h3>
-      <p className="text-gray-600 dark:text-gray-300 text-sm">{feature.description}</p>
+        className={`w-20 h-20 flex items-center justify-center mb-5 rounded-full bg-gradient-to-br ${feature.color} text-white text-3xl shadow-md`}
+      >
+        {feature.icon}
+      </div>
+      <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+        {feature.title}
+      </h3>
+      <p className="text-gray-600 dark:text-gray-300 text-sm">
+        {feature.description}
+      </p>
     </>
   );
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-16" ref={ref}>
-      <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">Explore Our Features</h2>
+      <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
+        Explore Our Features
+      </h2>
 
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
