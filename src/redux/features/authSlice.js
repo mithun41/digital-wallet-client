@@ -69,7 +69,6 @@ export const fetchUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-
       const response = await axios.get(
         "https://digital-wallet-server-tau.vercel.app/api/me",
         {
