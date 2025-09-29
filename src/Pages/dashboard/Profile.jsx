@@ -5,17 +5,17 @@ import { Pencil, Check, X, Lock, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { fetchUser, resetPinUser } from "../../redux/features/authSlice";
 
-
 const Profile = () => {
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { user, error } = useSelector((state) => state.auth);
+
+  // Local state
 
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const fileInputRef = useRef();
-  console.log(user);
 
   // Change PIN state
   const [showChangePin, setShowChangePin] = useState(false);
@@ -26,14 +26,13 @@ const Profile = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
-  const [pinLoading, setPinLoading] = useState(false);
-useEffect(() => {
-  if (error) {
-    Swal.fire("Error", error, "error");
-  }
-}, [error]);
-  useEffect(() => {
 
+  // ------------------ Sync Redux user to local state ------------------
+  useEffect(() => {
+    if (error) Swal.fire("Error", error, "error");
+  }, [error]);
+
+  useEffect(() => {
     if (!user) {
       dispatch(fetchUser());
     } else {
@@ -42,12 +41,12 @@ useEffect(() => {
     }
   }, [dispatch, user]);
 
-  
   if (!user)
     return (
       <p className="text-center mt-20 text-gray-500">No user data found.</p>
     );
 
+  // ------------------ Photo ------------------
   const triggerFileInput = () => fileInputRef.current.click();
 
   const handlePhotoChange = (e) => {
@@ -55,23 +54,6 @@ useEffect(() => {
     if (file) {
       setPhotoFile(file);
       setPhotoPreview(URL.createObjectURL(file));
-    }
-  };
-console.log(localStorage.getItem("token"));
-
-  const handleUpdateName = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.put(
-        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
-        { name: nameInput },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      Swal.fire("Success", "Name updated successfully!", "success");
-      setEditingName(false);
-      dispatch(fetchUser());
-    } catch (err) {
-      Swal.fire("Error", err.message || "Failed to update name", "error");
     }
   };
 
@@ -98,13 +80,31 @@ console.log(localStorage.getItem("token"));
 
       Swal.fire("Success", "Profile photo updated!", "success");
       setPhotoFile(null);
+      setPhotoPreview(data.data.url);
       dispatch(fetchUser());
     } catch (err) {
       Swal.fire("Error", err.message || "Photo update failed", "error");
     }
   };
 
-  // ------------------- Change PIN Handlers -------------------
+  // ------------------ Name ------------------
+  const handleUpdateName = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        { name: nameInput },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      Swal.fire("Success", "Name updated successfully!", "success");
+      setEditingName(false);
+      dispatch(fetchUser());
+    } catch (err) {
+      Swal.fire("Error", err.message || "Failed to update name", "error");
+    }
+  };
+
+  // ------------------ Change PIN ------------------
   const phoneRegex = /^\+8801[3-9]\d{8}$/;
   const handleSendOtp = () => {
     if (!phoneRegex.test(user.phone)) {
@@ -120,35 +120,38 @@ console.log(localStorage.getItem("token"));
     Swal.fire("OTP Sent!", `Your OTP is: <b>${otpCode}</b>`, "info");
   };
 
- const handleChangePin = async (e) => {
-  e.preventDefault();
+  const handleChangePin = async (e) => {
+    e.preventDefault();
 
-  if (!otpSent) return Swal.fire("OTP Not Sent", "Please generate OTP first", "error");
-  if (!otp) return Swal.fire("OTP Required", "Please enter the OTP", "error");
-  if (otp !== generatedOtp) return Swal.fire("Invalid OTP", "Please enter the correct OTP", "error");
-  if (!oldPin || !newPin) return Swal.fire("Error", "Both Old PIN and New PIN are required", "error");
+    if (!otpSent)
+      return Swal.fire("OTP Not Sent", "Please generate OTP first", "error");
+    if (!otp) return Swal.fire("OTP Required", "Please enter the OTP", "error");
+    if (otp !== generatedOtp)
+      return Swal.fire("Invalid OTP", "Please enter the correct OTP", "error");
+    if (!oldPin || !newPin)
+      return Swal.fire(
+        "Error",
+        "Both Old PIN and New PIN are required",
+        "error"
+      );
 
-  const token = localStorage.getItem("token");
-  if (!token) return Swal.fire("Unauthorized", "Please login again", "error");
+    const token = localStorage.getItem("token");
+    if (!token) return Swal.fire("Unauthorized", "Please login again", "error");
 
-  dispatch(resetPinUser({ phone: user.phone, oldPin, newPin, token }))
-    .unwrap()
-    .then(() => {
-      Swal.fire("Success", "PIN updated successfully!", "success");
-      setOldPin("");
-      setNewPin("");
-      setOtp("");
-      setOtpSent(false);
-      setShowChangePin(false);
-    })
-    .catch((err) => {
-      Swal.fire("Error", err.message || "Failed to update PIN", "error");
-    });
-};
-
-
-
-
+    dispatch(resetPinUser({ phone: user.phone, oldPin, newPin, token }))
+      .unwrap()
+      .then(() => {
+        Swal.fire("Success", "PIN updated successfully!", "success");
+        setOldPin("");
+        setNewPin("");
+        setOtp("");
+        setOtpSent(false);
+        setShowChangePin(false);
+      })
+      .catch((err) => {
+        Swal.fire("Error", err.message || "Failed to update PIN", "error");
+      });
+  };
 
   return (
     <div className="min-h-screen flex justify-center bg-white items-start py-12">
@@ -212,7 +215,9 @@ console.log(localStorage.getItem("token"));
               </>
             ) : (
               <>
-                <h2 className="text-2xl font-bold text-gray-800">{nameInput}</h2>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {nameInput}
+                </h2>
                 <button
                   onClick={() => setEditingName(true)}
                   className="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-full transition-all shadow-md"
@@ -229,14 +234,14 @@ console.log(localStorage.getItem("token"));
           {/* Balance & Status */}
           <div className="mt-3 flex flex-wrap justify-center gap-6">
             <div className="bg-indigo-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
-              Balance: {user.balance} {user.currency}
+              Balance: {user.balance?.toFixed(2)} {user.currency}
             </div>
             <div className="bg-purple-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
               Status: {user.status}
             </div>
           </div>
 
-          {/* Change PIN Button */}
+          {/* Change PIN */}
           {!showChangePin && (
             <button
               onClick={() => setShowChangePin(true)}
@@ -246,7 +251,6 @@ console.log(localStorage.getItem("token"));
             </button>
           )}
 
-          {/* Change PIN Form */}
           {showChangePin && (
             <form
               className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow-inner space-y-4 w-full max-w-md"
@@ -343,13 +347,11 @@ console.log(localStorage.getItem("token"));
                   Cancel
                 </button>
                 <button
-  type="submit"
-  className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md"
->
-  Change PIN
-</button>
-
-
+                  type="submit"
+                  className="py-3 px-6 cursor-pointer text-white font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md"
+                >
+                  Change PIN
+                </button>
               </div>
             </form>
           )}

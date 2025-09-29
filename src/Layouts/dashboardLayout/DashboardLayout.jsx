@@ -114,7 +114,7 @@ const DashboardLayout = () => {
           </li>
           <li>
             <NavLink
-              to="/dashboard/transaction"
+              to="/dashboard/trans-history"
               className={({ isActive }) =>
                 `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
                   isActive
