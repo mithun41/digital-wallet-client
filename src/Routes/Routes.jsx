@@ -12,7 +12,7 @@ import DashboardCashOut from "../Pages/dashboard/DashboardCashOut";
 import AddMoney from "../Pages/dashboard/AddMoney";
 import MobileRecharge from "../Pages/dashboard/MobileRecharge";
 import Error from "../Components/Error/Error";
-import MyCard from "../Pages/dashboard/MyCard";
+import TransactionHistory from "../Pages/dashboard/TransactionHistory/TransactionHistory";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +23,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
+
       {
         path: "Send_money",
         Component: SendMoney,
@@ -37,7 +38,7 @@ export const router = createBrowserRouter([
           { path: "cashOut", Component: DashboardCashOut },
           { path: "addMoney", Component: AddMoney },
           { path: "mobileRecharge", Component: MobileRecharge },
-          { path: "mycard", Component: MyCard },
+          { path: "trans-history", Component: TransactionHistory },
         ],
       },
     ],
