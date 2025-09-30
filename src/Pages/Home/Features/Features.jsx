@@ -1,7 +1,7 @@
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import {  useAnimation } from "framer-motion";
+import {  motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {

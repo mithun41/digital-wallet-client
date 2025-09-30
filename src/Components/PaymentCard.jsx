@@ -1,10 +1,10 @@
-<<<<<<< HEAD
 // App.jsx
 import { Link } from "react-router";
-=======
 import React from "react";
-import { Link } from "react-router-dom";
->>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
+// import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
+// >>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
 import {
   FaBolt,
   FaWifi,
@@ -15,7 +15,7 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-import {  useAnimation } from "framer-motion";
+import {  motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const PaymentCard = () => {
