@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/features/authSlice";
 import Loading from "../Components/loading/Loading";
 
+
 const RootLayout = () => {
   const dispatch = useDispatch();
   const { token, user, loading } = useSelector((state) => state.auth);
@@ -31,7 +32,12 @@ const RootLayout = () => {
           }`}
       >
         <Outlet />
+<<<<<<< HEAD
+      </div>
+      
+=======
       </main>
+>>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
       <Footer />
     </div>
   );
