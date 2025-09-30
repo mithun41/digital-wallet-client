@@ -60,14 +60,14 @@ const AdvancedBenefits = () => {
     }, []);
 
     return (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 ">
             <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 {/* Left Side */}
                 <div data-aos="fade-right">
-                    <h2 className="text-3xl font-bold text-gray-800 mb-3">
+                    <h2 className="text-3xl font-bold text-secondary mb-3">
                         Advanced Benefits
                     </h2>
-                    <p className="text-gray-600 mb-8">
+                    <p className="text-secondary mb-8">
                         Experience next-level digital banking features
                     </p>
 
@@ -75,7 +75,7 @@ const AdvancedBenefits = () => {
                         {benefits.slice(0, 4).map((item) => (
                             <div
                                 key={item.id}
-                                className="flex items-start gap-4 p-4 rounded-xl bg-white shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                                className="flex items-start gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
                             >
                                 <div
                                     className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
@@ -83,10 +83,10 @@ const AdvancedBenefits = () => {
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-800">
+                                    <h3 className="text-lg font-semibold text-secondary">
                                         {item.title}
                                     </h3>
-                                    <p className="text-gray-600 text-sm">{item.description}</p>
+                                    <p className="text-secondary text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}

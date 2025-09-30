@@ -42,12 +42,12 @@ const HowItWorks = () => {
         <section className="py-10">
             <div className="max-w-7xl mx-auto text-center px-4">
                 <h2
-                    className="text-2xl md:text-3xl font-bold text-gray-800 mb-2"
+                    className="text-2xl md:text-3xl font-bold text-secondary mb-2"
                     data-aos="fade-down"
                 >
                     How PayMate Works
                 </h2>
-                <p className="text-gray-600 mb-10" data-aos="fade-up">
+                <p className="text-secondary mb-10" data-aos="fade-up">
                     Get started in just 3 simple steps
                 </p>
 
@@ -71,10 +71,10 @@ const HowItWorks = () => {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                                    <h3 className="text-lg font-semibold mb-2 text-secondary">
                                         {step.title}
                                     </h3>
-                                    <p className="text-sm text-gray-600">{step.description}</p>
+                                    <p className="text-sm text-secondary">{step.description}</p>
                                 </div>
                             </div>
                         </div>
