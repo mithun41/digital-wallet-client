@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,8 @@ import Loading from "../Components/loading/Loading";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
-  const { token, user, loading } = useSelector((state) => state.auth); // ✅ loading স্টেটটি যোগ করা হয়েছে
+  const { token, user, loading } = useSelector((state) => state.auth);
+  const location = useLocation();
 
   useEffect(() => {
     if (token && !user) {
@@ -16,17 +17,19 @@ const RootLayout = () => {
     }
   }, [token, user, dispatch]);
 
-  // ✅ নতুন লজিক: লোডিং অবস্থায় একটি লোডিং স্ক্রিন দেখাও
   if (token && loading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
+  // ✅ Dashboard এ থাকলে Root Navbar দেখাবো না
+  const isDashboard = location.pathname.startsWith("/dashboard");
+
   return (
-    <div >
-      <Navbar />
-      <div className=" dark:bg-gray-900 pt-16">
+    <div className="min-h-screen flex flex-col">
+      {!isDashboard && <Navbar />}
+      <main className="flex-1 dark:bg-gray-900 pt-16">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   );
