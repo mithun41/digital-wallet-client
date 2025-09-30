@@ -27,7 +27,7 @@ const teamMembers = [
         name: "Monir Hossain",
         role: "Mearn Stack Developer",
         description: "Specializes in product logic, API handling, and user-friendly feature development.",
-        img: "https://i.ibb.co.com/bRPQCfL4/193635882.jpg",
+        img: "https://i.ibb.co.com/dsh9ThVz/792e5133-538f-4a90-8ac5-53c288571487.png",
     },
     {
         id: 5,

@@ -21,13 +21,15 @@ const RootLayout = () => {
     return <Loading />;
   }
 
-  // ✅ Dashboard এ থাকলে Root Navbar দেখাবো না
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
     <div className="min-h-screen flex flex-col">
       {!isDashboard && <Navbar />}
-      <main className="flex-1 dark:bg-gray-900 pt-16">
+      <main
+        className={`flex-1 dark:bg-gray-900 ${!isDashboard ? "pt-16" : ""
+          }`}
+      >
         <Outlet />
       </main>
       <Footer />

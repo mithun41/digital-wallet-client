@@ -1,165 +1,187 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router";
-import {
-  FaHome,
-  FaUserCircle,
-  FaWallet,
-  FaMobileAlt,
-  FaExchangeAlt,
-  FaMoneyBillWave,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { Bell, User, Settings, LogOut, Search, Smartphone, CreditCard, DollarSign } from "lucide-react";
+import logo from '../../assets/logo2.png'
+import { useSelector } from "react-redux";
+import Theme from "../../Components/theme/Theme";
+
 
 const DashboardLayout = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
-    <div className="drawer lg:drawer-open bg-[#06923E] min-h-screen text-white">
-      {/* Toggle for mobile */}
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+      {/* Navbar - Fixed Top */}
+      <header className="w-full fixed top-0 z-50 flex items-center justify-between bg-white dark:bg-gray-800 shadow-md px-6 py-3">
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <Link to="/">
+            <img src={logo} alt="Logo" className="h-10 w-auto cursor-pointer" />
+          </Link>
+        </div>
 
-      {/* Page Content */}
-      <div className="drawer-content flex flex-col">
-        {/* Mobile Navbar */}
-        <div className="navbar bg-[#06923E] w-full lg:hidden shadow-md">
-          <div className="flex-none">
-            <label
-              htmlFor="my-drawer-2"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-6 w-6 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </label>
+        {/* Right side */}
+        <div className="flex items-center gap-6">
+          {/* Search */}
+          <div className="relative hidden md:block">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="pl-10 pr-4 py-2 w-64 border rounded-lg 
+              focus:outline-none focus:ring-2 focus:ring-purple-400
+              bg-white dark:bg-gray-700 dark:text-gray-200
+              dark:border-gray-600"
+            />
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300"
+            />
           </div>
-          <div className="mx-2 flex-1 px-2 font-bold text-lg">🌿 Dashboard</div>
-        </div>
 
-        {/* Page Content Outlet */}
-        <div className="p-6 bg-white text-black min-h-screen rounded-tl-2xl shadow-inner">
-          <Outlet />
-        </div>
-      </div>
+          {/* Notification */}
+          <div className="relative cursor-pointer">
+            <Bell size={22} className="text-gray-600 dark:text-gray-300" />
+            <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+              5
+            </span>
+          </div>
 
-      {/* Sidebar */}
-      <div className="drawer-side">
-        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu bg-[#06923E] text-white min-h-full w-80 p-6 pt-10 space-y-3 shadow-lg">
-          {/* Navigation Items */}
-          <li>
+          {/* Theme Toggle */}
+          <Theme />
+
+          {/* User Info + Image */}
+          {user && (
+            <div className="flex items-center gap-3">
+              {user.photo ? (
+                <img
+                  src={user.photo}
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 object-cover"
+                />
+              ) : (
+                <img
+                  src="https://i.pravatar.cc/40"
+                  alt="Default User"
+                  className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 object-cover"
+                />
+              )}
+              <div className="text-right hidden sm:block">
+                <p className="font-medium text-gray-800 dark:text-gray-200">
+                  {user.name || "Guest User"}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {user.phone || "N/A"}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+
+      {/* Main Content (Sidebar + Page) */}
+      <div className="flex flex-1 pt-16">
+        {/* Sidebar */}
+        <aside className="w-64 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto">
+          <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
+            Dashboard Overview
+          </h3>
+          <nav className="space-y-2">
+
             <NavLink
-              to="/dashboard"
-              end
+              to="/dashboard/transaction"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaHome /> Home
+              <CreditCard size={18} /> Transaction
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
               to="/dashboard/profile"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaUserCircle /> Profile
+              <User size={18} /> Profile
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
-              to="/dashboard/AddMoney"
+              to="/dashboard/addMoney"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaWallet /> Add Money
+              <DollarSign size={18} /> Add Money
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
-              to="/dashboard/MobileRecharge"
+              to="/dashboard/mobileRecharge"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaMobileAlt /> Mobile Recharge
+              <Smartphone size={18} /> Mobile Recharge
             </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/dashboard/trans-history"
-              className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
-                }`
-              }
-            >
-              <FaExchangeAlt /> Transaction
-            </NavLink>
-          </li>
-          <li>
+
             <NavLink
               to="/dashboard/cashOut"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaMoneyBillWave /> CashOut
+              <DollarSign size={18} /> CashOut
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
-              to="/dashboard/mycard"
+              to="/dashboard/settings"
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-lg px-3 py-2 transition-all ${
-                  isActive
-                    ? "bg-white text-[#06923E] font-semibold"
-                    : "hover:bg-[#057a33]"
+                `flex items-center gap-3 px-3 py-2 
+                 hover:bg-purple-100 dark:hover:bg-purple-900 
+                 ${isActive
+                  ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                  : "text-gray-700 dark:text-gray-300"
                 }`
               }
             >
-              <FaMoneyBillWave /> My Cards
+              <Settings size={18} /> Settings
             </NavLink>
-          </li>
-          <li>
-            <button className="flex items-center gap-2 rounded-lg px-3 py-2 bg-red-600 hover:bg-red-700 transition-all text-white font-semibold">
-              <FaSignOutAlt /> LogOut
+
+            {/* Logout Button */}
+            <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-900 text-red-500">
+              <LogOut size={18} /> Logout
             </button>
-          </li>
-        </ul>
+          </nav>
+        </aside>
+
+        {/* Page Content */}
+        <main className="flex-1 p-6 text-gray-800 dark:text-gray-200">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
