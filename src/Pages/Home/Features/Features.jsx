@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  FaWallet,
-  FaMoneyBillWave,
-  FaGift,
-  FaExchangeAlt,
-} from "react-icons/fa";
-import { Link } from "react-router";
+import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
+import { Link } from "react-router-dom"; // <-- react-router নয়, react-router-dom ব্যবহার করবে
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -13,8 +8,7 @@ const Features = () => {
   const features = [
     {
       title: "Add Money",
-      description:
-        "Top up your wallet instantly from your bank account or card.",
+      description: "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
       color: "from-green-400 to-green-600",
       link: "",
@@ -24,7 +18,7 @@ const Features = () => {
       description: "Transfer funds to friends, family, or merchants securely.",
       icon: <FaExchangeAlt />,
       color: "from-blue-400 to-blue-600",
-      link: "/Send_money",
+      link: "/send_money",
     },
     {
       title: "Wallet",
@@ -56,9 +50,7 @@ const Features = () => {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.25,
-      },
+      transition: { staggerChildren: 0.25 },
     },
   };
 

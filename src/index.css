@@ -5,15 +5,31 @@
 
 @plugin "daisyui/theme" {
   name: light;
---color-base-100: #F5F7FA;
---color-primary: #06923E;
+  --color-base-100: #F5F7FA;
+  --color-primary: #06923E;
   --color-secondary: black;
 }
- 
+
 
 @plugin "daisyui/theme" {
   name: dark;
   --color-base-100: #1A1C1E;
   --color-primary: #34D399;
   --color-secondary: white;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  width: max-content;
 }

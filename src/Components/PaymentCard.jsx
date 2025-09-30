@@ -1,3 +1,4 @@
+import React from "react";
 // App.jsx
 import { Link } from "react-router";
 import {
@@ -12,7 +13,7 @@ import {
 } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import React from "react";
+
 
 const PaymentCard = () => {
   const payments = [
