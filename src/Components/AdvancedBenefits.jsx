@@ -56,7 +56,7 @@ const benefits = [
 
 const AdvancedBenefits = () => {
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 2000, once: true });
     }, []);
 
     return (
@@ -73,7 +73,10 @@ const AdvancedBenefits = () => {
 
                     <div className="space-y-6">
                         {benefits.slice(0, 4).map((item) => (
-                            <div key={item.id} className="flex items-start gap-4">
+                            <div
+                                key={item.id}
+                                className="flex items-start gap-4 p-4 rounded-xl bg-white shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                            >
                                 <div
                                     className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
                                 >
@@ -95,24 +98,10 @@ const AdvancedBenefits = () => {
                     <img
                         src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
                         alt="Mobile App"
-                        className="rounded-2xl shadow-lg"
+                        className="rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
                     />
                 </div>
             </div>
-
-            {/* Marquee Section */}
-            {/* <div className="overflow-hidden mt-12">
-                <div className="flex animate-marquee whitespace-nowrap gap-10">
-                    {benefits.map((item) => (
-                        <span
-                            key={item.id}
-                            className="px-6 py-2 bg-white shadow rounded-full text-gray-700 font-medium flex items-center gap-2"
-                        >
-                            {item.icon} {item.title}
-                        </span>
-                    ))}
-                </div>
-            </div> */}
         </section>
     );
 };
