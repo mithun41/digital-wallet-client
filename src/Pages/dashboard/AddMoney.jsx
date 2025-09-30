@@ -10,6 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/authSlice";
+import axios from "axios";
 
 const methods = [
   {
@@ -42,7 +43,7 @@ const AddMoney = () => {
   const dispatch = useDispatch();
   const {user, loading, error} = useSelector((state) => state.auth);
 
-console.log(user);
+// console.log(user);
 
 useEffect(() => {
 
@@ -50,6 +51,14 @@ useEffect(() => {
       dispatch(fetchUser());
     } 
   }, [dispatch, user]);
+
+  useEffect(() => {
+    axios.get('https://digital-wallet-server-tau.vercel.app/api/update-profile').then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    }) 
+  }, [])
 
   // console.log(amount);
   const { handleSubmit, register, setValue } = useForm({
@@ -68,7 +77,27 @@ useEffect(() => {
   }, [selectedMethod, setValue]);
 
   const onSubmit = (data) => {
+    data.userName = user.name;
+    data.userPhoneNumber = user.phone;
+    data.userPhoto = user.photo;
+    data.addTime = new Date()
     console.log(data);
+    axios.post('http://localhost:5000/send_money', data).then(res => {
+      if(res) {
+
+      }
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
+
+    console.log(user.phone);
+
+    axios.put(`http://localhost:5000/api/singleUser/?phone=${encodeURIComponent(user.phone)}`, data).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
   };
 
   // const handleAddMoney = () => {

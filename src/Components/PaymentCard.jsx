@@ -2,6 +2,9 @@
 import { Link } from "react-router";
 import React from "react";
 <<<<<<< HEAD
+import { Link } from "react-router";
+=======
+<<<<<<< HEAD
 // import { Link } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
@@ -10,6 +13,7 @@ import React from "react";
 // App.jsx
 import { Link } from "react-router";
 >>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
+>>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
 import {
   FaBolt,
   FaWifi,
@@ -26,6 +30,7 @@ import {  motion, useAnimation } from "framer-motion";
 import { motion, useAnimation } from "framer-motion";
 >>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import { useInView } from "react-intersection-observer";
+import {motion} from 'framer-motion'
 
 
 const PaymentCard = () => {
