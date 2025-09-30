@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React from "react";
+=======
 // App.jsx
+>>>>>>> 76077e4274fdd2fbd3464bbdea02f78221ecf034
 import { Link } from "react-router";
 import {
   FaBolt,
