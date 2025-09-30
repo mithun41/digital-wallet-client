@@ -34,3 +34,19 @@
   background-size: 60px 60px, 60px 60px, 30px 30px;
   opacity: 0.5;
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}

@@ -1,5 +1,6 @@
 // App.jsx
 import { Link } from "react-router";
+import React from "react";
 import {
   FaBolt,
   FaWifi,
@@ -12,7 +13,6 @@ import {
 } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import React from "react";
 
 const PaymentCard = () => {
   const payments = [

@@ -2,10 +2,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
-// Import icons (you'd typically use a library like 'lucide-react' or 'react-icons')
-// For this example, I'll use simple emojis/unicode, but recommend using an icon library.
-
-// --- UI Utility Components (Optional but good practice) ---
 
 const StatCard = ({ icon, title, value, colorClass }) => (
   <div className="flex flex-col items-center justify-center p-6 bg-gray-800/50 rounded-2xl shadow-xl border border-gray-700/50 transition-all duration-300 hover:bg-gray-700/50">
@@ -16,8 +12,6 @@ const StatCard = ({ icon, title, value, colorClass }) => (
     </div>
   </div>
 );
-
-// --- Main Component ---
 
 const TransactionHistory = () => {
   const user = useSelector((state) => state.auth.user);

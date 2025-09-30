@@ -1,8 +1,11 @@
+import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
 import MobileCard from "../../../Components/MobileCard";
 import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
+import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
+import TeamMarquee from "../../../Components/TeamMarquee";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
 import Guarantee from "../Guarantee/Guarantee";
@@ -20,16 +23,23 @@ const Home = () => {
         <OurHistory></OurHistory>
       </section>
       <section>
+        <WhyChooseUs></WhyChooseUs>
+      </section>
+      <section>
         <Features></Features>
       </section>
       <HeroSection></HeroSection>
 
       <section>
         <section>
-          <MobileCard></MobileCard>
+          {/* <MobileCard></MobileCard> */}
+          <TeamMarquee></TeamMarquee>
         </section>
         <section>
           <HowItWorks></HowItWorks>
+        </section>
+        <section>
+          <AdvancedBenefits></AdvancedBenefits>
         </section>
         <PaymentCard></PaymentCard>
       </section>
@@ -42,7 +52,7 @@ const Home = () => {
       <section>
         <Subscription></Subscription>
       </section>
-      <section><Subscription></Subscription></section>
+
       <section>
         <MutionCard></MutionCard>
       </section>
