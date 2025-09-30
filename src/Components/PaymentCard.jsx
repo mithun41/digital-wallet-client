@@ -1,19 +1,5 @@
 // App.jsx
 import { Link } from "react-router";
-import React from "react";
-<<<<<<< HEAD
-import { Link } from "react-router";
-=======
-<<<<<<< HEAD
-// import { Link } from "react-router-dom";
-
-// import { Link } from "react-router-dom";
-// >>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
-=======
-// App.jsx
-import { Link } from "react-router";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
->>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
 import {
   FaBolt,
   FaWifi,
@@ -24,124 +10,88 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-<<<<<<< HEAD
-import {  motion, useAnimation } from "framer-motion";
-=======
-import { motion, useAnimation } from "framer-motion";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
-import { useInView } from "react-intersection-observer";
-import {motion} from 'framer-motion'
-
 
 const PaymentCard = () => {
   const payments = [
     {
       name: "Electricity",
-      icon: <FaBolt />,
-      color: "from-yellow-400 to-yellow-600",
+      icon: <FaBolt className="text-yellow-500 text-2xl" />,
       path: "/electricity",
     },
     {
       name: "Internet",
-      icon: <FaWifi />,
-      color: "from-red-400 to-red-600",
+      icon: <FaWifi className="text-red-500 text-2xl" />,
       path: "/internet",
     },
     {
       name: "Voucher",
-      icon: <FaTicketAlt />,
-      color: "from-green-400 to-green-600",
+      icon: <FaTicketAlt className="text-green-500 text-2xl" />,
       path: "/voucher",
     },
     {
       name: "Assurance",
-      icon: <FaShieldAlt />,
-      color: "from-pink-400 to-pink-600",
+      icon: <FaShieldAlt className="text-red-400 text-2xl" />,
       path: "/assurance",
     },
     {
       name: "Merchant",
-      icon: <FaStore />,
-      color: "from-green-500 to-green-700",
+      icon: <FaStore className="text-green-600 text-2xl" />,
       path: "/merchant",
     },
     {
       name: "Mobile Credit",
-      icon: <FaMobileAlt />,
-      color: "from-blue-400 to-blue-600",
+      icon: <FaMobileAlt className="text-blue-500 text-2xl" />,
       path: "/mobile-credit",
     },
     {
       name: "Bill",
-      icon: <FaFileInvoice />,
-      color: "from-orange-400 to-orange-600",
+      icon: <FaFileInvoice className="text-orange-400 text-2xl" />,
       path: "/bill",
     },
     {
       name: "More",
-      icon: <FaEllipsisH />,
-      color: "from-indigo-400 to-indigo-600",
+      icon: <FaEllipsisH className="text-green-500 text-2xl" />,
       path: "/more",
     },
   ];
 
-  // Animation controls
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ threshold: 0.2 });
-
-  React.useEffect(() => {
-    if (inView) controls.start("visible");
-    else controls.start("hidden");
-  }, [inView, controls]);
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.2 } },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12" ref={ref}>
-      <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-        Payment List
-      </h2>
-
-      <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate={controls}
-      >
+    <div className="w-10/12  mx-auto  p-4 rounded-xl shadow-md">
+      <h2 className="text-lg font-semibold mb-4">Payment List</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {payments.map((item, index) => (
-          <motion.div key={index} variants={cardVariants}>
-            <Link
-              to={item.path}
-              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500"
-            >
-              {/* Icon wrapper with gradient */}
-              <div
-                className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${item.color} text-white text-2xl shadow-md`}
-              >
-                {item.icon}
-              </div>
-
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                {item.name}
-              </span>
-            </Link>
-          </motion.div>
+          <Link
+            key={index}
+            to={item.path}
+            className="flex flex-col items-center justify-center bg-base-100 rounded-lg p-3 hover:scale-105 text-primary shadow-2xl transition"
+          >
+            {item.icon}
+            <span className="text-sm mt-2 text-center">{item.name}</span>
+          </Link>
         ))}
-      </motion.div>
-    </section>
+      </div>
+    </div>
   );
 };
 
 export default PaymentCard;
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<PaymentList />} />
+//         <Route path="/electricity" element={<h1>Electricity Page</h1>} />
+//         <Route path="/internet" element={<h1>Internet Page</h1>} />
+//         <Route path="/voucher" element={<h1>Voucher Page</h1>} />
+//         <Route path="/assurance" element={<h1>Assurance Page</h1>} />
+//         <Route path="/merchant" element={<h1>Merchant Page</h1>} />
+//         <Route path="/mobile-credit" element={<h1>Mobile Credit Page</h1>} />
+//         <Route path="/bill" element={<h1>Bill Page</h1>} />
+//         <Route path="/more" element={<h1>More Services</h1>} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;

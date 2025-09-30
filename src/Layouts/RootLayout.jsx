@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/features/authSlice";
 import Loading from "../Components/loading/Loading";
 
-
 const RootLayout = () => {
   const dispatch = useDispatch();
   const { token, user, loading } = useSelector((state) => state.auth);
   const location = useLocation();
 
+  // ✅ Fetch user if token exists
   useEffect(() => {
     if (token && !user) {
       dispatch(fetchUser());
@@ -25,20 +25,24 @@ const RootLayout = () => {
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      {/* ✅ Custom background */}
+      <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none opacity-50 bg-base-100" />
+
+      {/* ✅ Navbar hide in dashboard */}
       {!isDashboard && <Navbar />}
+
+      {/* ✅ Content */}
       <main
-        className={`flex-1 dark:bg-gray-900 ${!isDashboard ? "pt-16" : ""
-          }`}
+        className={`flex-1 relative z-10 dark:bg-gray-900 ${
+          !isDashboard ? "pt-16" : ""
+        }`}
       >
         <Outlet />
-<<<<<<< HEAD
-      </div>
-      
-=======
       </main>
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
-      <Footer />
+
+      {/* ✅ Footer hide in dashboard */}
+      {!isDashboard && <Footer />}
     </div>
   );
 };

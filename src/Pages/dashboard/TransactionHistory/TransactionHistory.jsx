@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
+
+const StatCard = ({ icon, title, value, colorClass }) => (
+  <div className="flex flex-col items-center justify-center p-6 bg-gray-800/50 rounded-2xl shadow-xl border border-gray-700/50 transition-all duration-300 hover:bg-gray-700/50">
+    <div className={`text-3xl mb-3 ${colorClass}`}>{icon}</div>
+    <div className="text-xl font-extrabold text-white mb-1">{value}</div>
+    <div className="text-gray-400 font-medium text-sm tracking-wider uppercase">
+      {title}
+    </div>
+  </div>
+);
 
 const TransactionHistory = () => {
   const user = useSelector((state) => state.auth.user);
@@ -15,9 +25,12 @@ const TransactionHistory = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/transactions", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        "https://digital-wallet-server-tau.vercel.app/api/transactions",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setTransactions(res.data);
     } catch (err) {
       console.error("Fetch Transactions Error:", err);
@@ -30,133 +43,155 @@ const TransactionHistory = () => {
     fetchTransactions();
   }, [user]);
 
-  // Filter
-  const filteredTransactions = transactions.filter((t) => {
-    if (filter === "send") return t.senderPhone === user.phone;
-    if (filter === "receive") return t.receiverPhone === user.phone;
-    return t.senderPhone === user.phone || t.receiverPhone === user.phone;
-  });
+  // Filtered transactions (use useMemo for performance)
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((t) => {
+      if (filter === "send") return t.senderPhone === user.phone;
+      if (filter === "receive") return t.receiverPhone === user.phone;
+      return t.senderPhone === user.phone || t.receiverPhone === user.phone;
+    });
+  }, [transactions, filter, user]);
+
+  // Calculate summary stats (use useMemo for performance)
+  const summaryStats = useMemo(() => {
+    const received = transactions
+      .filter((t) => t.receiverPhone === user?.phone)
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    const sent = transactions
+      .filter((t) => t.senderPhone === user?.phone)
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    return { received, sent, total: transactions.length };
+  }, [transactions, user]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-6">
-      <div className="max-w-5xl mx-auto relative z-10">
+    // Professional Dark Theme: Deep blue/black background
+    <div className="min-h-screen bg-gray-900 text-white p-6 md:p-10">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-black text-white tracking-tight mb-3">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Transaction
-            </span>{" "}
-            <span className="text-white/90">History</span>
+          <h1 className="text-5xl font-extrabold text-white tracking-tight mb-2">
+            Transaction <span className="text-cyan-400">Ledger</span>
           </h1>
-          <p className="text-white/70 text-lg font-medium">
-            Track and manage your digital payments easily
+          <p className="text-gray-400 text-lg font-normal">
+            A secure and detailed overview of your digital wallet activity.
           </p>
         </div>
 
-        {/* Filter buttons */}
-        <div className="flex justify-center gap-4 mb-10">
-          {["all", "send", "receive"].map((type) => (
-            <button
-              key={type}
-              onClick={() => setFilter(type)}
-              className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
-                filter === type
-                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-105"
-                  : "bg-white/20 text-white/80 hover:bg-white/30 backdrop-blur-lg"
-              }`}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </button>
-          ))}
+        {/* Summary Stats - Moved to the top for better visibility */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <StatCard
+            icon="⬇️"
+            title="Total Received"
+            value={`৳${summaryStats.received.toLocaleString()}`}
+            colorClass="text-emerald-400"
+          />
+          <StatCard
+            icon="⬆️"
+            title="Total Sent"
+            value={`৳${summaryStats.sent.toLocaleString()}`}
+            colorClass="text-red-400"
+          />
+          <StatCard
+            icon="📊"
+            title="Total Transactions"
+            value={summaryStats.total.toLocaleString()}
+            colorClass="text-indigo-400"
+          />
         </div>
 
-        {/* Transaction list */}
-        <div className="bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 p-8 shadow-2xl relative overflow-hidden">
+        {/* Filter and List Container */}
+        <div className="bg-gray-800/70 backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-gray-700/50">
+          {/* Filter buttons - Cleaner look */}
+          <div className="flex justify-start gap-3 mb-8 border-b border-gray-700 pb-4">
+            {["all", "send", "receive"].map((type) => (
+              <button
+                key={type}
+                onClick={() => setFilter(type)}
+                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all duration-300 uppercase tracking-wider ${
+                  filter === type
+                    ? "bg-cyan-500 text-gray-900 shadow-md shadow-cyan-500/30"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                }`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+
+          {/* Transaction list */}
           {loading ? (
-            <p className="text-center text-white/80">Loading...</p>
+            <p className="text-center text-gray-400 py-10">
+              Loading transactions...
+            </p>
           ) : filteredTransactions.length === 0 ? (
-            <p className="text-center text-white/80">No transactions found</p>
+            <p className="text-center text-gray-400 py-10">
+              No transactions found for the current filter.
+            </p>
           ) : (
-            <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {filteredTransactions.map((t, index) => {
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-3 custom-scrollbar">
+              {filteredTransactions.map((t) => {
                 const isSender = t.senderPhone === user.phone;
+                const statusIcon = isSender ? "⬆️" : "⬇️";
+                const typeText = isSender ? "Money Sent" : "Money Received";
+                const counterParty = isSender ? t.receiverPhone : t.senderPhone;
+
                 return (
                   <div
                     key={t._id}
-                    className="group flex items-center justify-between p-6 border border-white/20 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-xl transition-all duration-300 relative overflow-hidden"
-                    style={{ animationDelay: `${index * 80}ms` }}
+                    className="flex items-center justify-between p-5 rounded-xl bg-gray-700/30 hover:bg-gray-700/50 border border-gray-700 transition-all duration-300"
                   >
-                    <div className="flex items-center gap-6 relative z-10">
+                    {/* Left side: Icon, Details */}
+                    <div className="flex items-center gap-4">
+                      {/* Icon */}
                       <div
-                        className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg ${
+                        className={`w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold ${
                           isSender
-                            ? "bg-gradient-to-br from-red-500 via-pink-500 to-rose-600"
-                            : "bg-gradient-to-br from-emerald-500 via-green-500 to-cyan-500"
+                            ? "bg-red-900/50 text-red-300"
+                            : "bg-emerald-900/50 text-emerald-300"
                         }`}
                       >
-                        {isSender ? "↗" : "↙"}
+                        {statusIcon}
                       </div>
+
+                      {/* Text details */}
                       <div>
-                        <h4 className="font-black text-white text-xl mb-1">
-                          {isSender ? "💸 Sent Money" : "💰 Received Money"}
+                        <h4 className="font-bold text-lg text-white">
+                          {typeText}
                         </h4>
-                        <p className="text-white/70 text-sm mb-1">
-                          {t.note || "No note"}
+                        <p className="text-gray-400 text-sm">
+                          {isSender
+                            ? `To: ${counterParty}`
+                            : `From: ${counterParty}`}
                         </p>
-                        <p className="text-white/50 text-xs">
-                          {format(new Date(t.createdAt), "PPpp")}
+                        <p className="text-gray-500 text-xs mt-1">
+                          {format(
+                            new Date(t.createdAt),
+                            "MMM dd, yyyy 'at' hh:mm a"
+                          )}
                         </p>
                       </div>
                     </div>
-                    <div
-                      className={`font-black text-2xl relative z-10 ${
-                        isSender ? "text-red-400" : "text-emerald-400"
-                      }`}
-                    >
-                      {isSender ? "-" : "+"}৳{t.amount.toLocaleString()}
+
+                    {/* Right side: Amount and Note */}
+                    <div className="flex flex-col items-end">
+                      <p
+                        className={`font-extrabold text-2xl tracking-tight ${
+                          isSender ? "text-red-400" : "text-emerald-400"
+                        }`}
+                      >
+                        {isSender ? "-" : "+"} ৳{t.amount.toLocaleString()}
+                      </p>
+                      <p className="text-gray-500 text-sm mt-1">
+                        {t.note || "No note provided"}
+                      </p>
                     </div>
                   </div>
                 );
               })}
             </div>
           )}
-        </div>
-
-        {/* Summary stats */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="text-center p-6 bg-gradient-to-br from-emerald-100/20 to-cyan-100/20 rounded-2xl backdrop-blur-xl border border-white/20">
-            <div className="text-2xl mb-2">💸</div>
-            <div className="font-black text-emerald-300 text-lg">
-              ৳
-              {transactions
-                .filter((t) => t.receiverPhone === user.phone)
-                .reduce((sum, t) => sum + t.amount, 0)
-                .toLocaleString()}
-            </div>
-            <div className="text-emerald-200 font-semibold text-sm">
-              Total Received
-            </div>
-          </div>
-          <div className="text-center p-6 bg-gradient-to-br from-red-100/20 to-pink-100/20 rounded-2xl backdrop-blur-xl border border-white/20">
-            <div className="text-2xl mb-2">💰</div>
-            <div className="font-black text-red-300 text-lg">
-              ৳
-              {transactions
-                .filter((t) => t.senderPhone === user.phone)
-                .reduce((sum, t) => sum + t.amount, 0)
-                .toLocaleString()}
-            </div>
-            <div className="text-red-200 font-semibold text-sm">Total Sent</div>
-          </div>
-          <div className="text-center p-6 bg-gradient-to-br from-blue-100/20 to-purple-100/20 rounded-2xl backdrop-blur-xl border border-white/20">
-            <div className="text-2xl mb-2">📈</div>
-            <div className="font-black text-blue-300 text-lg">
-              {transactions.length}
-            </div>
-            <div className="text-blue-200 font-semibold text-sm">
-              Total Transactions
-            </div>
-          </div>
         </div>
       </div>
     </div>

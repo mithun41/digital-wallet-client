@@ -23,7 +23,6 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
-      { path: "Send_money", Component: SendMoney },
 
       {
         path: "/dashboard",
@@ -36,6 +35,7 @@ export const router = createBrowserRouter([
           { path: "addMoney", Component: AddMoney },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
+          { path: "send-money", Component: SendMoney },
         ],
       },
     ],
