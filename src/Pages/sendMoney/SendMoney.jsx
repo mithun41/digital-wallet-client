@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/features/authSlice";
+import Swal from "sweetalert2";
 
 const SendMoney = () => {
   const [receiverPhone, setReceiverPhone] = useState("");
@@ -19,18 +20,38 @@ const SendMoney = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/api/transactions/send",
+        "https://digital-wallet-server-tau.vercel.app/api/transactions/send",
         { receiverPhone, amount: parseFloat(amount), note },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setMessage(res.data.message);
+
+      // ✅ SweetAlert success popup
+      Swal.fire({
+        icon: "success",
+        title: "Transaction Successful 🎉",
+        text: `You have sent ৳${amount} to ${receiverPhone}`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+
+      // reset form
       setReceiverPhone("");
       setAmount("");
       setNote("");
       dispatch(fetchUser());
     } catch (err) {
-      setMessage(err.response?.data?.message || "Something went wrong");
+      const errorMsg = err.response?.data?.message || "Something went wrong";
+      setMessage(errorMsg);
+
+      // ❌ Error alert
+      Swal.fire({
+        icon: "error",
+        title: "Transaction Failed",
+        text: errorMsg,
+        confirmButtonColor: "#d33",
+      });
     } finally {
       setLoading(false);
     }

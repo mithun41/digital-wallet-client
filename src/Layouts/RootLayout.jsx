@@ -8,7 +8,7 @@ import Loading from "../Components/loading/Loading";
 
 const RootLayout = () => {
   const dispatch = useDispatch();
-  const { token, user, loading } = useSelector((state) => state.auth); // ✅ loading স্টেটটি যোগ করা হয়েছে
+  const { token, user, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (token && !user) {
@@ -16,17 +16,22 @@ const RootLayout = () => {
     }
   }, [token, user, dispatch]);
 
-  // ✅ নতুন লজিক: লোডিং অবস্থায় একটি লোডিং স্ক্রিন দেখাও
   if (token && loading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
   return (
-    <div >
+    <div className="relative">
+      {/* ✅ Custom background শুধু এই Layout এ থাকবে */}
+      <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none opacity-50 circuit-background" />
+
       <Navbar />
-      <div className=" dark:bg-gray-900 pt-16">
+
+      {/* ✅ content সবসময় background এর উপরে */}
+      <div className="relative z-10 dark:bg-gray-900 pt-16">
         <Outlet />
       </div>
+
       <Footer />
     </div>
   );
