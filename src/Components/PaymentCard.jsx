@@ -1,10 +1,15 @@
 // App.jsx
 import { Link } from "react-router";
 import React from "react";
+<<<<<<< HEAD
 // import { Link } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 // >>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
+=======
+// App.jsx
+import { Link } from "react-router";
+>>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import {
   FaBolt,
   FaWifi,
@@ -15,8 +20,13 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
+<<<<<<< HEAD
 import {  motion, useAnimation } from "framer-motion";
+=======
+import { motion, useAnimation } from "framer-motion";
+>>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import { useInView } from "react-intersection-observer";
+
 
 const PaymentCard = () => {
   const payments = [
@@ -109,16 +119,11 @@ const PaymentCard = () => {
           <motion.div key={index} variants={cardVariants}>
             <Link
               to={item.path}
-              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg 
-              dark:shadow-gray-900/50 flex flex-col items-center text-center 
-              transform transition duration-300 hover:scale-105 hover:shadow-2xl 
-              hover:ring-2 hover:ring-indigo-500"
+              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500"
             >
               {/* Icon wrapper with gradient */}
               <div
-                className={`w-16 h-16 flex items-center justify-center mb-4 
-                rounded-full bg-gradient-to-br ${item.color} text-white 
-                text-2xl shadow-md`}
+                className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${item.color} text-white text-2xl shadow-md`}
               >
                 {item.icon}
               </div>
