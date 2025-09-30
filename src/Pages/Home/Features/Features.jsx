@@ -1,15 +1,6 @@
 import React from "react";
-<<<<<<< HEAD
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-=======
-import {
-  FaWallet,
-  FaMoneyBillWave,
-  FaGift,
-  FaExchangeAlt,
-} from "react-icons/fa";
->>>>>>> 76077e4274fdd2fbd3464bbdea02f78221ecf034
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // <-- react-router নয়, react-router-dom ব্যবহার করবে
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -17,12 +8,7 @@ const Features = () => {
   const features = [
     {
       title: "Add Money",
-<<<<<<< HEAD
       description: "Top up your wallet instantly from your bank account or card.",
-=======
-      description:
-        "Top up your wallet instantly from your bank account or card.",
->>>>>>> 76077e4274fdd2fbd3464bbdea02f78221ecf034
       icon: <FaMoneyBillWave />,
       color: "from-green-400 to-green-600",
       link: "",
@@ -32,7 +18,7 @@ const Features = () => {
       description: "Transfer funds to friends, family, or merchants securely.",
       icon: <FaExchangeAlt />,
       color: "from-blue-400 to-blue-600",
-      link: "/Send_money",
+      link: "/send_money",
     },
     {
       title: "Wallet",
@@ -84,17 +70,12 @@ const Features = () => {
       >
         {feature.icon}
       </div>
-<<<<<<< HEAD
-      <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{feature.title}</h3>
-      <p className="text-gray-600 dark:text-gray-300 text-sm">{feature.description}</p>
-=======
       <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
         {feature.title}
       </h3>
       <p className="text-gray-600 dark:text-gray-300 text-sm">
         {feature.description}
       </p>
->>>>>>> 76077e4274fdd2fbd3464bbdea02f78221ecf034
     </>
   );
 

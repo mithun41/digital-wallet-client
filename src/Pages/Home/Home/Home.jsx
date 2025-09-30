@@ -1,3 +1,4 @@
+import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
 import MobileCard from "../../../Components/MobileCard";
 import MutionCard from "../../../Components/MutionCard";
@@ -32,6 +33,9 @@ const Home = () => {
         </section>
         <section>
           <HowItWorks></HowItWorks>
+        </section>
+        <section>
+          <AdvancedBenefits></AdvancedBenefits>
         </section>
         <PaymentCard></PaymentCard>
       </section>
