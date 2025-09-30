@@ -9,6 +9,7 @@ import {
   Smartphone,
   CreditCard,
   DollarSign,
+  Home,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
 import logo from "../../assets/logo2.png";
@@ -134,6 +135,7 @@ const DashboardLayout = () => {
               <NavLink
                 key={item.name}
                 to={item.path}
+                end={item.path === "/dashboard"} // just Home route e end use kora
                 className={({ isActive }) =>
                   `flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 px-3 py-2 
                   hover:bg-purple-100 dark:hover:bg-purple-900
