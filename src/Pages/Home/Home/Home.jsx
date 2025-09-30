@@ -44,7 +44,7 @@ const Home = () => {
       <section>
         <Subscription></Subscription>
       </section>
-      <section><Subscription></Subscription></section>
+
       <section>
         <MutionCard></MutionCard>
       </section>
