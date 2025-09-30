@@ -18,19 +18,16 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: <Error></Error>,
+    errorElement: <Error />,
     children: [
       { index: true, Component: Home },
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
+      { path: "Send_money", Component: SendMoney },
 
       {
-        path: "Send_money",
-        Component: SendMoney,
-      },
-      {
         path: "/dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <DashboardLayout />,
         children: [
           { index: true, Component: DashboardHome },
           { path: "transaction", Component: Transaction },
