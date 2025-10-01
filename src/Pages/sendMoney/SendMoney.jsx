@@ -3,54 +3,65 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/features/authSlice";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SendMoney = () => {
+  const [step, setStep] = useState(1); // Step 1 = Receiver info, Step 2 = Confirm
   const [receiverPhone, setReceiverPhone] = useState("");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
+  const [password, setPassword] = useState(""); // confirm password
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSendMoney = async (e) => {
+  // Step 1 -> go to Step 2
+  const handleNext = (e) => {
+    e.preventDefault();
+    if (!receiverPhone || !amount) {
+      Swal.fire("Error", "Receiver phone & amount required", "error");
+      return;
+    }
+    setStep(2);
+  };
+
+  // Step 2 -> Final send money
+  const handleConfirm = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "https://digital-wallet-server-tau.vercel.app/api/transactions/send",
-        { receiverPhone, amount: parseFloat(amount), note },
+        "http://localhost:5000/api/transactions/send-money",
+        { receiverPhone, amount: parseFloat(amount), note, password },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      setMessage(res.data.message);
-
-      // ✅ SweetAlert success popup
+      // Success alert
       Swal.fire({
         icon: "success",
         title: "Transaction Successful 🎉",
-        text: `You have sent ৳${amount} to ${receiverPhone}`,
+        text: `You sent ৳${amount} to ${receiverPhone}`,
+        timer: 2500,
         showConfirmButton: false,
-        timer: 3000,
       });
 
-      // reset form
+      // Reset
       setReceiverPhone("");
       setAmount("");
       setNote("");
-      dispatch(fetchUser());
-    } catch (err) {
-      const errorMsg = err.response?.data?.message || "Something went wrong";
-      setMessage(errorMsg);
+      setPassword("");
+      setStep(1);
 
-      // ❌ Error alert
+      // Refetch user & navigate
+      dispatch(fetchUser());
+      navigate("/dashboard/trans-history");
+    } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Transaction Failed",
-        text: errorMsg,
-        confirmButtonColor: "#d33",
+        text: err.response?.data?.message || "Something went wrong",
       });
     } finally {
       setLoading(false);
@@ -59,65 +70,104 @@ const SendMoney = () => {
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 mt-10">
-      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-        Send Money
-      </h2>
+      {step === 1 && (
+        <form onSubmit={handleNext} className="space-y-4">
+          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+            Send Money
+          </h2>
 
-      <form onSubmit={handleSendMoney} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Receiver Phone
-          </label>
-          <input
-            type="text"
-            value={receiverPhone}
-            onChange={(e) => setReceiverPhone(e.target.value)}
-            placeholder="+8801XXXXXXXXX"
-            className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
-        </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Receiver Phone
+            </label>
+            <input
+              type="text"
+              value={receiverPhone}
+              onChange={(e) => setReceiverPhone(e.target.value)}
+              placeholder="+8801XXXXXXXXX"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Amount
-          </label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
-        </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Amount
+            </label>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="Enter amount"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Note (optional)
-          </label>
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Add a note"
-            className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"
-            rows="3"
-          ></textarea>
-        </div>
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            Next
+          </button>
+        </form>
+      )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-        >
-          {loading ? "Sending..." : "Send Money"}
-        </button>
-      </form>
+      {step === 2 && (
+        <form onSubmit={handleConfirm} className="space-y-4">
+          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
+            Confirm Transaction
+          </h2>
 
-      {message && (
-        <p className="mt-4 text-center text-sm font-medium text-gray-700">
-          {message}
-        </p>
+          <p className="text-center text-gray-600">
+            Sending <strong>৳{amount}</strong> to{" "}
+            <strong>{receiverPhone}</strong>
+          </p>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Note (optional)
+            </label>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Add a note"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-green-500"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="w-1/2 bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500"
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-1/2 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+            >
+              {loading ? "Sending..." : "Confirm"}
+            </button>
+          </div>
+        </form>
       )}
     </div>
   );
