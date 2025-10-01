@@ -6,6 +6,7 @@ import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
 import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
 import TeamMarquee from "../../../Components/TeamMarquee";
+import TestimonialCard from "../../../Components/TestimonialCard";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
 import Guarantee from "../Guarantee/Guarantee";
@@ -15,7 +16,7 @@ import Subscription from "../Subscription/Subscription";
 
 const Home = () => {
   return (
-    <div>
+    <div className="">
       <section>
         <Banner></Banner>
       </section>
@@ -48,6 +49,9 @@ const Home = () => {
       </section>
       <section>
         <Guarantee></Guarantee>
+      </section>
+      <section>
+        <TestimonialCard></TestimonialCard>
       </section>
       <section>
         <Subscription></Subscription>

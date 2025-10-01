@@ -51,16 +51,16 @@ const AddMoney = () => {
     }
   }, [dispatch, user]);
 
-  useEffect(() => {
-    axios
-      .get("https://digital-wallet-server-tau.vercel.app/api/update-profile")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/update-profile")
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   // console.log(amount);
   const { handleSubmit, register, setValue } = useForm({
@@ -85,10 +85,8 @@ const AddMoney = () => {
     data.addTime = new Date();
     console.log(data);
     axios
-      .post("https://digital-wallet-server-tau.vercel.app/send_money", data)
+      .post("http://localhost:5000/add_money", data)
       .then((res) => {
-        if (res) {
-        }
         console.log(res);
       })
       .catch((err) => {
@@ -99,7 +97,7 @@ const AddMoney = () => {
 
     axios
       .put(
-        `https://digital-wallet-server-tau.vercel.app/api/singleUser/?phone=${encodeURIComponent(
+        `http://localhost:5000/api/singleUser/?phone=${encodeURIComponent(
           user.phone
         )}`,
         data
