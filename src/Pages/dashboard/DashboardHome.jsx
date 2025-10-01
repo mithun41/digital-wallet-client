@@ -117,7 +117,7 @@ const DashboardHome = () => {
         <div className="lg:col-span-4 bg-white dark:bg-gray-800 py-6 px-4 space-y-6 rounded-lg shadow">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Recent Transactions</h2>
-            <button className="text-blue-500 underline hover:no-underline text-sm">View All</button>
+            <button className="text-blue-500 underline cursor-pointer hover:no-underline text-sm">View All</button>
           </div>
           <div className="space-y-4">
             {transactions.map((tx, i) => (
@@ -148,7 +148,7 @@ const DashboardHome = () => {
           <div className="rounded-lg shadow-md p-4 h-full flex flex-col justify-start">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold">My Cards</h2>
-              <span className="text-blue-500">+ Add Card</span>
+              <span className="text-blue-500 cursor-pointer hover:underline">+ Add Card</span>
             </div>
             <div className="flex flex-col gap-4">
               {myCards.map((card, i) => (

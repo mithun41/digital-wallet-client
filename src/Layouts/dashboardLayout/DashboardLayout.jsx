@@ -9,6 +9,7 @@ import {
   Smartphone,
   CreditCard,
   DollarSign,
+  Home,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
 import logo from "../../assets/logo2.png";
@@ -17,12 +18,37 @@ import Theme from "../../Components/theme/Theme";
 
 // Sidebar Menu Config
 const menuItems = [
-  { name: "Transaction", path: "/dashboard/transaction", icon: <CreditCard size={24} /> },
+  {
+    name: "Transaction",
+    path: "/dashboard/trans-history",
+    icon: <CreditCard size={24} />,
+  },
   { name: "Profile", path: "/dashboard/profile", icon: <User size={24} /> },
-  { name: "Add Money", path: "/dashboard/addMoney", icon: <DollarSign size={24} /> },
-  { name: "Mobile Recharge", path: "/dashboard/mobileRecharge", icon: <Smartphone size={24} /> },
-  { name: "CashOut", path: "/dashboard/cashOut", icon: <DollarSign size={24} /> },
-  { name: "Settings", path: "/dashboard/settings", icon: <Settings size={24} /> },
+  {
+    name: "Add Money",
+    path: "/dashboard/addMoney",
+    icon: <DollarSign size={24} />,
+  },
+  {
+    name: "Send Money",
+    path: "/dashboard/send-money",
+    icon: <DollarSign size={24} />,
+  },
+  {
+    name: "Mobile Recharge",
+    path: "/dashboard/mobileRecharge",
+    icon: <Smartphone size={24} />,
+  },
+  {
+    name: "CashOut",
+    path: "/dashboard/cashOut",
+    icon: <DollarSign size={24} />,
+  },
+  {
+    name: "Settings",
+    path: "/dashboard/settings",
+    icon: <Settings size={24} />,
+  },
 ];
 
 // Upgrade Card Config
@@ -109,12 +135,14 @@ const DashboardLayout = () => {
               <NavLink
                 key={item.name}
                 to={item.path}
+                end={item.path === "/dashboard"} // just Home route e end use kora
                 className={({ isActive }) =>
                   `flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3 px-3 py-2 
                   hover:bg-purple-100 dark:hover:bg-purple-900
-                  ${isActive
-                    ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
-                    : "text-gray-700 dark:text-gray-300"
+                  ${
+                    isActive
+                      ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500"
+                      : "text-gray-700 dark:text-gray-300"
                   }`
                 }
               >
