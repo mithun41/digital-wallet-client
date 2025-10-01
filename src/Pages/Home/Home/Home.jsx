@@ -4,6 +4,7 @@ import MobileCard from "../../../Components/MobileCard";
 import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
+import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
 import TeamMarquee from "../../../Components/TeamMarquee";
 import TestimonialCard from "../../../Components/TestimonialCard";
 import Banner from "../../Banner/Banner";
@@ -21,6 +22,9 @@ const Home = () => {
       </section>
       <section>
         <OurHistory></OurHistory>
+      </section>
+      <section>
+        <WhyChooseUs></WhyChooseUs>
       </section>
       <section>
         <Features></Features>
