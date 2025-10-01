@@ -33,7 +33,7 @@ const SendMoney = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/api/transactions/send-money",
+        "https://digital-wallet-server-tau.vercel.app/api/transactions/send-money",
         { receiverPhone, amount: parseFloat(amount), note, password },
         { headers: { Authorization: `Bearer ${token}` } }
       );

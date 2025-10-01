@@ -23,6 +23,7 @@ const StatCard = ({ icon, title, value, colorClass }) => (
 // ====================================================================
 // TransactionDetailModal Component
 // ====================================================================
+
 const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
   if (!transaction) return null;
 
@@ -32,27 +33,35 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
   let prefix = "";
   let amountColor = "";
   const note = transaction.note || "No note provided";
+  let photo = "";
+  let opponentName = "";
 
   if (transaction.type === "sendMoney") {
     if (transaction.senderPhone === userPhone) {
-      title = "Send Money Details";
+      title = "Send Money";
       accountLabel = "Receiver";
       accountNumber = transaction.receiverPhone;
       prefix = "-";
-      amountColor = "text-red-400";
+      amountColor = "text-red-500";
+      photo = transaction.receiverImage;
+      opponentName = transaction.receiverName || "Receiver";
     } else {
-      title = "Received Money Details";
+      title = "Money Received";
       accountLabel = "Sender";
       accountNumber = transaction.senderPhone;
       prefix = "+";
-      amountColor = "text-emerald-400";
+      amountColor = "text-emerald-500";
+      photo = transaction.senderImage;
+      opponentName = transaction.senderName || "Sender";
     }
   } else if (transaction.type === "cashout") {
-    title = "Cashout Details";
-    accountLabel = transaction.merchantName;
+    title = "Cashout";
+    accountLabel = "Merchant";
     accountNumber = transaction.merchantPhone;
     prefix = "-";
-    amountColor = "text-yellow-400";
+    amountColor = "text-yellow-500";
+    photo = transaction.merchantImage;
+    opponentName = transaction.merchantName || "Merchant";
   }
 
   return (
@@ -61,66 +70,75 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50 p-4"
         onClick={onClose}
       >
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
+          exit={{ scale: 0.95, opacity: 0 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700/50"
+          className="bg-gray-900 rounded-3xl shadow-2xl w-full max-w-lg border border-gray-700 overflow-hidden"
         >
           {/* Header */}
-          <div className="flex justify-between items-center p-5 border-b border-gray-700 rounded-t-2xl">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
+          <div className="flex justify-between items-center p-6 border-b border-gray-700">
+            <h3 className="text-2xl font-bold text-white">{title}</h3>
             <button
               onClick={onClose}
-              className="text-white hover:text-red-400 font-bold text-lg"
+              className="text-gray-400 hover:text-red-500 text-2xl font-bold"
             >
-              ❌
+              ✕
             </button>
           </div>
 
-          {/* Body */}
-          <div className="p-6 space-y-3">
-            <div className="text-center border-b border-gray-700 pb-4">
-              <p className="text-sm text-gray-400 mb-1">Amount</p>
+          {/* Amount + Photo */}
+          <div className="flex items-center gap-4 p-6 bg-gray-800/40">
+            <img
+              src={photo || "/default-avatar.png"}
+              alt={opponentName}
+              className="w-16 h-16 rounded-full border-2 border-gray-600 object-cover"
+            />
+            <div className="flex flex-col">
+              <span className="text-white font-semibold text-lg">
+                {opponentName}
+              </span>
+            </div>
+            <div className="ml-auto text-right">
               <p className={`text-3xl font-extrabold ${amountColor}`}>
                 {prefix} ৳{transaction.amount.toLocaleString()}
               </p>
-            </div>
-            <div className="flex justify-between border-b border-gray-700 py-2 text-sm">
-              <span className="text-gray-400 font-medium">{accountLabel}</span>
-              <span className="font-semibold text-white">{accountNumber}</span>
-            </div>
-            <div className="flex justify-between border-b border-gray-700 py-2 text-sm">
-              <span className="text-gray-400 font-medium">Transaction ID</span>
-              <span className="font-semibold text-white">
-                {transaction.transactionId}
-              </span>
-            </div>
-            <div className="flex justify-between py-2 text-sm">
-              <span className="text-gray-400 font-medium">Note</span>
-              <span className="font-semibold text-white">{note}</span>
-            </div>
-            <div className="flex justify-between py-2 text-sm">
-              <span className="text-gray-400 font-medium">Time</span>
-              <span className="font-semibold text-white">
+              <p className="text-gray-400 text-sm">
                 {format(
                   new Date(transaction.createdAt),
                   "MMM dd, yyyy 'at' hh:mm a"
                 )}
-              </span>
+              </p>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="flex justify-end gap-2 p-4 border-t border-gray-700">
-            <button className="px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm">
+          {/* Details Table */}
+          <div className="p-6 space-y-2">
+            {[
+              { label: accountLabel, value: accountNumber },
+              { label: "Transaction ID", value: transaction.transactionId },
+              { label: "Note", value: note },
+            ].map((row, idx) => (
+              <div
+                key={idx}
+                className="flex justify-between py-2 border-b border-gray-700 text-sm"
+              >
+                <span className="text-gray-400">{row.label}</span>
+                <span className="text-white font-medium">{row.value}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer Actions */}
+          <div className="flex justify-end gap-3 p-6 border-t border-gray-700 bg-gray-900">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-all">
               🔁 Send Again
             </button>
-            <button className="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-all">
               📤 Share
             </button>
           </div>

@@ -41,30 +41,32 @@ const AddMoney = () => {
   const [amount, setAmount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
-  const {user, loading, error} = useSelector((state) => state.auth);
+  const { user, loading, error } = useSelector((state) => state.auth);
 
-// console.log(user);
+  // console.log(user);
 
-useEffect(() => {
-
+  useEffect(() => {
     if (!user) {
       dispatch(fetchUser());
-    } 
+    }
   }, [dispatch, user]);
 
   useEffect(() => {
-    axios.get('https://digital-wallet-server-tau.vercel.app/api/update-profile').then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    }) 
-  }, [])
+    axios
+      .get("https://digital-wallet-server-tau.vercel.app/api/update-profile")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // console.log(amount);
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
       amount: 0,
-      paymentMethod: null
+      paymentMethod: null,
     },
   });
 
@@ -80,24 +82,34 @@ useEffect(() => {
     data.userName = user.name;
     data.userPhoneNumber = user.phone;
     data.userPhoto = user.photo;
-    data.addTime = new Date()
+    data.addTime = new Date();
     console.log(data);
-    axios.post('http://localhost:5000/send_money', data).then(res => {
-      if(res) {
-
-      }
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    })
+    axios
+      .post("https://digital-wallet-server-tau.vercel.app/send_money", data)
+      .then((res) => {
+        if (res) {
+        }
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     console.log(user.phone);
 
-    axios.put(`http://localhost:5000/api/singleUser/?phone=${encodeURIComponent(user.phone)}`, data).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    })
+    axios
+      .put(
+        `https://digital-wallet-server-tau.vercel.app/api/singleUser/?phone=${encodeURIComponent(
+          user.phone
+        )}`,
+        data
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // const handleAddMoney = () => {
@@ -132,7 +144,9 @@ useEffect(() => {
         <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100">
           <div className="text-center">
             <p className="text-gray-600 text-sm">Current Balance</p>
-            <p className="text-3xl font-bold text-pink-600 mt-2">{user?.balance}</p>
+            <p className="text-3xl font-bold text-pink-600 mt-2">
+              {user?.balance}
+            </p>
             <div className="flex items-center justify-center gap-1 mt-2">
               <Shield className="w-4 h-4 text-green-500" />
               <span className="text-xs text-green-600">Verified Account</span>
