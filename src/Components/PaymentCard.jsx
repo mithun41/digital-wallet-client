@@ -1,17 +1,58 @@
 // App.jsx
 import { Link } from "react-router";
-import { FaBolt, FaWifi, FaTicketAlt, FaShieldAlt, FaStore, FaMobileAlt, FaFileInvoice, FaEllipsisH } from "react-icons/fa";
+import {
+  FaBolt,
+  FaWifi,
+  FaTicketAlt,
+  FaShieldAlt,
+  FaStore,
+  FaMobileAlt,
+  FaFileInvoice,
+  FaEllipsisH,
+} from "react-icons/fa";
 
 const PaymentCard = () => {
   const payments = [
-    { name: "Electricity", icon: <FaBolt className="text-yellow-500 text-2xl" />, path: "/electricity" },
-    { name: "Internet", icon: <FaWifi className="text-red-500 text-2xl" />, path: "/internet" },
-    { name: "Voucher", icon: <FaTicketAlt className="text-green-500 text-2xl" />, path: "/voucher" },
-    { name: "Assurance", icon: <FaShieldAlt className="text-red-400 text-2xl" />, path: "/assurance" },
-    { name: "Merchant", icon: <FaStore className="text-green-600 text-2xl" />, path: "/merchant" },
-    { name: "Mobile Credit", icon: <FaMobileAlt className="text-blue-500 text-2xl" />, path: "/mobile-credit" },
-    { name: "Bill", icon: <FaFileInvoice className="text-orange-400 text-2xl" />, path: "/bill" },
-    { name: "More", icon: <FaEllipsisH className="text-green-500 text-2xl" />, path: "/more" },
+    {
+      name: "Electricity",
+      icon: <FaBolt className="text-yellow-500 text-2xl" />,
+      path: "/electricity",
+    },
+    {
+      name: "Internet",
+      icon: <FaWifi className="text-red-500 text-2xl" />,
+      path: "/internet",
+    },
+    {
+      name: "Voucher",
+      icon: <FaTicketAlt className="text-green-500 text-2xl" />,
+      path: "/voucher",
+    },
+    {
+      name: "Assurance",
+      icon: <FaShieldAlt className="text-red-400 text-2xl" />,
+      path: "/assurance",
+    },
+    {
+      name: "Merchant",
+      icon: <FaStore className="text-green-600 text-2xl" />,
+      path: "/merchant",
+    },
+    {
+      name: "Mobile Credit",
+      icon: <FaMobileAlt className="text-blue-500 text-2xl" />,
+      path: "/mobile-credit",
+    },
+    {
+      name: "Bill",
+      icon: <FaFileInvoice className="text-orange-400 text-2xl" />,
+      path: "/bill",
+    },
+    {
+      name: "More",
+      icon: <FaEllipsisH className="text-green-500 text-2xl" />,
+      path: "/more",
+    },
   ];
 
   return (
@@ -33,7 +74,7 @@ const PaymentCard = () => {
   );
 };
 
-export default PaymentCard
+export default PaymentCard;
 
 // const App = () => {
 //   return (

@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="shadow-md fixed top-0 left-0 w-full z-50 bg-blue-600 text-white h-16 flex items-center px-6">
+    <nav className="shadow-md fixed top-0 left-0 w-full z-50 bg-primary dark:bg-green-600 text-white h-16 flex items-center px-6">
       <div className="px-4 w-10/12 mx-auto lg:px-8 py-2">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -30,7 +30,7 @@ const Navbar = () => {
             <img
               src={navberImg}
               alt="PayNate Logo"
-              className="h-12 w-auto object-contain"
+              className="h-30 w-22  object-contain"
             />
           </Link>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Wallet
             </Link>
@@ -53,7 +53,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Transfer
             </Link>
@@ -62,7 +62,7 @@ const Navbar = () => {
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
-              title={isLoggedIn ? "" : "লগইন করলে এক্সেস পাবেন"}
+              title={isLoggedIn ? "" : ""}
             >
               Rewards
             </Link>
@@ -118,9 +118,7 @@ const Navbar = () => {
               {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
             </button>
           </div>
-          
         </div>
-        
       </div>
 
       {/* Mobile Menu Drawer */}
@@ -191,7 +189,6 @@ const Navbar = () => {
           )}
         </div>
       )}
-      
     </nav>
   );
 };

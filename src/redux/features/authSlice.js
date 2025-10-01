@@ -12,6 +12,7 @@ export const registerUser = createAsyncThunk(
         userData
       );
       localStorage.setItem("token", response.data.token);
+      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -45,18 +46,22 @@ export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token"); // get token
+      if (!token) throw new Error("No token found");
+
       const response = await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/reset-pin",
+        { phone, oldPin, newPin },
         {
-          phone,
-          oldPin,
-          newPin,
+          headers: {
+            Authorization: `Bearer ${token}`, // attach token
+          },
         }
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || { message: "Reset failed" }
+        error.response?.data || { message: error.message || "Reset failed" }
       );
     }
   }
