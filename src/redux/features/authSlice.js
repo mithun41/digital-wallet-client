@@ -77,11 +77,13 @@ export const fetchUser = createAsyncThunk(
       if (!token) throw new Error("No token found");
 
       const response = await axios.get(
-        "http://localhost:5000/api/me",
+        "digital-wallet-server-tau.vercel.app/api/me",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      // console.log(response.data);
 
       return response.data;
     } catch (error) {
