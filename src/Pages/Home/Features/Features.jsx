@@ -1,17 +1,10 @@
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import { Link } from "react-router";
 import {  useAnimation } from "framer-motion";
-=======
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-import {  motion, useAnimation } from "framer-motion";
-=======
-import { Link } from "react-router-dom"; // <-- react-router নয়, react-router-dom ব্যবহার করবে
-import { motion, useAnimation } from "framer-motion";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
->>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
+// >>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
+// >>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
 import { useInView } from "react-intersection-observer";
 import {motion} from 'framer-motion'
 
