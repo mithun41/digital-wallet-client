@@ -37,8 +37,8 @@ export default function TestimonialCarousel() {
     ];
 
     return (
-        <div className="min-h-screen  py-20 px-4">
-            <div className="max-w-7xl mx-auto">
+        <div className=" py-20 px-4 ">
+            <div className="max-w-10/12 mx-auto">
                 {/* Header */}
                 <div className="text-center mb-20">
                     <div className="inline-block mb-4">
@@ -49,7 +49,7 @@ export default function TestimonialCarousel() {
                     <h1 className="text-6xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
                         What Our Users Say
                     </h1>
-                    <p className="text-2xl text-gray-700 font-light">
+                    <p className="text-2xl text-secondary font-light">
                         Real experiences from our satisfied PayMate community
                     </p>
                 </div>
@@ -83,15 +83,15 @@ function TestimonialCard({ testimonial }) {
                     </div>
                 </div>
                 <div className="ml-5">
-                    <h3 className="text-xl font-bold text-gray-900">
+                    <h3 className="font-bold text-gray-900">
                         {testimonial.name}
                     </h3>
-                    <p className="text-sm text-gray-600 font-medium">{testimonial.role}</p>
+                    <p className="text-sm text-secondary font-medium">{testimonial.role}</p>
                 </div>
             </div>
 
             {/* Testimonial Text */}
-            <p className="text-gray-700 italic mb-6 leading-relaxed text-base">
+            <p className="text-secondary text-gray-700 italic mb-6 leading-relaxed text-base">
                 "{testimonial.text}"
             </p>
 

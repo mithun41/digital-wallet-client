@@ -91,7 +91,7 @@ const PaymentCard = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12" ref={ref}>
+    <section className="max-w-10/12 mx-auto px-4 py-12" ref={ref}>
       <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
         Payment List
       </h2>

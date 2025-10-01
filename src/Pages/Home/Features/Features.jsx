@@ -80,7 +80,7 @@ const Features = () => {
   );
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16" ref={ref}>
+    <section className="max-w-10/12 mx-auto px-4 py-16" ref={ref}>
       <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
         Explore Our Features
       </h2>

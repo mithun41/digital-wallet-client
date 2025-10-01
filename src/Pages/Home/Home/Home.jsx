@@ -15,7 +15,7 @@ import Subscription from "../Subscription/Subscription";
 
 const Home = () => {
   return (
-    <div>
+    <div className="">
       <section>
         <Banner></Banner>
       </section>
