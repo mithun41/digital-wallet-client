@@ -8,11 +8,12 @@ import DashboardLayout from "../Layouts/dashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/dashboard/DashboardHome";
 import Transaction from "../Pages/dashboard/Transaction";
 import Profile from "../Pages/dashboard/Profile";
-import DashboardCashOut from "../Pages/dashboard/DashboardCashOut";
 import AddMoney from "../Pages/dashboard/AddMoney";
 import MobileRecharge from "../Pages/dashboard/MobileRecharge";
 import Error from "../Components/Error/Error";
 import TransactionHistory from "../Pages/dashboard/TransactionHistory/TransactionHistory";
+import CashOut from "../Pages/cashOut/CashOut";
+import CashoutStep2 from "../Pages/cashOut/CashoutStep2";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,8 @@ export const router = createBrowserRouter([
           { index: true, Component: DashboardHome },
           { path: "transaction", Component: Transaction },
           { path: "profile", Component: Profile },
-          { path: "cashOut", Component: DashboardCashOut },
+          { path: "cashout", Component: CashOut },
+          { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },

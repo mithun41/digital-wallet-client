@@ -46,8 +46,8 @@ const AddMoney = () => {
   // console.log(user);
 
   useEffect(() => {
-    if(!user){
-      dispatch(fetchUser())
+    if (!user) {
+      dispatch(fetchUser());
     }
   }, [dispatch, user]);
 

@@ -74,7 +74,7 @@ const Profile = () => {
 
       const token = localStorage.getItem("token");
       await axios.put(
-        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        "https://digital-wallet-server-tau.vercel.appapi/update-profile",
         { photo: data.data.url },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -361,7 +361,6 @@ const Profile = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

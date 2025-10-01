@@ -10,9 +10,6 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-import {  motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-
 
 const PaymentCard = () => {
   const payments = [
@@ -59,23 +56,9 @@ const PaymentCard = () => {
   ];
 
   return (
-<<<<<<< HEAD
-    <section className="max-w-10/12 mx-auto px-4 py-12" ref={ref}>
-      <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-        Payment List
-      </h2>
-
-      <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate={controls}
-      >
-=======
     <div className="w-10/12  mx-auto  p-4 rounded-xl shadow-md">
       <h2 className="text-lg font-semibold mb-4">Payment List</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
->>>>>>> 4c2e2dd49c76510fb38c588ad3a092b637346c5d
         {payments.map((item, index) => (
           <Link
             key={index}
