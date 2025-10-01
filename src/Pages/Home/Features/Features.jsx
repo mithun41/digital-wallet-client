@@ -42,9 +42,15 @@ const Features = () => {
   ];
 
   return (
+<<<<<<< HEAD
+    <section className="max-w-10/12 mx-auto px-4 py-16" ref={ref}>
+      <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
+        Explore Our Features
+=======
     <section className="max-w-7xl mx-auto px-4 py-12">
       <h2 className="text-3xl text-primary font-bold text-center mb-12">
         What You Can Do
+>>>>>>> 4c2e2dd49c76510fb38c588ad3a092b637346c5d
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
