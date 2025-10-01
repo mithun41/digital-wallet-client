@@ -42,7 +42,6 @@ const RootLayout = () => {
       
       
       </main>
-      <Footer />
 
       {/* ✅ Footer hide in dashboard */}
       {!isDashboard && <Footer />}

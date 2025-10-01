@@ -7,13 +7,6 @@ import {  useAnimation } from "framer-motion";
 // >>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
 import { useInView } from "react-intersection-observer";
 import {motion} from 'framer-motion'
-import {
-  FaWallet,
-  FaMoneyBillWave,
-  FaGift,
-  FaExchangeAlt,
-} from "react-icons/fa";
-import { Link } from "react-router";
 
 const Features = () => {
   const features = [
