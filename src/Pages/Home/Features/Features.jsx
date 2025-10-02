@@ -6,7 +6,7 @@ import {
   FaGift,
   FaExchangeAlt,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
