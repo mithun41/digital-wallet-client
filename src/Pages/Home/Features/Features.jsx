@@ -1,19 +1,14 @@
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-// <<<<<<< HEAD
-import { Link } from "react-router";
-import {  useAnimation } from "framer-motion";
-// >>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
-// >>>>>>> 2ba309432c6892ea94caa212c3723e2e15bd3584
+import { Link } from "react-router-dom"; // ✅ ঠিক করা হলো
 import { useInView } from "react-intersection-observer";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 
 const Features = () => {
   const features = [
     {
       title: "Add Money",
-      description:
-        "Top up your wallet instantly from your bank account or card.",
+      description: "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
       color: "from-green-400 to-green-600",
       link: "",
@@ -42,15 +37,9 @@ const Features = () => {
   ];
 
   return (
-<<<<<<< HEAD
-    <section className="max-w-10/12 mx-auto px-4 py-16" ref={ref}>
+    <section className="max-w-7xl mx-auto px-4 py-16">
       <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
         Explore Our Features
-=======
-    <section className="max-w-7xl mx-auto px-4 py-12">
-      <h2 className="text-3xl text-primary font-bold text-center mb-12">
-        What You Can Do
->>>>>>> 4c2e2dd49c76510fb38c588ad3a092b637346c5d
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">

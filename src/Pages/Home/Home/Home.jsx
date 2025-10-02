@@ -13,6 +13,7 @@ import Guarantee from "../Guarantee/Guarantee";
 import HeroSection from "../hero/HeroSection";
 import SecuritySection from "../SecuritySection/SecuritySection";
 import Subscription from "../Subscription/Subscription";
+import WalletFeatures from "../../../Components/WalletFeatures";
 
 const Home = () => {
   return (
@@ -56,7 +57,9 @@ const Home = () => {
       <section>
         <Subscription></Subscription>
       </section>
-
+      <section>
+        <WalletFeatures></WalletFeatures>
+      </section>
       <section>
         <MutionCard></MutionCard>
       </section>

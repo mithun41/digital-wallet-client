@@ -94,7 +94,7 @@ const AdvancedBenefits = () => {
                 </div>
 
                 {/* Right Side */}
-                <div data-aos="fade-left" className="flex justify-center">
+                <div data-aos="fade-left" className="flex w-240 justify-center">
                     <img
                         src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
                         alt="Mobile App"

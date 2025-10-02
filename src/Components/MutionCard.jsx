@@ -56,7 +56,7 @@ const MutionCard = () => {
     };
 
     return (
-        <div className="min-h-screen to-slate-900 p-10  relative overflow-hidden">
+        <div className=" p-10  relative overflow-hidden">
             {/* Floating background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
