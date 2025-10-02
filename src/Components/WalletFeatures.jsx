@@ -6,7 +6,7 @@ const features = [
     {
         id: 1,
         title: "Secure Transactions",
-        image: "https://i.ibb.co.com/bVGMZCn/images-15.jpg",
+        image: "https://i.ibb.co.com/99BCbzH0/blog-july.jpg",
         desc: "End-to-end encryption to keep your money safe.",
         rating: "4.9",
         users: "10K+",
@@ -16,7 +16,7 @@ const features = [
     {
         id: 2,
         title: "Bill Payments",
-        image: "https://i.ibb.co.com/CKfG5YgN/images-19.jpg",
+        image: "https://i.ibb.co.com/MWrpdhH/1140-smartphone-digital-wallet.jpg",
         desc: "Pay utility bills, recharge & more in one place.",
         rating: "4.8",
         users: "8K+",
@@ -26,7 +26,7 @@ const features = [
     {
         id: 3,
         title: "Cash Out & Transfer",
-        image: "https://i.ibb.co.com/Gj65TZq/images-21.jpg",
+        image: "https://i.ibb.co.com/N27QYtZN/photo-1599050751795-6cdaafbc2319.jpg",
         desc: "Withdraw or send money instantly to anyone.",
         rating: "4.7",
         users: "12K+",
@@ -36,7 +36,7 @@ const features = [
     {
         id: 4,
         title: "Rewards & Cashback",
-        image: "https://i.ibb.co.com/bVGMZCn/images-15.jpg",
+        image: "https://i.ibb.co.com/mV94fgn0/rewards-pic-1.webp",
         desc: "Earn cashback & rewards on every payment.",
         rating: "4.6",
         users: "7K+",
@@ -46,7 +46,7 @@ const features = [
     {
         id: 5,
         title: "International Transfer",
-        image: "https://i.ibb.co.com/CKfG5YgN/images-19.jpg",
+        image: "https://i.ibb.co.com/hxtkt9Jh/istockphoto-1936794592-612x612.jpg",
         desc: "Send money abroad securely and fast.",
         rating: "4.8",
         users: "9K+",
@@ -56,7 +56,7 @@ const features = [
     {
         id: 6,
         title: "QR Payments",
-        image: "https://i.ibb.co.com/Gj65TZq/images-21.jpg",
+        image: "https://i.ibb.co.com/1tSTdk3Y/Europe-interoperability-mobile-wallets-QR-codes.webp",
         desc: "Scan & pay anywhere with QR code.",
         rating: "4.9",
         users: "15K+",
