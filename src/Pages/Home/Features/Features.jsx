@@ -37,7 +37,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="max-w-11/12 mx-auto px-4 py-16">
       <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
         Explore Our Features
       </h2>

@@ -38,7 +38,7 @@ export default function TestimonialCarousel() {
 
     return (
         <div className=" py-20 px-4 ">
-            <div className="max-w-10/12 mx-auto">
+            <div className="max-w-11/12 mx-auto">
                 {/* Header */}
                 <div className="text-center mb-20">
                     <div className="inline-block mb-4">

@@ -67,7 +67,7 @@ const OurHistory = () => {
 
 
   return (
-    <div className="max-w-10/12 mx-auto mt-10 px-10">
+    <div className="max-w-11/12 mx-auto mt-10 px-10">
       <p className="text-3xl text-primary text-center my-8">Our Achievement</p>
       <Swiper
         effect={"coverflow"}

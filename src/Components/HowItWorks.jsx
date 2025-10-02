@@ -40,7 +40,7 @@ const HowItWorks = () => {
 
     return (
         <section className="py-10">
-            <div className="max-w-10/12 mx-auto text-center px-4">
+            <div className="max-w-11/12 mx-auto text-center px-4">
                 <h2
                     className="text-2xl md:text-3xl font-bold max-w-10/12 mx-auto mb-2"
                     data-aos="fade-down"
