@@ -1,15 +1,5 @@
-// App.jsx
 import { Link } from "react-router";
 import React from "react";
-<<<<<<< HEAD
-// import { Link } from "react-router-dom";
-
-// import { Link } from "react-router-dom";
-// >>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
-=======
-// App.jsx
-import { Link } from "react-router";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import {
   FaBolt,
   FaWifi,
@@ -20,11 +10,7 @@ import {
   FaFileInvoice,
   FaEllipsisH,
 } from "react-icons/fa";
-<<<<<<< HEAD
 import {  motion, useAnimation } from "framer-motion";
-=======
-import { motion, useAnimation } from "framer-motion";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import { useInView } from "react-intersection-observer";
 
 

@@ -1,12 +1,7 @@
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {  motion, useAnimation } from "framer-motion";
-=======
-import { Link } from "react-router-dom"; // <-- react-router নয়, react-router-dom ব্যবহার করবে
-import { motion, useAnimation } from "framer-motion";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {
@@ -23,7 +18,7 @@ const Features = () => {
       description: "Transfer funds to friends, family, or merchants securely.",
       icon: <FaExchangeAlt />,
       color: "from-blue-400 to-blue-600",
-      link: "/send_money",
+      link: "",
     },
     {
       title: "Wallet",
