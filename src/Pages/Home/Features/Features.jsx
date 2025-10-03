@@ -1,6 +1,6 @@
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
-import { Link } from "react-router-dom"; // ✅ ঠিক করা হলো
+import { Link } from "react-router"; // ✅ ঠিক করা হলো
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 

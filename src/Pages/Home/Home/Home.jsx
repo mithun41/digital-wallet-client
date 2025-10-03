@@ -1,7 +1,5 @@
 import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
-import MobileCard from "../../../Components/MobileCard";
-import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
 import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
@@ -34,7 +32,6 @@ const Home = () => {
 
       <section>
         <section>
-          {/* <MobileCard></MobileCard> */}
           <TeamMarquee></TeamMarquee>
         </section>
         <section>
@@ -60,9 +57,7 @@ const Home = () => {
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
-      <section>
-        <MutionCard></MutionCard>
-      </section>
+     
     </div>
   );
 };

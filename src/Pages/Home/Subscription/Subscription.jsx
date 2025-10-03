@@ -12,7 +12,7 @@ const Subscription = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-green-700">
                     Subscribe to our newsletter
                 </h2>
-                <p className="text-gray-600 mt-2 text-sm md:text-base">
+                <p className="text-secondary mt-2 text-sm md:text-base">
                     Get handpicked property highlights, travel tips, and exclusive offers delivered to your inbox.
                 </p>
             </div>
