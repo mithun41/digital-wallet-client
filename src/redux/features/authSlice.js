@@ -12,6 +12,7 @@ export const registerUser = createAsyncThunk(
         userData
       );
       localStorage.setItem("token", response.data.token);
+      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -66,7 +67,6 @@ export const resetPinUser = createAsyncThunk(
   }
 );
 
-
 // ✅ Fetch user from token
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
@@ -74,13 +74,14 @@ export const fetchUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-
       const response = await axios.get(
         "https://digital-wallet-server-tau.vercel.app/api/me",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      // console.log(response.data);
 
       return response.data;
     } catch (error) {
