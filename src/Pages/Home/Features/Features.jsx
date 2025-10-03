@@ -14,8 +14,7 @@ const Features = () => {
   const features = [
     {
       title: "Add Money",
-      description:
-        "Top up your wallet instantly from your bank account or card.",
+      description: "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
       link: "/add_money",
     },

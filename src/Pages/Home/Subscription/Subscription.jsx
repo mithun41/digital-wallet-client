@@ -2,7 +2,7 @@ import React from "react";
 
 const Subscription = () => {
     return (
-        <div className="max-w-10/12 mx-auto py-12 px-6 md:px-16 rounded-2xl bg-gradient-to-r from-green-50 via-white to-green-50 flex flex-col md:flex-row items-center justify-between shadow-md">
+        <div className="max-w-11/12 mx-auto py-12 px-6 md:px-16 rounded-2xl  flex flex-col md:flex-row items-center justify-between shadow-md">
 
             {/* Left Text Section */}
             <div className="text-center md:text-left mb-6 md:mb-0">
@@ -12,7 +12,7 @@ const Subscription = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-green-700">
                     Subscribe to our newsletter
                 </h2>
-                <p className="text-gray-600 mt-2 text-sm md:text-base">
+                <p className="text-secondary mt-2 text-sm md:text-base">
                     Get handpicked property highlights, travel tips, and exclusive offers delivered to your inbox.
                 </p>
             </div>

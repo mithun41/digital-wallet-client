@@ -38,7 +38,7 @@ export default function TestimonialCarousel() {
 
     return (
         <div className=" py-20 px-4 ">
-            <div className="max-w-10/12 mx-auto">
+            <div className="max-w-11/12 mx-auto">
                 {/* Header */}
                 <div className="text-center mb-20">
                     <div className="inline-block mb-4">
@@ -46,8 +46,9 @@ export default function TestimonialCarousel() {
                             TESTIMONIALS
                         </span>
                     </div>
-                    <h1 className="text-6xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
-                        What Our Users Say
+                   
+                     <h1 className="text-3xl sm:text-4xl text-black dark:text-white md:text-5xl font-extrabold leading-snug">
+                        What Our <span className="text-green-600 dark:text-green-400">Users Say</span>
                     </h1>
                     <p className="text-2xl text-secondary font-light">
                         Real experiences from our satisfied PayMate community
@@ -55,7 +56,7 @@ export default function TestimonialCarousel() {
                 </div>
 
                 {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="zoom-out-down">
                     {testimonials.map((testimonial) => (
                         <TestimonialCard key={testimonial.id} testimonial={testimonial} />
                     ))}

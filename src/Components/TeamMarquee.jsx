@@ -47,7 +47,7 @@ const teamMembers = [
 
 const TeamMarquee = () => {
     return (
-        <section className="max-w-10/12 mx-auto py-12 overflow-hidden">
+        <section className="max-w-11/12 mx-auto py-12 overflow-hidden">
             <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold text-secondary">
                     Our Awesome PayMate Team

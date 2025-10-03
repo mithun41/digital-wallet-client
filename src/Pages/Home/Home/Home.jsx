@@ -1,7 +1,5 @@
 import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
-import MobileCard from "../../../Components/MobileCard";
-import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
 import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
@@ -13,6 +11,7 @@ import Guarantee from "../Guarantee/Guarantee";
 import HeroSection from "../hero/HeroSection";
 import SecuritySection from "../SecuritySection/SecuritySection";
 import Subscription from "../Subscription/Subscription";
+import WalletFeatures from "../../../Components/WalletFeatures";
 
 const Home = () => {
   return (
@@ -33,7 +32,6 @@ const Home = () => {
 
       <section>
         <section>
-          {/* <MobileCard></MobileCard> */}
           <TeamMarquee></TeamMarquee>
         </section>
         <section>
@@ -56,10 +54,10 @@ const Home = () => {
       <section>
         <Subscription></Subscription>
       </section>
-
       <section>
-        <MutionCard></MutionCard>
+        <WalletFeatures></WalletFeatures>
       </section>
+     
     </div>
   );
 };

@@ -61,7 +61,7 @@ const AdvancedBenefits = () => {
 
     return (
         <section className="py-16 ">
-            <div className="max-w-10/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+            <div className="max-w-11/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 {/* Left Side */}
                 <div data-aos="fade-right">
                     <h2 className="text-3xl font-bold text-secondary mb-3">
@@ -94,7 +94,7 @@ const AdvancedBenefits = () => {
                 </div>
 
                 {/* Right Side */}
-                <div data-aos="fade-left" className="flex justify-center">
+                <div data-aos="fade-left" className="flex w-265 justify-center">
                     <img
                         src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
                         alt="Mobile App"
