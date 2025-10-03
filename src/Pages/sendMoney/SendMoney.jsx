@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/features/authSlice";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const SendMoney = () => {
   const [step, setStep] = useState(1);
@@ -11,7 +12,7 @@ const SendMoney = () => {
   const [note, setNote] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // inline text error
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,19 +37,18 @@ const SendMoney = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/api/users/check-user",
+        "https://digital-wallet-server-tau.vercel.app/api/users/check-user",
         { phone: fullPhone },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (res.data.exists) {
-        setStep(2); // user আছে → Step 2 এ যাবে
+        setStep(2);
       } else {
-        setError("Receiver not found with this phone number"); // UI error দেখাবে
+        setError("Receiver not found with this phone number");
       }
     } catch (err) {
-      // console.log(err); <-- আর console error দেখাবে না
-      setError(err.response?.data?.message || "Something went wrong"); // UI error
+      setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ const SendMoney = () => {
         ? receiverPhone
         : `+88${receiverPhone}`;
 
-      await axios.post(
+      const res = await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/transactions/send-money",
         {
           receiverPhone: fullPhone,
@@ -76,7 +76,14 @@ const SendMoney = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Success
+      // ✅ Success Alert
+      await Swal.fire({
+        icon: "success",
+        title: "Transaction Successful",
+        text: res.data.message || "Your money has been sent successfully!",
+      });
+
+      // Reset form
       setReceiverPhone("");
       setAmount("");
       setNote("");
@@ -85,6 +92,12 @@ const SendMoney = () => {
       dispatch(fetchUser());
       navigate("/dashboard/trans-history");
     } catch (err) {
+      // ❌ Error Alert
+      Swal.fire({
+        icon: "error",
+        title: "Transaction Failed",
+        text: err.response?.data?.message || "Something went wrong",
+      });
       setError(err.response?.data?.message || "Transaction failed");
     } finally {
       setLoading(false);
@@ -132,7 +145,6 @@ const SendMoney = () => {
               className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
             />
 
-            {/* Inline error message */}
             {error && (
               <p className="text-red-400 text-sm text-center">{error}</p>
             )}

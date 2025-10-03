@@ -32,7 +32,7 @@ const CashOut = () => {
       // check user exists (example: replace with your API route)
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/api/users/check-user",
+        "https://digital-wallet-server-tau.vercel.app/api/users/check-user",
         { phone: fullPhone },
         { headers: { Authorization: `Bearer ${token}` } }
       );
