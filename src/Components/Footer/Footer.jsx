@@ -8,7 +8,6 @@ const Footer = () => {
       <hr className="" />
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
-
           {/* Logo & About */}
           <div>
             <img src={logo} alt="Logo" className="w-36 mx-auto md:mx-0 mb-4" />
@@ -23,17 +22,26 @@ const Footer = () => {
             <h3 className="text-lg font-semibold  mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="hover:text-green-400 transition duration-300">
+                <Link
+                  to="/"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="hover:text-green-400 transition duration-300">
+                <Link
+                  to="/login"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Login
                 </Link>
               </li>
               <li>
-                <Link to="/signup" className="hover:text-green-400 transition duration-300">
+                <Link
+                  to="/signup"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Signup
                 </Link>
               </li>
