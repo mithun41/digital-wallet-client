@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/authSlice";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const SendMoney = () => {
   const [step, setStep] = useState(1);
   const [receiverPhone, setReceiverPhone] = useState("");
+  const [receiverInfo, setReceiverInfo] = useState(null);
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +17,10 @@ const SendMoney = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // লগইন করা ইউজারের ফোন Redux থেকে নিলাম
+  const senderPhone = useSelector((state) => state.auth.user?.phone);
+
+  // ✅ Step 1 → Receiver check
   const handleNext = async (e) => {
     e.preventDefault();
     setError("");
@@ -33,6 +38,19 @@ const SendMoney = () => {
       ? receiverPhone
       : `+88${receiverPhone}`;
 
+    // ❌ নিজের নাম্বারে টাকা পাঠানো ব্লক
+    if (
+      senderPhone &&
+      (fullPhone === senderPhone || fullPhone === `+88${senderPhone}`)
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Transaction",
+        text: "You cannot send money to your own number.",
+      });
+      return;
+    }
+
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
@@ -43,6 +61,7 @@ const SendMoney = () => {
       );
 
       if (res.data.exists) {
+        setReceiverInfo(res.data.user);
         setStep(2);
       } else {
         setError("Receiver not found with this phone number");
@@ -54,6 +73,7 @@ const SendMoney = () => {
     }
   };
 
+  // ✅ Step 2 → Confirm & send
   const handleConfirm = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -76,7 +96,6 @@ const SendMoney = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // ✅ Success Alert
       await Swal.fire({
         icon: "success",
         title: "Transaction Successful",
@@ -85,6 +104,7 @@ const SendMoney = () => {
 
       // Reset form
       setReceiverPhone("");
+      setReceiverInfo(null);
       setAmount("");
       setNote("");
       setPassword("");
@@ -92,7 +112,6 @@ const SendMoney = () => {
       dispatch(fetchUser());
       navigate("/dashboard/trans-history");
     } catch (err) {
-      // ❌ Error Alert
       Swal.fire({
         icon: "error",
         title: "Transaction Failed",
@@ -119,6 +138,7 @@ const SendMoney = () => {
       <div className="absolute inset-0 bg-black/30 "></div>
 
       <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-xl max-w-md w-full text-white">
+        {/* Step 1 */}
         {step === 1 && (
           <form onSubmit={handleNext} className="space-y-6">
             <h2 className="text-3xl font-bold text-center">Send Money</h2>
@@ -159,17 +179,27 @@ const SendMoney = () => {
           </form>
         )}
 
+        {/* Step 2 */}
         {step === 2 && (
           <form onSubmit={handleConfirm} className="space-y-6">
             <h2 className="text-3xl font-bold text-center">Confirm</h2>
             <p className="text-gray-200 text-center">
-              Sending <strong>৳{amount}</strong> to{" "}
-              <strong>
-                {receiverPhone.startsWith("+88")
-                  ? receiverPhone
-                  : `+88${receiverPhone}`}
-              </strong>
+              Sending <strong>৳{amount}</strong> to:
             </p>
+
+            <div className="flex items-center gap-3 bg-white/10 p-3 rounded-lg">
+              <img
+                src={receiverInfo?.photo || "https://via.placeholder.com/50"}
+                alt="Receiver"
+                className="w-12 h-12 rounded-full object-cover border border-white/30"
+              />
+              <div>
+                <h3 className="font-semibold text-lg">
+                  {receiverInfo?.name || "Unknown User"}
+                </h3>
+                <p className="text-gray-300">{receiverInfo?.phone}</p>
+              </div>
+            </div>
 
             <input
               type="password"
