@@ -1,275 +1,156 @@
-import React, { useEffect, useState } from "react";
-import {
-  ArrowLeft,
-  Smartphone,
-  CreditCard,
-  Building2,
-  Shield,
-  Info,
-} from "lucide-react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../redux/features/authSlice";
-
-const methods = [
-  {
-    id: "bank",
-    name: "Bank Account",
-    icon: <Building2 className="w-6 h-6" />,
-    description: "Add money from your bank account",
-    fee: "Free",
-  },
-  {
-    id: "card",
-    name: "Debit/Credit Card",
-    icon: <CreditCard className="w-6 h-6" />,
-    description: "Add money using your card",
-    fee: "1.85%",
-  },
-  {
-    id: "agent",
-    name: "bKash Agent",
-    icon: <Smartphone className="w-6 h-6" />,
-    description: "Visit nearby bKash agent point",
-    fee: "Free",
-  },
-];
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AddMoney = () => {
-  const [selectedMethod, setSelectedMethod] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const dispatch = useDispatch();
-  const {user, loading, error} = useSelector((state) => state.auth);
+  const [amount, setAmount] = useState("");
+  const [method, setMethod] = useState("bkash");
+  const [details, setDetails] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-console.log(user);
+  const navigate = useNavigate();
 
-useEffect(() => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (!user) {
-      dispatch(fetchUser());
-    } 
-  }, [dispatch, user]);
+    const addAmount = parseFloat(amount);
+    if (isNaN(addAmount) || addAmount <= 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Amount",
+        text: "Please enter a valid amount",
+      });
+      return;
+    }
+    if (!details) {
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Details",
+        text: "Please provide payment details",
+      });
+      return;
+    }
+    if (!password) {
+      Swal.fire({
+        icon: "warning",
+        title: "Password Required",
+        text: "Please enter your account password to confirm",
+      });
+      return;
+    }
 
-  // console.log(amount);
-  const { handleSubmit, register, setValue } = useForm({
-    defaultValues: {
-      amount: 0,
-      paymentMethod: null
-    },
-  });
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        "https://digital-wallet-server-tau.vercel.app/api/transactions/add-money",
+        { amount: addAmount, method, details, password },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-  useEffect(() => {
-    setValue("amount", Number(amount));
-  }, [amount, setValue]);
+      // ✅ Success alert
+      await Swal.fire({
+        icon: "success",
+        title: "Money Added",
+        text: res.data.message || "Your balance has been updated successfully!",
+      });
 
-  useEffect(() => {
-    setValue("paymentMethod", selectedMethod);
-  }, [selectedMethod, setValue]);
+      // ✅ redirect to transaction history page
+      navigate("/dashboard/trans-history");
 
-  const onSubmit = (data) => {
-    console.log(data);
+      setAmount("");
+      setDetails("");
+      setPassword("");
+    } catch (err) {
+      // ❌ Error alert
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: err.response?.data?.message || "Failed to add money",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // const handleAddMoney = () => {
-  //   if (!selectedMethod || !amount) return;
-
-  //   setIsProcessing(true);
-  //   setTimeout(() => {
-  //     setIsProcessing(false);
-  //     alert(
-  //       `Successfully initiated add money of ৳${amount} via ${
-  //         methods.find((m) => m.id === selectedMethod)?.name
-  //       }`
-  //     );
-  //   }, 2000);
-  // };
+  const bgStyle = {
+    backgroundImage:
+      "url('https://static.vecteezy.com/system/resources/previews/009/097/172/non_2x/e-wallet-digital-wallet-application-internet-banking-online-payment-security-via-credit-card-online-money-transaction-concept-coin-icon-on-dark-background-eps10-illustration-free-vector.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
 
   return (
-    <div className="min-h-screen bg-base-100">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4">
-        <div className="flex items-center gap-3">
-          <ArrowLeft className="w-6 h-6 cursor-pointer hover:bg-white/20 rounded p-1" />
-          <h1 className="text-xl font-bold">Add Money</h1>
-        </div>
-        <p className="text-pink-100 text-sm mt-1">
-          Add money to your bKash wallet
-        </p>
-      </div>
+    <div
+      className="min-h-screen flex items-center justify-center relative"
+      style={bgStyle}
+    >
+      <div className="absolute inset-0 bg-black/30"></div>
 
-      {/* Balance Display */}
-      <div className="mx-4 -mt-4 relative">
-        <div className="bg-white rounded-2xl p-6 shadow-lg border border-pink-100">
-          <div className="text-center">
-            <p className="text-gray-600 text-sm">Current Balance</p>
-            <p className="text-3xl font-bold text-pink-600 mt-2">{user?.balance}</p>
-            <div className="flex items-center justify-center gap-1 mt-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span className="text-xs text-green-600">Verified Account</span>
-            </div>
+      <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-xl max-w-md w-full text-white">
+        <h2 className="text-3xl font-bold text-center mb-6">Add Money</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter amount"
+            />
           </div>
-        </div>
-      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Amount Input */}
-        <div className="p-4 mt-6">
-          <div className="bg-base-100 rounded-xl p-6 shadow-lg border border-pink-100">
-            <label className="block text-gray-700 font-medium mb-3">
-              Enter Amount
-            </label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-600 font-bold text-xl">
-                ৳
-              </span>
-              <input
-                type="number"
-                {...register("amount")}
-                placeholder="0"
-                className="w-full pl-10 pr-4 py-4 text-2xl font-bold text-center border-2 border-pink-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
-                min="10"
-                max="25000"
-              />
-            </div>
-            <div className="flex justify-between items-center mt-3">
-              <span className="text-sm text-gray-500">Min: ৳10</span>
-              <span className="text-sm text-gray-500">Max: ৳25,000</span>
-            </div>
-
-            {/* Quick Amount Buttons */}
-            <div className="grid grid-cols-4 gap-2 mt-4">
-              {[100, 500, 1000, 2000].map((quickAmount) => (
-                <button
-                  key={quickAmount}
-                  onClick={() => setAmount(quickAmount)}
-                  className="py-2 px-3 bg-pink-50 hover:bg-pink-100 text-pink-600 rounded-lg text-sm font-medium transition-colors"
-                >
-                  ৳{quickAmount}
-                </button>
-              ))}
-            </div>
+          <div>
+            <select
+              value={method}
+              onChange={(e) => setMethod(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg bg-white/20 text-white outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="bkash" className="text-black">
+                bKash
+              </option>
+              <option value="card" className="text-black">
+                Card
+              </option>
+              <option value="nagad" className="text-black">
+                Nagad
+              </option>
+            </select>
           </div>
-        </div>
 
-        {/* Payment Methods */}
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
-            Select Payment Method
-          </h3>
-          <div className="space-y-3">
-            {methods.map((method) => (
-              <label
-                key={method.id}
-                className={`block bg-white rounded-xl p-4 shadow-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-xl ${
-                  selectedMethod === method.id
-                    ? "border-pink-500 bg-pink-50"
-                    : "border-gray-200 hover:border-pink-300"
-                }`}
-              >
-                <input
-                  type="radio"
-                  value={method.id}
-                  {...register("paymentMethod", { required: true })}
-                  className="hidden"
-                  onChange={() => setSelectedMethod(method.id)}
-                />
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`p-3 rounded-xl ${
-                        selectedMethod === method.id
-                          ? "bg-pink-100 text-pink-600"
-                          : "bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      {method.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">
-                        {method.name}
-                      </h4>
-                      <p className="text-sm text-gray-500 mt-1">
-                        {method.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600">
-                      Fee: {method.fee}
-                    </p>
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 mt-2 ${
-                        selectedMethod === method.id
-                          ? "bg-pink-500 border-pink-500"
-                          : "border-gray-300"
-                      }`}
-                    >
-                      {selectedMethod === method.id && (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </label>
-            ))}
+          <div>
+            <input
+              type="text"
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter Card / bKash / Nagad number"
+            />
           </div>
-        </div>
 
-        {/* Info Banner */}
-        <div className="mx-4 mb-6">
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <div className="flex gap-3">
-              <Info className="w-5 h-5 text-blue-500 mt-0.5" />
-              <div>
-                <p className="text-sm text-blue-800">
-                  <span className="font-medium">Security Notice:</span> Your
-                  transaction is protected with bank-level security. Money will
-                  be added instantly to your bKash wallet.
-                </p>
-              </div>
-            </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter your password"
+            />
           </div>
-        </div>
 
-        {/* Action Button */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
           <button
             type="submit"
-            // onClick={handleAddMoney}
-            disabled={!selectedMethod || !amount || amount < 10 || isProcessing}
-            className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
-              !selectedMethod || !amount || amount < 10 || isProcessing
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            }`}
+            disabled={loading}
+            className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition disabled:opacity-50"
           >
-            {isProcessing ? (
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Processing...
-              </div>
-            ) : (
-              `Add Money ${amount ? `৳${amount}` : ""}`
-            )}
+            {loading ? "Processing..." : "Add Money"}
           </button>
-
-          {selectedMethod && amount && (
-            <div className="text-center mt-2">
-              <p className="text-sm text-gray-500">
-                Fee: {methods.find((m) => m.id === selectedMethod)?.fee} •
-                Total: ৳
-                {selectedMethod === "card"
-                  ? (parseFloat(amount || 0) * 1.0185).toFixed(2)
-                  : amount || 0}
-              </p>
-            </div>
-          )}
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

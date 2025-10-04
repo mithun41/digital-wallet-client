@@ -1,9 +1,22 @@
+<<<<<<< HEAD
 import React from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
 import { Link } from "react-router";
 import {  motion, useAnimation } from "framer-motion";
 
 
+=======
+// src/components/Features.jsx
+import React, { useEffect } from "react";
+import {
+  FaWallet,
+  FaMoneyBillWave,
+  FaGift,
+  FaExchangeAlt,
+} from "react-icons/fa";
+import { Link } from "react-router";
+import { motion, useAnimation } from "framer-motion";
+>>>>>>> c614cd404c5df87c78db1ae634b9db901bd19896
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {
@@ -12,104 +25,107 @@ const Features = () => {
       title: "Add Money",
       description: "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
-      color: "from-green-400 to-green-600",
-      link: "",
+      link: "/add_money",
     },
     {
       title: "Send Money",
       description: "Transfer funds to friends, family, or merchants securely.",
       icon: <FaExchangeAlt />,
-      color: "from-blue-400 to-blue-600",
       link: "/send_money",
     },
     {
       title: "Wallet",
       description: "Check your wallet balance and manage your funds easily.",
       icon: <FaWallet />,
-      color: "from-purple-400 to-purple-600",
-      link: "",
+      link: "/wallet",
     },
     {
       title: "Rewards",
       description: "Earn cashback and rewards on your transactions.",
       icon: <FaGift />,
-      color: "from-yellow-400 to-yellow-500",
-      link: "",
+      link: "/rewards",
     },
   ];
 
   const controls = useAnimation();
-  const [ref, inView] = useInView({ threshold: 0.2 });
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
-  React.useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
+  useEffect(() => {
+    if (inView) controls.start("visible");
   }, [inView, controls]);
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.25 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+  // Animation variants
+  const getCardVariants = (isLeft) => ({
+    hidden: { opacity: 0, x: isLeft ? -100 : 100 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      x: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
     },
-  };
-
-  const CardContent = ({ feature }) => (
-    <>
-      <div
-        className={`w-20 h-20 flex items-center justify-center mb-5 rounded-full bg-gradient-to-br ${feature.color} text-white text-3xl shadow-md`}
-      >
-        {feature.icon}
-      </div>
-      <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
-        {feature.title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-300 text-sm">
-        {feature.description}
-      </p>
-    </>
-  );
+  });
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-16" ref={ref}>
-      <h2 className="text-3xl md:text-4xl text-primary font-bold text-center mb-14">
+      <h2 className="text-3xl md:text-4xl text-green-700 font-extrabold text-center mb-12">
         Explore Our Features
       </h2>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
-        variants={containerVariants}
-        initial="hidden"
-        animate={controls}
-      >
-        {features.map((feature, index) => (
-          <motion.div key={index} variants={cardVariants}>
-            {feature.link ? (
-              <Link
-                to={feature.link}
-                className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500"
+      <div className="relative">
+        {/* Vertical Line */}
+        <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-green-300 -translate-x-1/2"></div>
+
+        <div className="space-y-12">
+          {features.map((f, idx) => {
+            const isLeft = idx % 2 === 0;
+            return (
+              <motion.div
+                key={idx}
+                className="relative w-full"
+                initial="hidden"
+                animate={controls}
+                variants={getCardVariants(isLeft)}
               >
-                <CardContent feature={feature} />
-              </Link>
-            ) : (
-              <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-gray-900/50 flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-indigo-500">
-                <CardContent feature={feature} />
-              </div>
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
+                {/* Number circle */}
+                <div className="absolute left-1/2 -translate-x-1/2 -top-3 z-20">
+                  <div className="w-10 h-10 rounded-full bg-white border-4 border-green-600 flex items-center justify-center font-bold text-green-600 shadow">
+                    {idx + 1}
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div className="pt-6 md:pt-0">
+                  <div
+                    className={`md:flex md:items-start ${
+                      isLeft ? "md:justify-start" : "md:justify-end"
+                    }`}
+                  >
+                    <div
+                      className={`md:w-5/12 ${
+                        isLeft ? "md:mr-auto" : "md:ml-auto"
+                      }`}
+                    >
+                      <Link
+                        to={f.link}
+                        className="block border border-green-600 rounded-xl shadow-md p-6 hover:shadow-lg transition-all bg-white dark:bg-gray-900"
+                      >
+                        <div className="flex items-center space-x-4 text-green-600">
+                          <div className="text-3xl">{f.icon}</div>
+                          <div>
+                            <h3 className="text-xl font-semibold">{f.title}</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              {f.description}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 };

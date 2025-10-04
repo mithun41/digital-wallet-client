@@ -1,43 +1,54 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from '../../assets/logo2.png'
+import logo from "../../assets/logo2.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-100 text-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+    <footer className=" ">
+      <hr className="" />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
           {/* Logo & About */}
           <div>
-            <h2 className=""><img src={logo} className="w-1/2 mx-auto" alt="" /></h2>
-            <p className="text-sm mt-2 text-secondary">
-              A smart way to manage your money. Safe, fast, and reliable.
+            <img src={logo} alt="Logo" className="w-36 mx-auto md:mx-0 mb-4" />
+            <p className="text-sm leading-relaxed ">
+              A smart way to manage your money. <br />
+              Safe, fast, and reliable.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-secondary">
+            <h3 className="text-lg font-semibold  mb-4">Quick Links</h3>
+            <ul className="space-y-2">
               <li>
-                <Link to="/" className="hover:text-gray-200">
+                <Link
+                  to="/"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="hover:text-gray-200">
+                <Link
+                  to="/login"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Login
                 </Link>
               </li>
               <li>
-                <Link to="/signup" className="hover:text-gray-200">
+                <Link
+                  to="/signup"
+                  className="hover:text-green-400 transition duration-300"
+                >
                   Signup
                 </Link>
               </li>
               <li>
                 <span
-                  className="hover:text-gray-200 cursor-pointer"
-                  title="access when logged in"
+                  className="hover:text-green-400 transition duration-300 cursor-pointer"
+                  title="Access when logged in"
                 >
                   Wallet
                 </span>
@@ -47,13 +58,21 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-3">Contact</h3>
-            <p className="text-sm text-secondary">Email: paymate.support@gmail.com</p>
-            <p className="text-sm text-secondary">Phone: +8801711121212</p>
-            <p className="text-sm mt-2 text-secondary">
-              © {new Date().getFullYear()} PayMate. All rights reserved.
-            </p>
+            <h3 className="text-lg font-semibold  mb-4">Contact</h3>
+            <p className="text-sm ">📧 paymate.support@gmail.com</p>
+            <p className="text-sm ">📞 +8801711121212</p>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t  py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between text-sm ">
+          <p>© {new Date().getFullYear()} PayMate. All rights reserved.</p>
+          <p className="mt-2 md:mt-0">
+            Made with <span className="text-red-500">❤️</span> by{" "}
+            <span className="font-medium text-green-400">6 LogicPlas Team</span>
+          </p>
         </div>
       </div>
     </footer>

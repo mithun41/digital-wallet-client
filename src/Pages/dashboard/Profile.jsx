@@ -10,7 +10,6 @@ const Profile = () => {
   const { user, error } = useSelector((state) => state.auth);
 
   // Local state
-
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
@@ -43,7 +42,9 @@ const Profile = () => {
 
   if (!user)
     return (
-      <p className="text-center mt-20 text-gray-500">No user data found.</p>
+      <p className="text-center mt-20 text-gray-500 dark:text-gray-400">
+        No user data found.
+      </p>
     );
 
   // ------------------ Photo ------------------
@@ -73,7 +74,7 @@ const Profile = () => {
 
       const token = localStorage.getItem("token");
       await axios.put(
-        "https://digital-wallet-server-tau.vercel.app/api/update-profile",
+        "https://digital-wallet-server-tau.vercel.appapi/update-profile",
         { photo: data.data.url },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -154,8 +155,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center bg-white items-start py-12">
-      <div className="w-full max-w-3xl rounded-3xl p-8 relative">
+    <div className="w-full min-h-screen flex justify-center items-center bg-white dark:bg-gray-800 ">
+      <div className="w-full rounded-3xl p-8 relativ">
         {/* Photo */}
         <div className="flex flex-col items-center relative">
           <div className="relative w-36 h-36">
@@ -195,7 +196,7 @@ const Profile = () => {
                   type="text"
                   value={nameInput}
                   onChange={(e) => setNameInput(e.target.value)}
-                  className="border px-3 py-2 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                  className="border dark:border-gray-600 px-3 py-2 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm dark:bg-gray-700 dark:text-gray-200"
                 />
                 <button
                   onClick={handleUpdateName}
@@ -215,7 +216,7 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
                   {nameInput}
                 </h2>
                 <button
@@ -229,14 +230,16 @@ const Profile = () => {
           </div>
 
           {/* Phone */}
-          <p className="text-gray-600 mt-2 text-lg">{user.phone}</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
+            {user.phone}
+          </p>
 
           {/* Balance & Status */}
           <div className="mt-3 flex flex-wrap justify-center gap-6">
-            <div className="bg-indigo-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
+            <div className="bg-indigo-50 dark:bg-gray-700 px-4 py-2 rounded-xl shadow-sm text-gray-700 dark:text-gray-200 font-medium">
               Balance: {user.balance?.toFixed(2)} {user.currency}
             </div>
-            <div className="bg-purple-50 px-4 py-2 rounded-xl shadow-sm text-gray-700 font-medium">
+            <div className="bg-purple-50 dark:bg-gray-700 px-4 py-2 rounded-xl shadow-sm text-gray-700 dark:text-gray-200 font-medium">
               Status: {user.status}
             </div>
           </div>
@@ -253,10 +256,10 @@ const Profile = () => {
 
           {showChangePin && (
             <form
-              className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-xl shadow-inner space-y-4 w-full max-w-md"
+              className="mt-6 p-6 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow-inner space-y-4 w-full max-w-md"
               onSubmit={handleChangePin}
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 text-center">
                 Change PIN
               </h3>
 
@@ -270,20 +273,20 @@ const Profile = () => {
                 </button>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Enter OTP
                   </label>
                   <input
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     placeholder="1234"
-                    className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="block w-full pl-3 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-gray-200"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Old PIN
                 </label>
                 <div className="relative">
@@ -294,7 +297,7 @@ const Profile = () => {
                     onChange={(e) => setOldPin(e.target.value)}
                     placeholder="••••"
                     maxLength={4}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
                   />
                   <button
                     type="button"
@@ -311,7 +314,7 @@ const Profile = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   New PIN
                 </label>
                 <div className="relative">
@@ -322,7 +325,7 @@ const Profile = () => {
                     onChange={(e) => setNewPin(e.target.value)}
                     placeholder="••••"
                     maxLength={4}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-gray-200"
                   />
                   <button
                     type="button"
@@ -342,7 +345,7 @@ const Profile = () => {
                 <button
                   type="button"
                   onClick={() => setShowChangePin(false)}
-                  className="cursor-pointer text-indigo-600 hover:underline"
+                  className="cursor-pointer text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                   Cancel
                 </button>
