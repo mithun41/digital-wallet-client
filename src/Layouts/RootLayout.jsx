@@ -32,13 +32,11 @@ const RootLayout = () => {
           }`}
       >
         <Outlet />
-<<<<<<< HEAD
-      </div>
+     
       
-=======
       </main>
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
       <Footer />
+
     </div>
   );
 };

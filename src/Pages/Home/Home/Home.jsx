@@ -4,11 +4,8 @@ import MobileCard from "../../../Components/MobileCard";
 import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
-<<<<<<< HEAD
 import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
-=======
 import TeamMarquee from "../../../Components/TeamMarquee";
->>>>>>> 7821e1eda25375449def8b2bae779baedbd6ade8
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
 import Guarantee from "../Guarantee/Guarantee";
