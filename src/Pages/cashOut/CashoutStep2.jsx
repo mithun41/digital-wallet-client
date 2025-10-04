@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -9,6 +10,9 @@ const CashoutStep2 = ({ onCashoutSuccess }) => {
   const { merchantPhone, amount, note } = location.state || {};
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Redux থেকে ইউজারের নাম্বার নেয়া
+  const userPhone = useSelector((state) => state.auth.user?.phone);
 
   const fullPhone = merchantPhone?.startsWith("+88")
     ? merchantPhone
@@ -26,6 +30,16 @@ const CashoutStep2 = ({ onCashoutSuccess }) => {
         icon: "warning",
         title: "Password required",
         text: "Please enter your password",
+      });
+      return;
+    }
+
+    // নিজের নাম্বারে cashout ব্লক
+    if (userPhone && (userPhone === merchantPhone || userPhone === fullPhone)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Transaction",
+        text: "You cannot cashout to your own number.",
       });
       return;
     }

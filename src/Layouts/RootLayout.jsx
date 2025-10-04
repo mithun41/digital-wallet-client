@@ -39,8 +39,6 @@ const RootLayout = () => {
         }`}
       >
         <Outlet />
-      
-      
       </main>
 
       {/* ✅ Footer hide in dashboard */}
