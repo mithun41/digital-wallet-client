@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { UserPlusIcon, CreditCardIcon, ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import {
+  UserPlusIcon,
+  CreditCardIcon,
+  ArrowsRightLeftIcon,
+} from "@heroicons/react/24/outline";
 
 const steps = [
   {
@@ -52,53 +56,47 @@ const HowItWorks = () => {
         >
           How PayMate Works
         </h2>
-        <p
-          className="max-w-2xl mx-auto mb-12 text-gray-600"
-          data-aos="fade-up"
-        >
+        <p className="max-w-2xl mx-auto mb-12 text-gray-600" data-aos="fade-up">
           Get started with your digital wallet in just 3 simple steps
         </p>
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-             
-            <div>
-                 {/* Top Icon */}
+          {steps.map((step, i) => (
+            <div key={i}>
+              {/* Top Icon */}
               <div className="flex justify-center mt-6">
                 <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-md">
                   {step.icon}
                 </div>
               </div>
-                <div
-              key={step.id}
-              data-aos={step.animation}
-              className="rounded-2xl shadow-md hover:shadow-2xl bg-white transition-transform duration-300 transform hover:scale-105 overflow-hidden group"
-            >
-            
+              <div
+                key={step.id}
+                data-aos={step.animation}
+                className="rounded-2xl shadow-md hover:shadow-2xl bg-white transition-transform duration-300 transform hover:scale-105 overflow-hidden group"
+              >
+                {/* Image */}
+                <div className="relative w-full h-50 mt-4 overflow-hidden">
+                  <img
+                    src={step.img}
+                    alt={step.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
 
-              {/* Image */}
-              <div className="relative w-full h-50 mt-4 overflow-hidden">
-                <img
-                  src={step.img}
-                  alt={step.title}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-green-600 mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">{step.description}</p>
+
+                  {/* CTA Button */}
+                  <button className="mt-4 px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition">
+                    Learn More →
+                  </button>
+                </div>
               </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-green-600 mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-sm text-gray-600">{step.description}</p>
-
-                {/* CTA Button */}
-                <button className="mt-4 px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition">
-                  Learn More →
-                </button>
-              </div>
-            </div>
             </div>
           ))}
         </div>

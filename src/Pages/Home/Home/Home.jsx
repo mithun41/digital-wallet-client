@@ -4,10 +4,6 @@ import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
 import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
 import TeamMarquee from "../../../Components/TeamMarquee";
-<<<<<<< HEAD
-=======
-import TestimonialCard from "../../../Components/TestimonialCard";
->>>>>>> c614cd404c5df87c78db1ae634b9db901bd19896
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
 import Guarantee from "../Guarantee/Guarantee";
@@ -52,15 +48,11 @@ const Home = () => {
         <Guarantee></Guarantee>
       </section>
       <section>
-        <TestimonialCard></TestimonialCard>
-      </section>
-      <section>
         <Subscription></Subscription>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
-     
     </div>
   );
 };
