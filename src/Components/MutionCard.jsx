@@ -56,7 +56,7 @@ const MutionCard = () => {
     };
 
     return (
-        <div className="min-h-screen to-slate-900 p-10 relative overflow-hidden">
+        <div className=" p-10  relative overflow-hidden">
             {/* Floating background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -78,7 +78,7 @@ const MutionCard = () => {
                 />
             </div>
 
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div className="max-w-10/12 mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
                 {/* Left Section */}
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}

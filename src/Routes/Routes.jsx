@@ -24,13 +24,13 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
+      { path: "transaction", Component: Transaction },
 
       {
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
           { index: true, Component: DashboardHome },
-          { path: "transaction", Component: Transaction },
           { path: "profile", Component: Profile },
           { path: "cashout", Component: CashOut },
           { path: "cashout/confirm", Component: CashoutStep2 },

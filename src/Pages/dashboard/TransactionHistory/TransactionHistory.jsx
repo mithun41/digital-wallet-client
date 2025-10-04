@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ====================================================================
-// StatCard Component
-// ====================================================================
+// ================= StatCard =================
 const StatCard = ({ icon, title, value, colorClass }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
@@ -20,10 +18,7 @@ const StatCard = ({ icon, title, value, colorClass }) => (
   </motion.div>
 );
 
-// ====================================================================
-// TransactionDetailModal Component
-// ====================================================================
-
+// ================= TransactionDetailModal =================
 const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
   if (!transaction) return null;
 
@@ -62,6 +57,15 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
     amountColor = "text-yellow-500";
     photo = transaction.merchantImage;
     opponentName = transaction.merchantName || "Merchant";
+  } else if (transaction.type === "addMoney") {
+    title = "Add Money";
+    accountLabel = "Method";
+    accountNumber = transaction.details;
+    prefix = "+";
+    amountColor = "text-cyan-400";
+    photo =
+      "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg";
+    opponentName = transaction.method || "Add Money";
   }
 
   return (
@@ -94,7 +98,10 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
           {/* Amount + Photo */}
           <div className="flex items-center gap-4 p-6 bg-gray-800/40">
             <img
-              src={photo || "/default-avatar.png"}
+              src={
+                photo ||
+                "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg"
+              }
               alt={opponentName}
               className="w-16 h-16 rounded-full border-2 border-gray-600 object-cover"
             />
@@ -132,25 +139,13 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
               </div>
             ))}
           </div>
-
-          {/* Footer Actions */}
-          <div className="flex justify-end gap-3 p-6 border-t border-gray-700 bg-gray-900">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-all">
-              🔁 Send Again
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-all">
-              📤 Share
-            </button>
-          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
   );
 };
 
-// ====================================================================
-// TransactionHistory Component
-// ====================================================================
+// ================= TransactionHistory =================
 const TransactionHistory = () => {
   const user = useSelector((state) => state.auth.user);
   const [transactions, setTransactions] = useState([]);
@@ -168,7 +163,9 @@ const TransactionHistory = () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "https://digital-wallet-server-tau.vercel.app/api/transactions",
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       setTransactions(res.data);
     } catch (err) {
@@ -182,6 +179,7 @@ const TransactionHistory = () => {
     fetchTransactions();
   }, [user]);
 
+  // ================= Filtered Transactions =================
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t) => {
       if (filter === "send")
@@ -190,10 +188,16 @@ const TransactionHistory = () => {
         return t.type === "sendMoney" && t.receiverPhone === user.phone;
       if (filter === "cashout")
         return t.type === "cashout" && t.senderPhone === user.phone;
-      return t.senderPhone === user.phone || t.receiverPhone === user.phone;
+      if (filter === "addMoney") return t.type === "addMoney";
+      return (
+        t.senderPhone === user.phone ||
+        t.receiverPhone === user.phone ||
+        t.type === "addMoney"
+      );
     });
   }, [transactions, filter, user]);
 
+  // ================= Summary Stats =================
   const summaryStats = useMemo(() => {
     const received = transactions
       .filter((t) => t.type === "sendMoney" && t.receiverPhone === user?.phone)
@@ -204,7 +208,10 @@ const TransactionHistory = () => {
     const cashouts = transactions
       .filter((t) => t.type === "cashout" && t.senderPhone === user?.phone)
       .reduce((sum, t) => sum + t.amount, 0);
-    return { received, sent, cashouts, total: transactions.length };
+    const addMoney = transactions
+      .filter((t) => t.type === "addMoney" && t.userId === user?._id)
+      .reduce((sum, t) => sum + t.amount, 0);
+    return { received, sent, cashouts, addMoney, total: transactions.length };
   }, [transactions, user]);
 
   return (
@@ -221,7 +228,7 @@ const TransactionHistory = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-12">
           <StatCard
             icon="⬇️"
             title="Total Received"
@@ -241,6 +248,12 @@ const TransactionHistory = () => {
             colorClass="text-yellow-400"
           />
           <StatCard
+            icon="💰"
+            title="Total Added"
+            value={`৳${summaryStats.addMoney.toLocaleString()}`}
+            colorClass="text-cyan-400"
+          />
+          <StatCard
             icon="📊"
             title="Total Transactions"
             value={summaryStats.total.toLocaleString()}
@@ -250,7 +263,7 @@ const TransactionHistory = () => {
 
         {/* Filters */}
         <div className="flex justify-start gap-3 mb-6">
-          {["all", "send", "receive", "cashout"].map((type) => (
+          {["all", "send", "receive", "cashout", "addMoney"].map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}
@@ -301,6 +314,13 @@ const TransactionHistory = () => {
                 opponentImage = t.merchantImage;
                 amountColor = "text-yellow-400";
                 prefix = "-";
+              } else if (t.type === "addMoney") {
+                title = "Add Money";
+                counterParty = `${t.details} (${t.method})`;
+                opponentImage =
+                  "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg";
+                amountColor = "text-cyan-400";
+                prefix = "+";
               }
 
               return (
@@ -312,7 +332,10 @@ const TransactionHistory = () => {
                 >
                   <div className="flex items-center gap-4">
                     <img
-                      src={opponentImage || "/default-avatar.png"}
+                      src={
+                        opponentImage ||
+                        "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg"
+                      }
                       alt="User"
                       className="w-14 h-14 rounded-full border-2 border-gray-600 object-cover"
                     />

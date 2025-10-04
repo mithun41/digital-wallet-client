@@ -108,7 +108,7 @@ const MobileRecharge = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br  via-blue-900 p-4">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-10/12 mx-auto">
         {/* Header */}
         <div className="text-center mb-8 pt-8">
           <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">

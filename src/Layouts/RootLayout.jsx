@@ -39,10 +39,20 @@ const RootLayout = () => {
         }`}
       >
         <Outlet />
+<<<<<<< HEAD
+     
+      
+      </main>
+      <Footer />
+
+=======
+      
+      
       </main>
 
       {/* ✅ Footer hide in dashboard */}
       {!isDashboard && <Footer />}
+>>>>>>> c614cd404c5df87c78db1ae634b9db901bd19896
     </div>
   );
 };
