@@ -118,7 +118,7 @@ export default function WalletFeatures() {
                             </div>
                             <p className="text-lg font-semibold mt-2">{item.price}</p>
 
-                            <button className="mt-3 px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow hover:bg-indigo-600 hover:text-white transition">
+                            <button className="mt-3 px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow hover:bg-green-600 hover:text-white transition">
                                 Try Now →
                             </button>
                         </div>

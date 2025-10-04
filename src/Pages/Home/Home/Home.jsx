@@ -12,6 +12,7 @@ import HeroSection from "../hero/HeroSection";
 import SecuritySection from "../SecuritySection/SecuritySection";
 import Subscription from "../Subscription/Subscription";
 import WalletFeatures from "../../../Components/WalletFeatures";
+import BankingCards from "../../../Components/BankingCards";
 
 const Home = () => {
   return (
@@ -53,6 +54,9 @@ const Home = () => {
       </section>
       <section>
         <Subscription></Subscription>
+      </section>
+      <section>
+        <BankingCards></BankingCards>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>

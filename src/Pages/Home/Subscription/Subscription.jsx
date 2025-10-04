@@ -2,7 +2,7 @@ import React from "react";
 
 const Subscription = () => {
     return (
-        <div className="max-w-11/12 mx-auto py-12 px-6 md:px-16 rounded-2xl  flex flex-col md:flex-row items-center justify-between shadow-md">
+        <div className="max-w-11/12 mx-auto border border-transparent hover:border-green-500 py-12 px-6 md:px-16 rounded-2xl  flex flex-col md:flex-row items-center justify-between shadow-md">
 
             {/* Left Text Section */}
             <div className="text-center md:text-left mb-6 md:mb-0">

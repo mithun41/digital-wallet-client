@@ -38,9 +38,9 @@ export default function TestimonialCarousel() {
 
     return (
         <div className=" py-20 px-4 ">
-            <div className="max-w-11/12 mx-auto">
+            <div className="max-w-11/12 mx-auto ">
                 {/* Header */}
-                <div className="text-center mb-20">
+                <div className="text-center mb-20 ">
                     <div className="inline-block mb-4">
                         <span className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-semibold">
                             TESTIMONIALS
@@ -56,7 +56,7 @@ export default function TestimonialCarousel() {
                 </div>
 
                 {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="zoom-out-down">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 " data-aos="zoom-out-down">
                     {testimonials.map((testimonial) => (
                         <TestimonialCard key={testimonial.id} testimonial={testimonial} />
                     ))}
@@ -68,9 +68,9 @@ export default function TestimonialCarousel() {
 
 function TestimonialCard({ testimonial }) {
     return (
-        <div className=" backdrop-blur-sm rounded-3xl shadow-2xl p-8 h-full hover:shadow-purple-200 hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-purple-100">
+        <div className=" backdrop-blur-sm border border-transparent hover:border-green-500 rounded-3xl shadow-2xl p-8 h-full hover:shadow-purple-200 hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-purple-100">
             {/* User Info */}
-            <div className="flex items-center mb-6">
+            <div className="flex items-center mb-6 ">
                 <div className="relative">
                     <img
                         src={testimonial.image}
