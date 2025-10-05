@@ -47,36 +47,41 @@ const HowItWorks = () => {
   }, []);
 
   return (
-    <section className="py-16 ">
+    <section className="py-16">
       <div className="max-w-11/12 mx-auto text-center px-4">
         {/* Heading */}
         <h2
-          className="text-3xl md:text-4xl font-bold text-green-600 mb-2"
+          className="text-3xl md:text-4xl font-bold text-green-500 mb-2"
           data-aos="fade-down"
         >
           How PayMate Works
         </h2>
-        <p className="max-w-2xl mx-auto mb-12 text-gray-600" data-aos="fade-up">
+        <p
+          className="max-w-2xl mx-auto mb-12 text-secondary"
+          data-aos="fade-up"
+        >
           Get started with your digital wallet in just 3 simple steps
         </p>
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, i) => (
-            <div key={i}>
+          {steps.map((step) => (
+            <div key={step.id}>
               {/* Top Icon */}
               <div className="flex justify-center mt-6">
                 <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-md">
                   {step.icon}
                 </div>
               </div>
+
+              {/* Card */}
               <div
-                key={step.id}
                 data-aos={step.animation}
-                className="rounded-2xl shadow-md hover:shadow-2xl bg-white transition-transform duration-300 transform hover:scale-105 overflow-hidden group"
+                className="rounded-2xl shadow-md  transition-all duration-300 transform hover:scale-105 overflow-hidden group 
+                           border border-transparent hover:border-green-500 hover:shadow-xl"
               >
                 {/* Image */}
-                <div className="relative w-full h-50 mt-4 overflow-hidden">
+                <div className="relative w-full h-52 mt-4 overflow-hidden">
                   <img
                     src={step.img}
                     alt={step.title}
@@ -89,7 +94,7 @@ const HowItWorks = () => {
                   <h3 className="text-lg font-semibold text-green-600 mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-gray-600">{step.description}</p>
+                  <p className="text-sm text-secondary">{step.description}</p>
 
                   {/* CTA Button */}
                   <button className="mt-4 px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition">

@@ -54,6 +54,9 @@ const Home = () => {
         <Subscription></Subscription>
       </section>
       <section>
+        <BankingCards></BankingCards>
+      </section>
+      <section>
         <WalletFeatures></WalletFeatures>
       </section>
     </div>
