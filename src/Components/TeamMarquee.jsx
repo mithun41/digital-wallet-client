@@ -70,11 +70,11 @@ const TeamMarquee = () => {
                                 alt={member.name}
                                 className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                             />
-                            <h3 className="text-lg font-semibold text-secondary">
+                            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
                                 {member.name}
                             </h3>
                             <p className="text-indigo-600 font-medium">{member.role}</p>
-                            <p className="text-secondary text-sm mt-2">{member.description}</p>
+                            <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{member.description}</p>
                         </div>
                     ))}
                 </div>

@@ -12,7 +12,7 @@ const Subscription = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-green-700">
                     Subscribe to our newsletter
                 </h2>
-                <p className="text-secondary mt-2 text-sm md:text-base">
+                <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm md:text-base">
                     Get handpicked property highlights, travel tips, and exclusive offers delivered to your inbox.
                 </p>
             </div>
@@ -22,7 +22,7 @@ const Subscription = () => {
                 <input
                     type="email"
                     placeholder="Enter your email"
-                    className="w-full md:w-80 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full md:w-80 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
                 <button className="ml-2 px-6 py-3 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 transition duration-300">
                     Subscribe
