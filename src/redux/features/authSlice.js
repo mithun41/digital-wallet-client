@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// ✅ Register User
+// ================= REGISTER USER =================
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -12,7 +12,6 @@ export const registerUser = createAsyncThunk(
         userData
       );
       localStorage.setItem("token", response.data.token);
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -22,7 +21,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// ✅ Login User
+// ================= LOGIN USER =================
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -41,21 +40,19 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// ✅ Reset Pin
+// ================= RESET PIN =================
 export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token"); // get token
+      const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
       const response = await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/reset-pin",
         { phone, oldPin, newPin },
         {
-          headers: {
-            Authorization: `Bearer ${token}`, // attach token
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return response.data;
@@ -67,21 +64,20 @@ export const resetPinUser = createAsyncThunk(
   }
 );
 
-// ✅ Fetch user from token
+// ================= FETCH USER =================
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
+
       const response = await axios.get(
         "https://digital-wallet-server-tau.vercel.app/api/me",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -92,6 +88,7 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+// ================= SLICE =================
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -109,7 +106,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Register
+      // ---- REGISTER ----
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -121,9 +118,10 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message || "Registration failed";
       })
-      // Login
+
+      // ---- LOGIN ----
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -135,9 +133,10 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message || "Login failed";
       })
-      // Reset Pin
+
+      // ---- RESET PIN ----
       .addCase(resetPinUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -147,11 +146,13 @@ const authSlice = createSlice({
       })
       .addCase(resetPinUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message || "Reset PIN failed";
       })
-      // Fetch User
+
+      // ---- FETCH USER ----
       .addCase(fetchUser.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -159,8 +160,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
-
+        state.error = action.payload?.message || "Fetch user failed";
         state.user = null;
       });
   },
