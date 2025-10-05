@@ -41,7 +41,7 @@ const BankingCards = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-green-400">
           Latest News & Events
         </h1>
-        <p className="max-w-11/12 mx-auto mt-3 text-secondary text-sm md:text-base">
+        <p className="max-w-11/12 mx-auto mt-3 text-gray-600 dark:text-gray-300 text-sm md:text-base">
           Stay updated with the latest features, offers, and announcements from
           our smart digital banking platform.
         </p>
@@ -66,10 +66,10 @@ const BankingCards = () => {
                 />
               </div>
               <div className="p-6 flex flex-col justify-center">
-                <h2 className="text-lg font-bold text-secondary">
+                <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                   {cards[0].title}
                 </h2>
-                <p className="text-secondary text-sm mt-2">{cards[0].desc}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[0].desc}</p>
                 <button className="text-green-500 mt-4 font-semibold hover:underline">
                   Learn More →
                 </button>
@@ -81,10 +81,10 @@ const BankingCards = () => {
               className="border border-green-500/40 rounded-2xl overflow-hidden p-6 e shadow-sm hover:shadow-lg transition-all"
               data-aos="fade-left"
             >
-              <h2 className="text-lg font-bold text-secondary">
+              <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[3].title}
               </h2>
-              <p className="text-secondary text-sm mt-2">{cards[3].desc}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[3].desc}</p>
               <button className="text-green-500 mt-4 font-semibold hover:underline">
                 Learn More →
               </button>
@@ -104,10 +104,10 @@ const BankingCards = () => {
               />
             </div>
             <div className="p-6 flex flex-col justify-center">
-              <h2 className="text-lg font-bold text-secondary">
+              <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[1].title}
               </h2>
-              <p className="text-secondary text-sm mt-2">{cards[1].desc}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[1].desc}</p>
               <button className="text-green-500 mt-4 font-semibold hover:underline">
                 Learn More →
               </button>
@@ -128,10 +128,10 @@ const BankingCards = () => {
             />
           </div>
           <div className="p-6">
-            <h2 className="text-lg font-bold text-secondary">
+            <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
               {cards[2].title}
             </h2>
-            <p className="text-secondary text-sm mt-2">{cards[2].desc}</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[2].desc}</p>
             <button className="text-green-500 mt-4 font-semibold hover:underline">
               Learn More →
             </button>

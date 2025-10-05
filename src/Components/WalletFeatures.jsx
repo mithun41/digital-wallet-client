@@ -81,7 +81,7 @@ export default function WalletFeatures() {
                 <h2 className=" text-green-500 text-3xl md:text-4xl font-bold ">
                     Popular Wallet Features
                 </h2>
-                <p className="mt-3 text-secondary text-gray-600 max-w-2xl mx-auto">
+                <p className="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                     Explore the most loved features of PayMate Digital Wallet — secure,
                     fast, and built for everyone.
                 </p>

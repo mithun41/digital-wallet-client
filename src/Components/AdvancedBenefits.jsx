@@ -67,7 +67,7 @@ const AdvancedBenefits = () => {
                     <h2 className="text-3xl font-bold text-green-500 mb-3">
                         Advanced Benefits
                     </h2>
-                    <p className="text-secondary mb-8">
+                    <p className="text-gray-600 dark:text-gray-300 mb-8">
                         Experience next-level digital banking features
                     </p>
 
@@ -83,10 +83,10 @@ const AdvancedBenefits = () => {
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-secondary">
+                                    <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
                                         {item.title}
                                     </h3>
-                                    <p className="text-secondary text-sm">{item.description}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}
