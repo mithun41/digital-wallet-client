@@ -64,7 +64,7 @@ const AdvancedBenefits = () => {
             <div className="max-w-11/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 {/* Left Side */}
                 <div data-aos="fade-right ">
-                    <h2 className="text-3xl font-bold text-secondary mb-3">
+                    <h2 className="text-3xl font-bold text-green-500 mb-3">
                         Advanced Benefits
                     </h2>
                     <p className="text-secondary mb-8">
