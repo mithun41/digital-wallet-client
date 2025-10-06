@@ -55,7 +55,7 @@ const Home = () => {
         <Subscription></Subscription>
       </section>
       <section>
-        <BankingCards></BankingCards>
+       <BankingCards></BankingCards>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
