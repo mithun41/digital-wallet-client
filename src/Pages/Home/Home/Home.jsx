@@ -13,6 +13,7 @@ import Subscription from "../Subscription/Subscription";
 import WalletFeatures from "../../../Components/WalletFeatures";
 import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
+import BankingCards from "../../../Components/BankingCards";
 
 const Home = () => {
   return (
@@ -54,7 +55,7 @@ const Home = () => {
         <Subscription></Subscription>
       </section>
       <section>
-        <BankingCards></BankingCards>
+       <BankingCards></BankingCards>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>

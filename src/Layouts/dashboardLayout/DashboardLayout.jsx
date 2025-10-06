@@ -44,7 +44,12 @@ const menuItems = [
     path: "/dashboard/cashOut",
     icon: <DollarSign size={24} />,
   },
-  {
+   {
+    name: "MyCard",
+    path: "/dashboard/mycard",
+    icon: <CreditCard size={24} />,
+  },
+  {   
     name: "Settings",
     path: "/dashboard/settings",
     icon: <Settings size={24} />,
