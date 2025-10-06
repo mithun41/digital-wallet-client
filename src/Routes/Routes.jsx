@@ -10,10 +10,16 @@ import Transaction from "../Pages/dashboard/Transaction";
 import Profile from "../Pages/dashboard/Profile";
 import AddMoney from "../Pages/dashboard/AddMoney";
 import MobileRecharge from "../Pages/dashboard/MobileRecharge";
+import MyCard from "../Pages/dashboard/MyCard";
 import Error from "../Components/Error/Error";
 import TransactionHistory from "../Pages/dashboard/TransactionHistory/TransactionHistory";
 import CashOut from "../Pages/cashOut/CashOut";
 import CashoutStep2 from "../Pages/cashOut/CashoutStep2";
+import AddMoneyBlog from "../Pages/Blog/addMoney/AddMoneyBlog";
+import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import Users from "../Pages/Admin/Users";
+import AdminTransactions from "../Pages/Admin/AdminTransactions";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +31,7 @@ export const router = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
       { path: "transaction", Component: Transaction },
+      { path: "add-money-blog", Component: AddMoneyBlog },
 
       {
         path: "/dashboard",
@@ -35,11 +42,24 @@ export const router = createBrowserRouter([
           { path: "cashout", Component: CashOut },
           { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
+          { path: "mycard", Component: MyCard },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
         ],
       },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    Component: AdminLayout,
+    children: [
+      {
+        index: true,
+        Component: AdminDashboard,
+      },
+      { path: "users", Component: Users },
+      { path: "transactions", Component: AdminTransactions },
     ],
   },
 ]);

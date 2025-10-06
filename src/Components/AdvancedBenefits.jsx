@@ -63,19 +63,19 @@ const AdvancedBenefits = () => {
         <section className="py-16 ">
             <div className="max-w-11/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 {/* Left Side */}
-                <div data-aos="fade-right">
-                    <h2 className="text-3xl font-bold text-secondary mb-3">
+                <div data-aos="fade-up-right">
+                    <h2 className="text-3xl font-bold text-green-500 mb-3">
                         Advanced Benefits
                     </h2>
-                    <p className="text-secondary mb-8">
+                    <p className="text-gray-600 dark:text-gray-300 mb-8">
                         Experience next-level digital banking features
                     </p>
 
-                    <div className="space-y-6">
+                    <div className="space-y-6 ">
                         {benefits.slice(0, 4).map((item) => (
                             <div
                                 key={item.id}
-                                className="flex items-start gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                                className="flex items-start border border-transparent hover:border-green-500 gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
                             >
                                 <div
                                     className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
@@ -83,10 +83,10 @@ const AdvancedBenefits = () => {
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-secondary">
+                                    <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
                                         {item.title}
                                     </h3>
-                                    <p className="text-secondary text-sm">{item.description}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -94,11 +94,11 @@ const AdvancedBenefits = () => {
                 </div>
 
                 {/* Right Side */}
-                <div data-aos="fade-left" className="flex w-265 justify-center">
+                <div data-aos="fade-left" className="flex w-250 justify-center ">
                     <img
                         src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
                         alt="Mobile App"
-                        className="rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+                        className="rounded-2xl border border-transparent hover:border-green-500 shadow-lg transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
                     />
                 </div>
             </div>

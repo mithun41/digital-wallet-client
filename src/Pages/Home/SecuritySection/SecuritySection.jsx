@@ -1,127 +1,238 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaLock, FaShieldAlt, FaMobileAlt, FaBell } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SecuritySection = () => {
-  const securityFeatures = [
+  const features = [
     {
       icon: <FaLock />,
       title: "Encrypted Transactions",
       description:
-        "All your transactions are encrypted with the latest security standards.",
-      color: "from-blue-400 to-blue-600",
+        "Your data and funds are protected by end-to-end AES-256 encryption.",
+      color: "from-blue-500 to-indigo-600",
     },
     {
       icon: <FaShieldAlt />,
-      title: "Secure Wallet",
+      title: "Advanced Security",
       description:
-        "Two-factor authentication and strong password policies can protect your account.",
-      color: "from-green-400 to-green-600",
+        "Two-factor authentication and fraud detection keep your wallet safe.",
+      color: "from-green-500 to-emerald-600",
     },
     {
       icon: <FaMobileAlt />,
       title: "Device Management",
       description:
-        "Control which devices can access your wallet and monitor login activity.",
-      color: "from-purple-400 to-purple-600",
+        "Manage trusted devices and sessions directly from your dashboard.",
+      color: "from-purple-500 to-fuchsia-600",
     },
     {
       icon: <FaBell />,
-      title: "Instant Alerts",
+      title: "Instant Notifications",
       description:
-        "Receive real-time notifications for every transaction to stay informed.",
-      color: "from-yellow-400 to-yellow-500",
+        "Stay informed with instant transaction and security alerts on every device.",
+      color: "from-yellow-500 to-amber-600",
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % securityFeatures.length);
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.2 },
+    },
   };
 
-  const prevSlide = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? securityFeatures.length - 1 : prev - 1
-    );
-  };
-
-  // Animation for enter/exit
-  const variants = {
-    enter: { opacity: 0, x: 100, filter: "blur(8px)" },
-    center: { opacity: 1, x: 0, filter: "blur(0px)" },
-    exit: { opacity: 0, x: -100, filter: "blur(8px)" },
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-16 relative">
-      <h2 className="text-3xl font-bold text-center mb-12">Security & Trust</h2>
-
-      <div className="relative flex items-center justify-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            className="relative p-8 rounded-2xl shadow-xl flex flex-col items-center text-center w-full max-w-md 
-                       bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 
-                       border border-gray-200 dark:border-gray-700 transition-colors"
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.6 }}
-          >
-            {/* Focused card has live animation */}
-            <motion.div
-              className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${securityFeatures[activeIndex].color} text-white text-2xl`}
-              animate={{
-                scale: [1, 1.15, 1],
-                rotate: [0, 3, -3, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {securityFeatures[activeIndex].icon}
-            </motion.div>
-
-            <motion.h3
-              className="text-xl font-semibold mb-2"
-              animate={{
-                y: [0, -5, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {securityFeatures[activeIndex].title}
-            </motion.h3>
-
-            <p className="text-gray-600 dark:text-gray-300">
-              {securityFeatures[activeIndex].description}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow p-3 rounded-full"
-        >
-          ◀
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow p-3 rounded-full"
-        >
-          ▶
-        </button>
+    <section className="max-w-6xl mx-auto px-6 py-24">
+      <div className="text-center mb-14">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Security & Trust
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-2xl mx-auto">
+          Every layer of PayMate is built with enterprise-grade protection to
+          keep your money and data secure.
+        </p>
       </div>
+
+      <AnimatePresence>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              whileHover={{
+                scale: 1.05,
+                y: -5,
+                boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
+              }}
+              className="relative bg-white/80 dark:bg-gray-900/70 
+                       border border-gray-200 dark:border-gray-700 
+                       backdrop-blur-lg rounded-3xl p-8 text-center 
+                       shadow-lg transition-all duration-300"
+            >
+              <motion.div
+                className={`w-16 h-16 mx-auto mb-6 flex items-center justify-center 
+                            rounded-full bg-gradient-to-br ${feature.color} text-white text-2xl`}
+                animate={{
+                  y: [0, -6, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {feature.icon}
+              </motion.div>
+
+              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 };
 
 export default SecuritySection;
+
+
+
+// import React from "react";
+// import { FaLock, FaShieldAlt, FaMobileAlt, FaBell } from "react-icons/fa";
+// import { motion, AnimatePresence } from "framer-motion";
+
+// const SecuritySection = () => {
+//   const features = [
+//     {
+//       icon: <FaLock />,
+//       title: "Encrypted Transactions",
+//       description:
+//         "Your data and funds are protected by end-to-end AES-256 encryption.",
+//       color: "from-blue-500 to-indigo-600",
+//     },
+//     {
+//       icon: <FaShieldAlt />,
+//       title: "Advanced Security",
+//       description:
+//         "Two-factor authentication and fraud detection keep your wallet safe.",
+//       color: "from-green-500 to-emerald-600",
+//     },
+//     {
+//       icon: <FaMobileAlt />,
+//       title: "Device Management",
+//       description:
+//         "Manage trusted devices and sessions directly from your dashboard.",
+//       color: "from-purple-500 to-fuchsia-600",
+//     },
+//     {
+//       icon: <FaBell />,
+//       title: "Instant Notifications",
+//       description:
+//         "Stay informed with instant transaction and security alerts on every device.",
+//       color: "from-yellow-500 to-amber-600",
+//     },
+//   ];
+
+//   const containerVariants = {
+//     hidden: {},
+//     visible: {
+//       transition: { staggerChildren: 0.2 },
+//     },
+//   };
+
+//   const cardVariants = {
+//     hidden: { opacity: 0, y: 40, scale: 0.95 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       scale: 1,
+//       transition: { duration: 0.6, ease: "easeOut" },
+//     },
+//   };
+
+//   return (
+//     <section className="max-w-6xl mx-auto px-6 py-24">
+//       <div className="text-center mb-14">
+//         <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+//           Security & Trust
+//         </h2>
+//         <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-2xl mx-auto">
+//           Every layer of PayMate is built with enterprise-grade protection to
+//           keep your money and data secure.
+//         </p>
+//       </div>
+
+//       <motion.div
+//         variants={containerVariants}
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true, amount: 0.2 }}
+//         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+//       >
+//         {features.map((feature, index) => (
+//           <motion.div
+//             key={index}
+//             variants={cardVariants}
+//             whileHover={{
+//               scale: 1.05,
+//               y: -5,
+//               boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
+//             }}
+//             className="relative bg-white/80 dark:bg-gray-900/70 
+//                        border border-gray-200 dark:border-gray-700 
+//                        backdrop-blur-lg rounded-3xl p-8 text-center 
+//                        shadow-lg transition-all duration-300"
+//           >
+//             <motion.div
+//               className={`w-16 h-16 mx-auto mb-6 flex items-center justify-center 
+//                           rounded-full bg-gradient-to-br ${feature.color} text-white text-2xl`}
+//               animate={{
+//                 y: [0, -6, 0],
+//               }}
+//               transition={{
+//                 duration: 3,
+//                 repeat: Infinity,
+//                 ease: "easeInOut",
+//               }}
+//             >
+//               {feature.icon}
+//             </motion.div>
+//           </AnimatePresence>
+//         </div>
+
+//             <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+//               {feature.title}
+//             </h3>
+//             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+//               {feature.description}
+//             </p>
+//           </motion.div>
+//         ))}
+//       </motion.div>
+//     </section>
+//   );
+// };
+
+// export default SecuritySection;
+

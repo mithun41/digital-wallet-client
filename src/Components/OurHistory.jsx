@@ -67,8 +67,8 @@ const OurHistory = () => {
 
 
   return (
-    <div className="max-w-11/12 mx-auto mt-10 px-10">
-      <p className="text-3xl text-primary text-center my-8">Our Achievement</p>
+    <div className="max-w-11/12 mx-auto mt-10 px-10 pb-10">
+      <p className="text-3xl text-green-800 dark:text-green-500 font-bold text-center my-8">Our Achievement</p>
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -105,7 +105,7 @@ const OurHistory = () => {
         {
           achievements.map((achievement, index) => {
             const gradient = colors[index % colors.length]
-            return <SwiperSlide className={`p-5 border text-center bg-gradient-to-r ${gradient[index % gradient.length]} rounded-xl border-blue-700 backdrop-blur-3xl`}>
+            return <SwiperSlide className={`p-5 border text-center text-white bg-gradient-to-r ${gradient[index % gradient.length]} rounded-xl border-blue-700 backdrop-blur-3xl`}>
               <img src={achievement.image} alt="" />
               <strong>{achievement.year}</strong>
               <h3>{achievement.title}</h3>

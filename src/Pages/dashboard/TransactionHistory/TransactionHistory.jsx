@@ -310,8 +310,8 @@ const TransactionHistory = () => {
                 }
               } else if (t.type === "cashout") {
                 title = "Cashout";
-                counterParty = `${t.merchantName}`;
-                opponentImage = t.merchantImage;
+                counterParty = `${t.receiverName}`;
+                opponentImage = t.receiverImage;
                 amountColor = "text-yellow-400";
                 prefix = "-";
               } else if (t.type === "addMoney") {

@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
+import {
+  FaWallet,
+  FaMoneyBillWave,
+  FaGift,
+  FaExchangeAlt,
+} from "react-icons/fa";
 import { Link } from "react-router";
-import {  motion, useAnimation } from "framer-motion";
-
-
-// src/components/Features.jsx
-
-
-
+import { motion, useAnimation } from "framer-motion";
 
 import { useInView } from "react-intersection-observer";
 
@@ -15,7 +14,8 @@ const Features = () => {
   const features = [
     {
       title: "Add Money",
-      description: "Top up your wallet instantly from your bank account or card.",
+      description:
+        "Top up your wallet instantly from your bank account or card.",
       icon: <FaMoneyBillWave />,
       link: "/add_money",
     },

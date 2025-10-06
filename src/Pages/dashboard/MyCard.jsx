@@ -3,12 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-import {
-  FaRegCreditCard,
-  FaUser,
-  FaCcVisa,
-  FaCcMastercard,
-} from "react-icons/fa";
+import { FaRegCreditCard, FaUser } from "react-icons/fa";
 
 const MyCard = () => {
   const [cards, setCards] = useState([]);
@@ -23,7 +18,10 @@ const MyCard = () => {
   const { user, token } = useSelector((state) => state.auth);
 
   const formatCardNumber = (value) =>
-    value.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ");
+    value
+      .replace(/\D/g, "")
+      .slice(0, 16)
+      .replace(/(\d{4})(?=\d)/g, "$1 ");
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -69,6 +67,23 @@ const MyCard = () => {
       .catch((err) => console.error(err));
   }, [user, token]);
 
+  const cardBackgrounds = {
+    Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa_card.png",
+    Mastercard:
+      "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mastercard-logo.png",
+    Amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
+    Default: "https://via.placeholder.com/400x250",
+  };
+
+  const cardLogos = {
+    Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
+    Mastercard:
+      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+    Amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
+    Discover:
+      "https://upload.wikimedia.org/wikipedia/commons/5/5a/Discover_Card_logo.svg",
+  };
+
   return (
     <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
       <div className="max-w-5xl mx-auto">
@@ -77,34 +92,83 @@ const MyCard = () => {
         </h1>
 
         {/* Saved Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-          {cards.map((card) => (
-            <div
-              key={card._id}
-              className="relative rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white"
-            >
-              <div className="absolute inset-0 bg-black/10 rounded-3xl backdrop-blur-sm"></div>
-              <div className="relative z-10 flex flex-col justify-between h-full">
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="text-2xl font-bold">{card.type || "Card"}</h2>
-                  {card.type === "Visa" ? <FaCcVisa size={40} /> : <FaCcMastercard size={40} />}
-                </div>
-                <div className="text-xl tracking-widest font-mono mb-6">
-                  **** **** **** {card.number ? card.number.slice(-4) : "####"}
-                </div>
-                <div className="flex justify-between text-sm font-semibold">
-                  <div>
-                    <p className="text-gray-200 dark:text-gray-300">Card Holder</p>
-                    <p>{card.holder || "N/A"}</p>
+        {/* Saved Cards */}
+        <div className="flex flex-col gap-6 mb-6 items-center">
+          {cards.map((card) => {
+            const bg =
+              card.type === "Visa"
+                ? "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa_card.png"
+                : card.type === "Mastercard"
+                ? "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mastercard-logo.png"
+                : "https://via.placeholder.com/400x250";
+
+            const logo =
+              card.type === "Visa"
+                ? "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg"
+                : card.type === "Mastercard"
+                ? "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                : card.type === "Amex" || card.type === "American Express"
+                ? "https://i.ibb.co.com/DH9V2qtW/american.png"
+                : card.type === "Discover"
+                ? "https://i.ibb.co.com/TxVN7SSB/dscvr.jpg"
+                : null;
+
+            return (
+              <div
+                key={card._id}
+                className="relative rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-white"
+                style={{
+                  backgroundImage: `url(${bg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  width: "400px",
+                  height: "250px",
+                }}
+              >
+                {/* Overlay for text visibility */}
+                <div className="absolute inset-0 bg-black/25 rounded-2xl"></div>
+
+                {/* Card Content */}
+                <div className="relative z-10 flex flex-col justify-between h-full p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-2xl font-bold">
+                      {card.type || "Card"}
+                    </h2>
+                    {logo && (
+                      <img
+                        src={logo}
+                        alt={card.type}
+                        className="h-10 object-contain drop-shadow-md"
+                      />
+                    )}
                   </div>
-                  <div>
-                    <p className="text-gray-200 dark:text-gray-300">Expiry</p>
-                    <p>{card.expiry || "--/--"}</p>
+
+                  <div className="text-xl tracking-widest font-mono mb-4">
+                    **** **** ****{" "}
+                    {card.number ? card.number.slice(-4) : "####"}
+                  </div>
+
+                  <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                    <div>
+                      <p className="text-gray-200 dark:text-gray-300">
+                        Card Holder
+                      </p>
+                      <p>{card.holder || "N/A"}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-200 dark:text-gray-300">Expiry</p>
+                      <p>{card.expiry || "--/--"}</p>
+                    </div>
+                  </div>
+
+                  {/* Balance */}
+                  <div className="text-sm font-semibold mt-2">
+                    Balance: ৳{card.balance?.toLocaleString() || "0"}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Add Card Button / Form */}
@@ -184,7 +248,9 @@ const MyCard = () => {
                 </label>
                 <DatePicker
                   selected={formData.expiry}
-                  onChange={(date) => setFormData({ ...formData, expiry: date })}
+                  onChange={(date) =>
+                    setFormData({ ...formData, expiry: date })
+                  }
                   dateFormat="MM/yy"
                   showMonthYearPicker
                   className="w-full p-3 rounded-lg text-black dark:text-white bg-white dark:bg-gray-700"
