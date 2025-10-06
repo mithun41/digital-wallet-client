@@ -1,10 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-
-// import { Link } from "react-router-dom";
-// >>>>>>> d015bd19eb28f38620c3d9f188b8fc750b5057c0
-// App.jsx
-
 import {
   FaBolt,
   FaWifi,

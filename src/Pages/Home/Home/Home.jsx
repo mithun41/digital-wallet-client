@@ -61,7 +61,7 @@ const Home = () => {
       </section>
      {/* <Testimonial></Testimonial> */}
       <section>
-        <BankingCards></BankingCards>
+       <BankingCards></BankingCards>
       </section>
      <section>
         <Subscription></Subscription>
