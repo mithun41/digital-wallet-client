@@ -14,6 +14,11 @@ import Error from "../Components/Error/Error";
 import TransactionHistory from "../Pages/dashboard/TransactionHistory/TransactionHistory";
 import CashOut from "../Pages/cashOut/CashOut";
 import CashoutStep2 from "../Pages/cashOut/CashoutStep2";
+import AddMoneyBlog from "../Pages/Blog/addMoney/AddMoneyBlog";
+import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import Users from "../Pages/Admin/Users";
+import AdminTransactions from "../Pages/Admin/AdminTransactions";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "login", Component: Login },
       { path: "signup", Component: Register },
       { path: "transaction", Component: Transaction },
+      { path: "add-money-blog", Component: AddMoneyBlog },
 
       {
         path: "/dashboard",
@@ -40,6 +46,18 @@ export const router = createBrowserRouter([
           { path: "send-money", Component: SendMoney },
         ],
       },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    Component: AdminLayout,
+    children: [
+      {
+        index: true,
+        Component: AdminDashboard,
+      },
+      { path: "users", Component: Users },
+      { path: "transactions", Component: AdminTransactions },
     ],
   },
 ]);

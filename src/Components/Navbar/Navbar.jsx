@@ -78,11 +78,14 @@ const Navbar = () => {
                   />
                 )}
                 <Link
-                  to="/dashboard"
+                  to={
+                    user?.role === "admin" ? "/admin/dashboard" : "/dashboard"
+                  }
                   className="hover:text-gray-200 px-2 py-1 rounded"
                 >
                   Dashboard
                 </Link>
+
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 px-4 py-1 rounded hover:bg-red-600"
@@ -159,11 +162,12 @@ const Navbar = () => {
                 />
               )}
               <Link
-                to="/dashboard"
+                to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
                 className="block text-center hover:bg-blue-500 rounded px-2 py-1"
               >
                 Dashboard
               </Link>
+
               <button
                 onClick={handleLogout}
                 className="w-full bg-red-500 px-2 py-1 rounded hover:bg-red-600"
