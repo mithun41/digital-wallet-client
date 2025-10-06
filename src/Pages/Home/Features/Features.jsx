@@ -1,22 +1,14 @@
-<<<<<<< HEAD
-import React from "react";
+import React, { useEffect } from "react";
 import { FaWallet, FaMoneyBillWave, FaGift, FaExchangeAlt } from "react-icons/fa";
 import { Link } from "react-router";
 import {  motion, useAnimation } from "framer-motion";
 
 
-=======
 // src/components/Features.jsx
-import React, { useEffect } from "react";
-import {
-  FaWallet,
-  FaMoneyBillWave,
-  FaGift,
-  FaExchangeAlt,
-} from "react-icons/fa";
-import { Link } from "react-router";
-import { motion, useAnimation } from "framer-motion";
->>>>>>> c614cd404c5df87c78db1ae634b9db901bd19896
+
+
+
+
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {
