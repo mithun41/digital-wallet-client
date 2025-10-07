@@ -245,13 +245,12 @@ const DashboardHome = () => {
             return (
               <motion.div
                 key={card._id ?? i}
-                className="relative rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-white"
+                className="relative rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-[350px] md:w-[380px]  lg:w-[400px] h-[220px] lg:h-[250px]  aspect-[16/10] text-white"
                 style={{
                   backgroundImage: `url(${bg})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  width: "400px",
-                  height: "250px",
+                  
                 }}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -262,12 +261,12 @@ const DashboardHome = () => {
 
                 {/* Card Content */}
                 <div className="relative z-10 flex flex-col  justify-between h-full p-6">
-                  <div className="flex justify-between items-center mb-8 ">
+                  <div className="flex justify-between items-center mb-6 ">
                     <h2 className="text-2xl font-bold">{card.type || "Card"}</h2>
                     {logo && <img src={logo} alt={card.type} className="h-10" />}
                   </div>
 
-                  <div className="text-xl tracking-widest font-mono mb-6">
+                  <div className="text-xl tracking-widest font-mono mb-4">
                     **** **** **** {card.number?.slice(-4) || "####"}
                   </div>
 
@@ -280,9 +279,7 @@ const DashboardHome = () => {
                       <p className="text-gray-200 dark:text-gray-300">Expiry</p>
                       <p>{card.expiry || "--/--"}</p>
                     </div>
-                    <div className="text-sm font-semibold mt-2">
-                    Balance: ৳{card.balance?.toLocaleString() || "0"}
-                  </div>
+                    
                   </div>
                 </div>
               </motion.div>

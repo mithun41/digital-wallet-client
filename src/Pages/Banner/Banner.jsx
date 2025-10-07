@@ -177,3 +177,166 @@ export default function Banner() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+//  import { Wallet, Shield, Lock, Fingerprint, CreditCard, ArrowUpRight, ArrowDownLeft, TrendingUp } from 'lucide-react';
+
+// function Banner() {
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 relative overflow-hidden">
+//       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(6,182,212,0.15),transparent_50%)]"></div>
+//       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(139,92,246,0.15),transparent_50%)]"></div>
+
+//       <div className="absolute top-20 left-10 opacity-10">
+//         <Shield className="w-32 h-32 text-white" />
+//       </div>
+//       <div className="absolute bottom-20 right-20 opacity-10">
+//         <Lock className="w-24 h-24 text-white" />
+//       </div>
+//       <div className="absolute top-40 right-40 opacity-10">
+//         <Fingerprint className="w-28 h-28 text-white" />
+//       </div>
+
+//       <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-32">
+//         <div className="grid lg:grid-cols-2 gap-12 items-center">
+//           <div className="space-y-8 text-white z-10">
+//             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+//               Your Smart Digital Wallet for{' '}
+//               <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+//                 Everyday Payments
+//               </span>
+//             </h1>
+
+//             <p className="text-xl text-blue-100 leading-relaxed font-light max-w-lg">
+//               Secure, Fast, and Effortless Transactions — Anytime, Anywhere.
+//             </p>
+
+//             <div className="flex flex-col sm:flex-row gap-4 pt-4">
+//               <button className="px-8 py-4 bg-white text-indigo-700 rounded-full font-semibold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+//                 Get Started
+//               </button>
+//               <button className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold text-lg hover:bg-white hover:text-indigo-700 transition-all duration-300">
+//                 Learn More
+//               </button>
+//             </div>
+
+//             <div className="flex gap-8 pt-8">
+//               <div className="flex items-center gap-2">
+//                 <Shield className="w-5 h-5 text-cyan-400" />
+//                 <span className="text-sm text-blue-100">Bank-level Security</span>
+//               </div>
+//               <div className="flex items-center gap-2">
+//                 <Lock className="w-5 h-5 text-cyan-400" />
+//                 <span className="text-sm text-blue-100">Encrypted</span>
+//               </div>
+//               <div className="flex items-center gap-2">
+//                 <TrendingUp className="w-5 h-5 text-cyan-400" />
+//                 <span className="text-sm text-blue-100">Instant Transfers</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="relative lg:h-[600px] flex items-center justify-center">
+//             <div className="absolute top-10 left-10 animate-float">
+//               <div className="w-32 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl shadow-2xl transform rotate-12 opacity-90 backdrop-blur-sm"></div>
+//             </div>
+//             <div className="absolute bottom-20 left-0 animate-float-delay-1">
+//               <div className="w-28 h-18 bg-gradient-to-br from-violet-400 to-purple-500 rounded-xl shadow-2xl transform -rotate-6 opacity-90"></div>
+//             </div>
+//             <div className="absolute top-20 right-10 animate-float-delay-2">
+//               <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full shadow-2xl flex items-center justify-center text-white font-bold text-xl">
+//                 $
+//               </div>
+//             </div>
+
+//             <div className="relative w-80 h-[600px] bg-gradient-to-b from-gray-900 to-gray-800 rounded-[3rem] shadow-2xl p-4 border-8 border-gray-900">
+//               <div className="w-full h-full bg-gradient-to-b from-slate-900 to-slate-800 rounded-[2.5rem] overflow-hidden">
+//                 <div className="bg-gradient-to-r from-indigo-600 to-purple-600 h-2 w-full"></div>
+
+//                 <div className="p-6 space-y-6">
+//                   <div className="flex items-center justify-between">
+//                     <div className="flex items-center gap-2">
+//                       <Wallet className="w-6 h-6 text-cyan-400" />
+//                       <span className="text-white font-bold text-lg">PayMate</span>
+//                     </div>
+//                     <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-violet-400 rounded-full"></div>
+//                   </div>
+
+//                   <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-600 rounded-3xl p-6 shadow-xl">
+//                     <div className="text-blue-200 text-sm mb-2">Total Balance</div>
+//                     <div className="text-white text-4xl font-bold mb-4">$24,580.00</div>
+//                     <div className="flex items-center gap-2 text-green-300 text-sm">
+//                       <TrendingUp className="w-4 h-4" />
+//                       <span>+12.5% this month</span>
+//                     </div>
+//                   </div>
+
+//                   <div className="grid grid-cols-2 gap-3">
+//                     <button className="bg-gradient-to-br from-cyan-500 to-blue-500 text-white rounded-2xl p-4 flex flex-col items-center gap-2 hover:shadow-lg transition-all">
+//                       <ArrowUpRight className="w-6 h-6" />
+//                       <span className="text-sm font-semibold">Send</span>
+//                     </button>
+//                     <button className="bg-gradient-to-br from-violet-500 to-purple-500 text-white rounded-2xl p-4 flex flex-col items-center gap-2 hover:shadow-lg transition-all">
+//                       <ArrowDownLeft className="w-6 h-6" />
+//                       <span className="text-sm font-semibold">Receive</span>
+//                     </button>
+//                   </div>
+
+//                   <div className="space-y-3">
+//                     <div className="text-gray-400 text-sm font-semibold">Recent Transactions</div>
+
+//                     <div className="bg-slate-800 rounded-2xl p-4 flex items-center gap-3">
+//                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+//                         <ArrowDownLeft className="w-5 h-5 text-white" />
+//                       </div>
+//                       <div className="flex-1">
+//                         <div className="text-white text-sm font-semibold">Payment Received</div>
+//                         <div className="text-gray-400 text-xs">Today, 2:30 PM</div>
+//                       </div>
+//                       <div className="text-green-400 font-bold">+$850</div>
+//                     </div>
+
+//                     <div className="bg-slate-800 rounded-2xl p-4 flex items-center gap-3">
+//                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+//                         <CreditCard className="w-5 h-5 text-white" />
+//                       </div>
+//                       <div className="flex-1">
+//                         <div className="text-white text-sm font-semibold">Shopping</div>
+//                         <div className="text-gray-400 text-xs">Yesterday</div>
+//                       </div>
+//                       <div className="text-gray-300 font-bold">-$124</div>
+//                     </div>
+
+//                     <div className="bg-slate-800 rounded-2xl p-4 flex items-center gap-3">
+//                       <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+//                         <ArrowUpRight className="w-5 h-5 text-white" />
+//                       </div>
+//                       <div className="flex-1">
+//                         <div className="text-white text-sm font-semibold">Transfer Sent</div>
+//                         <div className="text-gray-400 text-xs">2 days ago</div>
+//                       </div>
+//                       <div className="text-gray-300 font-bold">-$500</div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="absolute -bottom-5 -right-5 w-20 h-20 bg-gradient-to-br from-cyan-400 to-violet-400 rounded-full blur-2xl opacity-60 animate-pulse"></div>
+//             <div className="absolute -top-5 -left-5 w-24 h-24 bg-gradient-to-br from-violet-400 to-purple-400 rounded-full blur-2xl opacity-60 animate-pulse"></div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Banner;
