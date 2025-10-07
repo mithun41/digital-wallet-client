@@ -15,6 +15,8 @@ import { FaCrown } from "react-icons/fa6";
 import logo from "../../assets/logo2.png";
 import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
+import PayBill from "../../Pages/dashboard/PayBill";
+import { CiMoneyBill } from "react-icons/ci";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -48,6 +50,11 @@ const menuItems = [
     name: "MyCard",
     path: "/dashboard/mycard",
     icon: <CreditCard size={24} />,
+  },
+   {
+    name: "PayBill",
+    path: "/dashboard/pay-bill",
+    icon: <CiMoneyBill size={24} />,
   },
   {   
     name: "Settings",
