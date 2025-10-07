@@ -1,300 +1,349 @@
-import React, { useState, useEffect } from 'react';
-import { Play, Sparkles, Zap, TrendingUp, Users, CreditCard, Send, ArrowRight } from 'lucide-react';
+import React from "react";
+import { ArrowRight, Sparkles, Zap, Shield, CreditCard } from "lucide-react";
 
 const Banner = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeUser, setActiveUser] = useState(0);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setIsVisible(true);
-    
-    // User avatar cycling
-    const userInterval = setInterval(() => {
-      setActiveUser(prev => (prev + 1) % 5);
-    }, 1500);
-
-    // Counter animation
-    const countInterval = setInterval(() => {
-      setCount(prev => (prev >= 10245 ? 0 : prev + 125));
-    }, 50);
-
-    return () => {
-      clearInterval(userInterval);
-      clearInterval(countInterval);
-    };
-  }, []);
-
-  const companies = ['Digital', 'Wallet', 'SendMoney', 'CashOut', 'Tranaction', 'MobileReasharge', 'Taransfer'];
-  // const transactions = ['Ethan', 'Noah', 'Mason', 'Liam', 'Oliver'];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-900 via-teal-800 to-teal-900 overflow-hidden relative">
-      {/* Animated Decorative Elements */}
-      <div className="absolute top-10 left-10 w-12 h-12 border-4 border-lime-200 rounded-full animate-spin" style={{animationDuration: '3s'}}></div>
-      <div className="absolute top-20 right-1/4 w-32 h-32 border-2 border-lime-200/30 rounded-full animate-pulse"></div>
-      
-      {/* Bouncing Arrow */}
-      <div className="absolute top-1/4 right-20 text-lime-400 animate-bounce">
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="currentColor" className="animate-spin" style={{animationDuration: '2s'}}>
-          <path d="M25 5L30 20L25 25L20 20L25 5Z"/>
-          <path d="M25 5L30 20L25 25L20 20L25 5Z" transform="rotate(90 25 25)"/>
-          <path d="M25 5L30 20L25 25L20 20L25 5Z" transform="rotate(180 25 25)"/>
-          <path d="M25 5L30 20L25 25L20 20L25 5Z" transform="rotate(270 25 25)"/>
-        </svg>
-      </div>
-
-      {/* Multiple Sparkles */}
-      {[...Array(5)].map((_, i) => (
-        <div
-          key={`sparkle-${i}`}
-          className="absolute text-yellow-500 animate-pulse"
-          style={{
-            top: `${20 + i * 15}%`,
-            left: `${10 + i * 18}%`,
-            animationDelay: `${i * 0.3}s`
-          }}
-        >
-          <Sparkles size={24 + i * 4} className="animate-spin" style={{animationDuration: `${4 + i}s`}} />
-        </div>
-      ))}
-
-      {/* Floating Icons */}
-      <div className="absolute top-1/3 left-10 text-lime-400 animate-bounce" style={{animationDelay: '0.5s'}}>
-        <CreditCard size={40} className="animate-pulse" />
-      </div>
-      <div className="absolute bottom-1/3 right-10 text-yellow-400 animate-bounce" style={{animationDelay: '1s'}}>
-        <TrendingUp size={40} className="animate-pulse" />
-      </div>
-
-      <div className="container mx-auto px-6 py-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className={`space-y-8 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
-            <div className="flex items-center gap-2 text-lime-400">
-              <Sparkles size={24} />
-              <span className="text-sm font-bold tracking-wider">EASY PAYMENT</span>
-            </div>
-
-            <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight">
-              Fast, Secure, & Easy
-              <br />
-              <span className="relative inline-block">
-                <span className="inline-block hover:scale-110 transition-transform duration-300">Transactions.</span>
-                <div className="absolute bottom-2 left-0 w-full h-1 bg-yellow-400"></div>
-              </span>
-            </h1>
-
-            <p className="text-teal-100 text-lg leading-relaxed max-w-xl">
-              Effortlessly send, receive, and request money online with paynone.
-              <br />
-              Get a tailored solution for your business needs.
-            </p>
-
-            <div className="flex flex-wrap gap-4 items-center">
-              <button className="bg-green-500 text-black px-8 py-4 rounded-lg font-bold text-sm hover:bg-lime-300 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-lime-400/50 group">
-                <span className="flex items-center gap-2">
-                  MAKE AN APPOINTMENT
-                  <ArrowRight className="group-hover:translate-x-2 transition-transform" size={20} />
-                </span>
-              </button>
-              
-              <button className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 group transform hover:scale-105">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300">
-                  <Play fill="currentColor" className="text-teal-900 ml-1" size={20} />
-                </div>
-                <span className="text-white font-semibold">WATCH VIDEO</span>
-              </button>
-            </div>
-
-            {/* Animated Stats */}
-            <div className="flex gap-6 pt-4">
-              {[
-                { icon: Users, label: 'Active Users', value: '25K+' },
-                { icon: TrendingUp, label: 'Growth', value: '3.09%' },
-                { icon: Send, label: 'Transactions', value: '1M+' }
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-lg transform hover:scale-105 transition-all duration-300"
-                >
-                  <stat.icon className="text-lime-400" size={24} />
-                  <div>
-                    <p className="text-white font-bold">{stat.value}</p>
-                    <p className="text-teal-200 text-xs">{stat.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Content - Phone Mockup */}
-          <div className={`relative transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <div className="relative z-10">
-              {/* Phone Frame */}
-              <div className="relative mx-auto w-80 h-[600px] bg-gradient-to-b from-gray-900 to-black rounded-[3rem] p-3 shadow-2xl border-8 border-gray-800 transform hover:scale-105 transition-all duration-500">
-                <div className="w-full h-full bg-gradient-to-br from-teal-800 to-teal-900 rounded-[2.5rem] overflow-hidden">
-                  {/* Phone Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-20"></div>
-                  
-                  {/* Phone Content */}
-                  <div className="p-6 pt-10 h-full flex flex-col">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full"></div>
-                        <div>
-                          <p className="text-white text-xs opacity-70">*******</p>
-                          <p className="text-white text-sm font-bold">Welcome Back</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <p className="text-white text-xs opacity-70 mb-1">Total Balance</p>
-                      <h2 className="text-white text-3xl font-bold">$86,290.49</h2>
-                    </div>
-
-                    {/* Card */}
-                    <div className="bg-gray-300 rounded-2xl p-4 mb-4 shadow-lg transform hover:scale-105 transition-all duration-300">
-                      <div className="flex items-center justify-between mb-8">
-                        <div className="flex gap-1">
-                          <div className="w-8 h-8 bg-red-500 rounded-full opacity-80"></div>
-                          <div className="w-8 h-8 bg-yellow-500 rounded-full opacity-80 -ml-3"></div>
-                        </div>
-                        <p className="text-gray-800 text-xs">.... .... .... 8934</p>
-                      </div>
-                      <div className="flex justify-between items-end">
-                        <div>
-                          <p className="text-gray-700 text-xs mb-1">Card Holder</p>
-                          <p className="text-gray-900 font-bold">******</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-gray-700 text-xs mb-1">Exp</p>
-                          <p className="text-gray-900 font-bold">09/28</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="grid grid-cols-4 gap-2 mb-4">
-                      {['Send', 'Request', 'Exchange', 'More'].map((action, i) => (
-                        <div key={i} className="text-center transform hover:scale-110 transition-transform">
-                          <div className="w-12 h-12 bg-white/20 rounded-full mx-auto mb-1 hover:bg-white/40 transition-all"></div>
-                          <p className="text-white text-xs">{action}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex-1 overflow-hidden">
-                      <div className="flex justify-between items-center mb-2">
-                        <p className="text-white text-xs font-semibold">Recent Transaction</p>
-                        <p className="text-white text-xs opacity-70">See all</p>
-                      </div>
-                      <div className="bg-white/10 rounded-lg p-2">
-                        <div className="flex gap-2 mb-3">
-                          {[1,2,3,4,5].map(i => (
-                            <div
-                              key={i}
-                              className={`w-8 h-8 bg-white/20 rounded-full transform transition-all duration-500 ${activeUser === i - 1 ? 'scale-125 ring-2 ring-white' : 'scale-100'}`}
-                            ></div>
-                          ))}
-                        </div>
-                        <p className="text-white text-xs font-semibold mb-2">Scheduled Payments</p>
-                        <div className="flex gap-2">
-                          <div className="bg-green-500 rounded-lg p-2 flex-1 transform hover:scale-105 transition-transform">
-                            <p className="text-white text-xs font-bold">Spotify</p>
-                            <p className="text-white text-xs opacity-70">$9/mo</p>
-                          </div>
-                          <div className="bg-teal-700 rounded-lg p-2 flex-1 transform hover:scale-105 transition-transform">
-                            <p className="text-white text-xs font-bold">WeChat</p>
-                            <p className="text-white text-xs opacity-70">$5/mo</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating Cards with More Animation */}
-            <div className={`absolute -right-8 top-20 bg-white rounded-2xl p-6 shadow-2xl transform transition-all duration-1000 delay-500 hover:scale-110 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
-              <p className="text-gray-600 text-sm mb-1">Payment Received</p>
-              <p className="text-green-600 text-2xl font-bold mb-1">+33,890.00</p>
-              <p className="text-gray-500 text-xs">1st Jan, 2025 <span className="text-green-600 font-semibold">3.09% ↗</span></p>
-            </div>
-
-            <div className={`absolute -left-8 top-64 bg-white rounded-2xl p-6 shadow-2xl transform transition-all duration-1000 delay-700 hover:scale-110 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full"></div>
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full"></div>
-                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full"></div>
-              </div>
-              <p className="text-gray-900 text-2xl font-bold mb-1">25K+</p>
-              <p className="text-gray-600 text-sm">Active users</p>
-            </div>
-
-            {/* Lightning Bolt */}
-            <div className="absolute bottom-32 right-12 text-yellow-400">
-              <Zap size={48} fill="currentColor" />
-            </div>
-
-            {/* Additional Floating Elements */}
-            <div className="absolute top-10 left-10 text-lime-400 animate-spin" style={{animationDuration: '4s'}}>
-              <Sparkles size={32} />
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className={`mt-20 transform transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="bg-gradient-to-r from-green-400 via-yellow-300 to-green-400 rounded-t-3xl p-12">
-            <div className="mb-8">
-              <h3 className="text-3xl font-black text-gray-900 mb-2">
-                Join {count.toLocaleString()}+
-              </h3>
-              <p className="text-gray-800 font-semibold">companies who've reached</p>
-            </div>
-            
-            <div className="flex flex-wrap items-center justify-between gap-8">
-              {companies.map((company, i) => (
-                <div
-                  key={i}
-                  className="text-2xl font-bold text-gray-900 hover:scale-110 transition-all duration-300 cursor-pointer"
-                >
-                  {company}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Right Decorative Icon */}
-      <div className="fixed bottom-8 right-8 text-lime-400 animate-spin" style={{animationDuration: '3s'}}>
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="hover:scale-125 transition-transform">
-          <circle cx="40" cy="40" r="3" fill="currentColor" className="animate-ping"/>
-          <circle cx="40" cy="10" r="5" fill="currentColor" className="animate-pulse"/>
-          <circle cx="40" cy="70" r="5" fill="currentColor" className="animate-pulse" style={{animationDelay: '0.2s'}}/>
-          <circle cx="10" cy="40" r="5" fill="currentColor" className="animate-pulse" style={{animationDelay: '0.4s'}}/>
-          <circle cx="70" cy="40" r="5" fill="currentColor" className="animate-pulse" style={{animationDelay: '0.6s'}}/>
-          <circle cx="20" cy="20" r="4" fill="currentColor" className="animate-pulse" style={{animationDelay: '0.8s'}}/>
-          <circle cx="60" cy="20" r="4" fill="currentColor" className="animate-pulse" style={{animationDelay: '1s'}}/>
-          <circle cx="20" cy="60" r="4" fill="currentColor" className="animate-pulse" style={{animationDelay: '1.2s'}}/>
-          <circle cx="60" cy="60" r="4" fill="currentColor" className="animate-pulse" style={{animationDelay: '1.4s'}}/>
-        </svg>
-      </div>
-
-      <style jsx>{`
-        @keyframes slideWidth {
-          0%, 100% { width: 0%; }
-          50% { width: 100%; }
+    <section
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-fixed bg-center bg-cover"
+      style={{
+        backgroundImage:
+          "url('https://i.postimg.cc/90hTgmP6/Blog-imagery-Digital-Wallet-Banner-1200x560.webp')",
+      }}
+    >
+      <style>{`
+        @keyframes slideUp {
+          from { 
+            transform: translateY(50px) scale(0.95);
+          }
+          to { 
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        @keyframes slideUpText {
+          from { 
+            transform: translateY(30px);
+          }
+          to { 
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes rotateRing {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes rotateReverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        
+        @keyframes pulseRing {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.3); }
+        }
+        
+        @keyframes fadeScale {
+          0%, 100% { 
+            transform: scale(1);
+          }
+          50% { 
+            transform: scale(1.2);
+          }
+        }
+        
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes floatCard {
+          0%, 100% { 
+            transform: translateY(0) rotate(0deg);
+          }
+          25% { 
+            transform: translateY(-15px) rotate(2deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(0deg);
+          }
+          75% { 
+            transform: translateY(-15px) rotate(-2deg);
+          }
+        }
+        
+        @keyframes bounce {
+          0%, 100% { 
+            transform: translateY(0);
+          }
+          50% { 
+            transform: translateY(-20px);
+          }
+        }
+        
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100px);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100px);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(5deg); }
+          75% { transform: rotate(-5deg); }
+        }
+        
+        @keyframes ping {
+          0% { transform: scale(1); }
+          75%, 100% { transform: scale(2); }
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes colorChange {
+          0%, 100% { border-color: rgba(103, 232, 249, 0.5); }
+          33% { border-color: rgba(34, 211, 238, 0.5); }
+          66% { border-color: rgba(6, 182, 212, 0.5); }
+        }
+        
+        @keyframes twinkle {
+          0%, 100% { transform: scale(0); }
+          50% { transform: scale(1); }
+        }
+        
+        @keyframes ripple {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.5); }
+        }
+        
+        @keyframes morphShape {
+          0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+          50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+        
+        .animate-slide-up {
+          animation: slideUp 1s ease-out;
+        }
+        
+        .animate-slide-up-text {
+          animation: slideUpText 1.2s ease-out 0.3s backwards;
+        }
+        
+        .animate-rotate-ring {
+          animation: rotateRing 6s linear infinite;
+        }
+        
+        .animate-rotate-reverse {
+          animation: rotateReverse 8s linear infinite;
+        }
+        
+        .animate-pulse-ring {
+          animation: pulseRing 3s ease-in-out infinite;
+        }
+        
+        .animate-fade-scale {
+          animation: fadeScale 4s ease-in-out infinite;
+        }
+        
+        .animate-gradient-shift {
+          background-size: 200% auto;
+          animation: gradientShift 5s linear infinite;
+        }
+        
+        .animate-float-card {
+          animation: floatCard 5s ease-in-out infinite;
+        }
+        
+        .animate-bounce {
+          animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .animate-slide-in-left {
+          animation: slideInLeft 1s ease-out;
+        }
+        
+        .animate-slide-in-right {
+          animation: slideInRight 1s ease-out;
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-wiggle {
+          animation: wiggle 1s ease-in-out infinite;
+        }
+        
+        .animate-ping {
+          animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        
+        .animate-spin {
+          animation: spin 3s linear infinite;
+        }
+        
+        .animate-color-change {
+          animation: colorChange 6s ease-in-out infinite;
+        }
+        
+        .animate-twinkle-1 {
+          animation: twinkle 2s ease-in-out infinite;
+        }
+        
+        .animate-twinkle-2 {
+          animation: twinkle 3s ease-in-out infinite 0.5s;
+        }
+        
+        .animate-twinkle-3 {
+          animation: twinkle 2.5s ease-in-out infinite 1s;
+        }
+        
+        .animate-ripple {
+          animation: ripple 3s ease-out infinite;
+        }
+        
+        .animate-morph {
+          animation: morphShape 10s ease-in-out infinite;
+        }
+        
+        .hover-scale:hover {
+          transform: scale(1.1);
+          box-shadow: 0px 0px 30px rgba(34,211,238,0.8);
+        }
+        
+        .hover-scale:active {
+          transform: scale(0.95);
+        }
+        
+        .hover-scale {
+          transition: all 0.3s ease;
         }
       `}</style>
-    </div>
+
+      {/* 🔹 Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-gray-900/70 to-black/80 z-0"></div>
+
+      {/* 🔹 Multiple Animated Rings */}
+      <div className="absolute top-10 left-10 w-14 h-14 border-4 border-green-300 rounded-full animate-rotate-ring"></div>
+      <div className="absolute top-10 left-10 w-14 h-14 border-4 border-green-400/30 rounded-full animate-ping"></div>
+
+      <div className="absolute top-1/3 right-1/4 w-32 h-32 border-2 border-green-400/40 rounded-full animate-pulse-ring"></div>
+      <div className="absolute top-1/3 right-1/4 w-32 h-32 border border-green-300/20 rounded-full animate-ripple"></div>
+
+      <div className="absolute bottom-20 left-1/3 w-24 h-24 border border-green-400/30 rounded-full animate-fade-scale"></div>
+
+      {/* 🔹 Extra Decorative Rings */}
+      <div className="absolute top-1/2 left-10 w-20 h-20 border-2 border-green-400/30 rounded-full animate-rotate-reverse"></div>
+      <div className="absolute bottom-1/3 right-10 w-28 h-28 border border-green-300/20 rounded-full animate-color-change"></div>
+      <div className="absolute top-20 right-1/3 w-16 h-16 border-2 border-green-500/40 rounded-full animate-pulse-ring"></div>
+
+      {/* 🔹 Morphing Blobs */}
+      <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-green-500/10 animate-morph blur-2xl"></div>
+      <div className="absolute bottom-1/4 right-1/3 w-48 h-48 bg-green-500/10 animate-morph blur-3xl" style={{animationDelay: '3s'}}></div>
+
+      {/* 🔹 Twinkling Stars */}
+      <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-green-300 rounded-full animate-twinkle-1"></div>
+      <div className="absolute top-1/3 left-1/3 w-3 h-3 bg-green-300 rounded-full animate-twinkle-2"></div>
+      <div className="absolute bottom-1/3 right-1/2 w-2 h-2 bg-green-300 rounded-full animate-twinkle-3"></div>
+      <div className="absolute top-2/3 left-1/4 w-2 h-2 bg-green-400 rounded-full animate-twinkle-1" style={{animationDelay: '1s'}}></div>
+      <div className="absolute bottom-1/2 right-1/3 w-3 h-3 bg-green-400 rounded-full animate-twinkle-2" style={{animationDelay: '2s'}}></div>
+
+      {/* 🔹 Background Glow Effect */}
+      <div className="absolute inset-0 bg-gradient-to-t from-green-500/10 via-transparent to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-green-500/5"></div>
+
+      {/* 🔹 Floating Icons */}
+      <div className="absolute top-1/4 left-20 animate-float" style={{animationDelay: '0s'}}>
+        <Sparkles className="text-green-400" size={24} />
+      </div>
+      <div className="absolute top-1/2 right-20 animate-float" style={{animationDelay: '1s'}}>
+        <Zap className="text-green-400" size={28} />
+      </div>
+      <div className="absolute bottom-1/3 left-1/4 animate-float" style={{animationDelay: '2s'}}>
+        <Shield className="text-green-400" size={20} />
+      </div>
+      <div className="absolute top-2/3 right-1/3 animate-bounce">
+        <CreditCard className="text-green-300" size={22} />
+      </div>
+
+      {/* 🔹 Main Content */}
+      <div className="relative z-10 text-center text-white px-6 max-w-3xl">
+        <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6 animate-slide-up">
+          The Future of <br />
+          <span className="bg-gradient-to-r from-green-400 via-green-500 to-teal-400 bg-clip-text text-transparent animate-gradient-shift inline-block">
+            Digital Wallets
+          </span>
+        </h1>
+
+        <p className="text-lg md:text-xl text-gray-300 mb-8 animate-slide-up-text">
+          Experience next-level security, instant transfers, and seamless
+          payments — all in one wallet.
+        </p>
+
+        <div className="animate-slide-up-text" style={{animationDelay: '0.5s'}}>
+          <button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full text-lg font-semibold text-white shadow-lg hover-scale relative overflow-hidden">
+            <span className="relative z-10">Get Started</span>
+            <ArrowRight size={20} className="relative z-10 animate-wiggle" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-500"></div>
+          </button>
+        </div>
+      </div>
+
+        {/* 🔹 Floating Card Mockup with Extra Animation */}
+      <div className="absolute bottom-10 right-10 hidden md:block animate-float-card  animate-slide-in-right" style={{animationDelay: '0.6s', animationFillMode: 'forwards'}}>
+        <div className="w-64 h-40 bg-white/90 backdrop-green-md rounded-2xl shadow-xl p-4 border border-gray-200 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/20 rounded-full green-xl animate-pulse-ring"></div>
+          <h3 className="text-gray-800 font-semibold mb-2 relative z-10">PayMate Balance</h3>
+          <p className="text-3xl font-bold text-green-600 relative z-10">$5,420.50</p>
+          <p className="text-sm text-gray-500 mt-2 relative z-10">Updated just now</p>
+          <div className="absolute bottom-2 right-2">
+            <Sparkles className="text-green-500 animate-spin" size={16} />
+          </div>
+        </div>
+      </div>
+
+      {/* 🔹 Left Side Feature Cards */}
+      <div className="absolute bottom-10 left-10 hidden lg:block animate-slide-in-left" style={{animationDelay: '0.8s'}}>
+        <div className="bg-gradient-to-br from-green-500/20 to-green-500/20 backdrop-blur-md rounded-xl p-4 border border-green-400/30 w-48 animate-float">
+          <Shield className="text-green-400 mb-2" size={24} />
+          <p className="text-white font-semibold text-sm">Bank-Level Security</p>
+          <p className="text-gray-300 text-xs mt-1">256-bit encryption</p>
+        </div>
+      </div>
+
+      {/* 🔹 Top Right Notification */}
+      <div className="absolute top-20 right-20 hidden lg:block animate-slide-in-right" style={{animationDelay: '1s'}}>
+        <div className="bg-gradient-to-br from-green-500/20 to-green-500/20 backdrop-blur-md rounded-lg p-3 border border-teal-400/30 w-44 animate-bounce">
+          <div className="flex items-center gap-2">
+            <Zap className="text-yellow-400" size={20} />
+            <p className="text-white font-semibold text-xs">Instant Transfer</p>
+          </div>
+          <p className="text-green-300 text-xs mt-1">Under 5 seconds</p>
+        </div>
+      </div>
+    </section>
   );
 };
 
 export default Banner;
-
-  
