@@ -28,21 +28,15 @@ const Home = () => {
       <section>
         <WhyChooseUs></WhyChooseUs>
       </section>
-      <section>
-        <Features></Features>
-      </section>
+      <section>{/* <Features></Features> */}</section>
       <HeroSection></HeroSection>
 
       <section>
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>
-          <HowItWorks></HowItWorks>
-        </section>
-        <section>
-          <AdvancedBenefits></AdvancedBenefits>
-        </section>
+        <section>{/* <HowItWorks></HowItWorks> */}</section>
+        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
@@ -55,7 +49,7 @@ const Home = () => {
         <Subscription></Subscription>
       </section>
       <section>
-       <BankingCards></BankingCards>
+        <BankingCards></BankingCards>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
