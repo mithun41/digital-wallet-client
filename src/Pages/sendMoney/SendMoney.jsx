@@ -14,13 +14,27 @@ const SendMoney = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // লগইন করা ইউজারের ফোন Redux থেকে নিলাম
   const senderPhone = useSelector((state) => state.auth.user?.phone);
 
-  // ✅ Step 1 → Receiver check
+  // Transaction fee
+  const parsedAmount = parseFloat(amount) || 0;
+  const transactionFee = parsedAmount > 0 ? 5 : 0;
+  const totalDeduction = parsedAmount + transactionFee;
+
+  const bgStyle = {
+    backgroundImage:
+      "url('https://static.vecteezy.com/system/resources/previews/009/097/172/non_2x/e-wallet-digital-wallet-application-internet-banking-online-payment-security-via-credit-card-online-money-transaction-concept-coin-icon-on-dark-background-eps10-illustration-free-vector.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+
+  const getFullPhone = (phone) =>
+    phone.startsWith("+88") ? phone : `+88${phone}`;
+
+  // Step 1 → check receiver
   const handleNext = async (e) => {
     e.preventDefault();
     setError("");
@@ -29,20 +43,14 @@ const SendMoney = () => {
       setError("Receiver phone is required");
       return;
     }
-    if (!amount) {
-      setError("Amount is required");
+    if (!amount || parsedAmount <= 0) {
+      setError("Enter a valid amount");
       return;
     }
 
-    const fullPhone = receiverPhone.startsWith("+88")
-      ? receiverPhone
-      : `+88${receiverPhone}`;
+    const fullPhone = getFullPhone(receiverPhone);
 
-    // ❌ নিজের নাম্বারে টাকা পাঠানো ব্লক
-    if (
-      senderPhone &&
-      (fullPhone === senderPhone || fullPhone === `+88${senderPhone}`)
-    ) {
+    if (fullPhone === senderPhone || fullPhone === getFullPhone(senderPhone)) {
       Swal.fire({
         icon: "error",
         title: "Invalid Transaction",
@@ -73,7 +81,7 @@ const SendMoney = () => {
     }
   };
 
-  // ✅ Step 2 → Confirm & send
+  // Step 2 → confirm & send
   const handleConfirm = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -81,15 +89,14 @@ const SendMoney = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const fullPhone = receiverPhone.startsWith("+88")
-        ? receiverPhone
-        : `+88${receiverPhone}`;
+      const fullPhone = getFullPhone(receiverPhone);
 
-      const res = await axios.post(
+      await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/transactions/send-money",
         {
           receiverPhone: fullPhone,
-          amount: parseFloat(amount),
+          amount: parsedAmount, // main amount
+          fee: transactionFee, // fee separately
           note,
           password,
         },
@@ -99,10 +106,9 @@ const SendMoney = () => {
       await Swal.fire({
         icon: "success",
         title: "Transaction Successful",
-        text: res.data.message || "Your money has been sent successfully!",
+        text: `${parsedAmount} sent to ${receiverInfo.name} (+ Fee: ${transactionFee})`,
       });
 
-      // Reset form
       setReceiverPhone("");
       setReceiverInfo(null);
       setAmount("");
@@ -123,25 +129,44 @@ const SendMoney = () => {
     }
   };
 
-  const bgStyle = {
-    backgroundImage:
-      "url('https://static.vecteezy.com/system/resources/previews/009/097/172/non_2x/e-wallet-digital-wallet-application-internet-banking-online-payment-security-via-credit-card-online-money-transaction-concept-coin-icon-on-dark-background-eps10-illustration-free-vector.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
+  const formatCurrency = (value) => `৳${parseFloat(value).toFixed(2)}`;
 
   return (
     <div
       className="min-h-screen flex items-center justify-center relative"
       style={bgStyle}
     >
-      <div className="absolute inset-0 bg-black/30 "></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
-      <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-xl max-w-md w-full text-white">
+      <div className="relative bg-white/10 backdrop-blur-lg border border-white/30 p-8 rounded-3xl shadow-2xl max-w-md w-full text-white">
+        {/* Step Indicator */}
+        <div className="flex justify-between mb-6">
+          <div
+            className={`flex-1 text-center border-b-2 pb-1 ${
+              step === 1
+                ? "border-yellow-400 font-bold text-yellow-300"
+                : "border-gray-600 text-gray-400"
+            }`}
+          >
+            1. Details
+          </div>
+          <div
+            className={`flex-1 text-center border-b-2 pb-1 ${
+              step === 2
+                ? "border-yellow-400 font-bold text-yellow-300"
+                : "border-gray-600 text-gray-400"
+            }`}
+          >
+            2. Confirm
+          </div>
+        </div>
+
         {/* Step 1 */}
         {step === 1 && (
           <form onSubmit={handleNext} className="space-y-6">
-            <h2 className="text-3xl font-bold text-center">Send Money</h2>
+            <h2 className="text-3xl font-extrabold text-center text-yellow-300">
+              Send Money
+            </h2>
 
             <div className="flex items-center bg-white/20 rounded-lg overflow-hidden">
               <span className="px-3 text-gray-300">+88</span>
@@ -149,10 +174,9 @@ const SendMoney = () => {
                 type="text"
                 placeholder="01XXXXXXXXX"
                 value={receiverPhone}
-                onChange={(e) => {
-                  const num = e.target.value.replace(/\D/g, "");
-                  setReceiverPhone(num);
-                }}
+                onChange={(e) =>
+                  setReceiverPhone(e.target.value.replace(/\D/g, ""))
+                }
                 className="flex-1 bg-transparent outline-none px-3 py-2 text-white placeholder-gray-300"
               />
             </div>
@@ -162,17 +186,32 @@ const SendMoney = () => {
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-yellow-400"
             />
 
-            {error && (
-              <p className="text-red-400 text-sm text-center">{error}</p>
+            {parsedAmount > 0 && (
+              <div className="p-3 bg-white/10 rounded-lg text-sm text-gray-200">
+                <p className="flex justify-between">
+                  <span>Amount:</span>
+                  <span>{formatCurrency(parsedAmount)}</span>
+                </p>
+                <p className="flex justify-between">
+                  <span>Fee:</span>
+                  <span>{formatCurrency(transactionFee)}</span>
+                </p>
+                <p className="flex justify-between font-bold text-yellow-300">
+                  <span>Total Deduction:</span>
+                  <span>{formatCurrency(totalDeduction)}</span>
+                </p>
+              </div>
             )}
+
+            {error && <p className="text-red-400 text-center">{error}</p>}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-lg bg-green-500 hover:bg-green-400 text-white font-semibold transition disabled:opacity-50"
+              className="w-full py-3 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-white font-semibold transition disabled:opacity-50"
             >
               {loading ? "Checking..." : "Next"}
             </button>
@@ -182,20 +221,22 @@ const SendMoney = () => {
         {/* Step 2 */}
         {step === 2 && (
           <form onSubmit={handleConfirm} className="space-y-6">
-            <h2 className="text-3xl font-bold text-center">Confirm</h2>
-            <p className="text-gray-200 text-center">
-              Sending <strong>৳{amount}</strong> to:
+            <h2 className="text-3xl font-extrabold text-center text-yellow-300">
+              Confirm Transaction
+            </h2>
+            <p className="text-gray-300 text-center">
+              Sending <strong>{formatCurrency(parsedAmount)}</strong> to:
             </p>
 
-            <div className="flex items-center gap-3 bg-white/10 p-3 rounded-lg">
+            <div className="flex items-center gap-3 bg-white/20 p-3 rounded-lg">
               <img
                 src={receiverInfo?.photo || "https://via.placeholder.com/50"}
                 alt="Receiver"
-                className="w-12 h-12 rounded-full object-cover border border-white/30"
+                className="w-14 h-14 rounded-full border-2 border-yellow-400"
               />
               <div>
-                <h3 className="font-semibold text-lg">
-                  {receiverInfo?.name || "Unknown User"}
+                <h3 className="font-semibold text-lg text-yellow-200">
+                  {receiverInfo?.name || "Unknown"}
                 </h3>
                 <p className="text-gray-300">{receiverInfo?.phone}</p>
               </div>
@@ -206,33 +247,31 @@ const SendMoney = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-yellow-400"
             />
 
             <textarea
               placeholder="Note (optional)"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-yellow-400"
               rows={3}
             />
 
-            {error && (
-              <p className="text-red-400 text-sm text-center">{error}</p>
-            )}
+            {error && <p className="text-red-400 text-center">{error}</p>}
 
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex-1 py-3 rounded-lg bg-gray-600 hover:bg-gray-500 transition"
+                className="flex-1 py-3 rounded-lg bg-gray-600 hover:bg-gray-500"
               >
                 Back
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 py-3 rounded-lg bg-green-500 hover:bg-green-400 text-white font-semibold transition disabled:opacity-50"
+                className="flex-1 py-3 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-white font-semibold"
               >
                 {loading ? "Sending..." : "Confirm"}
               </button>

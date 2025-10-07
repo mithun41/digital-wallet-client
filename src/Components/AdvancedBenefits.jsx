@@ -63,11 +63,11 @@ const AdvancedBenefits = () => {
         <section className="py-16 ">
             <div className="max-w-11/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
                 {/* Left Side */}
-                <div data-aos="fade-right ">
+                <div data-aos="fade-up-right">
                     <h2 className="text-3xl font-bold text-green-500 mb-3">
                         Advanced Benefits
                     </h2>
-                    <p className="text-secondary mb-8">
+                    <p className="text-gray-600 dark:text-gray-300 mb-8">
                         Experience next-level digital banking features
                     </p>
 
@@ -83,10 +83,10 @@ const AdvancedBenefits = () => {
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-secondary">
+                                    <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
                                         {item.title}
                                     </h3>
-                                    <p className="text-secondary text-sm">{item.description}</p>
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -94,7 +94,7 @@ const AdvancedBenefits = () => {
                 </div>
 
                 {/* Right Side */}
-                <div data-aos="fade-left" className="flex w-265 justify-center ">
+                <div data-aos="fade-left" className="flex w-250 justify-center ">
                     <img
                         src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
                         alt="Mobile App"

@@ -41,7 +41,7 @@ const BankingCards = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-green-400">
           Latest News & Events
         </h1>
-        <p className="max-w-11/12 mx-auto mt-3 text-secondary text-sm md:text-base">
+        <p className="max-w-11/12 mx-auto mt-3 text-gray-600 dark:text-gray-300 text-sm md:text-base">
           Stay updated with the latest features, offers, and announcements from
           our smart digital banking platform.
         </p>
@@ -56,7 +56,7 @@ const BankingCards = () => {
             {/* Card 1 */}
             <div
               className="md:col-span-2 flex flex-col md:flex-row border border-green-500/40 rounded-2xl overflow-hidden  shadow-sm hover:shadow-lg transition-all"
-              data-aos="fade-right"
+              data-aos="flip-up"
             >
               <div className="overflow-hidden group md:w-1/2">
                 <img
@@ -66,10 +66,10 @@ const BankingCards = () => {
                 />
               </div>
               <div className="p-6 flex flex-col justify-center">
-                <h2 className="text-lg font-bold text-secondary">
+                <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                   {cards[0].title}
                 </h2>
-                <p className="text-secondary text-sm mt-2">{cards[0].desc}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[0].desc}</p>
                 <button className="text-green-500 mt-4 font-semibold hover:underline">
                   Learn More →
                 </button>
@@ -79,12 +79,12 @@ const BankingCards = () => {
             {/* Card 2 */}
             <div
               className="border border-green-500/40 rounded-2xl overflow-hidden p-6 e shadow-sm hover:shadow-lg transition-all"
-              data-aos="fade-left"
+              data-aos="flip-up"
             >
-              <h2 className="text-lg font-bold text-secondary">
+              <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[3].title}
               </h2>
-              <p className="text-secondary text-sm mt-2">{cards[3].desc}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[3].desc}</p>
               <button className="text-green-500 mt-4 font-semibold hover:underline">
                 Learn More →
               </button>
@@ -94,7 +94,7 @@ const BankingCards = () => {
           {/* Row 2 */}
           <div
             className="flex flex-col md:flex-row border border-green-500/40 rounded-2xl overflow-hidden  shadow-sm hover:shadow-lg transition-all"
-            data-aos="fade-up"
+            data-aos="flip-up"
           >
             <div className="overflow-hidden group md:w-1/2">
               <img
@@ -104,10 +104,10 @@ const BankingCards = () => {
               />
             </div>
             <div className="p-6 flex flex-col justify-center">
-              <h2 className="text-lg font-bold text-secondary">
+              <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[1].title}
               </h2>
-              <p className="text-secondary text-sm mt-2">{cards[1].desc}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[1].desc}</p>
               <button className="text-green-500 mt-4 font-semibold hover:underline">
                 Learn More →
               </button>
@@ -118,7 +118,7 @@ const BankingCards = () => {
         {/* Right Column (takes 1 column) */}
         <div
           className="border border-green-500/40 rounded-2xl overflow-hidden group shadow-sm hover:shadow-lg transition-all"
-          data-aos="zoom-in"
+          data-aos="flip-up"
         >
           <div className="overflow-hidden">
             <img
@@ -128,10 +128,10 @@ const BankingCards = () => {
             />
           </div>
           <div className="p-6">
-            <h2 className="text-lg font-bold text-secondary">
+            <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
               {cards[2].title}
             </h2>
-            <p className="text-secondary text-sm mt-2">{cards[2].desc}</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[2].desc}</p>
             <button className="text-green-500 mt-4 font-semibold hover:underline">
               Learn More →
             </button>

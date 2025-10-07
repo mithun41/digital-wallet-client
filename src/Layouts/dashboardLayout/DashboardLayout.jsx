@@ -131,9 +131,12 @@ const DashboardLayout = () => {
         {/* Sidebar */}
         <aside className="w-14 md:w-64 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto flex flex-col items-center md:items-start">
           {/* Title (Desktop only) */}
-          <h3 className="hidden md:block text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
+          <Link
+            to={"/dashboard"}
+            className="hidden md:block text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200"
+          >
             Dashboard Overview
-          </h3>
+          </Link>
 
           <nav className="space-y-4 w-full">
             {menuItems.map((item) => (
