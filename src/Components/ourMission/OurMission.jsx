@@ -36,34 +36,36 @@ export default function OurMission() {
   };
 
   return (
-    <div className="min-h-screen my-16 relative flex items-center justify-center py-20 px-8">
+    <div className="min-h-screen  my-16 relative flex items-center justify-center py-20 px-8">
       {/* Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat " 
-           style={{backgroundImage: "url('https://i.ibb.co.com/5W8GGtdV/gelaxy.png')"}}></div>
+      {/* <div className="absolute inset-0 bg-cover bg-center bg-no-repeat " 
+           style={{backgroundImage: "url('https://i.ibb.co.com/5W8GGtdV/gelaxy.png')" }}></div> */}
+            
+          
       <div className="absolute"></div>
       
       
       <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="space-y-8 z-10">
-          <h3 className="text-lime-400 text-lg font-semibold tracking-wide uppercase">
+          <h3 className="text-green-500 text-2xl font-semibold tracking-wide uppercase">
             Our Future Mission
           </h3>
-          <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-            Building the Future of Digital Finance
+          <h1 className="text-5xl lg:text-6xl font-bold text-black dark:text-white leading-tight mb-6">
+            Building the Future of <span className='text-green-500'>Digital Finance</span>
           </h1>
-          <p className="text-gray-300 text-lg leading-relaxed">
+          <p className="text-black dark:text-white text-lg leading-relaxed">
             Our vision is to make every transaction faster, safer, and more 
             accessible for everyone. Like bKash, we aim to empower millions 
             through a seamless digital wallet where financial control is in 
             your hands — from instant transfers to real-time balance and 
             top-level security.
           </p>
-          <button className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold 
-                           hover:bg-white hover:text-green-900 transition-all duration-300 
+          {/* <button className="px-8 py-4 text-black  dark:text-green-900 border-2 bg-green-300 rounded-full font-semibold 
+                           hover:bg-green-800 hover:text-white  transition-all duration-300 
                            transform hover:scale-105">
             Learn More
-          </button>
+          </button> */}
         </div>
 
         {/* Right Animated Orbit */}
@@ -76,12 +78,12 @@ export default function OurMission() {
           </div>
 
           {/* Outer Orbit Ring */}
-          <div className="absolute w-[500px] h-[500px] border-2 border-dashed border-white/40 
-                        rounded-full"></div>
+          <div className="absolute w-[500px] h-[500px] border-2 border-dashed border-green-500 rounded-full"></div>
+                        
 
           {/* Inner Orbit Ring */}
-          <div className="absolute w-[320px] h-[320px] border-2 border-dashed border-white/30
-                        rounded-full"></div>
+          <div className="absolute w-[320px] h-[320px] border-2 border-dashed border-green-500 rounded-full"></div>
+                       
 
           {/* Orbiting Feature Icons */}
           {features.map((item, index) => {
@@ -90,7 +92,7 @@ export default function OurMission() {
             return (
               <div
                 key={index}
-                className={`absolute w-24 h-24 transform -translate-x-1/2 -translate-y-1/2 
+                className={`absolute w-24 h-24  transform -translate-x-1/2 -translate-y-1/2 
                            transition-all duration-100 flex flex-col items-center justify-center`}
                 style={{
                   left: `calc(50% + ${pos.x}px)`,
@@ -101,7 +103,7 @@ export default function OurMission() {
                                 flex items-center justify-center text-white text-2xl shadow-xl`}>
                   {item.icon}
                 </div>
-                <p className="text-white text-xs mt-2">{item.label}</p>
+                <p className="dark:text-white text-black text-xs mt-2">{item.label}</p>
               </div>
             );
           })}

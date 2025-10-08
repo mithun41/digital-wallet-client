@@ -1,17 +1,22 @@
 // src/redux/features/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+
+const axiosSecure = useAxiosSecure()
 
 // ================= REGISTER USER =================
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "https://digital-wallet-server-tau.vercel.app/api/register",
+      const response = await axiosSecure.post(
+        "/api/register",
         userData
       );
+      console.log(response.data);
       localStorage.setItem("token", response.data.token);
+      
       return response.data;
     } catch (error) {
       return rejectWithValue(
