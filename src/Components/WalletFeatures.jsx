@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router";
 
 const features = [
     {
@@ -118,9 +119,11 @@ export default function WalletFeatures() {
                             </div>
                             <p className="text-lg font-semibold mt-2">{item.price}</p>
 
+                            <Link to={`/feature/${item.id}`}>
                             <button className="mt-3 px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow hover:bg-green-600 hover:text-white transition">
                                 Try Now →
                             </button>
+                            </Link>
                         </div>
                     </div>
                 ))}
