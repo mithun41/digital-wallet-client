@@ -59,7 +59,7 @@ const SecuritySection = () => {
         transition={{ duration: 0.8 }}
         className="text-center mb-14"
       >
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold  text-green-600 ">
           Security & Trust
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-2xl mx-auto">

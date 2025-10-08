@@ -53,8 +53,8 @@ const Guarantee = () => {
                 {/* Right side content */}
                 <div className="text-left md:pl-12">
                     <h1 className="text-3xl sm:text-4xl text-black dark:text-white md:text-5xl font-extrabold leading-snug">
-                        Your Money, Your <br /> Way, <span className="text-purple-600 dark:text-purple-400">Our</span>{" "}
-                        <span className="text-pink-600 dark:text-pink-400">Guarantee</span>
+                        Your Money, Your <br /> Way, <span className="text-green-600 dark:text-green-500">Our Guarantee</span>{" "}
+                        
                     </h1>
                     <p className="mt-4 sm:mt-6 text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,

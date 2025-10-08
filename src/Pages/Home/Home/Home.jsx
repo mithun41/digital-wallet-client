@@ -15,7 +15,7 @@ import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
 
-// import Testimonial from "../../../Components/Testimonial/Testimonial";
+import Testimonial from "../../../Components/Testimonial/Testimonial";
 
 
 
@@ -59,7 +59,7 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
-     {/* <Testimonial></Testimonial> */}
+     <Testimonial></Testimonial>
       <section>
        <BankingCards></BankingCards>
       </section>
