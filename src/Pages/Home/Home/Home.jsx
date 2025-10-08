@@ -16,7 +16,7 @@ import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
 import OurMission from "../../../Components/ourMission/OurMission";
 
-// import Testimonial from "../../../Components/Testimonial/Testimonial";
+import Testimonial from "../../../Components/Testimonial/Testimonial";
 
 
 
@@ -65,7 +65,7 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
-     {/* <Testimonial></Testimonial> */}
+     <Testimonial></Testimonial>
       <section>
        <BankingCards></BankingCards>
       </section>

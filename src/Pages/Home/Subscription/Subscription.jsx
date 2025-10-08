@@ -1,6 +1,20 @@
-import React from "react";
+import { CheckCircle } from "lucide-react";
+import React, { useState } from "react";
 
 const Subscription = () => {
+    const [email, setEmail] = useState('')
+    const [success, setSuccess] = useState(false);
+
+    const handleSubscribe = () =>{
+        if(!email){
+            alert("Plese enter your email before Subscribing!");
+            return;
+        }
+        setSuccess(true);
+        setEmail("");
+
+        setTimeout(() => setSuccess(false), 3000)
+    }
     return (
         <div className="max-w-11/12 mx-auto border border-transparent hover:border-green-500 py-12 mt-8 px-6 md:px-16 rounded-2xl  flex flex-col md:flex-row items-center justify-between shadow-md">
 
@@ -22,12 +36,31 @@ const Subscription = () => {
                 <input
                     type="email"
                     placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    
                     className="w-full md:w-80 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
-                <button className="ml-2 px-6 py-3 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 transition duration-300">
+                <button onClick={handleSubscribe} className="ml-2 px-6 py-3 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 transition duration-300">
                     Subscribe
                 </button>
+                { success && (
+                    <div><CheckCircle size={20}/>
+                    <span>SubsCribed Sueccessfully</span>
+                    </div>
+                    )}
             </div>
+            {/* stye animation */}
+            <style>
+                {`
+                @keyframes fadIn {
+                from {opacity: 0; transfrom:translaeY(10px)}
+                to {opacity: 1; transform:translateY(0);}
+                }
+                .animation-fadeIn{
+                animation fadeIn 0.4s ease-in-out;
+                }
+                `}</style>
         </div>
     );
 };
