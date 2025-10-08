@@ -75,7 +75,7 @@ const AdvancedBenefits = () => {
                         {benefits.slice(0, 4).map((item) => (
                             <div
                                 key={item.id}
-                                className="flex items-start border border-transparent hover:border-green-500 gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+                                className="flex items-start border border-transparent hover:border-green-600 gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
                             >
                                 <div
                                     className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
