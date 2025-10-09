@@ -6,9 +6,9 @@ const AboutSection = () => {
   const teamMembers = [
     {
       id: 1,
-      name: "Sarah Johnson",
+      name: "Md. Mahmudul Hasan",
       role: "Project Lead & Full Stack Developer",
-      image: "https://i.postimg.cc/rwNQy9XN/193291142.png",
+      image: "https://i.ibb.co.com/LzQCQDmH/97952498.jpg",
       bio: "Leading the team with expertise in React and Node.js",
       github: "#",
       linkedin: "#",
@@ -16,9 +16,9 @@ const AboutSection = () => {
     },
     {
       id: 2,
-      name: "Michael Chen",
+      name: "Md.Mosaddek Hossain",
       role: "Frontend Developer",
-      image: "https://i.pravatar.cc/300?img=3",
+      image: "https://i.ibb.co.com/x86ZsKZj/108361902.png",
       bio: "Crafting beautiful UI/UX with modern web technologies",
       github: "#",
       linkedin: "#",
@@ -26,9 +26,9 @@ const AboutSection = () => {
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
-      role: "Backend Developer",
-      image: "https://i.pravatar.cc/300?img=5",
+      name: "sumaiyaAfroza",
+      role: "Frontend Developer",
+      image: "https://i.ibb.co.com/k2nj506q/urmi-img-Dhjli-G9-J.png",
       bio: "Building robust APIs and secure database systems",
       github: "#",
       linkedin: "#",
@@ -36,9 +36,9 @@ const AboutSection = () => {
     },
     {
       id: 4,
-      name: "David Kim",
-      role: "UI/UX Designer",
-      image: "https://i.pravatar.cc/300?img=7",
+      name: "Monir Hossain",
+      role: "Mearn Stack Developer",
+      image: "https://i.ibb.co.com/dsh9ThVz/792e5133-538f-4a90-8ac5-53c288571487.png",
       bio: "Designing intuitive and engaging user experiences",
       github: "#",
       linkedin: "#",
@@ -46,9 +46,9 @@ const AboutSection = () => {
     },
     {
       id: 5,
-      name: "Jessica Williams",
-      role: "Security Specialist",
-      image: "https://i.pravatar.cc/300?img=9",
+      name: "Halima Akhter Shiuly",
+      role: "Frontend Developer",
+      image: "https://i.ibb.co.com/0p6XVP8B/193291142.png",
       bio: "Ensuring top-level security and data protection",
       github: "#",
       linkedin: "#",
@@ -56,9 +56,9 @@ const AboutSection = () => {
     },
     {
       id: 6,
-      name: "Alex Thompson",
-      role: "DevOps Engineer",
-      image: "https://i.pravatar.cc/300?img=12",
+      name: "MD. SAZZAD HOSSEN",
+      role: "Mearn Stack Developer",
+      image: "https://i.ibb.co.com/VcX8wXh4/190174370.jpg",
       bio: "Managing infrastructure and deployment pipelines",
       github: "#",
       linkedin: "#",
@@ -103,7 +103,7 @@ const AboutSection = () => {
         <div className="text-center mb-16">
           <div 
             data-aos="fade-down"
-            className="inline-flex items-center gap-2  text-green-700 px-5 py-2 rounded-full text-sm font-semibold mb-6"
+            className="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full text-sm font-semibold mb-6"
           >
             <Users size={18} />
             <span>About Our Team</span>
@@ -204,21 +204,7 @@ const AboutSection = () => {
 </div>
 
         {/* Bottom CTA */}
-        <div
-          data-aos="fade-up"
-          data-aos-delay="700"
-          className="text-center mt-16 bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
-            Want to know more about our journey?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Follow our development process and see how we're building the future of digital payments.
-          </p>
-          <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
-            View Project Details
-          </button>
-        </div>
+       
       </div>
     </section>
   );
