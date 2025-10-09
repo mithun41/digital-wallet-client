@@ -52,7 +52,7 @@ const SecuritySection = () => {
         <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
           Bank-Grade Protection
         </h2>
-        <p className="text-gray-600 text-lg mt-3 max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-300 text-lg mt-3 max-w-2xl mx-auto">
           Every layer of PayMate is built with enterprise-grade protection to
           keep your money and data secure.
         </p>
