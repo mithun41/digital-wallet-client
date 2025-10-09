@@ -17,10 +17,12 @@ const Subscription = () => {
 
   return (
     <div
-      className="max-w-10/12 mx-auto py-12 mt-8 px-6 md:px-16 rounded-2xl flex flex-col md:flex-row items-center justify-between shadow-md border border-transparent hover:border-green-400 transition-all duration-300"
+      className="max-w-10/12 mx-auto py-12 mt-8 px-6 md:px-16 rounded-2xl flex flex-col md:flex-row items-center justify-between shadow-md border border-transparent 
+      hover:border-green-400 transition-all duration-300
+      bg-white dark:bg-gray-800"
       style={{
         background:
-          "linear-gradient(to right, rgba(34,197,94,0.15), #ffffff 30%, #ffffff 70%, rgba(34,197,94,0.15))",
+          "linear-gradient(to right, rgba(34,197,94,0.15), rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, rgba(34,197,94,0.15))",
       }}
     >
       {/* Left Text Section */}
@@ -28,7 +30,7 @@ const Subscription = () => {
         <span className="inline-block px-4 py-1 text-sm rounded-full bg-green-500 text-white font-medium mb-3">
           ● Stay in the loop
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-green-700">
+        <h2 className="text-2xl md:text-3xl font-bold text-green-700 dark:text-green-400">
           Subscribe to our newsletter
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm md:text-base">
@@ -43,11 +45,12 @@ const Subscription = () => {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full md:w-80 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-full md:w-80 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-full border border-gray-300 dark:border-gray-600 
+          focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:placeholder-gray-400"
         />
         <button
           onClick={handleSubscribe}
-          className="px-6 py-3 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 transition duration-300"
+          className="px-6 py-3 rounded-full bg-green-500 text-white font-semibold hover:bg-green-600 transition duration-300 dark:bg-green-600 dark:hover:bg-green-500"
         >
           Subscribe
         </button>

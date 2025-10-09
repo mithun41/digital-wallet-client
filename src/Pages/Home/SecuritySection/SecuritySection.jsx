@@ -1,147 +1,110 @@
-import React from "react";
-import { FaLock, FaShieldAlt, FaMobileAlt, FaBell } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import React, { useState, useEffect } from "react";
+import { Lock, Shield, Smartphone, Bell } from "lucide-react";
 
 const SecuritySection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const features = [
     {
-      icon: <FaLock />,
+      icon: <Lock size={40} />,
       title: "Encrypted Transactions",
       description:
-        "Your data and funds are protected by end-to-end AES-256 encryption.",
-      color: "from-blue-500 to-indigo-600",
+        "Your data and funds are protected by end-to-end AES-256 encryption ensuring maximum security.",
     },
     {
-      icon: <FaShieldAlt />,
+      icon: <Shield size={40} />,
       title: "Advanced Security",
       description:
-        "Two-factor authentication and fraud detection keep your wallet safe.",
-      color: "from-green-500 to-emerald-600",
+        "Two-factor authentication and AI-based fraud detection keep your wallet safe from unauthorized access.",
     },
     {
-      icon: <FaMobileAlt />,
+      icon: <Smartphone size={40} />,
       title: "Device Management",
       description:
-        "Manage trusted devices and sessions directly from your dashboard.",
-      color: "from-purple-500 to-fuchsia-600",
+        "Easily manage trusted devices, active sessions, and logout remotely for complete control.",
     },
     {
-      icon: <FaBell />,
+      icon: <Bell size={40} />,
       title: "Instant Notifications",
       description:
-        "Stay informed with instant transaction and security alerts on every device.",
-      color: "from-yellow-500 to-amber-600",
+        "Get real-time alerts for every transaction and login attempt to stay always informed.",
     },
   ];
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 40 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [features.length]);
+
+  const goToSlide = (index) => setCurrentSlide(index);
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-20 overflow-hidden">
-      {/* Section Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-14"
-      >
-        <h2 className="text-4xl font-bold  text-green-600 ">
+    <section className="max-w-11/12 mx-auto px-6 py-20 overflow-hidden">
+      <div className="text-center mb-14">
+        <h2 className="text-4xl md:text-5xl font-bold text-green-600 text-gray-600 dark:text-green-500 mb-4">
           Security & Trust
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-2xl mx-auto">
+        <p className="text-gray-500 text-lg mt-3 max-w-2xl mx-auto text-gray-600 text-gray-600 dark:text-white">
           Every layer of PayMate is built with enterprise-grade protection to
           keep your money and data secure.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Swiper Slider */}
-      <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
-        spaceBetween={30}
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-        navigation
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="pb-12"
-      >
-        {features.map((feature, index) => (
-          <SwiperSlide key={index}>
-            <motion.div
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover={{
-                scale: 1.05,
-                y: -8,
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ type: "spring", stiffness: 120 }}
-              viewport={{ once: true }}
-              className="bg-white/80 dark:bg-gray-900/70 
-                         border border-gray-200 dark:border-gray-700 
-                         backdrop-blur-lg rounded-3xl p-8 text-center 
-                         shadow-lg transition-all duration-300"
-            >
-              {/* Icon Animation */}
-              <motion.div
-                className={`w-16 h-16 mx-auto mb-6 flex items-center justify-center 
-                            rounded-full bg-gradient-to-br ${feature.color} 
-                            text-white text-3xl`}
-                animate={{ y: [0, -8, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                {feature.icon}
-              </motion.div>
+      <div className="relative">
+        <div className="overflow-hidden rounded-3xl">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {features.map((feature, index) => (
+              <div key={index} className="min-w-full px-4">
+                {/* Gradient background similar to Subscription */}
+                <div
+                  className="rounded-3xl p-[1px]"
+                  style={{
+                 background:
+                 "linear-gradient(to right, rgba(5, 95, 38, 0.15), #ffffff 20%, #ffffff 50%, rgba(8, 104, 43, 0.15))",
+                 }}
+                >
+                  <div className="rounded-3xl p-8 md:p-10 bg-white/80 backdrop-blur-sm h-full">
+                    <div className="flex items-center gap-8">
+                      <div className="w-20 h-20 flex-shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-md">
+                        {feature.icon}
+                      </div>
 
-              {/* Title */}
-              <motion.h3
-                className="text-xl font-semibold mb-2 text-gray-900 dark:text-white"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                {feature.title}
-              </motion.h3>
+                      <div className="flex-1 text-left">
+                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Description */}
-              <motion.p
-                className="text-gray-600 dark:text-gray-300 leading-relaxed"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-              >
-                {feature.description}
-              </motion.p>
-            </motion.div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        {/* Pagination Dots */}
+        <div className="flex justify-center gap-3 mt-10">
+          {features.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-3 rounded-full transition-all duration-300 ${
+                currentSlide === index
+                  ? "w-10 bg-green-500 shadow-lg"
+                  : "w-3 bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
