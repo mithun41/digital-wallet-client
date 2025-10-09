@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Users, Target, Award, Heart, Github, Linkedin, Mail } from "lucide-react";
 
@@ -6,60 +5,60 @@ const AboutSection = () => {
   const teamMembers = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "Project Lead & Full Stack Developer",
-      image: "https://i.postimg.cc/rwNQy9XN/193291142.png",
-      bio: "Leading the team with expertise in React and Node.js",
+      name: "Md. Mahmudul Hasan",
+      role: "Project Lead & MERN Stack Developer",
+      image: "https://i.ibb.co.com/LzQCQDmH/97952498.jpg",
+      bio: "A visionary leader ensuring smooth coordination between the front-end and back-end teams, focusing on performance and scalability.",
       github: "#",
       linkedin: "#",
       email: "sarah@paymate.com"
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Frontend Developer",
-      image: "https://i.pravatar.cc/300?img=3",
-      bio: "Crafting beautiful UI/UX with modern web technologies",
+      name: "Md. Mosaddek Hossain",
+      role: "MERN Stack Developer",
+      image: "https://i.ibb.co.com/x86ZsKZj/108361902.png",
+      bio: "Passionate about creating modern, responsive, and user-friendly interfaces using React and Tailwind CSS.",
       github: "#",
       linkedin: "#",
       email: "michael@paymate.com"
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
-      role: "Backend Developer",
-      image: "https://i.pravatar.cc/300?img=5",
-      bio: "Building robust APIs and secure database systems",
+      name: "Sumaiya Afroza",
+      role: "Frontend Developer",
+      image: "https://i.ibb.co.com/k2nj506q/urmi-img-Dhjli-G9-J.png",
+      bio: "Dedicated to crafting pixel-perfect layouts and enhancing user experiences through creative UI designs.",
       github: "#",
       linkedin: "#",
       email: "emily@paymate.com"
     },
     {
       id: 4,
-      name: "David Kim",
-      role: "UI/UX Designer",
-      image: "https://i.pravatar.cc/300?img=7",
-      bio: "Designing intuitive and engaging user experiences",
+      name: "Monir Hossain",
+      role: "MERN Stack Developer",
+      image: "https://i.ibb.co.com/dsh9ThVz/792e5133-538f-4a90-8ac5-53c288571487.png",
+      bio: "Focused on building scalable web applications using the MERN stack with attention to detail and clean architecture.",
       github: "#",
       linkedin: "#",
       email: "david@paymate.com"
     },
     {
       id: 5,
-      name: "Jessica Williams",
-      role: "Security Specialist",
-      image: "https://i.pravatar.cc/300?img=9",
-      bio: "Ensuring top-level security and data protection",
-      github: "#",
-      linkedin: "#",
-      email: "jessica@paymate.com"
+      name: "Halima Akhter Shiuly",
+      role: "Frontend Developer",
+      image: "https://i.ibb.co.com/0p6XVP8B/193291142.png",
+      bio: "Creative front-end developer with expertise in React, Tailwind, and modern design principles, ensuring smooth and elegant user interfaces.",
+      github: "https://github.com/shiuly-28",
+      linkedin: "https://www.linkedin.com/in/halima-akhter-shiuly/",
+      email: "shulybd1245@gmail.com"
     },
     {
       id: 6,
-      name: "Alex Thompson",
-      role: "DevOps Engineer",
-      image: "https://i.pravatar.cc/300?img=12",
-      bio: "Managing infrastructure and deployment pipelines",
+      name: "MD. SAZZAD HOSSEN",
+      role: "MERN Stack Developer",
+      image: "https://i.ibb.co.com/VcX8wXh4/190174370.jpg",
+      bio: "Expert in backend logic, database management, and API integration, ensuring security and reliability in every deployment.",
       github: "#",
       linkedin: "#",
       email: "alex@paymate.com"
@@ -76,18 +75,18 @@ const AboutSection = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: "0px 0px -50px 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('aos-animate');
+          entry.target.classList.add("aos-animate");
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('[data-aos]').forEach(el => {
+    document.querySelectorAll("[data-aos]").forEach((el) => {
       observer.observe(el);
     });
 
@@ -95,38 +94,35 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section className="py-20 px-6 ">
-     
-
+    <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div 
+          <div
             data-aos="fade-down"
-            className="inline-flex items-center gap-2  text-green-700 px-5 py-2 rounded-full text-sm font-semibold mb-6"
+            className="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full text-sm font-semibold mb-6"
           >
             <Users size={18} />
             <span>About Our Team</span>
           </div>
-          <h2 
+          <h2
             data-aos="fade-up"
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold text-green-500 mb-4"
           >
             Meet the PayMate Team
           </h2>
-          <p 
+          <p
             data-aos="fade-up"
             data-aos-delay="100"
-            className="text-gray-600 text-lg max-w-3xl mx-auto"
+            className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto"
           >
-            We are a passionate group of 6 developers and designers working together to create 
-            the best digital wallet experience. Our diverse skills and shared vision drive us 
-            to build something truly special.
+            We are a passionate team of developers and designers working together
+            to build an innovative digital wallet experience for the next generation.
           </p>
         </div>
 
         {/* Stats Section */}
-        <div 
+        <div
           data-aos="fade-up"
           data-aos-delay="200"
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
@@ -134,90 +130,75 @@ const AboutSection = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
               <div className="text-green-600 flex justify-center mb-3">
                 {stat.icon}
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</h3>
-              <p className="text-gray-600 text-sm">{stat.label}</p>
+              <h3 className="text-3xl font-bold text-gray-700 dark:text-white mb-1">
+                {stat.value}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
 
         {/* Team Members Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {teamMembers.map((member, index) => (
-    <div
-      key={member.id}
-      data-aos="zoom-in"
-      data-aos-delay={index * 100}
-      className="team-card  overflow-hidden  hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col items-center text-center p-6"
-    >
-      {/* Image Section */}
-      <div className="relative w-40 h-40 mb-4">
-        <img
-          src={member.image}
-          alt={member.name}
-          className="member-image w-full h-full object-cover rounded-full border-4 border-green-400 shadow-md"
-        />
+          {teamMembers.map((member, index) => (
+            <div
+              key={member.id}
+              data-aos="zoom-in"
+              data-aos-delay={index * 100}
+              className="team-card overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col items-center text-center p-6 rounded-2xl"
+            >
+              {/* Image Section */}
+              <div className="w-40 h-40 mb-4">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover rounded-full border-4 border-green-400 shadow-md"
+                />
+              </div>
 
-        {/* Social Links Overlay */}
-        <div className="social-links absolute inset-0 bg-black/60  opacity-0 hover:opacity-100 flex items-center justify-center gap-4 transition-all duration-300">
-          <a
-            href={member.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-gray-900 p-2  hover:bg-green-500 hover:text-white transition-all duration-300"
-          >
-            <Github size={18} />
-          </a>
-          <a
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-gray-900 p-2  hover:bg-green-500 hover:text-white transition-all duration-300"
-          >
-            <Linkedin size={18} />
-          </a>
-          <a
-            href={`mailto:${member.email}`}
-            className="bg-white text-gray-900 p-2  hover:bg-green-500 hover:text-white transition-all duration-300"
-          >
-            <Mail size={18} />
-          </a>
-        </div>
-      </div>
+              {/* Info Section */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                <p className="text-green-600 font-semibold text-sm mb-2">
+                  {member.role}
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 px-2">
+                  {member.bio}
+                </p>
 
-      {/* Info Section */}
-      <div>
-        <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-        <p className="text-green-600 font-semibold text-sm mb-2">
-          {member.role}
-        </p>
-        <p className="text-gray-600 text-sm leading-relaxed px-4">
-          {member.bio}
-        </p>
-      </div>
-    </div>
-  ))}
-</div>
-
-        {/* Bottom CTA */}
-        <div
-          data-aos="fade-up"
-          data-aos-delay="700"
-          className="text-center mt-16 bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
-            Want to know more about our journey?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Follow our development process and see how we're building the future of digital payments.
-          </p>
-          <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
-            View Project Details
-          </button>
+                {/* Social Links */}
+                <div className="flex justify-center gap-4 mt-2">
+                  <a
+                    href={member.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 p-2 rounded-full hover:bg-green-500 hover:text-white transition-all duration-300"
+                  >
+                    <Github size={18} />
+                  </a>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 p-2 rounded-full hover:bg-green-500 hover:text-white transition-all duration-300"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="bg-gray-100 p-2 rounded-full hover:bg-green-500 hover:text-white transition-all duration-300"
+                  >
+                    <Mail size={18} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

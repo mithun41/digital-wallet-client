@@ -22,7 +22,7 @@ import Users from "../Pages/Admin/Users";
 import AdminTransactions from "../Pages/Admin/AdminTransactions";
 import PayBill from "../Pages/dashboard/PayBill";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
-// import AboutSection from "../Pages/AboutSection/AboutSection";
+import AboutSection from "../Pages/AboutSection/AboutSection";
 
 
 export const router = createBrowserRouter([
@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
       { path: "transaction", Component: Transaction },
       { path: "add-money-blog", Component: AddMoneyBlog },
       {path:"feature/:id", Component: FeatureDetails},
-      // {path:"about", Component: AboutSection},
+      {path:"about", Component: AboutSection},
 
       {
         path: "/dashboard",
