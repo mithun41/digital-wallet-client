@@ -1,3 +1,14 @@
+import React from 'react';
+
+const AboutSection = () => {
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
+export default AboutSection;
 // import React, { useEffect } from "react";
 // import { Users, Target, Award, Heart, Github, Linkedin, Mail } from "lucide-react";
 
