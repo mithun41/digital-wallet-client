@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import QrCodeScanner from "../../Components/scaner/QrCodeScanner";
 
 const CashOut = () => {
   const [merchantPhone, setMerchantPhone] = useState("");
@@ -9,6 +10,9 @@ const CashOut = () => {
   const [error, setError] = useState(""); // UI error message
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false)
+
+  console.log(openModal);
 
   const handleNext = async () => {
     setError(""); // reset error
@@ -113,7 +117,12 @@ const CashOut = () => {
         >
           {loading ? "Checking..." : "Next"}
         </button>
+         <div className="divider">OR</div>
+         <button onClick={() => setOpenModal(true)} type="button" className="border border-yellow-400 rounded p-2 cursor-pointer font-bold">Scan the QR Code</button>
       </div>
+      {
+        openModal && <QrCodeScanner onClose={() => setOpenModal(false)}></QrCodeScanner>
+      }
     </div>
   );
 };

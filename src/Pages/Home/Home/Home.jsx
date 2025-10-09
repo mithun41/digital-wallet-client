@@ -15,6 +15,7 @@ import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
 import OurMission from "../../../Components/ourMission/OurMission";
+import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 // import Testimonial from "../../../Components/Testimonial/Testimonial";
 
@@ -33,7 +34,7 @@ const Home = () => {
        <section>
         <WalletFeatures></WalletFeatures>
       </section>
-
+      <QrCodeScanner></QrCodeScanner>
       <section>
      <OurMission></OurMission>
       </section>
