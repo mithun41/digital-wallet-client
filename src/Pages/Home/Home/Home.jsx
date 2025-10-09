@@ -34,7 +34,6 @@ const Home = () => {
        <section>
         <WalletFeatures></WalletFeatures>
       </section>
-      <QrCodeScanner></QrCodeScanner>
       <section>
      <OurMission></OurMission>
       </section>
