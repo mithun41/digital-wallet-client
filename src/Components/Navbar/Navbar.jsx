@@ -40,19 +40,17 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to={isLoggedIn ? "/wallet" : "#"}
-              className={`hover:text-gray-200 px-2 py-1 rounded ${
-                !isLoggedIn ? "cursor-not-allowed" : ""
-              }`}
+              to="/about"
+              className={`hover:text-gray-200 px-2 py-1 rounded  `}
+             
               title={isLoggedIn ? "" : ""}
             >
-              Wallet
+              About
             </Link>
             <Link
-              to={isLoggedIn ? "/blogs" : "#"}
-              className={`hover:text-gray-200 px-2 py-1 rounded ${
-                !isLoggedIn ? "cursor-not-allowed" : ""
-              }`}
+              to="/blogs"
+              className={`hover:text-gray-200 px-2 py-1 rounded`} 
+              
               title={isLoggedIn ? "" : ""}
             >
               Blogs
@@ -142,7 +140,7 @@ const Navbar = () => {
               !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             }`}
           >
-            Transfer
+            Blogs
           </span>
           <span
             className={`block px-2 py-1 rounded hover:bg-blue-500 ${
