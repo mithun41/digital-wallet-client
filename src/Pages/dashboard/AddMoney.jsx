@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+// src/components/AddMoney.jsx
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const AddMoney = () => {
   const [amount, setAmount] = useState("");
@@ -9,8 +11,26 @@ const AddMoney = () => {
   const [details, setDetails] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userCards, setUserCards] = useState([]);
 
+  const { user, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  // 🔹 Fetch user's saved cards (from MyCard API)
+  useEffect(() => {
+    if (!user?.phone || !token) return;
+
+    axios
+      .get(`https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => setUserCards(res.data || []))
+      .catch((err) => console.error("Failed to fetch cards:", err));
+  }, [user, token]);
+
+  // 🔹 Helper to normalize and format entered card number
+  const normalizeCardNumber = (num) =>
+    num.replace(/\s+/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").trim();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +40,7 @@ const AddMoney = () => {
       Swal.fire({
         icon: "error",
         title: "Invalid Amount",
-        text: "Please enter a valid amount",
+        text: "Please enter a valid amount.",
       });
       return;
     }
@@ -28,7 +48,7 @@ const AddMoney = () => {
       Swal.fire({
         icon: "warning",
         title: "Missing Details",
-        text: "Please provide payment details",
+        text: "Please provide payment details.",
       });
       return;
     }
@@ -36,40 +56,56 @@ const AddMoney = () => {
       Swal.fire({
         icon: "warning",
         title: "Password Required",
-        text: "Please enter your account password to confirm",
+        text: "Please enter your account password to confirm.",
       });
       return;
     }
 
+    // 🔹 If method = Card → Verify ownership
+    if (method === "card") {
+      const formattedInput = normalizeCardNumber(details);
+
+      const matchedCard = userCards.find(
+        (c) =>
+          c.number.replace(/\s+/g, "") === formattedInput.replace(/\s+/g, "")
+      );
+
+      if (!matchedCard) {
+        Swal.fire({
+          icon: "error",
+          title: "Card Verification Failed",
+          text: "This card number is not linked to your account.",
+        });
+        return;
+      }
+    }
+
+    // ✅ Proceed with Add Money if verified
     try {
       setLoading(true);
       const res = await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/transactions/add-money",
         { amount: addAmount, method, details, password },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      // ✅ Success alert
       await Swal.fire({
         icon: "success",
         title: "Money Added",
         text: res.data.message || "Your balance has been updated successfully!",
       });
 
-      // ✅ redirect to transaction history page
       navigate("/dashboard/trans-history");
-
       setAmount("");
       setDetails("");
       setPassword("");
     } catch (err) {
-      // ❌ Error alert
       Swal.fire({
         icon: "error",
         title: "Failed",
-        text: err.response?.data?.message || "Failed to add money",
+        text: err.response?.data?.message || "Failed to add money.",
       });
     } finally {
       setLoading(false);
@@ -128,7 +164,11 @@ const AddMoney = () => {
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter Card / bKash / Nagad number"
+              placeholder={
+                method === "card"
+                  ? "Enter your card number"
+                  : "Enter bKash / Nagad number"
+              }
             />
           </div>
 
