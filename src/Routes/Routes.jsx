@@ -40,6 +40,7 @@ export const router = createBrowserRouter([
       { path: "add-money-blog", Component: AddMoneyBlog },
       {path:"feature/:id", Component: FeatureDetails},
       {path:"about", Component: AboutSection},
+      
 
       {
         path: "/dashboard",

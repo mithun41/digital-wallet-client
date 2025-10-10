@@ -49,7 +49,7 @@ const PaymentCard = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-3"
+          className="text-4xl md:text-5xl font-extrabold text-green-600  dark:from-indigo-400  mb-3"
         >
           Payment Services
         </motion.h2>
