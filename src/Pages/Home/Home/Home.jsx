@@ -15,6 +15,8 @@ import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
 
+// import Testimonial from "../../../Components/Testimonial/Testimonial";
+
 const Home = () => {
   return (
     <div className="">
@@ -26,9 +28,15 @@ const Home = () => {
       </section>
       <OurShortCard></OurShortCard>
       <section>
+        <WalletFeatures></WalletFeatures>
+      </section>
+      <section>
         <WhyChooseUs></WhyChooseUs>
       </section>
-      <section>{/* <Features></Features> */}</section>
+
+      <section>
+        <Features></Features>
+      </section>
       <HeroSection></HeroSection>
 
       <section>
@@ -45,14 +53,12 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
-      <section>
-        <Subscription></Subscription>
-      </section>
+      {/* <Testimonial></Testimonial> */}
       <section>
         <BankingCards></BankingCards>
       </section>
       <section>
-        <WalletFeatures></WalletFeatures>
+        <Subscription></Subscription>
       </section>
     </div>
   );

@@ -56,7 +56,7 @@ const BankingCards = () => {
             {/* Card 1 */}
             <div
               className="md:col-span-2 flex flex-col md:flex-row border border-green-500/40 rounded-2xl overflow-hidden  shadow-sm hover:shadow-lg transition-all"
-              data-aos="fade-right"
+              data-aos="flip-up"
             >
               <div className="overflow-hidden group md:w-1/2">
                 <img
@@ -79,7 +79,7 @@ const BankingCards = () => {
             {/* Card 2 */}
             <div
               className="border border-green-500/40 rounded-2xl overflow-hidden p-6 e shadow-sm hover:shadow-lg transition-all"
-              data-aos="fade-left"
+              data-aos="flip-up"
             >
               <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[3].title}
@@ -94,7 +94,7 @@ const BankingCards = () => {
           {/* Row 2 */}
           <div
             className="flex flex-col md:flex-row border border-green-500/40 rounded-2xl overflow-hidden  shadow-sm hover:shadow-lg transition-all"
-            data-aos="fade-up"
+            data-aos="flip-up"
           >
             <div className="overflow-hidden group md:w-1/2">
               <img
@@ -118,7 +118,7 @@ const BankingCards = () => {
         {/* Right Column (takes 1 column) */}
         <div
           className="border border-green-500/40 rounded-2xl overflow-hidden group shadow-sm hover:shadow-lg transition-all"
-          data-aos="zoom-in"
+          data-aos="flip-up"
         >
           <div className="overflow-hidden">
             <img
