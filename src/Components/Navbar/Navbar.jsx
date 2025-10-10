@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 import Theme from "../theme/Theme";
 
+
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -56,20 +58,20 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to={isLoggedIn ? "/about" : "#"}
-              className={`hover:text-gray-200 px-2 py-1 rounded transition-colors ${
-                !isLoggedIn ? "cursor-not-allowed opacity-60" : ""
-              }`}
+              to="/about"
+              className={`hover:text-gray-200 px-2 py-1 rounded  `}
+             
+              title={isLoggedIn ? "" : ""}
             >
               About
             </Link>
             <Link
-              to={isLoggedIn ? "/transfer" : "#"}
-              className={`hover:text-gray-200 px-2 py-1 rounded transition-colors ${
-                !isLoggedIn ? "cursor-not-allowed opacity-60" : ""
-              }`}
+              to="/blogs"
+              className={`hover:text-gray-200 px-2 py-1 rounded`} 
+              
+              title={isLoggedIn ? "" : ""}
             >
-              Transfer
+              Blogs
             </Link>
             <Link
               to={isLoggedIn ? "/rewards" : "#"}
@@ -186,6 +188,28 @@ const Navbar = () => {
           >
             Home
           </Link>
+          <span
+            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
+              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
+          >
+           About
+          </span>
+          <span
+            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
+              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
+          >
+            Blogs
+          </span>
+          <span
+            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
+              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
+          >
+            Rewards
+          </span>
+
           {isLoggedIn ? (
             <>
               <Link
