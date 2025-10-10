@@ -21,6 +21,7 @@ import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import Users from "../Pages/Admin/Users";
 import AdminTransactions from "../Pages/Admin/AdminTransactions";
 import PayBill from "../Pages/dashboard/PayBill";
+import DigitalWalletBlog from "../Components/Blogs/Blog";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "login", Component: Login },
+      {path:"blogs", Component: DigitalWalletBlog },
       { path: "signup", Component: Register },
       { path: "transaction", Component: Transaction },
       { path: "add-money-blog", Component: AddMoneyBlog },

@@ -49,13 +49,13 @@ const Navbar = () => {
               Wallet
             </Link>
             <Link
-              to={isLoggedIn ? "/transfer" : "#"}
+              to={isLoggedIn ? "/blogs" : "#"}
               className={`hover:text-gray-200 px-2 py-1 rounded ${
                 !isLoggedIn ? "cursor-not-allowed" : ""
               }`}
               title={isLoggedIn ? "" : ""}
             >
-              Transfer
+              Blogs
             </Link>
             <Link
               to={isLoggedIn ? "/rewards" : "#"}
