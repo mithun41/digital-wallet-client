@@ -135,7 +135,7 @@ const Navbar = () => {
               !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             }`}
           >
-            Wallet
+           About
           </span>
           <span
             className={`block px-2 py-1 rounded hover:bg-blue-500 ${
