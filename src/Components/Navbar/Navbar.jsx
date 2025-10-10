@@ -26,7 +26,7 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // Dropdown বাইরে ক্লিক করলে বন্ধ হবে
+ 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -88,14 +88,6 @@ const Navbar = () => {
                   className="hover:text-gray-200 px-2 py-1 rounded transition-colors"
                 >
                   Dashboard
-                </Link>
-
-                {/* Profile Link */}
-                <Link
-                  to="/profile"
-                  className="hover:text-gray-200 px-2 py-1 rounded transition-colors"
-                >
-                  Profile
                 </Link>
 
                 {/* Profile Dropdown */}
