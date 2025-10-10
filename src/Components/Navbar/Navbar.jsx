@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 import Theme from "../theme/Theme";
 
+
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();

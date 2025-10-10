@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Calendar, Clock, User, ArrowRight, TrendingUp, Shield, Zap, Smartphone, ChevronRight, Search, Menu, X } from "lucide-react";
 
+
+
 const blogPosts = [
   {
     id: 1,
@@ -472,8 +474,7 @@ const DigitalWalletBlog = () => {
 };
 
 export default DigitalWalletBlog;
-
-
+ 
 
 
 // import React, { useState } from "react";
