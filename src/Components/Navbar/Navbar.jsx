@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import { HiMenu, HiX } from "react-icons/hi";
-import navberImg from "../../assets/logo2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 import Theme from "../theme/Theme";
-
-
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +26,6 @@ const Navbar = () => {
     navigate("/");
   };
 
- 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -45,11 +42,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img
-              src={navberImg}
-              alt="PayMate Logo"
-              className="h-12 w-auto object-contain"
-            />
+            <Logo></Logo>
           </Link>
 
           {/* Desktop Menu */}
@@ -60,15 +53,13 @@ const Navbar = () => {
             <Link
               to="/about"
               className={`hover:text-gray-200 px-2 py-1 rounded  `}
-             
               title={isLoggedIn ? "" : ""}
             >
               About
             </Link>
             <Link
               to="/blogs"
-              className={`hover:text-gray-200 px-2 py-1 rounded`} 
-              
+              className={`hover:text-gray-200 px-2 py-1 rounded`}
               title={isLoggedIn ? "" : ""}
             >
               Blogs
@@ -86,7 +77,9 @@ const Navbar = () => {
               <>
                 {/* Dashboard Link */}
                 <Link
-                  to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
+                  to={
+                    user?.role === "admin" ? "/admin/dashboard" : "/dashboard"
+                  }
                   className="hover:text-gray-200 px-2 py-1 rounded transition-colors"
                 >
                   Dashboard
@@ -123,7 +116,11 @@ const Navbar = () => {
                         </p>
                       </div>
                       <Link
-                        to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
+                        to={
+                          user?.role === "admin"
+                            ? "/admin/dashboard"
+                            : "/dashboard"
+                        }
                         className="block font-bold px-4 py-2 hover:bg-gray-100 transition-colors"
                         onClick={() => setIsDropdownOpen(false)}
                       >
@@ -181,8 +178,8 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       {isOpen && (
         <div className="md:hidden mt-16 bg-blue-600 w-full text-white px-4 py-4 space-y-2 z-40 fixed top-16 left-0 shadow-lg">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
             onClick={() => setIsOpen(false)}
           >
@@ -193,7 +190,7 @@ const Navbar = () => {
               !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             }`}
           >
-           About
+            About
           </span>
           <span
             className={`block px-2 py-1 rounded hover:bg-blue-500 ${
