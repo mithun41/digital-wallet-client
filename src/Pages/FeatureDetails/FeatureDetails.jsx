@@ -117,14 +117,14 @@ const FeatureDetails = () => {
         className="w-full md:w-1/2 text-center md:text-left"
         data-aos="fade-left"
       >
-        <h1 className="text-3xl md:text-4xl font-bold text-green-600 mb-4 text-gray-600 text-gray-600 dark:text-white">
+        <h1 className="text-3xl md:text-4xl font-bold text-green-600 mb-4  dark:text-green-600">
           {displayFeature.title}
         </h1>
-        <p className="text-gray-700 mb-6 leading-relaxed text-gray-600 text-gray-600 dark:text-white">
+        <p className="text-gray-700 mb-6 leading-relaxed text-gr-600 dark:text-white">
           {displayFeature.desc}
         </p>
 
-        <div className="flex flex-wrap justify-center md:justify-start gap-6 text-gray-600 text-sm text-gray-600 text-gray-600 dark:text-white mb-6">
+        <div className="flex flex-wrap justify-center md:justify-start gap-6  text-sm  text-gray-600 dark:text-white mb-6">
           <span>⭐ {displayFeature.rating}</span>
           <span>👥 {displayFeature.users}</span>
           <span>💲 {displayFeature.price}</span>

@@ -63,7 +63,9 @@ const Guarantee = () => {
                     </p>
                     <Link
                         to="/dashboard"
-                        className="mt-8 sm:mt-12 md:mt-16 inline-block px-8 py-3 cursor-pointer rounded-full border border-purple-600 dark:border-purple-500 text-black dark:text-white hover:bg-purple-600 hover:text-white transition duration-300"
+                        className="mt-8 sm:mt-12 md:mt-16 inline-block px-8 py-3 cursor-pointer rounded-full border
+                         border-green-600 dark:border-green-500 text-black dark:text-white hover:bg-green-600 hover:text-white
+                         transition duration-300"
                     >
                         Get Started
                     </Link>
