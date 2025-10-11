@@ -1,3 +1,4 @@
+
 // src/components/MyCard.jsx
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -18,10 +19,7 @@ const MyCard = () => {
   const { user, token } = useSelector((state) => state.auth);
 
   const formatCardNumber = (value) =>
-    value
-      .replace(/\D/g, "")
-      .slice(0, 16)
-      .replace(/(\d{4})(?=\d)/g, "$1 ");
+    value.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ");
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -60,40 +58,23 @@ const MyCard = () => {
     if (!user?.phone) return;
 
     axios
-      .get(`https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(
+        `https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((res) => setCards(res.data))
       .catch((err) => console.error(err));
   }, [user, token]);
 
-  const cardBackgrounds = {
-    Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa_card.png",
-    Mastercard:
-      "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mastercard-logo.png",
-    Amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
-    Default: "https://via.placeholder.com/400x250",
-  };
-
-  const cardLogos = {
-    Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
-    Mastercard:
-      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-    Amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
-    Discover:
-      "https://upload.wikimedia.org/wikipedia/commons/5/5a/Discover_Card_logo.svg",
-  };
-
   return (
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-center text-gray-900 dark:text-white mb-10">
+    <div className="min-h-screen p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 dark:text-white mb-8 sm:mb-10">
           💳 My Cards
         </h1>
 
         {/* Saved Cards */}
-        {/* Saved Cards */}
-        <div className="flex flex-col gap-6 mb-6 items-center">
+        <div className="grid grid-cols-1  lg:grid-cols-2 gap-6 mb-8 place-items-center">
           {cards.map((card) => {
             const bg =
               card.type === "Visa"
@@ -116,39 +97,33 @@ const MyCard = () => {
             return (
               <div
                 key={card._id}
-                className="relative rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-white"
+                className="relative rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 text-white w-full max-w-[400px] aspect-[16/10]"
                 style={{
                   backgroundImage: `url(${bg})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  width: "400px",
-                  height: "250px",
                 }}
               >
-                {/* Overlay for text visibility */}
                 <div className="absolute inset-0 bg-black/25 rounded-2xl"></div>
-
-                {/* Card Content */}
-                <div className="relative z-10 flex flex-col justify-between h-full p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">
+                <div className="relative z-10 flex flex-col justify-between h-full p-5 sm:p-6">
+                  <div className="flex justify-between items-center mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl font-bold">
                       {card.type || "Card"}
                     </h2>
                     {logo && (
                       <img
                         src={logo}
                         alt={card.type}
-                        className="h-10 object-contain drop-shadow-md"
+                        className="h-8 sm:h-10 object-contain drop-shadow-md"
                       />
                     )}
                   </div>
 
-                  <div className="text-xl tracking-widest font-mono mb-4">
-                    **** **** ****{" "}
-                    {card.number ? card.number.slice(-4) : "####"}
+                  <div className="text-lg sm:text-xl tracking-widest font-mono mb-3">
+                    **** **** **** {card.number ? card.number.slice(-4) : "####"}
                   </div>
 
-                  <div className="flex justify-between items-center text-sm font-semibold mb-2">
+                  <div className="flex justify-between items-center text-xs sm:text-sm font-semibold mb-2">
                     <div>
                       <p className="text-gray-200 dark:text-gray-300">
                         Card Holder
@@ -161,8 +136,7 @@ const MyCard = () => {
                     </div>
                   </div>
 
-                  {/* Balance */}
-                  <div className="text-sm font-semibold mt-2">
+                  <div className="text-xs sm:text-sm font-semibold mt-2">
                     Balance: ৳{card.balance?.toLocaleString() || "0"}
                   </div>
                 </div>
@@ -174,16 +148,18 @@ const MyCard = () => {
         {/* Add Card Button / Form */}
         <div className="text-center">
           {!showForm ? (
-            <button
-              onClick={() => setShowForm(true)}
-              className="bg-gradient-to-r from-emerald-400 to-teal-500 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:from-emerald-500 hover:to-teal-600 hover:scale-105 transition-all"
-            >
-              ➕ Add New Card
-            </button>
+            <div className="mt-6 md:mt-8 text-center">
+  <button
+    onClick={() => setShowForm(true)}
+    className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
+  >
+    + Add New Card
+  </button>
+</div>
           ) : (
             <form
               onSubmit={handleAddCard}
-              className="bg-white/20 dark:bg-gray-800/70 p-6 rounded-3xl shadow-2xl backdrop-blur-md max-w-md mx-auto space-y-5 transition-all"
+              className="bg-white/20 dark:bg-gray-800/70 p-5 sm:p-6 rounded-3xl shadow-2xl backdrop-blur-md w-full max-w-md mx-auto space-y-5"
             >
               {/* Card Number */}
               <div>
@@ -248,9 +224,7 @@ const MyCard = () => {
                 </label>
                 <DatePicker
                   selected={formData.expiry}
-                  onChange={(date) =>
-                    setFormData({ ...formData, expiry: date })
-                  }
+                  onChange={(date) => setFormData({ ...formData, expiry: date })}
                   dateFormat="MM/yy"
                   showMonthYearPicker
                   className="w-full p-3 rounded-lg text-black dark:text-white bg-white dark:bg-gray-700"
@@ -263,14 +237,14 @@ const MyCard = () => {
               <div className="flex gap-4 justify-center pt-2">
                 <button
                   type="submit"
-                  className="bg-green-500 px-6 py-2 rounded-lg font-bold hover:bg-green-600 transition-all"
+                  className="bg-green-500 px-5 sm:px-6 py-2 rounded-lg font-bold hover:bg-green-600 transition-all"
                 >
                   Save
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="bg-red-500 px-6 py-2 rounded-lg font-bold hover:bg-red-600 transition-all"
+                  className="bg-red-500 px-5 sm:px-6 py-2 rounded-lg font-bold hover:bg-red-600 transition-all"
                 >
                   Cancel
                 </button>
@@ -284,3 +258,4 @@ const MyCard = () => {
 };
 
 export default MyCard;
+

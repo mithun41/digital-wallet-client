@@ -2,7 +2,7 @@ import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
-import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
+// import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
 import TeamMarquee from "../../../Components/TeamMarquee";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -14,8 +14,9 @@ import WalletFeatures from "../../../Components/WalletFeatures";
 import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
+import OurMission from "../../../Components/ourMission/OurMission";
 
-// import Testimonial from "../../../Components/Testimonial/Testimonial";
+import Testimonial from "../../../Components/Testimonial/Testimonial";
 
 const Home = () => {
   return (
@@ -30,9 +31,14 @@ const Home = () => {
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
+
       <section>
-        <WhyChooseUs></WhyChooseUs>
+        <OurMission></OurMission>
       </section>
+
+      {/* <section>
+        <WhyChooseUs></WhyChooseUs>
+      </section> */}
 
       <section>
         <Features></Features>
@@ -53,7 +59,7 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
-      {/* <Testimonial></Testimonial> */}
+      <Testimonial></Testimonial>
       <section>
         <BankingCards></BankingCards>
       </section>
