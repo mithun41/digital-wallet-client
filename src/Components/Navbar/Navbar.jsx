@@ -124,14 +124,14 @@ const Navbar = () => {
                       </div>
                       <Link
                         to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                        className="block px-4 py-2 hover:bg-gray-100 transition-colors"
+                        className="block font-bold px-4 py-2 hover:bg-gray-100 transition-colors"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         📊 Dashboard
                       </Link>
                       <Link
                         to="dashboard/profile"
-                        className="block px-4 py-2 hover:bg-gray-100 transition-colors"
+                        className="block font-bold px-4 py-2 hover:bg-gray-100 transition-colors"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         👤 Profile
@@ -239,14 +239,14 @@ const Navbar = () => {
               </div>
               <Link
                 to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
+                className="block text-4xl font-bold hover:bg-blue-500 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 📊 Dashboard
               </Link>
               <Link
                 to="/profile"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
+                className="block text-2xl font-bold hover:bg-blue-500 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 👤 Profile
