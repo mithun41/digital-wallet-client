@@ -24,6 +24,7 @@ import PayBill from "../Pages/dashboard/PayBill";
 import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
+import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
       { path: "add-money-blog", Component: AddMoneyBlog },
       {path:"feature/:id", Component: FeatureDetails},
       {path:"about", Component: AboutSection},
+      {path: "/add_money", Component:AddMoneyBlogPages},
       
 
       {
