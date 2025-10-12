@@ -22,7 +22,7 @@ const AddMoney = () => {
   useEffect(() => {
     if (!user?.phone || !token) return;
     axios
-      .get(`http://localhost:5000/api/cards/by-phone/${user.phone}`, {
+      .get(`https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setUserCards(res.data || []))
@@ -99,7 +99,7 @@ const AddMoney = () => {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/transactions/add-money",
+        "https://digital-wallet-server-tau.vercel.app/api/transactions/add-money",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

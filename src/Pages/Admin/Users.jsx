@@ -10,7 +10,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token"); // assuming token is stored in localStorage
-      const res = await axios.get("http://localhost:5000/api/admin/users", {
+      const res = await axios.get("https://digital-wallet-server-tau.vercel.app/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data || []);
@@ -36,7 +36,7 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:5000/api/admin/users/${userId}/status`,
+        `https://digital-wallet-server-tau.vercel.app/api/admin/users/${userId}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -78,7 +78,7 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:5000/api/admin/users/${userId}/reset-pin`,
+        `https://digital-wallet-server-tau.vercel.app/api/admin/users/${userId}/reset-pin`,
         { newPin },
         { headers: { Authorization: `Bearer ${token}` } }
       );

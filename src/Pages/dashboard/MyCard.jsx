@@ -33,7 +33,7 @@ const MyCard = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/cards",
+        "https://digital-wallet-server-tau.vercel.app/api/cards",
         {
           ...formData,
           phone: user.phone,
@@ -59,7 +59,7 @@ const MyCard = () => {
 
     axios
       .get(
-        `http://localhost:5000/api/cards/by-phone/${user.phone}`,
+        `https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => setCards(res.data))

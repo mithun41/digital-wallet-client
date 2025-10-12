@@ -41,7 +41,7 @@ const CashoutStep2 = ({ onCashoutSuccess }) => {
 
         const token = localStorage.getItem("token");
         const res = await axios.post(
-          "http://localhost:5000/api/users/check-user",
+          "https://digital-wallet-server-tau.vercel.app/api/users/check-user",
           { phone: fullPhone },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -84,7 +84,7 @@ const CashoutStep2 = ({ onCashoutSuccess }) => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:5000/api/transactions/cashout",
+        "https://digital-wallet-server-tau.vercel.app/api/transactions/cashout",
         {
           merchantPhone: fullPhone,
           amount: parseFloat(amount),
