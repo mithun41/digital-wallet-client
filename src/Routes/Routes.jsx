@@ -25,6 +25,7 @@ import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
+import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 
 
 export const router = createBrowserRouter([
@@ -42,6 +43,7 @@ export const router = createBrowserRouter([
       {path:"feature/:id", Component: FeatureDetails},
       {path:"about", Component: AboutSection},
       {path: "/add_money", Component:AddMoneyBlogPages},
+      {path: "/wallet", Component: WalletBlogPage},
       
 
       {
