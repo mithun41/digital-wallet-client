@@ -56,7 +56,7 @@ const DashboardHome = () => {
 
     axios
       .get(
-        `https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`,
+        `http://localhost:5000/api/cards/by-phone/${user.phone}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
@@ -83,7 +83,7 @@ const DashboardHome = () => {
       };
 
       const { data } = await axios.post(
-        "https://digital-wallet-server-tau.vercel.app/api/cards",
+        "http://localhost:5000/api/cards",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

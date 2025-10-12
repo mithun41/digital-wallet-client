@@ -162,7 +162,7 @@ const TransactionHistory = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        "https://digital-wallet-server-tau.vercel.app/api/transactions",
+        "http://localhost:5000/api/transactions",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -63,7 +63,7 @@ const SendMoney = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "https://digital-wallet-server-tau.vercel.app/api/users/check-user",
+        "http://localhost:5000/api/users/check-user",
         { phone: fullPhone },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -92,7 +92,7 @@ const SendMoney = () => {
       const fullPhone = getFullPhone(receiverPhone);
 
       await axios.post(
-        "https://digital-wallet-server-tau.vercel.app/api/transactions/send-money",
+        "http://localhost:5000/api/transactions/send-money",
         {
           receiverPhone: fullPhone,
           amount: parsedAmount, // main amount

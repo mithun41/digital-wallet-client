@@ -11,7 +11,7 @@ const AdminTransactions = () => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.get(
-        "https://digital-wallet-server-tau.vercel.app/api/transactions/admin",
+        "http://localhost:5000/api/transactions/admin",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -38,7 +38,7 @@ const AdminTransactions = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `https://digital-wallet-server-tau.vercel.app/api/transactions/${transactionId}/${action}`,
+        `http://localhost:5000/api/transactions/${transactionId}/${action}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
