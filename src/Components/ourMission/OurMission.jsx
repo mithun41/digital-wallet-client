@@ -49,7 +49,7 @@ export default function OurMission() {
     <div className="min-h-screen my-16 relative flex items-center justify-center py-20 px-8">
       <div className="absolute"></div>
       
-      <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-10/12 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="space-y-8 z-10" data-aos="fade-right">
           <h3 className="text-green-500 text-2xl font-semibold tracking-wide uppercase" data-aos="fade-up" data-aos-delay="100">
