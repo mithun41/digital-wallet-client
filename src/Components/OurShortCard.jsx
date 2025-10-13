@@ -69,7 +69,7 @@ const OurShortCard = () => {
     <div className="max-w-11/12 mx-auto py-12 px-4">
       <div>
         {/* Title */}
-        <h1 className="text-green-500 text-3xl md:text-4xl font-bold text-center">
+        <h1 className="text-green-500 text-4xl md:text-4xl font-bold text-center">
           Short-Card Method
         </h1>
         <p

@@ -52,7 +52,7 @@ const Testimonial = () => {
             <Star size={16} className="fill-white text-white" />
             Testimonials
           </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-green-500 dark:text-green-500 mb-4">
+          <h2 className="text-4xl md:text-4xl font-extrabold text-green-500 dark:text-green-500 mb-4">
             What Our Users Say 💬
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg max-w-3xl mx-auto">

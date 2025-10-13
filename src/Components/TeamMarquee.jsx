@@ -49,7 +49,7 @@ const TeamMarquee = () => {
     return (
         <section className="max-w-11/12 mx-auto py-12 overflow-hidden">
             <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-green-500">
+                <h2 className="text-4xl font-bold text-green-500">
                     Our Awesome PayMate Team
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">

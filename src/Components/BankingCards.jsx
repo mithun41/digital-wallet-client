@@ -38,7 +38,7 @@ const BankingCards = () => {
     <div className="mt-12 px-4 md:px-8 lg:px-16">
       {/* Title Section */}
       <div className="text-center mb-10" data-aos="zoom-in">
-        <h1 className="text-3xl md:text-4xl font-bold text-green-400">
+        <h1 className="text-4xl md:text-4xl font-bold text-green-400">
           Latest News & Events
         </h1>
         <p className="max-w-11/12 mx-auto mt-3 text-gray-600 dark:text-gray-300 text-sm md:text-base">
