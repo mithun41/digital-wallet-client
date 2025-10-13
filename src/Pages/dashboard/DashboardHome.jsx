@@ -219,79 +219,81 @@ const DashboardHome = () => {
     transition={{ duration: 0.5 }}
   >
     {cards.length > 0 ? (
-      cards.map((card, i) => {
-        // Card logos
-        const cardLogos = {
-          Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
-          Mastercard: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-          Amex: "https://i.ibb.co.com/DH9V2qtW/american.png",
-          Discover: "https://i.ibb.co.com/TxVN7SSB/dscvr.jpg",
-        };
+  cards.map((card, i) => {
+    const cardLogos = {
+      Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
+      Mastercard: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+      Amex: "https://i.ibb.co.com/DH9V2qtW/american.png",
+      Discover: "https://i.ibb.co.com/TxVN7SSB/dscvr.jpg",
+    };
 
-        // Gradient backgrounds by card type
-        const cardGradients = {
-          Visa: "bg-gradient-to-br from-blue-500 via-indigo-500 to-blue-700",
-          Mastercard: "bg-gradient-to-br from-red-500 via-yellow-500 to-orange-600",
-          Amex: "bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-600",
-          Discover: "bg-gradient-to-br from-amber-400 via-orange-500 to-yellow-600",
-          Default: "bg-gradient-to-br from-gray-400 via-gray-500 to-gray-700",
-        };
+    const cardGradients = {
+      Visa: "bg-gradient-to-br from-blue-500 via-indigo-500 to-blue-700",
+      Mastercard: "bg-gradient-to-br from-red-500 via-yellow-500 to-orange-600",
+      Amex: "bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-600",
+      Discover: "bg-gradient-to-br from-amber-400 via-orange-500 to-yellow-600",
+      Default: "bg-gradient-to-br from-gray-400 via-gray-500 to-gray-700",
+    };
 
-        const gradientClass = cardGradients[card.type] || cardGradients.Default;
-        const logo = cardLogos[card.type];
+    const gradientClass = cardGradients[card.type] || cardGradients.Default;
+    const logo = cardLogos[card.type];
 
-        return (
-          <motion.div
-            key={card._id ?? i}
-            className={`relative rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-[350px] md:w-[380px] lg:w-[400px] h-[220px] lg:h-[250px] aspect-[16/10] text-white overflow-hidden ${gradientClass}`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06 }}
-          >
-            {/* Subtle gradient overlay for depth */}
-            <div className="absolute inset-0 bg-black/10 rounded-3xl"></div>
+    return (
+     <motion.div
+  key={card._id ?? i}
+  className={`relative rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-white overflow-hidden ${gradientClass}
+    w-full max-w-[320px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[200px] sm:h-[190px] md:h-[200px] lg:h-[210px] mx-auto`}
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: i * 0.06 }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/10 rounded-3xl"></div>
 
-            {/* Card Content */}
-            <div className="relative z-10 flex flex-col justify-between h-full p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold uppercase tracking-wide">
-                  {card.type || "Card"}
-                </h2>
-                {logo && (
-                  <img
-                    src={logo}
-                    alt={card.type}
-                    className="h-8 object-contain bg-white/20 backdrop-blur-sm rounded-md p-1"
-                  />
-                )}
-              </div>
+  {/* Content */}
+  <div className="relative z-10 flex flex-col justify-between h-full p-5 sm:p-6">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide">
+        {card.type || "Card"}
+      </h2>
+      {logo && (
+        <img
+          src={logo}
+          alt={card.type}
+          className="h-6 sm:h-7 object-contain bg-white/20 backdrop-blur-sm rounded-md p-1"
+        />
+      )}
+    </div>
 
-              <div className="text-xl tracking-widest font-mono mb-4">
-                **** **** **** {card.number?.slice(-4) || "####"}
-              </div>
+    <div className="text-lg sm:text-xl tracking-widest font-mono mb-3 sm:mb-4">
+      **** **** **** {card.number?.slice(-4) || "####"}
+    </div>
 
-              <div className="flex justify-between text-sm font-semibold">
-                <div>
-                  <p className="text-white/70">Card Holder</p>
-                  <p className="text-white">{card.holder || "N/A"}</p>
-                </div>
-                <div>
-                  <p className="text-white/70">Expiry</p>
-                  <p className="text-white">{card.expiry || "--/--"}</p>
-                </div>
-                 <div className="">
-            Balance: ৳{card.balance?.toLocaleString() || "0"}
-          </div>
-              </div>
-            </div>
-          </motion.div>
-        );
-      })
-    ) : (
-      <p className="text-gray-500 dark:text-gray-400 text-center">
-        No cards added yet.
-      </p>
-    )}
+    <div className="flex justify-between items-end text-xs sm:text-sm font-semibold">
+      <div>
+        <p className="text-white/70">Holder</p>
+        <p className="text-white">{card.holder || "N/A"}</p>
+      </div>
+      <div>
+        <p className="text-white/70">Expiry</p>
+        <p className="text-white">{card.expiry || "--/--"}</p>
+      </div>
+      <div>
+        <p className="text-white/70">Balance</p>
+        <p className="text-white">৳{card.balance?.toLocaleString() || "0"}</p>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
+    );
+  })
+) : (
+  <p className="text-gray-500 dark:text-gray-400 text-center">
+    No cards added yet.
+  </p>
+)}
+
   </motion.div>
 </AnimatePresence>
 
