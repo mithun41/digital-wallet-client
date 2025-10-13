@@ -17,9 +17,7 @@ import BankingCards from "../../../Components/BankingCards";
 import OurMission from "../../../Components/ourMission/OurMission";
 import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
-// import Testimonial from "../../../Components/Testimonial/Testimonial";
-
-
+import Testimonial from "../../../Components/Testimonial/Testimonial";
 
 const Home = () => {
   return (
@@ -31,16 +29,12 @@ const Home = () => {
         <OurHistory></OurHistory>
       </section>
       <OurShortCard></OurShortCard>
-       <section>
+      <section>
         <WalletFeatures></WalletFeatures>
       </section>
       <section>
-     <OurMission></OurMission>
+        <OurMission></OurMission>
       </section>
-
-      {/* <section>
-        <WhyChooseUs></WhyChooseUs>
-      </section> */}
       
       <section>
         <Features></Features>
@@ -51,12 +45,8 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>
-          <HowItWorks></HowItWorks>
-        </section>
-        <section>
-          <AdvancedBenefits></AdvancedBenefits>
-        </section>
+        <section>{/* <HowItWorks></HowItWorks> */}</section>
+        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
@@ -65,11 +55,11 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
-     {/* <Testimonial></Testimonial> */}
+      <Testimonial></Testimonial>
       <section>
-       <BankingCards></BankingCards>
+        <BankingCards></BankingCards>
       </section>
-     <section>
+      <section>
         <Subscription></Subscription>
       </section>
     </div>

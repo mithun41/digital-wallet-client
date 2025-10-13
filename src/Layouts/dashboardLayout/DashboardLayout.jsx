@@ -83,6 +83,9 @@ const DashboardLayout = () => {
           <img src={logo} alt="Logo" className="h-10 w-auto cursor-pointer" />
         </Link>
 
+        {/*show balance  */}
+        
+
         {/* Right Side */}
         <div className="flex items-center gap-6">
           {/* Search */}
@@ -132,6 +135,8 @@ const DashboardLayout = () => {
           )}
         </div>
       </header>
+
+
 
       {/* Main Content */}
       <div className="flex flex-1 pt-16">

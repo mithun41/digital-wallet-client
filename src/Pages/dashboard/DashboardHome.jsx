@@ -106,12 +106,7 @@ const DashboardHome = () => {
     }
   };
 
-  /* ------------------ Dashboard UI (top sections omitted for brevity) ------------------ */
-  // For conciseness this file keeps your original top sections — only the "My Cards"
-  // area and the modal/form were updated to match MyCard.
 
-  // (You can keep your existing topCards, quickActions, transactions arrays here.)
-  // I'll reuse minimal placeholders so the file runs standalone.
   const topCards = [
     { title: "Wallet Balance", value: "$5,000.00", change: "+12.5%", color: "blue", icon: <Wallet className="w-5 h-5" /> },
     { title: "Send Money", value: "$1,250.00", change: "+5.4%", color: "indigo", icon: <Send className="w-5 h-5" /> },
@@ -135,7 +130,7 @@ const DashboardHome = () => {
 
   return (
     <div className="dark:bg-gray-900 min-h-screen">
-      {/* Top cards (kept as-is for your dashboard) */}
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {topCards.map((card) => (
           <div key={card.title} className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition p-4 rounded-lg">
@@ -149,7 +144,7 @@ const DashboardHome = () => {
         ))}
       </div>
 
-      {/* Quick actions and balance (keep your layout) */}
+ 
       <div className="grid grid-cols-1 mb-8 lg:grid-cols-6 gap-6">
         <div className="lg:col-span-4 bg-white dark:bg-gray-800 py-6 px-4 space-y-6 rounded-lg shadow-sm">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Quick Actions</h2>
@@ -217,135 +212,215 @@ const DashboardHome = () => {
     </div>
 
     <AnimatePresence>
-      <motion.div
-        className="flex flex-col gap-4 items-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {cards.length > 0 ? (
-          cards.map((card, i) => {
-            // Card backgrounds based on type
-            const cardBackgrounds = {
-              Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa_card.png",
-              Mastercard: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Mastercard-logo.png",
-              Amex: "https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg",
-              Default: "https://via.placeholder.com/400x250",
-            };
-            const cardLogos = {
-              Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
-              Mastercard: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-              Amex: "https://i.ibb.co.com/DH9V2qtW/american.png",
-            Discover:"https://i.ibb.co.com/TxVN7SSB/dscvr.jpg"
-            };
+  <motion.div
+    className="flex flex-col gap-4 items-center"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {cards.length > 0 ? (
+  cards.map((card, i) => {
+    const cardLogos = {
+      Visa: "https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg",
+      Mastercard: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+      Amex: "https://i.ibb.co.com/DH9V2qtW/american.png",
+      Discover: "https://i.ibb.co.com/TxVN7SSB/dscvr.jpg",
+    };
 
-            const bg =  cardBackgrounds.Default;
-            const logo = cardLogos[card.type];
+    const cardGradients = {
+      Visa: "bg-gradient-to-br from-blue-500 via-indigo-500 to-blue-700",
+      Mastercard: "bg-gradient-to-br from-red-500 via-yellow-500 to-orange-600",
+      Amex: "bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-600",
+      Discover: "bg-gradient-to-br from-amber-400 via-orange-500 to-yellow-600",
+      Default: "bg-gradient-to-br from-gray-400 via-gray-500 to-gray-700",
+    };
 
-            return (
-              <motion.div
-                key={card._id ?? i}
-                className="relative rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full sm:w-[350px] md:w-[380px]  lg:w-[400px] h-[220px] lg:h-[250px]  aspect-[16/10] text-white"
-                style={{
-                  backgroundImage: `url(${bg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  
-                }}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                {/* Overlay for text visibility */}
-                <div className="absolute inset-0 bg-black/25 rounded-3xl"></div>
+    const gradientClass = cardGradients[card.type] || cardGradients.Default;
+    const logo = cardLogos[card.type];
 
-                {/* Card Content */}
-                <div className="relative z-10 flex flex-col  justify-between h-full p-6">
-                  <div className="flex justify-between items-center mb-6 ">
-                    <h2 className="text-2xl font-bold">{card.type || "Card"}</h2>
-                    {logo && <img src={logo} alt={card.type} className="h-10" />}
-                  </div>
+    return (
+     <motion.div
+  key={card._id ?? i}
+  className={`relative rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-white overflow-hidden ${gradientClass}
+    w-full max-w-[320px] sm:max-w-[340px] md:max-w-[360px] lg:max-w-[380px] h-[200px] sm:h-[190px] md:h-[200px] lg:h-[210px] mx-auto`}
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: i * 0.06 }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/10 rounded-3xl"></div>
 
-                  <div className="text-xl tracking-widest font-mono mb-4">
-                    **** **** **** {card.number?.slice(-4) || "####"}
-                  </div>
+  {/* Content */}
+  <div className="relative z-10 flex flex-col justify-between h-full p-5 sm:p-6">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide">
+        {card.type || "Card"}
+      </h2>
+      {logo && (
+        <img
+          src={logo}
+          alt={card.type}
+          className="h-6 sm:h-7 object-contain bg-white/20 backdrop-blur-sm rounded-md p-1"
+        />
+      )}
+    </div>
 
-                  <div className="flex justify-between text-sm font-semibold">
-                    <div>
-                      <p className="text-gray-200 dark:text-gray-300">Card Holder</p>
-                      <p>{card.holder || "N/A"}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-200 dark:text-gray-300">Expiry</p>
-                      <p>{card.expiry || "--/--"}</p>
-                    </div>
-                    
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })
-        ) : (
-          <p className="text-gray-500 dark:text-gray-400 text-center">No cards added yet.</p>
-        )}
-      </motion.div>
-    </AnimatePresence>
+    <div className="text-lg sm:text-xl tracking-widest font-mono mb-3 sm:mb-4">
+      **** **** **** {card.number?.slice(-4) || "####"}
+    </div>
+
+    <div className="flex justify-between items-end text-xs sm:text-sm font-semibold">
+      <div>
+        <p className="text-white/70">Holder</p>
+        <p className="text-white">{card.holder || "N/A"}</p>
+      </div>
+      <div>
+        <p className="text-white/70">Expiry</p>
+        <p className="text-white">{card.expiry || "--/--"}</p>
+      </div>
+      <div>
+        <p className="text-white/70">Balance</p>
+        <p className="text-white">৳{card.balance?.toLocaleString() || "0"}</p>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
+    );
+  })
+) : (
+  <p className="text-gray-500 dark:text-gray-400 text-center">
+    No cards added yet.
+  </p>
+)}
+
+  </motion.div>
+</AnimatePresence>
+
   </div>
 
           {/* Add Card Modal - matches MyCard's form fields & DatePicker */}
           <AnimatePresence>
-            {showForm && (
-              <motion.div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <motion.div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md relative" initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}>
-                  <button onClick={() => setShowForm(false)} className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"><X className="w-5 h-5" /></button>
+  {showForm && (
+    <motion.div
+      className="fixed inset-0 bg-black/40 flex justify-center items-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md relative border border-gray-200 dark:border-gray-700"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+      >
+        <button
+          onClick={() => setShowForm(false)}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-300 transition"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-                  <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Add New Card</h2>
+        {/* Updated Heading */}
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white tracking-wide">
+          Add a New Payment Card
+        </h2>
 
-                  <form onSubmit={handleAddCard} className="space-y-3">
-                    {/* Card Number */}
-                    <div>
-                      <label className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200">Card Number</label>
-                      <div className="flex items-center bg-white dark:bg-gray-700 rounded-lg px-3">
-                        <FaRegCreditCard className="text-gray-500 mr-2" />
-                        <input type="text" name="number" value={formData.number} onChange={handleChange} placeholder="1234 5678 9012 3456" className="w-full p-3 rounded-lg text-black dark:text-white bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-300" required />
-                      </div>
-                    </div>
+        <form onSubmit={handleAddCard} className="space-y-5">
+          {/* Card Number */}
+          <div>
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              Card Number
+            </label>
+            <div className="flex items-center bg-gray-50 dark:bg-gray-700 rounded-lg px-3 border border-gray-200 dark:border-gray-600 focus-within:ring-2 focus-within:ring-indigo-500">
+              <FaRegCreditCard className="text-gray-500 mr-2" />
+              <input
+                type="text"
+                name="number"
+                value={formData.number}
+                onChange={handleChange}
+                placeholder="1234 5678 9012 3456"
+                className="w-full p-3 rounded-lg text-black dark:text-white bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-300"
+                required
+              />
+            </div>
+          </div>
 
-                    {/* Card Type */}
-                    <div>
-                      <label className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200">Card Type</label>
-                      <select name="type" value={formData.type} onChange={handleChange} className="w-full p-3 rounded-lg text-black dark:text-white bg-white dark:bg-gray-700">
-                        <option value="Visa">Visa</option>
-                        <option value="Mastercard">Mastercard</option>
-                        <option value="Amex">American Express</option>
-                        <option value="Discover">Discover</option>
-                      </select>
-                    </div>
+          {/* Card Type */}
+          <div>
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              Card Type
+            </label>
+            <select
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              className="w-full p-3 rounded-lg text-black dark:text-white bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="Visa">Visa</option>
+              <option value="Mastercard">Mastercard</option>
+              <option value="Amex">American Express</option>
+              <option value="Discover">Discover</option>
+            </select>
+          </div>
 
-                    {/* Card Holder */}
-                    <div>
-                      <label className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200">Card Holder</label>
-                      <div className="flex items-center bg-white dark:bg-gray-700 rounded-lg px-3">
-                        <FaUser className="text-gray-500 mr-2" />
-                        <input type="text" name="holder" value={formData.holder} onChange={handleChange} placeholder="John Doe" className="w-full p-3 rounded-lg text-black dark:text-white bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-300" required />
-                      </div>
-                    </div>
+          {/* Card Holder */}
+          <div>
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              Card Holder Name
+            </label>
+            <div className="flex items-center bg-gray-50 dark:bg-gray-700 rounded-lg px-3 border border-gray-200 dark:border-gray-600 focus-within:ring-2 focus-within:ring-indigo-500">
+              <FaUser className="text-gray-500 mr-2" />
+              <input
+                type="text"
+                name="holder"
+                value={formData.holder}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className="w-full p-3 rounded-lg text-black dark:text-white bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-300"
+                required
+              />
+            </div>
+          </div>
 
-                    {/* Expiry (DatePicker like MyCard) */}
-                    <div>
-                      <label className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200">Expiry Date</label>
-                      <DatePicker selected={formData.expiry} onChange={(date) => setFormData({ ...formData, expiry: date })} dateFormat="MM/yy" showMonthYearPicker className="w-full p-3 rounded-lg text-black dark:text-white bg-white dark:bg-gray-700" placeholderText="MM/YY" required />
-                    </div>
+          {/* Expiry */}
+          <div>
+            <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              Expiry Date
+            </label>
+            <DatePicker
+              selected={formData.expiry}
+              onChange={(date) => setFormData({ ...formData, expiry: date })}
+              dateFormat="MM/yy"
+              showMonthYearPicker
+              className="w-full p-3 rounded-lg text-black dark:text-white bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500"
+              placeholderText="MM/YY"
+              required
+            />
+          </div>
 
-                    <div className="flex gap-3">
-                      <button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md py-2 transition font-semibold">Save Card</button>
-                      <button type="button" onClick={() => setShowForm(false)} className="flex-1 bg-red-500 hover:bg-red-600 text-white rounded-md py-2 transition font-semibold">Cancel</button>
-                    </div>
-                  </form>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Buttons */}
+          <div className="flex gap-3 pt-2">
+            <button
+              type="submit"
+              className="flex-1 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg py-2.5 transition font-semibold shadow-sm"
+            >
+              Save Card
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="flex-1 cursor-pointer bg-red-500 hover:bg-red-600 text-white rounded-lg py-2.5 transition font-semibold shadow-sm"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
         </div>
       </div>
     </div>

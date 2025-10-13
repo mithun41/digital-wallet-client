@@ -3,11 +3,18 @@ import { Scanner } from "@yudiel/react-qr-scanner";
 
 const QrCodeScanner = ({onClose}) => {
   const handleScan = (result) => {
-    if (result) {
-      console.log("Scanned Result:", result);
-      window.location.href = result; // auto redirect
-      onClose()
-    }
+    console.log(result);
+  //   if(result){
+  //     const resultValue = result.data || result.text;
+
+  //     console.log(resultValue);
+    
+  //   if (resultValue) {
+  //     console.log("Scanned Rej  sult:", resultValue);
+  //     window.location.href = resultValue; 
+  //     onClose()
+  //   }
+  // }
   };
 
   const handleError = (error) => {
@@ -21,7 +28,7 @@ const QrCodeScanner = ({onClose}) => {
         <div className="w-80">
         <Scanner
           onResult={(result, error) => {
-            if (!!result) handleScan(result.data);
+            if (!!result) handleScan(result);
             if (!!error) handleError(error);
           }}
           constraints={{ facingMode: "environment" }}

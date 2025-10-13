@@ -21,6 +21,11 @@ import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import Users from "../Pages/Admin/Users";
 import AdminTransactions from "../Pages/Admin/AdminTransactions";
 import PayBill from "../Pages/dashboard/PayBill";
+import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
+import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
+import AboutSection from "../Pages/AboutSection/AboutSection";
+import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
+
 
 export const router = createBrowserRouter([
   {
@@ -30,9 +35,14 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "login", Component: Login },
+      {path:"blogs", Component: DigitalWalletBlog },
       { path: "signup", Component: Register },
       { path: "transaction", Component: Transaction },
       { path: "add-money-blog", Component: AddMoneyBlog },
+      {path:"feature/:id", Component: FeatureDetails},
+      {path:"about", Component: AboutSection},
+      {path: "send_money", Component:SendMoneyBlog},
+      
 
       {
         path: "/dashboard",
@@ -48,6 +58,7 @@ export const router = createBrowserRouter([
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
           { path: "pay-bill", Component: PayBill },
+          
         ],
       },
     ],
