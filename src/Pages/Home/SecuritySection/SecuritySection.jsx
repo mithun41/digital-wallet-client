@@ -1,127 +1,121 @@
-import React, { useState } from "react";
-import { FaLock, FaShieldAlt, FaMobileAlt, FaBell } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { Lock, Shield, Smartphone, Bell } from "lucide-react";
 
 const SecuritySection = () => {
-  const securityFeatures = [
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const features = [
     {
-      icon: <FaLock />,
+      icon: <Lock size={40} />,
       title: "Encrypted Transactions",
       description:
-        "All your transactions are encrypted with the latest security standards.",
-      color: "from-blue-400 to-blue-600",
+      "All your sensitive data, including transaction details and account credentials, are protected with industry-standard AES-256 end-to-end encryption. This ensures your digital wallet remains completely secure from unauthorized access or data breaches.",
     },
     {
-      icon: <FaShieldAlt />,
-      title: "Secure Wallet",
+      icon: <Shield size={40} />,
+      title: "Advanced Security",
       description:
-        "Two-factor authentication and strong password policies can protect your account.",
-      color: "from-green-400 to-green-600",
+      "Stay protected with multi-layered security that includes two-factor authentication, biometric verification, and AI-driven fraud detection. Our system constantly monitors unusual activities to prevent unauthorized transactions and safeguard your assets.",
     },
     {
-      icon: <FaMobileAlt />,
+      icon: <Smartphone size={40} />,
       title: "Device Management",
       description:
-        "Control which devices can access your wallet and monitor login activity.",
-      color: "from-purple-400 to-purple-600",
+      "View and control all logged-in devices from one place. You can remotely sign out from any session, manage trusted devices, and get instant updates on new logins to ensure your account always stays under your control.",
     },
     {
-      icon: <FaBell />,
-      title: "Instant Alerts",
-      description:
-        "Receive real-time notifications for every transaction to stay informed.",
-      color: "from-yellow-400 to-yellow-500",
+      icon: <Bell size={40} />,
+      title: "Instant Notifications",
+    description:
+      "Receive real-time push notifications and in-app alerts for every transaction, login attempt, or account change. Stay informed and take immediate action if something doesn’t look right — your awareness is your strongest security.",
+  
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [features.length]);
 
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % securityFeatures.length);
-  };
-
-  const prevSlide = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? securityFeatures.length - 1 : prev - 1
-    );
-  };
-
-  // Animation for enter/exit
-  const variants = {
-    enter: { opacity: 0, x: 100, filter: "blur(8px)" },
-    center: { opacity: 1, x: 0, filter: "blur(0px)" },
-    exit: { opacity: 0, x: -100, filter: "blur(8px)" },
-  };
+  const goToSlide = (index) => setCurrentSlide(index);
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-16 relative">
-      <h2 className="text-3xl font-bold text-center mb-12">Security & Trust</h2>
+    <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden">
+        {/* Section Heading */}
+      <div className="text-center mb-16 animate-slide-up">
+        <div className="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full text-sm font-semibold mb-6">
+          <Shield size={18} />
+          <span>Security & Trust</span>
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
+          Bank-Grade Protection
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 text-lg mt-3 max-w-2xl mx-auto">
+          Every layer of PayMate is built with enterprise-grade protection to
+          keep your money and data secure.
+        </p>
+      </div>
 
-      <div className="relative flex items-center justify-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            className="relative p-8 rounded-2xl shadow-xl flex flex-col items-center text-center w-full max-w-md 
-                       bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 
-                       border border-gray-200 dark:border-gray-700 transition-colors"
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.6 }}
+      <div className="relative">
+        <div className="overflow-hidden rounded-3xl">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
-            {/* Focused card has live animation */}
-            <motion.div
-              className={`w-16 h-16 flex items-center justify-center mb-4 rounded-full bg-gradient-to-br ${securityFeatures[activeIndex].color} text-white text-2xl`}
-              animate={{
-                scale: [1, 1.15, 1],
-                rotate: [0, 3, -3, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {securityFeatures[activeIndex].icon}
-            </motion.div>
+            {features.map((feature, index) => (
+              <div key={index} className="min-w-full px-4">
+                {/* Gradient background similar to Subscription */}
+                <div
+                  className="rounded-3xl p-[1px]"
+                  style={{
+                 background:
+                 "linear-gradient(to right, rgba(16, 231, 95, 0.15), #fcf9f9ff 20%, #f6f2f2ff 50%, rgba(34, 216, 101, 0.15))",
+                 }}
+                >
+                  <div className="rounded-3xl p-10 md:p-10  h-full nter">
+                    <div className="flex items-center gap-8">
+                      <div className="w-20 h-20 flex-shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-md">
+                        {feature.icon}
+                      </div>
 
-            <motion.h3
-              className="text-xl font-semibold mb-2"
-              animate={{
-                y: [0, -5, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {securityFeatures[activeIndex].title}
-            </motion.h3>
+                      <div className="flex-1 text-left">
+                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-            <p className="text-gray-600 dark:text-gray-300">
-              {securityFeatures[activeIndex].description}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow p-3 rounded-full"
-        >
-          ◀
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow p-3 rounded-full"
-        >
-          ▶
-        </button>
+        {/* Pagination Dots */}
+        <div className="flex justify-center gap-3 mt-10">
+          {features.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-3 rounded-full transition-all duration-300 ${
+                currentSlide === index
+                  ? "w-10 bg-green-500 shadow-lg"
+                  : "w-3 bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
 export default SecuritySection;
+
+
+

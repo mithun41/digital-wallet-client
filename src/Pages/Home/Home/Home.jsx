@@ -1,10 +1,8 @@
 import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
-import MobileCard from "../../../Components/MobileCard";
-import MutionCard from "../../../Components/MutionCard";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
-import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
+// import WhyChooseUs from "../../../Components/WhyChooseUs/WhyChooseUs";
 import TeamMarquee from "../../../Components/TeamMarquee";
 import Banner from "../../Banner/Banner";
 import Features from "../Features/Features";
@@ -12,19 +10,32 @@ import Guarantee from "../Guarantee/Guarantee";
 import HeroSection from "../hero/HeroSection";
 import SecuritySection from "../SecuritySection/SecuritySection";
 import Subscription from "../Subscription/Subscription";
+import WalletFeatures from "../../../Components/WalletFeatures";
+import QrCode from "../../../Components/qr_code/Qr_code";
+import OurShortCard from "../../../Components/OurShortCard";
+import BankingCards from "../../../Components/BankingCards";
+import OurMission from "../../../Components/ourMission/OurMission";
+
+import Testimonial from "../../../Components/Testimonial/Testimonial";
 
 const Home = () => {
   return (
-    <div>
+    <div className="">
       <section>
         <Banner></Banner>
       </section>
       <section>
         <OurHistory></OurHistory>
       </section>
+      <OurShortCard></OurShortCard>
       <section>
-        <WhyChooseUs></WhyChooseUs>
+        <WalletFeatures></WalletFeatures>
       </section>
+
+      <section>
+        <OurMission></OurMission>
+      </section>
+      
       <section>
         <Features></Features>
       </section>
@@ -32,15 +43,10 @@ const Home = () => {
 
       <section>
         <section>
-          {/* <MobileCard></MobileCard> */}
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>
-          <HowItWorks></HowItWorks>
-        </section>
-        <section>
-          <AdvancedBenefits></AdvancedBenefits>
-        </section>
+        <section>{/* <HowItWorks></HowItWorks> */}</section>
+        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
@@ -49,12 +55,12 @@ const Home = () => {
       <section>
         <Guarantee></Guarantee>
       </section>
+      <Testimonial></Testimonial>
+      <section>
+        <BankingCards></BankingCards>
+      </section>
       <section>
         <Subscription></Subscription>
-      </section>
-
-      <section>
-        <MutionCard></MutionCard>
       </section>
     </div>
   );

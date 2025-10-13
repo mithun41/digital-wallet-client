@@ -52,12 +52,20 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser(formData))
       .unwrap()
-      .then(() => navigate("/dashboard"))
+      .then((res) => {
+        // res er moddhe user thakbe, dhoro res.user.role
+        if (res.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/dashboard");
+        }
+      })
       .catch((err) => {
         // Show error with SweetAlert
         Swal.fire("Login Failed", err.message, "error");
       });
   };
+
   const phoneRegex = /^\+8801[3-9]\d{8}$/;
   const handleSendOtp = () => {
     if (!phoneRegex.test(formData.phone)) {
@@ -149,7 +157,9 @@ const Login = () => {
               Welcome to <span className="text-indigo-600">Pay</span>
               <span className="text-purple-600">Mate</span>
             </h2>
-            <p className="text-gray-600 dark:text-white">Sign in with your phone & PIN</p>
+            <p className="text-gray-600 dark:text-white">
+              Sign in with your phone & PIN
+            </p>
           </div>
 
           {!showResetPin ? (
@@ -167,7 +177,7 @@ const Login = () => {
                   onChange={handleInputChange}
                   placeholder="+8801XXXXXXXXX"
                   required
-                  className="block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full pl-3 pr-3 py-3 border dark:text-white text-gray-700 border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -184,7 +194,7 @@ const Login = () => {
                     onChange={handleInputChange}
                     placeholder="••••"
                     required
-                    className="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="block w-full pl-3 pr-10 py-3 border dark:text-white text-gray-700 border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   <button
                     type="button"

@@ -10,10 +10,22 @@ import Transaction from "../Pages/dashboard/Transaction";
 import Profile from "../Pages/dashboard/Profile";
 import AddMoney from "../Pages/dashboard/AddMoney";
 import MobileRecharge from "../Pages/dashboard/MobileRecharge";
+import MyCard from "../Pages/dashboard/MyCard";
 import Error from "../Components/Error/Error";
 import TransactionHistory from "../Pages/dashboard/TransactionHistory/TransactionHistory";
 import CashOut from "../Pages/cashOut/CashOut";
 import CashoutStep2 from "../Pages/cashOut/CashoutStep2";
+import AddMoneyBlog from "../Pages/Blog/addMoney/AddMoneyBlog";
+import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import Users from "../Pages/Admin/Users";
+import AdminTransactions from "../Pages/Admin/AdminTransactions";
+import PayBill from "../Pages/dashboard/PayBill";
+import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
+import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
+import AboutSection from "../Pages/AboutSection/AboutSection";
+import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
+
 
 export const router = createBrowserRouter([
   {
@@ -23,23 +35,44 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "login", Component: Login },
+      {path:"blogs", Component: DigitalWalletBlog },
       { path: "signup", Component: Register },
+      { path: "transaction", Component: Transaction },
+      { path: "add-money-blog", Component: AddMoneyBlog },
+      {path:"feature/:id", Component: FeatureDetails},
+      {path:"about", Component: AboutSection},
+      {path: "send_money", Component:SendMoneyBlog},
+      
 
       {
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
           { index: true, Component: DashboardHome },
-          { path: "transaction", Component: Transaction },
           { path: "profile", Component: Profile },
           { path: "cashout", Component: CashOut },
           { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
+          { path: "mycard", Component: MyCard },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
+          { path: "pay-bill", Component: PayBill },
+          
         ],
       },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    Component: AdminLayout,
+    children: [
+      {
+        index: true,
+        Component: AdminDashboard,
+      },
+      { path: "users", Component: Users },
+      { path: "transactions", Component: AdminTransactions },
     ],
   },
 ]);

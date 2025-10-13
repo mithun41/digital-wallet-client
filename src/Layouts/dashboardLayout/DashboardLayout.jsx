@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router";
 import {
   Bell,
   User,
@@ -15,6 +15,8 @@ import { FaCrown } from "react-icons/fa6";
 import logo from "../../assets/logo2.png";
 import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
+import PayBill from "../../Pages/dashboard/PayBill";
+import { CiMoneyBill } from "react-icons/ci";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -44,7 +46,17 @@ const menuItems = [
     path: "/dashboard/cashOut",
     icon: <DollarSign size={24} />,
   },
-  {
+   {
+    name: "MyCard",
+    path: "/dashboard/mycard",
+    icon: <CreditCard size={24} />,
+  },
+   {
+    name: "PayBill",
+    path: "/dashboard/pay-bill",
+    icon: <CiMoneyBill size={24} />,
+  },
+  {   
     name: "Settings",
     path: "/dashboard/settings",
     icon: <Settings size={24} />,
@@ -70,6 +82,9 @@ const DashboardLayout = () => {
         <Link to="/">
           <img src={logo} alt="Logo" className="h-10 w-auto cursor-pointer" />
         </Link>
+
+        {/*show balance  */}
+        
 
         {/* Right Side */}
         <div className="flex items-center gap-6">
@@ -121,14 +136,19 @@ const DashboardLayout = () => {
         </div>
       </header>
 
+
+
       {/* Main Content */}
       <div className="flex flex-1 pt-16">
         {/* Sidebar */}
         <aside className="w-14 md:w-64 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto flex flex-col items-center md:items-start">
           {/* Title (Desktop only) */}
-          <h3 className="hidden md:block text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
+          <Link
+            to={"/dashboard"}
+            className="hidden md:block text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200"
+          >
             Dashboard Overview
-          </h3>
+          </Link>
 
           <nav className="space-y-4 w-full">
             {menuItems.map((item) => (
