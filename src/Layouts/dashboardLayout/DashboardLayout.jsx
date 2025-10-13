@@ -56,6 +56,11 @@ const menuItems = [
     path: "/dashboard/pay-bill",
     icon: <CiMoneyBill size={24} />,
   },
+  {
+    name: "education",
+    path: "/dashboard/education",
+
+  },
   {   
     name: "Settings",
     path: "/dashboard/settings",
