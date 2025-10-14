@@ -10,9 +10,9 @@ import {
   CreditCard,
   DollarSign,
   Home,
+  Landmark,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
-import logo from "../../assets/logo2.png";
 import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
 import PayBill from "../../Pages/dashboard/PayBill";
@@ -88,6 +88,8 @@ const DashboardLayout = () => {
         <Link to="/">
           <Logo></Logo>
         </Link>
+
+        {/*show balance  */}
 
         {/* Right Side */}
         <div className="flex items-center gap-6">

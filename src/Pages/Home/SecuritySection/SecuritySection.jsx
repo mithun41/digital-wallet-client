@@ -49,7 +49,7 @@ const SecuritySection = () => {
           <Shield size={18} />
           <span>Security & Trust</span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
+        <h2 className="text-4xl md:text-4xl font-bold text-green-500 mb-4">
           Bank-Grade Protection
         </h2>
         <p className="text-gray-600 dark:text-gray-300 text-lg mt-3 max-w-2xl mx-auto">

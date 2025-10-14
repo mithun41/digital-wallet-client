@@ -35,11 +35,7 @@ const Home = () => {
       <section>
         <OurMission></OurMission>
       </section>
-
-      {/* <section>
-        <WhyChooseUs></WhyChooseUs>
-      </section> */}
-
+      
       <section>
         <Features></Features>
       </section>

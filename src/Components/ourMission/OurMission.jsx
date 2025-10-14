@@ -46,16 +46,16 @@ export default function OurMission() {
   };
 
   return (
-    <div className="min-h-screen my-16 relative flex items-center justify-center py-20 px-8">
+    <div className="my-16 relative flex items-center justify-center py-20 px-8">
       <div className="absolute"></div>
       
-      <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-10/12 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="space-y-8 z-10" data-aos="fade-right">
           <h3 className="text-green-500 text-2xl font-semibold tracking-wide uppercase" data-aos="fade-up" data-aos-delay="100">
             Our Future Mission
           </h3>
-          <h1 className="text-5xl lg:text-6xl font-bold text-black dark:text-white leading-tight mb-6" data-aos="fade-up" data-aos-delay="200">
+          <h1 className="text-3xl lg:text-6xl font-bold text-black dark:text-white leading-tight mb-6" data-aos="fade-up" data-aos-delay="200">
             Building the Future of <span className='text-green-500'>Digital Finance</span>
           </h1>
           <p className="text-black dark:text-white text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="300">
