@@ -79,7 +79,7 @@ export default function WalletFeatures() {
         <section className="max-w-11/12 mx-auto px-6 py-12">
             {/* Heading */}
             <div className="text-center mb-10">
-                <h2 className=" text-green-500 text-3xl md:text-4xl font-bold ">
+                <h2 className=" text-green-500 text-4xl md:text-4xl font-bold ">
                     Popular Wallet Features
                 </h2>
                 <p className="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
