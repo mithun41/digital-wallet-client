@@ -164,7 +164,7 @@ const DashboardHome = () => {
   const quickActions = [
     {
       name: "Send Money",
-      path: "/dashboard/sendMoney",
+      path: "/dashboard/send-money",
       icon: <Send className="h-6 w-6" />,
       color: "indigo",
     },
@@ -176,14 +176,14 @@ const DashboardHome = () => {
     },
     {
       name: "Pay Bill",
-      path: "/dashboard/payBill",
+      path: "/dashboard/pay-bill",
       icon: <FileText className="h-6 w-6" />,
       color: "purple",
     },
     {
-      name: "QR Scan",
-      path: "/dashboard/qrScan",
-      icon: <QrCode className="h-6 w-6" />,
+      name: "Cashout",
+      path: "/dashboard/cashout",
+      icon: <Send className="h-6 w-6" />,
       color: "red",
     },
   ];
@@ -363,7 +363,7 @@ const DashboardHome = () => {
               Recent Transactions
             </h2>
             <Link
-              to="/dashboard/transactions"
+              to="/dashboard/trans-history"
               className="text-blue-500 underline cursor-pointer hover:no-underline text-sm"
             >
               View All
