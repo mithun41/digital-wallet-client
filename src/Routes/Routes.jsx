@@ -24,6 +24,7 @@ import PayBill from "../Pages/dashboard/PayBill";
 import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
+import BankTransfer from "../Pages/dashboard/BankTransfer";
 import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
@@ -60,6 +61,7 @@ export const router = createBrowserRouter([
           { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
           { path: "mycard", Component: MyCard },
+          { path: "banktransfer", Component: BankTransfer },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
