@@ -23,6 +23,7 @@ import AdminTransactions from "../Pages/Admin/AdminTransactions";
 import PayBill from "../Pages/dashboard/PayBill";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
+import BankTransfer from "../Pages/dashboard/BankTransfer";
 
 
 export const router = createBrowserRouter([
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
           { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
           { path: "mycard", Component: MyCard },
+          { path: "banktransfer", Component: BankTransfer },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },

@@ -10,6 +10,7 @@ import {
   CreditCard,
   DollarSign,
   Home,
+  Landmark,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
 import logo from "../../assets/logo2.png";
@@ -45,6 +46,11 @@ const menuItems = [
     name: "CashOut",
     path: "/dashboard/cashOut",
     icon: <DollarSign size={24} />,
+  },
+   {
+    name: "Bank Transfer",
+    path: "/dashboard/banktransfer",
+    icon: <Landmark size={24} />,
   },
    {
     name: "MyCard",
