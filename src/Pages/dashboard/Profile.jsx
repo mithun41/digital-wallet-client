@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Pencil, Check, X, Lock, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { fetchUser, resetPinUser } from "../../redux/features/authSlice";
+// import FingerprintAuth from "../FingerPrint/FingerprintAuth";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -358,6 +359,7 @@ const Profile = () => {
               </div>
             </form>
           )}
+          {/* <FingerprintAuth mode="register" /> */}
         </div>
       </div>
     </div>
