@@ -25,6 +25,9 @@ import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
 import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
+import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
+import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
+import RewardsSection from "../Pages/RewardsSection/RewardsSection";
 
 
 export const router = createBrowserRouter([
@@ -41,7 +44,10 @@ export const router = createBrowserRouter([
       { path: "add-money-blog", Component: AddMoneyBlog },
       {path:"feature/:id", Component: FeatureDetails},
       {path:"about", Component: AboutSection},
+      {path: "rewards", Component:RewardsSection }, 
       {path: "send_money", Component:SendMoneyBlog},
+      {path: "/add_money", Component:AddMoneyBlogPages},
+      {path: "/wallet", Component:WalletBlogPage},
       
 
       {

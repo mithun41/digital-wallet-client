@@ -6,8 +6,10 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
 const AddMoney = () => {
+  const [selectedSource, setSelectedSource] = useState(""); // "card" or "account"
   const [amount, setAmount] = useState("");
-  const [method, setMethod] = useState("bkash");
+
+  const [bank, setBank] = useState(""); // new: selected bank name
   const [details, setDetails] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,10 +18,9 @@ const AddMoney = () => {
   const { user, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  // 🔹 Fetch user's saved cards (from MyCard API)
+  // 🔹 Fetch user's saved cards
   useEffect(() => {
     if (!user?.phone || !token) return;
-
     axios
       .get(`https://digital-wallet-server-tau.vercel.app/api/cards/by-phone/${user.phone}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -28,9 +29,12 @@ const AddMoney = () => {
       .catch((err) => console.error("Failed to fetch cards:", err));
   }, [user, token]);
 
-  // 🔹 Helper to normalize and format entered card number
-  const normalizeCardNumber = (num) =>
-    num.replace(/\s+/g, "").replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+  // 🔹 Format card number every 4 digits automatically
+  const handleCardInput = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); // remove non-digits
+    const formatted = value.replace(/(.{4})/g, "$1 ").trim();
+    setDetails(formatted);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,20 +60,15 @@ const AddMoney = () => {
       Swal.fire({
         icon: "warning",
         title: "Password Required",
-        text: "Please enter your account password to confirm.",
+        text: "Please enter your password.",
       });
       return;
     }
 
-    // 🔹 If method = Card → Verify ownership
-    if (method === "card") {
-      const formattedInput = normalizeCardNumber(details);
-
+    if (selectedSource === "card") {
       const matchedCard = userCards.find(
-        (c) =>
-          c.number.replace(/\s+/g, "") === formattedInput.replace(/\s+/g, "")
+        (c) => c.number.replace(/\s+/g, "") === details.replace(/\s+/g, "")
       );
-
       if (!matchedCard) {
         Swal.fire({
           icon: "error",
@@ -78,19 +77,32 @@ const AddMoney = () => {
         });
         return;
       }
+      if (matchedCard.balance < parseFloat(amount)) {
+        Swal.fire({
+          icon: "error",
+          title: "Insufficient Balance",
+          text: "Your selected card doesn't have enough money.",
+        });
+        return;
+      }
     }
 
-    // ✅ Proceed with Add Money if verified
     try {
       setLoading(true);
+      const payload = {
+        amount: addAmount,
+        // ensure backend receives 'card' when user selected card source
+        method: selectedSource === "card" ? "card" : "bank",
+        details,
+        password,
+        bank,
+      };
+
       const res = await axios.post(
         "https://digital-wallet-server-tau.vercel.app/api/transactions/add-money",
-        { amount: addAmount, method, details, password },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
       await Swal.fire({
         icon: "success",
         title: "Money Added",
@@ -101,6 +113,8 @@ const AddMoney = () => {
       setAmount("");
       setDetails("");
       setPassword("");
+      setSelectedSource("");
+      setBank("");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -119,77 +133,139 @@ const AddMoney = () => {
     backgroundPosition: "center",
   };
 
+  // 🔹 List of Bangladeshi banks
+  const bangladeshBanks = [
+    "Dutch-Bangla Bank",
+    "BRAC Bank",
+    "City Bank",
+    "Eastern Bank",
+    "Islami Bank Bangladesh",
+    "Sonali Bank",
+    "United Commercial Bank",
+    "Prime Bank",
+    "Trust Bank",
+    "Standard Chartered Bank",
+    "Bank Asia",
+    "Mutual Trust Bank",
+    "NCC Bank",
+    "One Bank",
+    "IFIC Bank",
+  ];
+
   return (
     <div
       className="min-h-screen flex items-center justify-center relative"
       style={bgStyle}
     >
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-xl max-w-md w-full text-white">
         <h2 className="text-3xl font-bold text-center mb-6">Add Money</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter amount"
-            />
-          </div>
-
-          <div>
-            <select
-              value={method}
-              onChange={(e) => setMethod(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 text-white outline-none focus:ring-2 focus:ring-blue-400"
+        {/* Step 1: Select Source */}
+        {!selectedSource && (
+          <div className="space-y-4 text-center">
+            <p className="text-gray-200 mb-4">
+              Choose where to add money from:
+            </p>
+            <button
+              onClick={() => setSelectedSource("card")}
+              className="w-full cursor-pointer py-3 rounded-lg bg-blue-600 hover:bg-blue-500 font-semibold transition"
             >
-              <option value="bkash" className="text-black">
-                bKash
-              </option>
-              <option value="card" className="text-black">
-                Card
-              </option>
-              <option value="nagad" className="text-black">
-                Nagad
-              </option>
-            </select>
+              From Card
+            </button>
+            <button
+              onClick={() => setSelectedSource("account")}
+              className="w-full cursor-pointer py-3 rounded-lg bg-green-600 hover:bg-green-500 font-semibold transition"
+            >
+              From Account
+            </button>
           </div>
+        )}
 
-          <div>
-            <input
-              type="text"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder={
-                method === "card"
-                  ? "Enter your card number"
-                  : "Enter bKash / Nagad number"
-              }
-            />
-          </div>
+        {/* Step 2: Show form if a source is selected */}
+        {selectedSource && (
+          <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+            {selectedSource === "account" && (
+              <>
+                {/* Dropdown of Banks */}
+                <div>
+                  <select
+                    value={bank}
+                    onChange={(e) => setBank(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-white/20 text-white outline-none focus:ring-2 focus:ring-blue-400"
+                  >
+                    <option value="" className="text-black">
+                      Select Bank
+                    </option>
+                    {bangladeshBanks.map((b, i) => (
+                      <option key={i} value={b} className="text-black">
+                        {b}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-          <div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your password"
-            />
-          </div>
+                {/* Payment method (bKash/Nagad) */}
+              </>
+            )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition disabled:opacity-50"
-          >
-            {loading ? "Processing..." : "Add Money"}
-          </button>
-        </form>
+            <div>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter amount"
+              />
+            </div>
+
+            <div>
+              <input
+                type="text"
+                value={details}
+                onChange={
+                  selectedSource === "card"
+                    ? handleCardInput
+                    : (e) => setDetails(e.target.value)
+                }
+                maxLength="19"
+                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder={
+                  selectedSource === "card"
+                    ? "Enter your card number"
+                    : "Enter your bank account number "
+                }
+              />
+            </div>
+
+            <div>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your wallet password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full cursor-pointer py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition disabled:opacity-50"
+            >
+              {loading ? "Processing..." : "Confirm Add Money"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSource("")}
+              className="w-full cursor-pointer py-3 rounded-lg bg-gray-500 hover:bg-gray-400 text-white font-semibold transition"
+            >
+              Go Back
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

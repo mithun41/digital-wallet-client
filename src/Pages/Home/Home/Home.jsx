@@ -18,6 +18,7 @@ import OurMission from "../../../Components/ourMission/OurMission";
 import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 import Testimonial from "../../../Components/Testimonial/Testimonial";
+import LiveChat from "../../../Components/liveChat/LiveChat";
 
 const Home = () => {
   return (
@@ -25,6 +26,7 @@ const Home = () => {
       <section>
         <Banner></Banner>
       </section>
+      <LiveChat></LiveChat>
       <section>
         <OurHistory></OurHistory>
       </section>
