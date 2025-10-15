@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
 import PayBill from "../../Pages/dashboard/PayBill";
 import { CiMoneyBill } from "react-icons/ci";
+import { MdOutlineCastForEducation } from "react-icons/md";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -59,6 +60,7 @@ const menuItems = [
   {
     name: "education",
     path: "/dashboard/education",
+    icon: <MdOutlineCastForEducation />,
 
   },
   {   

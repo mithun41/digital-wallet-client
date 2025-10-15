@@ -45,8 +45,8 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>{/* <HowItWorks></HowItWorks> */}</section>
-        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
+        <section><HowItWorks></HowItWorks></section>
+        <section><AdvancedBenefits></AdvancedBenefits></section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
