@@ -202,8 +202,8 @@ const EducationFeeCalculator = () => {
               ) : (
                 <div className="text-center">
                   <CheckCircle size={48} className="text-green-600 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-green-500">Payment Successful!</h3>
-                  <p className="text-green-700 font-semibold mt-2">Transaction ID generated ✅</p>
+                  <h3 className="text-2xl font-bold text-white">Payment Successful!</h3>
+                  <p className="text-white font-semibold mt-2">Transaction ID generated ✅</p>
                 </div>
               )}
             </div>

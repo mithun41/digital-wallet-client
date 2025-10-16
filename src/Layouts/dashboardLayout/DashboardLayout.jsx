@@ -61,7 +61,17 @@ const menuItems = [
   {
     name: "Pay Bill",
     path: "/dashboard/pay-bill",
-    icon: <CiMoneyBill size={22} />,
+    icon: <CiMoneyBill size={24} />,
+  },
+  {
+    name: "Education",
+    path: "/dashboard/education",
+    icon: <CiMoneyBill size={24} />,
+  },
+  {
+    name: "Loan",
+    path: "/dashboard/loan",
+    icon: <CiMoneyBill size={24} />,
   },
   { name: "Loan", path: "/dashboard/loan", icon: <Building2 size={22} /> },
   {
