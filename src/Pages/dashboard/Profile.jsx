@@ -157,13 +157,10 @@ const Profile = () => {
         Swal.fire("Error", err.message || "Failed to update PIN", "error");
       });
   };
-console.log(user);
   const handleLiveChat = () => {
-    if (user !== "" && user.role !== "" && user.name !== '') {
-      console.log(user.name, user.role);
-      socket.emit("join_room", { name: user.name, room: 'support room', role: user.role });
+    
       navigate('/dashboard/live-chat')
-    }
+   
     
   }
 
