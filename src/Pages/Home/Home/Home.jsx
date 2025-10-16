@@ -27,10 +27,11 @@ const Home = () => {
       <section>
         <OurHistory></OurHistory>
       </section>
-      <OurShortCard></OurShortCard>
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
+      <OurShortCard></OurShortCard>
+      
 
       <section>
         <OurMission></OurMission>
@@ -45,8 +46,8 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>{/* <HowItWorks></HowItWorks> */}</section>
-        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
+        <section><HowItWorks></HowItWorks></section>
+        <section><AdvancedBenefits></AdvancedBenefits></section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
