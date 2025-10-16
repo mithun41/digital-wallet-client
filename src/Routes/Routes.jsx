@@ -31,6 +31,7 @@ import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
+import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
 
 export const router = createBrowserRouter([
   {

@@ -6,6 +6,7 @@ import {
   CreditCardIcon,
   ArrowsRightLeftIcon,
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router";
 
 const steps = [
   {
@@ -38,6 +39,7 @@ const steps = [
 ];
 
 const HowItWorks = () => {
+    const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -48,7 +50,7 @@ const HowItWorks = () => {
 
   return (
     <section className="py-16">
-      <div className="max-w-11/12 mx-auto text-center px-4">
+      <div className="max-w-10/12 mx-auto text-center px-4">
         {/* Heading */}
         <h2
           className="text-3xl md:text-4xl font-bold text-green-500 mb-2"
@@ -96,8 +98,10 @@ const HowItWorks = () => {
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">{step.description}</p>
 
-                  {/* CTA Button */}
-                  <button className="mt-4 px-5 py-2 bg-green-500 text-white font-medium rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition">
+                    <button
+                    onClick={() => navigate(`/step/${step.id}`)}
+                    className="mt-4 px-5 py-2 bg-green-500 text-white font-medium rounded-full shadow hover:bg-green-600 transition"
+                  >
                     Learn More →
                   </button>
                 </div>
