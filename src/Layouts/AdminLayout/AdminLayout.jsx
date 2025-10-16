@@ -15,8 +15,6 @@ import { useSelector } from "react-redux";
 import logo from "../../assets/logo2.png";
 import Theme from "../../Components/theme/Theme";
 
-
-
 const menuItems = [
   { name: "Overview", path: "/admin/dashboard", icon: <BarChart2 size={20} /> },
   { name: "Users", path: "/admin/dashboard/users", icon: <Users size={20} /> },
@@ -25,7 +23,11 @@ const menuItems = [
     path: "/admin/dashboard/transactions",
     icon: <CreditCard size={20} />,
   },
-  { name: "KYC Requests", path: "/admin/kyc", icon: <Shield size={20} /> },
+  {
+    name: "Loan List",
+    path: "/admin/dashboard/loans",
+    icon: <FileText size={20} />,
+  },
   { name: "Reports", path: "/admin/reports", icon: <FileText size={20} /> },
   { name: "Settings", path: "/admin/settings", icon: <Settings size={20} /> },
 ];

@@ -50,11 +50,11 @@ const Error = () => {
           transition={{ delay: 1, duration: 0.8, type: "spring" }}
           className="mt-8 flex justify-center"
         >
-          <img
-            src="https://illustrations.popsy.co/gray/surprise.svg"
+          {/* <img
+            src="https://www.setra.com/hubfs/Sajni/crc_error.jpg"
             alt="404 illustration"
             className="w-60"
-          />
+          /> */}
         </motion.div>
 
         {/* Back Home Button */}

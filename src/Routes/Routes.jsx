@@ -24,12 +24,14 @@ import PayBill from "../Pages/dashboard/PayBill";
 import DigitalWalletBlog from "../Components/Blogs/DigitalWalletBlog";
 import FeatureDetails from "../Pages/FeatureDetails/FeatureDetails";
 import AboutSection from "../Pages/AboutSection/AboutSection";
+import LoanPage from "../Pages/dashboard/Loan/LoanPage";
+import AdminLoanList from "../Pages/Admin/AdminLoanList";
+import BankTransfer from "../Pages/dashboard/BankTransfer";
 import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
 import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
-
 
 export const router = createBrowserRouter([
   {
@@ -39,17 +41,18 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "login", Component: Login },
-      {path:"blogs", Component: DigitalWalletBlog },
+      { path: "blogs", Component: DigitalWalletBlog },
       { path: "signup", Component: Register },
       { path: "transaction", Component: Transaction },
       { path: "add-money-blog", Component: AddMoneyBlog },
-      {path:"feature/:id", Component: FeatureDetails},
-      {path:"about", Component: AboutSection},
-      {path: "rewards", Component:RewardsSection }, 
-      {path: "send_money", Component:SendMoneyBlog},
-      {path: "/add_money", Component:AddMoneyBlogPages},
-      {path: "/wallet", Component:WalletBlogPage},
-      
+      { path: "feature/:id", Component: FeatureDetails },
+      { path: "about", Component: AboutSection },
+      { path: "feature/:id", Component: FeatureDetails },
+      { path: "about", Component: AboutSection },
+      { path: "rewards", Component: RewardsSection },
+      { path: "send_money", Component: SendMoneyBlog },
+      { path: "/add_money", Component: AddMoneyBlogPages },
+      { path: "/wallet", Component: WalletBlogPage },
 
       {
         path: "/dashboard",
@@ -61,12 +64,13 @@ export const router = createBrowserRouter([
           { path: "cashout/confirm", Component: CashoutStep2 },
           { path: "addMoney", Component: AddMoney },
           { path: "mycard", Component: MyCard },
+          { path: "banktransfer", Component: BankTransfer },
           { path: "mobileRecharge", Component: MobileRecharge },
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
           { path: "pay-bill", Component: PayBill },
-          {path:"education", Component: EducationFeeCalculator}
-          
+          { path: "loan", Component: LoanPage },
+          {path:"education",Component: EducationFeeCalculator},
         ],
       },
     ],
@@ -81,6 +85,7 @@ export const router = createBrowserRouter([
       },
       { path: "users", Component: Users },
       { path: "transactions", Component: AdminTransactions },
+      { path: "loans", Component: AdminLoanList },
     ],
   },
 ]);

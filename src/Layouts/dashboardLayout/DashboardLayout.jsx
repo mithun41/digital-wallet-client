@@ -10,14 +10,14 @@ import {
   CreditCard,
   DollarSign,
   Home,
+  Landmark,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
-import logo from "../../assets/logo2.png";
 import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
 import PayBill from "../../Pages/dashboard/PayBill";
 import { CiMoneyBill } from "react-icons/ci";
-import { MdOutlineCastForEducation } from "react-icons/md";
+import Logo from "../../Components/Navbar/Logo";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -47,23 +47,27 @@ const menuItems = [
     path: "/dashboard/cashOut",
     icon: <DollarSign size={24} />,
   },
-   {
+  {
     name: "MyCard",
     path: "/dashboard/mycard",
     icon: <CreditCard size={24} />,
   },
-   {
+  {
     name: "PayBill",
     path: "/dashboard/pay-bill",
     icon: <CiMoneyBill size={24} />,
   },
   {
-    name: "education",
+    name: "Education",
     path: "/dashboard/education",
-    icon: <MdOutlineCastForEducation />,
-
+    icon: <CiMoneyBill size={24} />,
   },
-  {   
+  {
+    name: "Loan",
+    path: "/dashboard/loan",
+    icon: <CiMoneyBill size={24} />,
+  },
+  {
     name: "Settings",
     path: "/dashboard/settings",
     icon: <Settings size={24} />,
@@ -84,14 +88,13 @@ const DashboardLayout = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
       {/* Navbar */}
-      <header className="w-full fixed top-0 z-50 flex items-center justify-between bg-white dark:bg-gray-800 shadow-md px-6 py-3">
+      <header className="w-full fixed top-0 z-50 flex items-center justify-between bg-green-600 dark:bg-primary shadow-md px-6 py-3">
         {/* Logo */}
         <Link to="/">
-          <img src={logo} alt="Logo" className="h-10 w-auto cursor-pointer" />
+          <Logo></Logo>
         </Link>
 
         {/*show balance  */}
-        
 
         {/* Right Side */}
         <div className="flex items-center gap-6">
@@ -131,10 +134,10 @@ const DashboardLayout = () => {
                 className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 object-cover"
               />
               <div className="text-right hidden sm:block">
-                <p className="font-medium text-gray-800 dark:text-gray-200">
+                <p className="font-medium text-gray-200 dark:text-gray-200">
                   {user.name || "Guest User"}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-300 dark:text-gray-400">
                   {user.phone || "N/A"}
                 </p>
               </div>
@@ -142,8 +145,6 @@ const DashboardLayout = () => {
           )}
         </div>
       </header>
-
-
 
       {/* Main Content */}
       <div className="flex flex-1 pt-16">
