@@ -18,7 +18,6 @@ import OurMission from "../../../Components/ourMission/OurMission";
 import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 import Testimonial from "../../../Components/Testimonial/Testimonial";
-import LiveChat from "../../../Components/liveChat/LiveChat";
 
 const Home = () => {
   return (
@@ -26,14 +25,15 @@ const Home = () => {
       <section>
         <Banner></Banner>
       </section>
-      <LiveChat></LiveChat>
       <section>
         <OurHistory></OurHistory>
       </section>
-      <OurShortCard></OurShortCard>
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
+      <OurShortCard></OurShortCard>
+      
+
       <section>
         <OurMission></OurMission>
       </section>
@@ -47,8 +47,8 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>{/* <HowItWorks></HowItWorks> */}</section>
-        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
+        <section><HowItWorks></HowItWorks></section>
+        <section><AdvancedBenefits></AdvancedBenefits></section>
         <PaymentCard></PaymentCard>
       </section>
       <section>

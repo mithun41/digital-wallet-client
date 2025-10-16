@@ -325,7 +325,7 @@ const DigitalWalletBlog = () => {
             const Icon = feature.icon;
             return (
               <div key={index} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700">
-                <Icon className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-3" />
+                <Icon className="w-8 h-8 text-green-600 dark:text-green-400 mb-3" />
                 <h3 className="font-bold text-gray-900 dark:text-white mb-1">{feature.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
               </div>
@@ -343,7 +343,7 @@ const DigitalWalletBlog = () => {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-2 rounded-full font-semibold transition-all ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-green-600 to-green-600 text-white shadow-lg"
                   : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md border border-gray-200 dark:border-gray-700"
               }`}
             >
@@ -365,14 +365,14 @@ const DigitalWalletBlog = () => {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full text-sm font-bold shadow-lg">
+                  <span className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-500 text-white rounded-full text-sm font-bold shadow-lg">
                     Featured
                   </span>
                 </div>
               </div>
               
               <div className="p-8 md:p-12 flex flex-col justify-center">
-                <span className="inline-block px-4 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-semibold mb-4 w-fit">
+                <span className="inline-block px-4 py-1 bg-green-100 dark:bg-green-500/30 text-green-600 dark:text-green-400 rounded-full text-sm font-semibold mb-4 w-fit">
                   {featuredPost.category}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
@@ -399,7 +399,7 @@ const DigitalWalletBlog = () => {
                   </div>
                 </div>
 
-                <button className="group/btn flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all w-fit">
+                <button className="group/btn flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-green-600 to-green-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all w-fit">
                   <span>Read More</span>
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
@@ -413,7 +413,7 @@ const DigitalWalletBlog = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
           {selectedCategory === "All" ? "Latest Articles" : `${selectedCategory} Articles`}
-          <span className="text-blue-600 dark:text-blue-400 ml-2">({filteredPosts.length})</span>
+          <span className="text-green-600 dark:text-green-400 ml-2">({filteredPosts.length})</span>
         </h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -429,11 +429,11 @@ const DigitalWalletBlog = () => {
               </div>
               
               <div className="p-6">
-                <span className="inline-block px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-xs font-semibold mb-3">
+                <span className="inline-block px-3 py-1 bg-green-200 dark:bg-green-900/30  dark:text-indigo-400 rounded-full text-xs font-semibold mb-3">
                   {post.category}
                 </span>
                 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors line-clamp-2">
                   {post.title}
                 </h3>
                 

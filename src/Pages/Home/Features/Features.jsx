@@ -7,33 +7,35 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router";
 import { motion, useAnimation } from "framer-motion";
-
 import { useInView } from "react-intersection-observer";
 
 const Features = () => {
   const features = [
     {
-      title: "Add Money",
+      title: "Instant Add Money",
       description:
-        "Top up your wallet instantly from your bank account or card.",
+        "Deposit funds into your wallet instantly using your bank account, debit, or credit card. Safe, fast, and hassle-free.",
       icon: <FaMoneyBillWave />,
       link: "/add_money",
     },
     {
-      title: "Send Money",
-      description: "Transfer funds to friends, family, or merchants securely.",
+      title: "Send & Receive Money",
+      description:
+        "Transfer money to anyone, anytime. Enjoy lightning-fast transactions with full security and transparency.",
       icon: <FaExchangeAlt />,
       link: "/send_money",
     },
     {
-      title: "Wallet",
-      description: "Check your wallet balance and manage your funds easily.",
+      title: "Smart Digital Wallet",
+      description:
+        "Track your spending, manage multiple currencies, and stay in control of your balance — all in one place.",
       icon: <FaWallet />,
       link: "/wallet",
     },
     {
-      title: "Rewards",
-      description: "Earn cashback and rewards on your transactions.",
+      title: "Exclusive Rewards",
+      description:
+        "Earn cashback, discounts, and loyalty points on every transaction. Turn your payments into opportunities.",
       icon: <FaGift />,
       link: "/rewards",
     },
@@ -46,7 +48,6 @@ const Features = () => {
     if (inView) controls.start("visible");
   }, [inView, controls]);
 
-  // Animation variants
   const getCardVariants = (isLeft) => ({
     hidden: { opacity: 0, x: isLeft ? -100 : 100 },
     visible: {
@@ -58,8 +59,8 @@ const Features = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-16" ref={ref}>
-      <h2 className="text-4xl md:text-4xl text-green-500 font-extrabold text-center mb-12">
-        Explore Our Features
+      <h2 className="text-3xl md:text-4xl text-green-700 font-extrabold text-center mb-12">
+        Explore Our Powerful Features
       </h2>
 
       <div className="relative">
@@ -77,7 +78,7 @@ const Features = () => {
                 animate={controls}
                 variants={getCardVariants(isLeft)}
               >
-                {/* Number circle */}
+                {/* Step Number */}
                 <div className="absolute left-1/2 -translate-x-1/2 -top-3 z-20">
                   <div className="w-10 h-10 rounded-full bg-white border-4 border-green-600 flex items-center justify-center font-bold text-green-600 shadow">
                     {idx + 1}
@@ -98,13 +99,13 @@ const Features = () => {
                     >
                       <Link
                         to={f.link}
-                        className="block border border-green-600 rounded-xl shadow-md p-6 hover:shadow-lg transition-all bg-white dark:bg-gray-900"
+                        className="block border border-green-600 rounded-xl shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all bg-white dark:bg-gray-900"
                       >
                         <div className="flex items-center space-x-4 text-green-600">
                           <div className="text-3xl">{f.icon}</div>
                           <div>
                             <h3 className="text-xl font-semibold">{f.title}</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                               {f.description}
                             </p>
                           </div>

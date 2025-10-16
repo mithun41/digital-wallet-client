@@ -373,6 +373,7 @@ console.log(user);
               </div>
             </form>
           )}
+          {/* <FingerprintAuth mode="register" /> */}
         </div>
       </div>
     </div>
