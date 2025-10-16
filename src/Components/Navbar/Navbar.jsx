@@ -143,6 +143,13 @@ const Navbar = () => {
                       >
                         🚪 Logout
                       </button>
+                      <Link
+                to="/report"
+                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Report
+              </Link>
                     </div>
                   )}
                 </div>
@@ -260,6 +267,14 @@ const Navbar = () => {
               >
                 🚪 Logout
               </button>
+              <Link
+                to="/report"
+                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Report
+              </Link>
+              
             </>
           ) : (
             <>

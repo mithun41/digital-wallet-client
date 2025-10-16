@@ -143,7 +143,7 @@ export default function SendMoneyBlog() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-colors duration-300">
+    <div className=" max-w-10/12 bg-gradient-to-br from-green-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 transition-colors duration-300">
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-emerald-800 dark:to-green-900 text-white py-16 px-6">
         <div className="max-w-4xl mx-auto">
