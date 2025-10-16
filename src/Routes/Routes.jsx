@@ -28,6 +28,7 @@ import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
+import LiveChat from "../Components/liveChat/LiveChat";
 
 
 export const router = createBrowserRouter([
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
           { path: "pay-bill", Component: PayBill },
-          
+          {path: 'live-chat', Component: LiveChat},
         ],
       },
     ],

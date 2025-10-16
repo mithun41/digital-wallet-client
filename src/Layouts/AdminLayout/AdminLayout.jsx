@@ -14,6 +14,7 @@ import {
 import { useSelector } from "react-redux";
 import logo from "../../assets/logo2.png";
 import Theme from "../../Components/theme/Theme";
+import { MdSupport } from "react-icons/md";
 
 
 
@@ -28,6 +29,7 @@ const menuItems = [
   { name: "KYC Requests", path: "/admin/kyc", icon: <Shield size={20} /> },
   { name: "Reports", path: "/admin/reports", icon: <FileText size={20} /> },
   { name: "Settings", path: "/admin/settings", icon: <Settings size={20} /> },
+  { name: "Support", path: "/dashboard/live-chat", icon: <MdSupport size={20} /> },
 ];
 
 const AdminLayout = () => {
