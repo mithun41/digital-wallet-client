@@ -18,26 +18,26 @@ const EducationFeeCalculator = () => {
   const [paymentMethod, setPaymentMethod] = useState("wallet");
 
   const [originalAmount, setOriginalAmount] = useState(0);
-  const [serviceFee, setServiceFee] = useState(0);
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
   const [paymentDone, setPaymentDone] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const SERVICE_FEE_PERCENT = 5;
+  const DISCOUNT_PERCENT = 5; // ৫% discount
 
-  // 🔹 Calculate fees dynamically
+  // 🔹 Calculate discount dynamically
   useEffect(() => {
     const amount = parseFloat(feeAmount) || 0;
-    const fee = (amount * SERVICE_FEE_PERCENT) / 100;
-    const total = amount + fee;
+    const discount = (amount * DISCOUNT_PERCENT) / 100;
+    const total = amount - discount;
     setOriginalAmount(amount);
-    setServiceFee(fee);
+    setDiscountAmount(discount);
     setTotalAmount(total);
   }, [feeAmount]);
 
-  // 🔹 When user clicks proceed
+  // 🔹 Proceed button
   const handleProceed = () => {
     if (studentName && studentId && institution && feeAmount) {
       setShowModal(true);
@@ -46,7 +46,7 @@ const EducationFeeCalculator = () => {
     }
   };
 
-  // 🔹 Confirm payment (connect with backend)
+  // 🔹 Confirm payment
   const handleConfirm = async () => {
     setLoading(true);
     try {
@@ -55,13 +55,13 @@ const EducationFeeCalculator = () => {
         studentId,
         institution,
         feeAmount: originalAmount,
-        serviceFee,
+        discountPercent: DISCOUNT_PERCENT,
+        discountAmount,
         totalAmount,
         paymentMethod,
       };
 
-      // 🔹 Send to backend API
-      const res = await axios.post("http://localhost:5000/api/educationFee", paymentData);
+      const res = await axios.post("http://localhost:5000/api/education", paymentData);
 
       if (res.data.success) {
         setPaymentDone(true);
@@ -86,23 +86,19 @@ const EducationFeeCalculator = () => {
     }
   };
 
-  // const schools = [
-  //   "Dhaka University",
-  //   "BUET",
-  //   "Chittagong University",
-  //   "BRAC University",
-  //   "North South University",
-  //   "IUB",
-  //   "Other",
-  // ];
+  const schools = [
+    "Dhaka University",
+    "BUET",
+    "Chittagong University",
+    "BRAC University",
+    "North South University",
+    "IUB",
+    "Other",
+  ];
 
   return (
-    <div
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat py-12 px-4"
-      style={{
-        backgroundImage: "url('https://i.postimg.cc/FzPP6WJd/shutterstock-520698799small.jpg')",
-      }}
-    >
+    <div className="relative min-h-screen bg-cover bg-center py-12 px-4"
+         style={{ backgroundImage: "url('https://i.postimg.cc/FzPP6WJd/shutterstock-520698799small.jpg')" }}>
       <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative z-10 max-w-5xl mx-auto text-gray-800">
@@ -120,12 +116,12 @@ const EducationFeeCalculator = () => {
         </div>
 
         {/* Info Banner */}
-        <div className="backdrop-blur-md border border-white/20 border-l-4 border-blue-600 p-4 mb-8 rounded-lg flex items-start gap-3 ">
+        <div className="backdrop-blur-md border border-white/20 border-l-4 border-blue-600 p-4 mb-8 rounded-lg flex items-start gap-3">
           <AlertCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
           <div>
-            <p className="text-white font-semibold">Service Fee: {SERVICE_FEE_PERCENT}%</p>
+            <p className="text-white font-semibold">Discount: {DISCOUNT_PERCENT}%</p>
             <p className="text-white text-sm">
-              একটি {SERVICE_FEE_PERCENT}% সার্ভিস চার্জ আপনার payment এ যোগ হবে।
+              একটি {DISCOUNT_PERCENT}% discount আপনার payment এ কম হবে।
             </p>
           </div>
         </div>
@@ -139,102 +135,37 @@ const EducationFeeCalculator = () => {
             </h2>
 
             <div className="space-y-5">
-              {/* Name */}
-              <input
-                type="text"
-                value={studentName}
-                onChange={(e) => setStudentName(e.target.value)}
-                placeholder="Student Name *"
-                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-              />
+              <input type="text" value={studentName} onChange={(e) => setStudentName(e.target.value)}
+                     placeholder="Student Name *"
+                     className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400" />
 
-              {/* ID */}
-              <input
-                type="text"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
-                placeholder="Student ID *"
-                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-              />
+              <input type="text" value={studentId} onChange={(e) => setStudentId(e.target.value)}
+                     placeholder="Student ID *"
+                     className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400" />
 
-              {/* Institution (Fixed Dropdown) */}
-              {/* <select
-                value={institution}
-                onChange={(e) => setInstitution(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-              >
+              <select value={institution} onChange={(e) => setInstitution(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-black outline-none focus:ring-2 focus:ring-green-400">
                 <option value="">Select Institution *</option>
                 {schools.map((school) => (
-                  <option key={school} value={school}>
-                    {school}
-                  </option>
+                  <option key={school} value={school}>{school}</option>
                 ))}
-              </select> */}
-              
-          <div>
-            <select
-              value={institution}
-              onChange={(e) => setInstitution(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-white/20 text-white outline-none focus:ring-2 focus:ring-green-400"
-            >
-              <option value="Dhaka University" className="text-black">
-                Dhaka University
-              </option>
-              <option value="BUET" className="text-black">
-                BUET
-              </option>
-              <option value="BRAC University" className="text-black">
-                BRAC University
-              </option>
-              <option value="North South University" className="text-black">
-                North South University
-              </option>
-              <option value="Other" className="text-black">
-                Other
-              </option>
-            </select>
-          </div>
+              </select>
 
-              {/* Amount */}
-              <input
-                type="number"
-                value={feeAmount}
-                onChange={(e) => setFeeAmount(e.target.value)}
-                placeholder="Fee Amount (BDT) *"
-                className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-              />
+              <input type="number" value={feeAmount} onChange={(e) => setFeeAmount(e.target.value)}
+                     placeholder="Fee Amount (BDT) *"
+                     className="w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400" />
 
-              {/* Method */}
-              <div className="flex gap-4 ">
+              <div className="flex gap-4">
                 {["wallet", "bank"].map((method) => (
-                  <label
-                    key={method}
-                    className={`flex-1 flex items-center justify-center gap-2 border-2 rounded-xl p-3 cursor-pointer transition-all ${
-                      paymentMethod === method
-                        ? "w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-                        : "w-full px-3 py-2 rounded-lg bg-white/20 placeholder-gray-300 text-white outline-none focus:ring-2 focus:ring-green-400"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      value={method}
-                      checked={paymentMethod === method}
-                      onChange={(e) => setPaymentMethod(e.target.value)}
-                    />
-                    {method === "wallet" ? (
-                      <CreditCard className="text-green-600" size={22} />
-                    ) : (
-                      <Building className="text-green-600" size={22} />
-                    )}
+                  <label key={method} className="flex-1 flex items-center justify-center gap-2 border-2 rounded-xl p-3 cursor-pointer">
+                    <input type="radio" value={method} checked={paymentMethod === method} onChange={(e) => setPaymentMethod(e.target.value)} />
+                    {method === "wallet" ? <CreditCard className="text-green-600" size={22} /> : <Building className="text-green-600" size={22} />}
                     <span className="capitalize font-semibold">{method}</span>
                   </label>
                 ))}
               </div>
 
-              <button
-                onClick={handleProceed}
-                className="w-full bg-gradient-to-r from-green-600 to-green-600 text-white py-4 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105"
-              >
+              <button onClick={handleProceed} className="w-full bg-gradient-to-r from-green-600 to-green-600 text-white py-4 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105">
                 Proceed to Payment
               </button>
             </div>
@@ -247,7 +178,7 @@ const EducationFeeCalculator = () => {
               Fee Summary
             </h3>
             <p className="text-white">Original: ৳ {originalAmount.toFixed(2)}</p>
-            <p className="text-white">Service Fee: ৳ {serviceFee.toFixed(2)}</p>
+            <p className="text-white">Discount: ৳ {discountAmount.toFixed(2)}</p>
             <p className="font-bold mt-2 text-white">Total: ৳ {totalAmount.toFixed(2)}</p>
           </div>
         </div>
@@ -258,27 +189,12 @@ const EducationFeeCalculator = () => {
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-xl max-w-md w-full">
               {!paymentDone ? (
                 <>
-                  <h3 className="text-xl font-bold mb-4 text-white text-center">
-                    Confirm Payment
-                  </h3>
-                  <p className="text-center mb-4 text-white">
-                    Student: {studentName} ({studentId})
-                  </p>
-                  <p className="text-center mb-4 font-semibold text-white">
-                    Total: ৳ {totalAmount.toFixed(2)}
-                  </p>
+                  <h3 className="text-xl font-bold mb-4 text-white text-center">Confirm Payment</h3>
+                  <p className="text-center mb-4 text-white">Student: {studentName} ({studentId})</p>
+                  <p className="text-center mb-4 font-semibold text-white">Total: ৳ {totalAmount.toFixed(2)}</p>
                   <div className="flex gap-3">
-                    <button
-                      onClick={() => setShowModal(false)}
-                      className="flex-1 bg-gray-200 py-3 rounded-xl"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleConfirm}
-                      disabled={loading}
-                      className="flex-1 bg-gradient-to-r from-green-500 to-green-500 text-white py-3 rounded-xl font-semibold"
-                    >
+                    <button onClick={() => setShowModal(false)} className="flex-1 bg-gray-200 py-3 rounded-xl">Cancel</button>
+                    <button onClick={handleConfirm} disabled={loading} className="flex-1 bg-gradient-to-r from-green-500 to-green-500 text-white py-3 rounded-xl font-semibold">
                       {loading ? "Processing..." : "Confirm"}
                     </button>
                   </div>
@@ -286,10 +202,8 @@ const EducationFeeCalculator = () => {
               ) : (
                 <div className="text-center">
                   <CheckCircle size={48} className="text-green-600 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-gray-800">Payment Successful!</h3>
-                  <p className="text-green-700 font-semibold mt-2">
-                    Transaction ID generated ✅
-                  </p>
+                  <h3 className="text-2xl font-bold text-green-500">Payment Successful!</h3>
+                  <p className="text-green-700 font-semibold mt-2">Transaction ID generated ✅</p>
                 </div>
               )}
             </div>

@@ -27,10 +27,11 @@ const Home = () => {
       <section>
         <OurHistory></OurHistory>
       </section>
-      <OurShortCard></OurShortCard>
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
+      <OurShortCard></OurShortCard>
+      
 
       <section>
         <OurMission></OurMission>

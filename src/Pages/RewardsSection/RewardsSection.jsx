@@ -10,7 +10,10 @@ import {
   Clock,
   CheckCircle,
   ArrowRight,
+  CreditCard, Wallet,
+  GiftIcon
 } from "lucide-react";
+
 
 const RewardsSection = () => {
   const [activeTab, setActiveTab] = useState("cashback");
@@ -143,7 +146,7 @@ const RewardsSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 py-16 px-4">
+    <div className="min-h-screen py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -153,38 +156,38 @@ const RewardsSection = () => {
           <h1 className="text-4xl md:text-4xl font-bold text-green-500 mb-4">
             Rewards & Benefits
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-800 dark:text-gray-100 max-w-3xl mx-auto">
             Earn amazing rewards with every transaction. More you spend, more you save!
           </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-purple-500">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-green-500">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-gray-600 font-semibold">Total Cashback</h3>
-              <Percent className="text-purple-500" size={24} />
+              <Percent className="text-green-500" size={24} />
             </div>
             <p className="text-4xl font-bold text-gray-800">৳ 2,450</p>
-            <p className="text-sm text-green-600 mt-2 flex items-center gap-1">
+            <p className="text-sm  mt-2 flex items-center gap-1">
               <TrendingUp size={16} />
               +15% this month
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-yellow-500">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-green-500">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-gray-600 font-semibold">Reward Points</h3>
-              <Star className="text-yellow-500" size={24} />
+              <Star className="text-green-500" size={24} />
             </div>
             <p className="text-4xl font-bold text-gray-800">8,750</p>
             <p className="text-sm text-gray-500 mt-2">৳ 875 equivalent</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-pink-500">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-green-500">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-gray-600 font-semibold">Active Offers</h3>
-              <Gift className="text-pink-500" size={24} />
+              <Gift className="text-green-500" size={24} />
             </div>
             <p className="text-4xl font-bold text-gray-800">12</p>
             <p className="text-sm text-gray-500 mt-2">Expires in 5 days</p>
@@ -249,47 +252,51 @@ const RewardsSection = () => {
 
         {/* How it Works Section */}
         <div className="mt-16 bg-white rounded-3xl shadow-xl p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-            How Rewards Work
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-green-600">1</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Make Transactions
-              </h3>
-              <p className="text-gray-600">
-                Use your wallet for payments, recharges, and bills
-              </p>
-            </div>
+      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+        How Rewards Work
+      </h2>
 
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-green-600">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Earn Rewards
-              </h3>
-              <p className="text-gray-600">
-                Automatically earn cashback and points on every spend
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl font-bold text-green-600">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Redeem Benefits
-              </h3>
-              <p className="text-gray-600">
-                Use rewards for next purchase or withdraw to wallet
-              </p>
-            </div>
+      <div className="grid md:grid-cols-3 gap-8">
+        {/* Step 1 */}
+        <div className="text-center">
+          <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CreditCard size={36} className="text-green-600" />
           </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">
+            Make Transactions
+          </h3>
+          <p className="text-gray-600">
+            Use your wallet for payments, recharges, and bills
+          </p>
         </div>
+
+        {/* Step 2 */}
+        <div className="text-center">
+          <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <GiftIcon size={36} className="text-green-600" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">
+            Earn Rewards
+          </h3>
+          <p className="text-gray-600">
+            Automatically earn cashback and points on every spend
+          </p>
+        </div>
+
+        {/* Step 3 */}
+        <div className="text-center">
+          <div className="bg-gradient-to-br from-green-100 to-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Wallet size={36} className="text-green-600" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">
+            Redeem Benefits
+          </h3>
+          <p className="text-gray-600">
+            Use rewards for next purchase or withdraw to wallet
+          </p>
+        </div>
+      </div>
+    </div>
 
         {/* CTA Section */}
         <div className="mt-12 bg-gradient-to-r from-green-600 via-green-600 to-green-600 rounded-3xl shadow-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
