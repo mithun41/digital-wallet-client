@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Phone, SendHorizonal, User } from "lucide-react";
 import { useSelector } from "react-redux";
 
-export const socket = io("http://localhost:5000");
+export const socket = io("https://digital-wallet-server-tau.vercel.app");
 
 const LiveChat = () => {
   const { user } = useSelector((state) => state.auth);

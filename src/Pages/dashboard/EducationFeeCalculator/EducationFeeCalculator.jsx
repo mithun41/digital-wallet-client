@@ -61,7 +61,7 @@ const EducationFeeCalculator = () => {
         paymentMethod,
       };
 
-      const res = await axios.post("http://localhost:5000/api/education", paymentData);
+      const res = await axios.post("https://digital-wallet-server-tau.vercel.app/api/education", paymentData);
 
       if (res.data.success) {
         setPaymentDone(true);
