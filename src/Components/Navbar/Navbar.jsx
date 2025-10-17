@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import { HiMenu, HiX } from "react-icons/hi";
-import navberImg from "../../assets/logo2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/authSlice";
 import Theme from "../theme/Theme";
-
-
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,19 +14,20 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
   const isLoggedIn = !!user;
 
+  // Toggle functions
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
+  // Logout
   const handleLogout = () => {
     dispatch(logout());
     setIsDropdownOpen(false);
     navigate("/");
   };
 
- 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -40,260 +39,213 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="shadow-md fixed top-0 left-0 w-full z-50 dark:bg-primary bg-green-600 text-white h-16 flex items-center px-6">
-      <div className="px-4 w-10/12 mx-auto lg:px-8 py-2">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img
-              src={navberImg}
-              alt="PayMate Logo"
-              className="h-12 w-auto object-contain"
-            />
-          </Link>
+    <nav className="fixed top-0 left-0 w-full z-50 bg-green-600 dark:bg-primary shadow-md transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 flex justify-between items-center h-16 text-white">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <Logo />
+        </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="hover:text-gray-200 transition-colors">
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className={`hover:text-gray-200 px-2 py-1 rounded  `}
-             
-              title={isLoggedIn ? "" : ""}
-            >
-              About
-            </Link>
-            <Link
-              to="/blogs"
-              className={`hover:text-gray-200 px-2 py-1 rounded`} 
-              
-              title={isLoggedIn ? "" : ""}
-            >
-              Blogs
-            </Link>
-            <Link
-              to={isLoggedIn ? "/rewards" : "#"}
-              className={`hover:text-gray-200 px-2 py-1 rounded transition-colors ${
-                !isLoggedIn ? "cursor-not-allowed opacity-60" : ""
-              }`}
-            >
-              Rewards
-            </Link>
-
-            {isLoggedIn ? (
-              <>
-                {/* Dashboard Link */}
-                <Link
-                  to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                  className="hover:text-gray-200 px-2 py-1 rounded transition-colors"
-                >
-                  Dashboard
-                </Link>
-
-                {/* Profile Dropdown */}
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    onClick={toggleDropdown}
-                    className="flex items-center gap-2 focus:outline-none hover:opacity-80 transition-opacity"
-                  >
-                    {user.photo ? (
-                      <img
-                        src={user.photo}
-                        alt="Profile"
-                        className="w-10 h-10 rounded-full object-cover border-2 border-white"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold border-2 border-white">
-                        {user?.name?.charAt(0)?.toUpperCase() || "U"}
-                      </div>
-                    )}
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-3 w-48 bg-white text-gray-800 rounded-lg shadow-xl py-2 z-50 border border-gray-100">
-                      <div className="px-4 py-2 border-b border-gray-200">
-                        <p className="text-sm font-semibold text-gray-700">
-                          {user?.name || "User"}
-                        </p>
-                        <p className="text-xs text-gray-500 truncate">
-                          {user?.email || ""}
-                        </p>
-                      </div>
-                      <Link
-                        to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                        className="block font-bold px-4 py-2 hover:bg-gray-100 transition-colors"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        📊 Dashboard
-                      </Link>
-                      <Link
-                        to="dashboard/profile"
-                        className="block font-bold px-4 py-2 hover:bg-gray-100 transition-colors"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        👤 Profile
-                      </Link>
-                      <hr className="my-1" />
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 font-medium transition-colors"
-                      >
-                        🚪 Logout
-                      </button>
-                      <Link
-                to="/report"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Report
-              </Link>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="bg-green-500 px-4 py-2 rounded hover:bg-green-400 transition-colors font-medium"
-                >
-                  Signup
-                </Link>
-              </>
-            )}
-            <Theme />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="text-white focus:outline-none text-2xl"
-            >
-              {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="md:hidden mt-16 bg-blue-600 w-full text-white px-4 py-4 space-y-2 z-40 fixed top-16 left-0 shadow-lg">
-          <Link 
-            to="/" 
-            className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6 font-medium">
+          <Link to="/" className="hover:text-gray-200 transition-colors">
             Home
           </Link>
-          <span
-            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
-              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
-            }`}
-          >
-           About
-          </span>
-          <span
-            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
-              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
-            }`}
-          >
+          <Link to="/about" className="hover:text-gray-200 transition-colors">
+            About
+          </Link>
+          <Link to="/blogs" className="hover:text-gray-200 transition-colors">
             Blogs
-          </span>
-          <span
-            className={`block px-2 py-1 rounded hover:bg-blue-500 ${
-              !isLoggedIn ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+          </Link>
+
+          <Link
+            to={isLoggedIn ? "/rewards" : "#"}
+            className={`hover:text-gray-200 transition-colors ${
+              !isLoggedIn ? "opacity-60 cursor-not-allowed" : ""
             }`}
           >
             Rewards
-          </span>
+          </Link>
 
           {isLoggedIn ? (
             <>
-              <Link
-                to="/about"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/transfer"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Transfer
-              </Link>
-              <Link
-                to="/rewards"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Rewards
-              </Link>
-              <hr className="border-blue-500 my-2" />
-              <div className="px-3 py-2 text-sm font-medium bg-blue-700 rounded">
-                👋 {user?.name || "User"}
-              </div>
+              {/* Dashboard */}
               <Link
                 to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                className="block text-4xl font-bold hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
+                className="hover:text-gray-200 transition-colors"
               >
-                📊 Dashboard
+                Dashboard
               </Link>
-              <Link
-                to="/profile"
-                className="block text-2xl font-bold hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                👤 Profile
-              </Link>
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setIsOpen(false);
-                }}
-                className="w-full bg-red-500 px-3 py-2 rounded hover:bg-red-600 transition-colors font-medium text-left"
-              >
-                🚪 Logout
-              </button>
-              <Link
-                to="/report"
-                className="block hover:bg-blue-500 rounded px-3 py-2 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Report
-              </Link>
-              
+
+              {/* Profile Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={toggleDropdown}
+                  className="flex items-center gap-2 focus:outline-none hover:opacity-80 transition-opacity"
+                >
+                  {user.photo ? (
+                    <img
+                      src={user.photo}
+                      alt="Profile"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-gray-100 text-gray-700 font-semibold flex items-center justify-center border-2 border-white">
+                      {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                    </div>
+                  )}
+                </button>
+
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-48 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-100">
+                    <div className="px-4 py-2 border-b border-gray-200">
+                      <p className="text-sm font-semibold">{user?.name}</p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {user?.email}
+                      </p>
+                    </div>
+                    <Link
+                      to={
+                        user?.role === "admin"
+                          ? "/admin/dashboard"
+                          : "/dashboard"
+                      }
+                      className="block px-4 py-2 hover:bg-gray-100 font-medium"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      📊 Dashboard
+                    </Link>
+                    <Link
+                      to="/dashboard/profile"
+                      className="block px-4 py-2 hover:bg-gray-100 font-medium"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      👤 Profile
+                    </Link>
+                    <hr className="my-1" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 font-medium"
+                    >
+                      🚪 Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <>
               <Link
                 to="/login"
-                className="block bg-white text-blue-600 text-center rounded px-3 py-2 hover:bg-gray-200 transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
+                className="bg-white text-green-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors font-medium"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="block bg-green-500 text-center rounded px-3 py-2 hover:bg-green-400 transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
+                className="bg-green-500 px-4 py-2 rounded hover:bg-green-400 transition-colors font-medium"
               >
                 Signup
               </Link>
             </>
           )}
+
+          {/* Theme Switch */}
+          <Theme />
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={toggleMenu}
+            className="focus:outline-none text-white text-2xl"
+          >
+            {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Drawer */}
+      {isOpen && (
+        <div className="md:hidden fixed top-16 left-0 w-full bg-green-700 text-white shadow-lg z-40 animate-slideDown">
+          <div className="flex flex-col px-6 py-5 space-y-3 font-medium">
+            <Link
+              to="/"
+              className="hover:bg-green-600 rounded px-3 py-2"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="hover:bg-green-600 rounded px-3 py-2"
+              onClick={() => setIsOpen(false)}
+            >
+              About
+            </Link>
+            <Link
+              to="/blogs"
+              className="hover:bg-green-600 rounded px-3 py-2"
+              onClick={() => setIsOpen(false)}
+            >
+              Blogs
+            </Link>
+
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to={
+                    user?.role === "admin" ? "/admin/dashboard" : "/dashboard"
+                  }
+                  className="hover:bg-green-600 rounded px-3 py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  📊 Dashboard
+                </Link>
+                <Link
+                  to="/dashboard/profile"
+                  className="hover:bg-green-600 rounded px-3 py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  👤 Profile
+                </Link>
+                <Link
+                  to="/rewards"
+                  className="hover:bg-green-600 rounded px-3 py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  🎁 Rewards
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="bg-red-500 rounded px-3 py-2 hover:bg-red-600 text-left transition"
+                >
+                  🚪 Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="bg-white text-green-600 text-center rounded px-3 py-2 hover:bg-gray-100 font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-green-500 text-center rounded px-3 py-2 hover:bg-green-400 font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

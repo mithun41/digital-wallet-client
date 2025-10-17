@@ -59,13 +59,14 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
     opponentName = transaction.merchantName || "Merchant";
   } else if (transaction.type === "addMoney") {
     title = "Add Money";
-    accountLabel = "Method";
-    accountNumber = transaction.details;
+    accountLabel = "User";
+    accountNumber = transaction.userPhone || "N/A";
     prefix = "+";
     amountColor = "text-cyan-400";
     photo =
+      transaction.userImage ||
       "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg";
-    opponentName = transaction.method || "Add Money";
+    opponentName = transaction.userName || "Wallet User";
   }
 
   return (
@@ -123,7 +124,7 @@ const TransactionDetailModal = ({ transaction, onClose, userPhone }) => {
             </div>
           </div>
 
-          {/* Details Table */}
+          {/* Details */}
           <div className="p-6 space-y-2">
             {[
               { label: accountLabel, value: accountNumber },
@@ -163,9 +164,7 @@ const TransactionHistory = () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "https://digital-wallet-server-tau.vercel.app/api/transactions",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setTransactions(res.data);
     } catch (err) {
@@ -179,7 +178,6 @@ const TransactionHistory = () => {
     fetchTransactions();
   }, [user]);
 
-  // ================= Filtered Transactions =================
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t) => {
       if (filter === "send")
@@ -197,7 +195,6 @@ const TransactionHistory = () => {
     });
   }, [transactions, filter, user]);
 
-  // ================= Summary Stats =================
   const summaryStats = useMemo(() => {
     const received = transactions
       .filter((t) => t.type === "sendMoney" && t.receiverPhone === user?.phone)
@@ -227,7 +224,7 @@ const TransactionHistory = () => {
           </p>
         </div>
 
-        {/* Summary Cards */}
+        {/* Summary */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-12">
           <StatCard
             icon="⬇️"
@@ -316,8 +313,9 @@ const TransactionHistory = () => {
                 prefix = "-";
               } else if (t.type === "addMoney") {
                 title = "Add Money";
-                counterParty = `${t.details} (${t.method})`;
+                counterParty = `${t.userName} (${t.method})`;
                 opponentImage =
+                  t.userImage ||
                   "https://img.freepik.com/premium-vector/user-icon-icon_1076610-59410.jpg";
                 amountColor = "text-cyan-400";
                 prefix = "+";

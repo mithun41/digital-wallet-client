@@ -17,10 +17,6 @@ module.exports = {
   plugins: [],
 };
 
-
-
-
-
 // // tailwind.config.js
 // export default {
 //   content: [
@@ -49,7 +45,6 @@ module.exports = {
 //     ],
 //   },
 // };
-
 
 //primary color #06923E
 // Secondary color #FF6600

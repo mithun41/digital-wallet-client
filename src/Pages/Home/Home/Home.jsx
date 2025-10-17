@@ -15,6 +15,7 @@ import QrCode from "../../../Components/qr_code/Qr_code";
 import OurShortCard from "../../../Components/OurShortCard";
 import BankingCards from "../../../Components/BankingCards";
 import OurMission from "../../../Components/ourMission/OurMission";
+import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 import Testimonial from "../../../Components/Testimonial/Testimonial";
 
@@ -27,10 +28,11 @@ const Home = () => {
       <section>
         <OurHistory></OurHistory>
       </section>
-      <OurShortCard></OurShortCard>
       <section>
         <WalletFeatures></WalletFeatures>
       </section>
+      <OurShortCard></OurShortCard>
+      
 
       <section>
         <OurMission></OurMission>
@@ -45,8 +47,8 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section>{/* <HowItWorks></HowItWorks> */}</section>
-        <section>{/* <AdvancedBenefits></AdvancedBenefits> */}</section>
+        <section><HowItWorks></HowItWorks></section>
+        <section><AdvancedBenefits></AdvancedBenefits></section>
         <PaymentCard></PaymentCard>
       </section>
       <section>

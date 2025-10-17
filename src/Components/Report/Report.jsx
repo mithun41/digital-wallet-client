@@ -47,7 +47,7 @@ const Report = () => {
     setError("");
 
     try {
-      const res = fetch("http://localhost:5000/api/report", {
+      const res = fetch("https://digital-wallet-server-tau.vercel.app/api/report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

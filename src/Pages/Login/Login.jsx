@@ -14,6 +14,7 @@ import {
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { loginUser, resetPinUser } from "../../redux/features/authSlice";
+// import FingerprintAuth from "../FingerPrint/FingerprintAuth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -364,6 +365,10 @@ const Login = () => {
               </div>
             </form>
           )}
+          {/* <div className="mt-6 border-t pt-4 text-center">
+            <p className="text-gray-500 mb-2">or login with fingerprint</p>
+            <FingerprintAuth mode="login" phone={formData.phone} />
+          </div> */}
         </div>
       </div>
 
