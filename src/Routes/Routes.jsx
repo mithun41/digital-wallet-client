@@ -33,6 +33,7 @@ import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
 import LiveChat from "../Components/liveChat/LiveChat";
 import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
+import Report from "../Components/Report/Report";
 
 
 export const router = createBrowserRouter([
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
       { path: "send_money", Component: SendMoneyBlog },
       { path: "/add_money", Component: AddMoneyBlogPages },
       { path: "/wallet", Component: WalletBlogPage },
+      {path: "/report", Component:Report},
 
       {
         path: "/dashboard",

@@ -71,10 +71,10 @@ const Navbar = () => {
             <>
               {/* Dashboard */}
               <Link
-                to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
+                to="report"
                 className="hover:text-gray-200 transition-colors"
               >
-                Dashboard
+                Report
               </Link>
 
               {/* Profile Dropdown */}
