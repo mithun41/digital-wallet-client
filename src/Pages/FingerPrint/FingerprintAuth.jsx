@@ -7,7 +7,7 @@ import {
 // 🔑 FIX: useSelector-এর সঠিক ইমপোর্ট
 import { useSelector } from "react-redux";
 
-const API_BASE = "http://localhost:5000/api/fingerprint"; // backend URL
+const API_BASE = "https://digital-wallet-server-tau.vercel.app/api/fingerprint"; // backend URL
 
 // 🔑 বাইনারি ডেটাগুলিকে Base64URL স্ট্রিং-এ রূপান্তর করার Helper Function
 // এটি ArrayBuffer ডেটাগুলিকে JSON-এর মাধ্যমে সার্ভারে পাঠানোর জন্য উপযুক্ত করে তোলে।

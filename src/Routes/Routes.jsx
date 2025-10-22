@@ -32,6 +32,7 @@ import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
 import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
+import Report from "../Components/Report/Report";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ export const router = createBrowserRouter([
       { path: "send_money", Component: SendMoneyBlog },
       { path: "/add_money", Component: AddMoneyBlogPages },
       { path: "/wallet", Component: WalletBlogPage },
+      { path: "/report", Component: Report },
 
       {
         path: "/dashboard",
@@ -70,6 +72,7 @@ export const router = createBrowserRouter([
           { path: "send-money", Component: SendMoney },
           { path: "pay-bill", Component: PayBill },
           { path: "loan", Component: LoanPage },
+          { path: "education", Component: EducationFeeCalculator },
         ],
       },
     ],

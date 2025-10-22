@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../axiosSecure/useAxiosSecure";
+import { useSelector } from "react-redux";
 
 const LoanApplyForm = () => {
   const axiosSecure = useAxiosSecure();
+  const user = useSelector((state) => state.auth.user);
+
   const [formData, setFormData] = useState({
     amount: "",
     duration: "",
@@ -44,9 +47,15 @@ const LoanApplyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user?.phone) {
+      Swal.fire("Error", "User phone not found. Please login again.", "error");
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await axiosSecure.post("/api/loans/user/apply", formData);
+      const payload = { ...formData, userPhone: user.phone };
+      const res = await axiosSecure.post("/api/loans/user/apply", payload);
       Swal.fire("Success", res.data.message, "success");
       setFormData({ amount: "", duration: "", purpose: "" });
       fetchUserLoans();

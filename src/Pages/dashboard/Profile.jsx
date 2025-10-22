@@ -4,11 +4,12 @@ import Swal from "sweetalert2";
 import { Pencil, Check, X, Lock, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { fetchUser, resetPinUser } from "../../redux/features/authSlice";
-// import FingerprintAuth from "../FingerPrint/FingerprintAuth";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   // Local state
   const [editingName, setEditingName] = useState(false);
@@ -154,10 +155,19 @@ const Profile = () => {
         Swal.fire("Error", err.message || "Failed to update PIN", "error");
       });
   };
+  // const handleLiveChat = () => {
+  //   navigate("/dashboard/live-chat");
+  // };
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-white dark:bg-gray-800 ">
-      <div className="w-full rounded-3xl p-8 relativ">
+      <div className="w-full rounded-3xl p-8 ">
+        {/* <button
+          onClick={handleLiveChat}
+          className="bg-amber-400 p-3 rounded-xl text-black font-bold cursor-pointer"
+        >
+          Live chat
+        </button> */}
         {/* Photo */}
         <div className="flex flex-col items-center relative">
           <div className="relative w-36 h-36">
