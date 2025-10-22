@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
 import { CiMoneyBill } from "react-icons/ci";
 import Logo from "../../Components/Navbar/Logo";
+import Notifications from "../../Pages/dashboard/Notifications/Notifications";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -68,11 +69,7 @@ const menuItems = [
     path: "/dashboard/education",
     icon: <Building2 size={24} />,
   },
-  {
-    name: "Loan",
-    path: "/dashboard/loan",
-    icon: <CiMoneyBill size={24} />,
-  },
+  { name: "Loan", path: "/dashboard/loan", icon: <CiMoneyBill size={24} /> },
   {
     name: "Settings",
     path: "/dashboard/settings",
@@ -89,13 +86,14 @@ const upgradeCard = {
 
 const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
+  const { transactions } = useSelector((state) => state.transaction || {});
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Navbar */}
-      <header className="w-full fixed top-0 z-50 flex items-center justify-between bg-green-600 dark:bg-primary shadow-md px-4 md:px-6 py-3">
-        {/* Left: Logo */}
+      <header className="fixed top-0 w-full z-50 bg-green-600 dark:bg-purple-800 shadow-md flex items-center justify-between px-4 md:px-8 py-3">
+        {/* Left: Logo + Menu */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -108,15 +106,13 @@ const DashboardLayout = () => {
           </Link>
         </div>
 
-        {/* Middle: Search (hidden on mobile) */}
-        <div className="relative hidden md:block">
+        {/* Middle: Search (hidden on small screens) */}
+        <div className="relative hidden sm:block">
           <input
             type="text"
             placeholder="Search..."
-            className="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-lg 
-            focus:outline-none focus:ring-1 focus:ring-purple-400
-            bg-white dark:bg-gray-700 dark:text-gray-200
-            dark:border-gray-600"
+            className="pl-10 pr-4 py-2 w-56 md:w-72 rounded-lg border border-gray-300 dark:border-gray-600 
+            bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-400"
           />
           <Search
             size={18}
@@ -127,14 +123,9 @@ const DashboardLayout = () => {
         {/* Right: Icons + Theme + User */}
         <div className="flex items-center gap-4 md:gap-6">
           {/* Notification */}
-          <div className="relative cursor-pointer">
-            <Bell size={22} className="text-white" />
-            <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-              5
-            </span>
-          </div>
+          <Notifications transactions={transactions || []} />
 
-          {/* Theme Toggle */}
+          {/* Theme Switcher */}
           <Theme />
 
           {/* User Info */}
@@ -145,10 +136,8 @@ const DashboardLayout = () => {
                 alt={user.name || "User"}
                 className="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-600 object-cover"
               />
-              <div className="hidden sm:block">
-                <p className="text-sm font-semibold text-white">
-                  {user.name || "Guest"}
-                </p>
+              <div className="hidden sm:block text-white">
+                <p className="text-sm font-semibold">{user.name || "Guest"}</p>
                 <p className="text-xs text-gray-200">{user.phone || "N/A"}</p>
               </div>
             </div>
@@ -156,18 +145,20 @@ const DashboardLayout = () => {
         </div>
       </header>
 
+      {/* Sidebar + Main Content */}
       <div className="flex flex-1 pt-16">
-        {/* Sidebar (desktop & mobile overlay) */}
+        {/* Sidebar */}
         <aside
-          className={`fixed md:static top-0 left-0 z-40 h-full md:h-auto bg-white dark:bg-gray-800 shadow-lg p-4 transition-transform transform 
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
-          md:translate-x-0 w-56 md:w-64`}
+          className={`fixed md:static top-0 left-0 z-40 h-full md:h-auto p-5 bg-white dark:bg-gray-800 shadow-lg w-56 sm:w-64 transform transition-transform duration-300 
+          ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0`}
         >
-          <div className="hidden md:block text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
+          <div className="hidden md:block text-lg font-semibold mb-6 text-gray-700 dark:text-gray-200">
             Dashboard Overview
           </div>
 
-          <nav className="space-y-3">
+          <nav className="space-y-2 overflow-y-auto max-h-[80vh] custom-scrollbar pt-4">
             {menuItems.map((item) => (
               <NavLink
                 key={item.name}
@@ -175,11 +166,10 @@ const DashboardLayout = () => {
                 end
                 onClick={() => setIsSidebarOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg transition 
-                  ${
+                  `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200 ${
                     isActive
-                      ? "bg-purple-100 dark:bg-purple-900 border-r-4 border-purple-500 text-purple-600"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900"
+                      ? "bg-green-100 dark:bg-purple-900 border-r-4 border-green-500 dark:border-purple-500 text-green-700 dark:text-purple-300"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`
                 }
               >
@@ -189,33 +179,33 @@ const DashboardLayout = () => {
             ))}
 
             {/* Logout */}
-            <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-900 text-red-500">
+            <button className="w-full flex items-center gap-3 px-3 py-2 mt-4 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900 transition">
               <LogOut size={22} />
               <span className="text-sm font-medium">Logout</span>
             </button>
           </nav>
 
-          {/* Upgrade Card (Desktop Only) */}
+          {/* Premium Card */}
           <div className="hidden md:block mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
             <div className="flex items-center gap-2 mb-2">
               {upgradeCard.icon}
               <h4 className="text-lg font-semibold">{upgradeCard.title}</h4>
             </div>
-            <p className="text-sm text-white/80 mb-4">{upgradeCard.desc}</p>
-            <button className="w-full py-2 bg-white text-blue-600 hover:bg-black hover:text-white cursor-pointer text-sm font-medium rounded-lg transition">
+            <p className="text-sm text-white/90 mb-3">{upgradeCard.desc}</p>
+            <button className="w-full py-2 bg-white text-blue-700 font-semibold text-sm rounded-lg hover:bg-black hover:text-white transition">
               {upgradeCard.buttonText}
             </button>
           </div>
         </aside>
 
-        {/* Page Outlet */}
-        <main className="flex-1 px-3 md:px-6 py-4 text-gray-800 dark:text-gray-200">
+        {/* Outlet Content */}
+        <main className="flex-1 px-3 sm:px-5 md:px-8 py-4 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 overflow-y-auto">
           <Outlet />
         </main>
       </div>
 
-      {/* Bottom Nav (mobile only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg flex justify-around py-2 border-t dark:border-gray-700">
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg flex justify-around py-2">
         {menuItems.slice(0, 5).map((item) => (
           <NavLink
             key={item.name}
@@ -230,7 +220,9 @@ const DashboardLayout = () => {
             }
           >
             {item.icon}
-            <span className="text-[11px]">{item.name.split(" ")[0]}</span>
+            <span className="text-[11px] mt-0.5">
+              {item.name.split(" ")[0]}
+            </span>
           </NavLink>
         ))}
       </nav>
