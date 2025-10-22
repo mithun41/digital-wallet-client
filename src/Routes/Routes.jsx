@@ -31,10 +31,8 @@ import SendMoneyBlog from "../Pages/sendMoneyBlog/SendMoneyBlog";
 import AddMoneyBlogPages from "../Pages/AddMoneyBlogPages/AddMoneyBlogPages";
 import WalletBlogPage from "../Pages/WalletBlogPage/WalletBlogPage";
 import RewardsSection from "../Pages/RewardsSection/RewardsSection";
-import LiveChat from "../Components/liveChat/LiveChat";
 import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
 import Report from "../Components/Report/Report";
-
 
 export const router = createBrowserRouter([
   {
@@ -56,7 +54,7 @@ export const router = createBrowserRouter([
       { path: "send_money", Component: SendMoneyBlog },
       { path: "/add_money", Component: AddMoneyBlogPages },
       { path: "/wallet", Component: WalletBlogPage },
-      {path: "/report", Component:Report},
+      { path: "/report", Component: Report },
 
       {
         path: "/dashboard",
@@ -73,9 +71,8 @@ export const router = createBrowserRouter([
           { path: "trans-history", Component: TransactionHistory },
           { path: "send-money", Component: SendMoney },
           { path: "pay-bill", Component: PayBill },
-          {path: 'live-chat', Component: LiveChat},
           { path: "loan", Component: LoanPage },
-          {path:"education",Component: EducationFeeCalculator},
+          { path: "education", Component: EducationFeeCalculator },
         ],
       },
     ],

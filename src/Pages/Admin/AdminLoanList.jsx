@@ -69,7 +69,7 @@ const AdminLoanList = () => {
           <thead>
             <tr className="bg-gray-100 text-gray-700">
               <th className="p-2">#</th>
-              <th className="p-2">User ID</th>
+              <th className="p-2">User</th>
               <th className="p-2">Amount</th>
               <th className="p-2">Duration</th>
               <th className="p-2">Status</th>
@@ -80,7 +80,7 @@ const AdminLoanList = () => {
             {loans.map((loan, idx) => (
               <tr key={loan._id} className="border-b">
                 <td className="p-2">{idx + 1}</td>
-                <td className="p-2">{loan.userId}</td>
+                <td className="p-2">{loan.userPhone}</td>
                 <td className="p-2">৳{loan.amount}</td>
                 <td className="p-2">{loan.duration} mo</td>
                 <td className="p-2">
