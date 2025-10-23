@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import {
   Bell,
   User,
   Settings,
   LogOut,
   Search,
-  Smartphone,
   CreditCard,
   DollarSign,
   Home,
@@ -17,13 +16,16 @@ import {
   Wallet,
   Building2,
   Phone,
+  BanknoteArrowUp,
+  BanknoteArrowDown,
 } from "lucide-react";
 import { FaCrown } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Theme from "../../Components/theme/Theme";
 import { CiMoneyBill } from "react-icons/ci";
 import Logo from "../../Components/Navbar/Logo";
 import Notifications from "../../Pages/dashboard/Notifications/Notifications";
+import { logout } from "../../redux/features/authSlice";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -60,6 +62,11 @@ const menuItems = [
     icon: <CreditCard size={22} />,
   },
   {
+    name: "Bank Transfer",
+    path: "/dashboard/banktransfer",
+    icon: <BanknoteArrowUp size={22} />,
+  },
+  {
     name: "Pay Bill",
     path: "/dashboard/pay-bill",
     icon: <CiMoneyBill size={24} />,
@@ -69,11 +76,10 @@ const menuItems = [
     path: "/dashboard/education",
     icon: <Building2 size={24} />,
   },
-  { name: "Loan", path: "/dashboard/loan", icon: <CiMoneyBill size={24} /> },
   {
-    name: "Settings",
-    path: "/dashboard/settings",
-    icon: <Settings size={22} />,
+    name: "Loan",
+    path: "/dashboard/loan",
+    icon: <BanknoteArrowDown size={24} />,
   },
 ];
 
@@ -88,7 +94,13 @@ const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const { transactions } = useSelector((state) => state.transaction || {});
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    navigate("/");
+    dispatch(logout());
+  };
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Navbar */}
@@ -179,7 +191,10 @@ const DashboardLayout = () => {
             ))}
 
             {/* Logout */}
-            <button className="w-full flex items-center gap-3 px-3 py-2 mt-4 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900 transition">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-3 py-2 mt-4 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900 transition"
+            >
               <LogOut size={22} />
               <span className="text-sm font-medium">Logout</span>
             </button>
