@@ -11,7 +11,7 @@ import {
   Smartphone,
   CreditCard,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { loginUser, resetPinUser } from "../../redux/features/authSlice";
 // import FingerprintAuth from "../FingerPrint/FingerprintAuth";
@@ -19,8 +19,9 @@ import { loginUser, resetPinUser } from "../../redux/features/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
   const { loading } = useSelector((state) => state.auth);
-
+console.log(location);
   // Login form
   const [formData, setFormData] = useState({ phone: "", pin: "" });
   const [showPin, setShowPin] = useState(false);
@@ -56,9 +57,9 @@ const Login = () => {
       .then((res) => {
         // res er moddhe user thakbe, dhoro res.user.role
         if (res.user.role === "admin") {
-          navigate("/admin/dashboard");
+          navigate(location.state || "/admin/dashboard");
         } else {
-          navigate("/dashboard");
+          navigate(location.state || "/dashboard");
         }
       })
       .catch((err) => {

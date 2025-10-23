@@ -447,76 +447,45 @@ const DashboardHome = () => {
             </div>
 
             <AnimatePresence>
-              <motion.div
-                className="flex flex-col gap-4 items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
+              <div className="flex flex-col gap-3 overflow-y-auto max-h-[380px] pr-1">
                 {cards.length > 0 ? (
                   cards.map((card, i) => {
-                    const gradientClass =
+                    const gradient =
                       cardGradients[card.type] || cardGradients.Default;
                     const logo = cardLogos[card.type];
-
                     return (
-                      <motion.div
-                        key={card._id ?? i}
-                        className={`relative rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 w-full aspect-[16/10] text-white overflow-hidden ${gradientClass}`}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.06 }}
+                      <div
+                        key={i}
+                        className={`p-4 rounded-2xl text-white ${gradient} flex flex-col justify-between h-36 sm:h-40`}
                       >
-                        {/* Subtle gradient overlay for depth */}
-                        <div className="absolute inset-0 bg-black/10 rounded-3xl"></div>
-
-                        {/* Card Content */}
-                        <div className="relative z-10 flex flex-col justify-between h-full p-6">
-                          <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-bold uppercase tracking-wide">
-                              {card.type || "Card"}
-                            </h2>
-                            {logo && (
-                              <img
-                                src={logo}
-                                alt={card.type}
-                                className="h-8 object-contain bg-white/20 backdrop-blur-sm rounded-md p-1"
-                              />
-                            )}
-                          </div>
-
-                          <div className="text-xl tracking-widest font-mono mb-4">
-                            **** **** **** {card.number?.slice(-4) || "####"}
-                          </div>
-
-                          <div className="flex justify-between text-sm font-semibold">
-                            <div>
-                              <p className="text-white/70">Card Holder</p>
-                              <p className="text-white">
-                                {card.holder || "N/A"}
-                              </p>
-                            </div>
-                            <div>
-                              <p className="text-white/70">Expiry</p>
-                              <p className="text-white">
-                                {card.expiry || "--/--"}
-                              </p>
-                            </div>
-                            <div className="">
-                              {/* NOTE: Added a placeholder for balance if the API provides it */}
-                              Balance: ৳{card.balance?.toLocaleString() || "0"}
-                            </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-lg">{card.type}</span>
+                          {logo && (
+                            <img
+                              src={logo}
+                              alt={card.type}
+                              className="w-10 h-6 object-contain"
+                            />
+                          )}
+                        </div>
+                        <div>
+                          <p className="tracking-widest text-sm sm:text-base mb-1">
+                            **** **** **** {card.number?.slice(-4)}
+                          </p>
+                          <div className="flex justify-between text-xs sm:text-sm">
+                            <span>{card.holder}</span>
+                            <span>{card.expiry}</span>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })
                 ) : (
-                  <p className="text-gray-500 dark:text-gray-400 text-center py-4">
-                    No cards added yet.
+                  <p className="text-gray-500 text-center py-3">
+                    No cards yet.
                   </p>
                 )}
-              </motion.div>
+              </div>
             </AnimatePresence>
           </div>
 
