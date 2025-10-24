@@ -1,30 +1,27 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchUser } from '../redux/features/authSlice';
-import Loading from '../Components/loading/Loading';
-import Login from '../Pages/Login/Login';
+import { useSelector, useDispatch } from "react-redux";
+import { Navigate, useLocation } from "react-router";
+import { useEffect } from "react";
+import { fetchUser } from "../redux/features/authSlice";
+import Loading from "../Components/loading/Loading";
 
-const PrivetRoute = ({children}) => {
-    const dispatch = useDispatch()
+const PrivetRoute = ({ children }) => {
+  const { user, loading, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-    const {user, loading, error} = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (!user && token) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, user, token]);
 
-    useEffect(() => {
-    
-        if (!user) {
-          dispatch(fetchUser());
-        } 
-      }, [dispatch, user]);
+  if (loading) return <Loading />;
 
-      if(loading){
-        return <Loading></Loading>
-      }
+  if (!user && !token) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  }
 
-      if(user){
-        return <Login></Login>
-      }
-
-    return children;
+  return children;
 };
 
 export default PrivetRoute;
