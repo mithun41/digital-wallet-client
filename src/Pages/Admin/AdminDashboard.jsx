@@ -15,12 +15,11 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 const COLORS = ["#22C55E", "#6366F1", "#EF4444"]; // Cash In, Send, Cash Out
 
 const AdminDashboard = () => {
-  const axiosSecure = useAxiosSecure();
   const [users, setUsers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);

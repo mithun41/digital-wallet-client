@@ -92,14 +92,14 @@ const upgradeCard = {
 
 const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
-  const { transactions } = useSelector((state) => state.transaction || {});
+  const transactions = useSelector((state) => state.transaction?.transactions);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    navigate("/");
     dispatch(logout());
+    navigate("/");
   };
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
