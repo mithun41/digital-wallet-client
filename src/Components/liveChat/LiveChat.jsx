@@ -1,45 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
-import { SendHorizonal, User, MessageCircle } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../redux/features/authSlice";
+import { Phone, SendHorizonal, User } from "lucide-react";
+import { useSelector } from "react-redux";
 
-export const socket = io("http://localhost:5000");
+export const socket = io("https://digital-wallet-server-tau.vercel.app");
 
 const LiveChat = () => {
-  // const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  // const [user, setUser] = useState("");
-  const [role, setRole] = useState(""); // 'admin' or 'user'
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]); // for admin only
   const [selectedUser, setSelectedUser] = useState(null); // admin selected user
-  const [showJoin, setShowJoin] = useState(true);
 
-  //  useEffect(() => {
-  //       dispatch(fetchUser());
-      
-  //   }, []);
 
-    console.log(user);
 
-  // Join Room
-  // const handleRoom = () => {
-  //   if (user !== "" && room !== "" && role !== "") {
-  //     socket.emit("join_room", { name: user, room, role });
-  //     setShowJoin(false);
-  //   }
-  // };
+  useEffect(() => {
+    if (user?.name && user?.role) {
+      socket.emit("join_room", {
+        name: user.name,
+        role: user.role,
+        room: "support-room",
+      });
+    }
+  })
 
-  // Send message
+
   const handleSendMessage = () => {
     if (currentMessage.trim() === "") return;
 
     const msgData = {
       room: 'support-room',
       author: user.name,
+      phone: user?.phone,
       message: currentMessage,
       time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       toSocket: selectedUser?.socketId || null, // if admin, target user
@@ -58,7 +51,10 @@ const LiveChat = () => {
 
     socket.on("user_list", (list) => {
       setUsers(list);
+      // console.log(list);
     });
+
+    console.log(users);
 
     return () => {
       socket.off("receive_message");
@@ -75,6 +71,8 @@ const LiveChat = () => {
             msg.toSocket === selectedUser.socketId
         )
       : messages;
+
+      // console.log(filteredMessages, user);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-sky-100 via-blue-100 to-blue-50 p-6">
@@ -131,12 +129,12 @@ const LiveChat = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                   className={`chat ${
-                    msg.author === user?.name ? "chat-end" : "chat-start"
+                    msg.phone === user?.phone ? "chat-end" : ""
                   }`}
                 >
                   <div
                     className={`chat-bubble ${
-                      msg.author === user?.name
+                      msg.phone === user?.phone
                         ? "bg-blue-500 text-white"
                         : "bg-gray-200 text-gray-800"
                     } rounded-2xl px-4 py-2`}
@@ -161,7 +159,7 @@ const LiveChat = () => {
               />
               <button
                 onClick={handleSendMessage}
-                disabled={role === "admin" && !selectedUser}
+                disabled={user?.role === "admin" && !selectedUser}
                 className="btn btn-circle btn-primary"
               >
                 <SendHorizonal size={18} />

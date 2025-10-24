@@ -66,14 +66,13 @@ const menuItems = [
   {
     name: "Education",
     path: "/dashboard/education",
-    icon: <CiMoneyBill size={24} />,
+    icon: <Building2 size={24} />,
   },
   {
     name: "Loan",
     path: "/dashboard/loan",
     icon: <CiMoneyBill size={24} />,
   },
-  { name: "Loan", path: "/dashboard/loan", icon: <Building2 size={22} /> },
   {
     name: "Settings",
     path: "/dashboard/settings",
