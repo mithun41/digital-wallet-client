@@ -1,43 +1,28 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from '../redux/features/authSlice';
-import Loading from '../Components/loading/Loading';
-import Login from '../Pages/Login/Login';
-import Error from '../Components/Error/Error';
-import { useLocation } from 'react-router';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router";
+import Loading from "../Components/loading/Loading";
+import Error from "../Components/Error/Error";
 
-const PrivetRoute = ({children}) => {
-    // const dispatch = useDispatch()
+const PrivetRoute = ({ children }) => {
+  // const location = useLocation();
+  // const { user, loading, error } = useSelector((state) => state.auth);
 
-    const location = useLocation()
-    console.log(location);
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
-    const {user, loading, error} = useSelector((state) => state.auth);
+  // if (error) {
+  //   return <Error />;
+  // }
 
-    // useEffect(() => {
-    
-    //     if (!user) {
-    //       dispatch(fetchUser());
-    //     } 
-    //   }, [dispatch, user]);
+  // // If no user, redirect to login and store current path for redirect after login
+  // if (!user) {
+  //   return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  // }
 
-    console.log(user);
-    if(error){
-      return <Error></Error>
-    }
-
-      if(loading){
-        return <Loading></Loading>
-      }
-
-      if(!user){
-        location.state = location.pathname
-        return <Login></Login>
-      }
-
-      console.log(location);
-
-    return children;
+  // If user exists, render the protected content
+  return children;
 };
 
 export default PrivetRoute;
