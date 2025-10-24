@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 const statusColors = {
   pending: "bg-yellow-100 text-yellow-700",
@@ -12,7 +12,6 @@ const statusColors = {
 const AdminLoanList = () => {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const axiosSecure = useAxiosSecure();
 
   const fetchLoans = async () => {
     try {
