@@ -1,22 +1,14 @@
 // src/redux/features/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
-
-const axiosSecure = useAxiosSecure()
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 // ================= REGISTER USER =================
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axiosSecure.post(
-        "/api/register",
-        userData
-      );
-      console.log(response.data);
+      const response = await axiosSecure.post("/api/register", userData);
       localStorage.setItem("token", response.data.token);
-      
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -31,11 +23,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axiosSecure.post(
-        "/api/login",
-        userData
-      );
-      console.log(response.data);
+      const response = await axiosSecure.post("/api/login", userData);
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -51,13 +39,11 @@ export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("No token found");
-
-      const response = await axiosSecure.post(
-        "/api/reset-pin",
-        { phone, oldPin, newPin },
-      );
+      const response = await axiosSecure.post("/api/reset-pin", {
+        phone,
+        oldPin,
+        newPin,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -74,11 +60,7 @@ export const fetchUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-
-      const response = await axiosSecure.get(
-        "/api/me",
-      );
-
+      const response = await axiosSecure.get("/api/me");
       return response.data;
     } catch (error) {
       return rejectWithValue(

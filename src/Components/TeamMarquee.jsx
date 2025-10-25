@@ -32,14 +32,14 @@ const teamMembers = [
     {
         id: 5,
         name: "Halima Akhter Shiuly",
-        role: "Frontend Developer",
+        role: "MERN Stack Developer",
         description: "Passionate about crafting responsive UIs with React, Tailwind, and modern design patterns.",
         img: "https://i.ibb.co.com/0p6XVP8B/193291142.png",
     },
     {
         id: 6,
         name: "Sumaiya Afroza",
-        role: "Frontend Developer",
+        role: "MERN Stack Developer",
         description: "Building brand presence and customer engagement strategies",
         img: "https://i.ibb.co.com/k2nj506q/urmi-img-Dhjli-G9-J.png",
     },

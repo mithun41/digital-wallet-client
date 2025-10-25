@@ -1,10 +1,9 @@
 // src/Pages/admin/Users.jsx
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 const Users = () => {
-  const axiosSecure = useAxiosSecure();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
