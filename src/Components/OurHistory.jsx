@@ -71,7 +71,7 @@ const OurHistory = () => {
   ];
 
   return (
-    <div className="relative max-w-7xl mx-auto mt-10 px-4 sm:px-6 lg:px-10 pb-16 lg:pb-20 overflow-hidden">
+    <div className="relative max-w-11/12 mx-auto mt-10 px-4 sm:px-6 lg:px-10 pb-16 lg:pb-20 overflow-hidden">
       {/* Header */}
       <div className="text-center mb-12 lg:mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full mb-4 backdrop-blur-sm border border-green-500/30">
