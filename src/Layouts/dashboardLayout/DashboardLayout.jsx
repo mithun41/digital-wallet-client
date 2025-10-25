@@ -93,8 +93,6 @@ const upgradeCard = {
 };
 
 const DashboardLayout = () => {
-    const user = useSelector((state) => state.auth.user);
-  const { transactions } = useSelector((state) => state.transaction || {});
   const { user } = useSelector((state) => state.auth);
   const transactions = useSelector((state) => state.transaction?.transactions);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
