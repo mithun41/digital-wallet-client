@@ -26,6 +26,8 @@ import { CiMoneyBill } from "react-icons/ci";
 import Logo from "../../Components/Navbar/Logo";
 import Notifications from "../../Pages/dashboard/Notifications/Notifications";
 import { logout } from "../../redux/features/authSlice";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
 
 // Sidebar Menu Config
 const menuItems = [
@@ -84,7 +86,7 @@ const menuItems = [
 ];
 
 const upgradeCard = {
-  title: "Premium",
+  title: "Become A Merchant",
   desc: "Unlock premium features and get more benefits by upgrading your account.",
   icon: <FaCrown className="w-6 h-6 text-yellow-400" />,
   buttonText: "Upgrade Now",
@@ -94,13 +96,67 @@ const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const transactions = useSelector((state) => state.transaction?.transactions);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [upgradeStatus, setUpgradeStatus] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const axiosSecure = useAxiosSecure();
+React.useEffect(() => {
+    const fetchUpgradeStatus = async () => {
+      if (!user?.phone) return;
+      try {
+        const res = await axiosSecure.get("/api/user/upgrade-requests");
+        const userRequest = res.data.find(
+          (req) => req.phone === user.phone
+        );
+        if (userRequest) setUpgradeStatus(userRequest.status); // pending or approved
+      } catch (err) {
+        console.error("Error fetching upgrade requests:", err);
+      }
+    };
 
+    fetchUpgradeStatus();
+  }, [user?.phone, axiosSecure]);
+
+  // 🟢 Handle Logout
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  // 🟢 Handle Upgrade Request
+ const handleUpgrade = async () => {
+    if (!user?.name || !user?.phone || !user?.photo) {
+      Swal.fire("Error", "Missing user info. Please log in again.", "error");
+      return;
+    }
+
+    if (upgradeStatus) {
+      Swal.fire("Info", "You have already sent a request.", "info");
+      return;
+    }
+
+    try {
+      const payload = {
+        name: user.name,
+        phone: user.phone,
+        photo: user.photo,
+      };
+      const res = await axiosSecure.post("/api/user/applyupgrade", payload);
+      Swal.fire(
+        "Success",
+        res.data.message || "Request sent successfully!",
+        "success"
+      );
+      setUpgradeStatus("pending"); // update local state immediately
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err.response?.data?.message || "Something went wrong",
+        "error"
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Navbar */}
@@ -118,7 +174,7 @@ const DashboardLayout = () => {
           </Link>
         </div>
 
-        {/* Middle: Search (hidden on small screens) */}
+        {/* Middle: Search */}
         <div className="relative hidden sm:block">
           <input
             type="text"
@@ -134,13 +190,9 @@ const DashboardLayout = () => {
 
         {/* Right: Icons + Theme + User */}
         <div className="flex items-center gap-4 md:gap-6">
-          {/* Notification */}
           <Notifications transactions={transactions || []} />
-
-          {/* Theme Switcher */}
           <Theme />
 
-          {/* User Info */}
           {user && (
             <div className="flex items-center gap-2">
               <img
@@ -157,14 +209,12 @@ const DashboardLayout = () => {
         </div>
       </header>
 
-      {/* Sidebar + Main Content */}
+      {/* Sidebar + Content */}
       <div className="flex flex-1 pt-16">
         {/* Sidebar */}
         <aside
           className={`fixed md:static top-0 left-0 z-40 h-full md:h-auto p-5 bg-white dark:bg-gray-800 shadow-lg w-56 sm:w-64 transform transition-transform duration-300 
-          ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0`}
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
         >
           <div className="hidden md:block text-lg font-semibold mb-6 text-gray-700 dark:text-gray-200">
             Dashboard Overview
@@ -200,26 +250,40 @@ const DashboardLayout = () => {
             </button>
           </nav>
 
-          {/* Premium Card */}
+          {/* 🟢 Upgrade (Premium) Card */}
           <div className="hidden md:block mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
-            <div className="flex items-center gap-2 mb-2">
-              {upgradeCard.icon}
-              <h4 className="text-lg font-semibold">{upgradeCard.title}</h4>
-            </div>
-            <p className="text-sm text-white/90 mb-3">{upgradeCard.desc}</p>
-            <button className="w-full py-2 bg-white text-blue-700 font-semibold text-sm rounded-lg hover:bg-black hover:text-white transition">
-              {upgradeCard.buttonText}
-            </button>
-          </div>
+      <div className="flex flex-col items-center gap-2 mb-2">
+        <div>{upgradeCard.icon}</div>
+        <h4 className="text-lg text-black font-bold">{upgradeCard.title}</h4>
+      </div>
+      <p className="text-xs text-white/90 mb-3">{upgradeCard.desc}</p>
+
+      {upgradeStatus === "approved" ? (
+        <p className="w-full py-2 text-center bg-green-500 text-white font-semibold text-sm rounded-lg">
+          You are a Merchant
+        </p>
+      ) : upgradeStatus === "pending" ? (
+        <p className="w-full py-2 text-center bg-yellow-500 text-white font-semibold text-sm rounded-lg">
+          Request Sent (Pending)
+        </p>
+      ) : (
+        <button
+          onClick={handleUpgrade}
+          className="w-full py-2 cursor-pointer bg-white text-blue-700 font-semibold text-sm rounded-lg hover:bg-black hover:text-white transition"
+        >
+          {upgradeCard.buttonText}
+        </button>
+      )}
+    </div>
         </aside>
 
-        {/* Outlet Content */}
+        {/* Main Outlet */}
         <main className="flex-1 px-3 sm:px-5 md:px-8 py-4 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 overflow-y-auto">
           <Outlet />
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation */}
+      {/* Mobile Bottom Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg flex justify-around py-2">
         {menuItems.slice(0, 5).map((item) => (
           <NavLink

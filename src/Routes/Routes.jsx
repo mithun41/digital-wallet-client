@@ -34,6 +34,7 @@ import RewardsSection from "../Pages/RewardsSection/RewardsSection";
 import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/EducationFeeCalculator";
 import Report from "../Components/Report/Report";
 import PrivetRoute from "../privetRoute/PrivetRout";
+import MerchantRequests from "../Pages/Admin/MerchantRequests";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,7 @@ export const router = createBrowserRouter([
       },
       { path: "users", element: <PrivetRoute><Users></Users></PrivetRoute>  },
       { path: "transactions", element: <PrivetRoute><AdminTransactions></AdminTransactions></PrivetRoute> },
+      { path: "merchants", element: <PrivetRoute><MerchantRequests></MerchantRequests></PrivetRoute> },
       { path: "loans", element: <PrivetRoute><AdminLoanList></AdminLoanList></PrivetRoute> },
     ],
   },
