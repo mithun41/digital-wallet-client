@@ -1,4 +1,4 @@
-import AdvancedBenefits from "../../../Components/AdvancedBenefits";
+// import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
@@ -48,7 +48,7 @@ const Home = () => {
           <TeamMarquee></TeamMarquee>
         </section>
         <section><HowItWorks></HowItWorks></section>
-        <section><AdvancedBenefits></AdvancedBenefits></section>
+        {/* <section><AdvancedBenefits></AdvancedBenefits></section> */}
         <PaymentCard></PaymentCard>
       </section>
       <section>
