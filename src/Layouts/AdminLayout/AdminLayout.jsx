@@ -29,6 +29,12 @@ const menuItems = [
     path: "/admin/dashboard/loans",
     icon: <FileText size={20} />,
   },
+
+   {
+    name: "Merchant Requests",
+    path: "/admin/dashboard/merchants",
+    icon: <Users size={20} />,
+  },
   { name: "Reports", path: "/admin/reports", icon: <FileText size={20} /> },
   { name: "Settings", path: "/admin/settings", icon: <Settings size={20} /> },
   { name: "Support", path: "/dashboard/live-chat", icon: <MdSupport size={20} /> },
