@@ -9,7 +9,7 @@ const Footer = () => {
       <hr className="border-gray-700" />
 
       {/* Main Footer Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-14 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-14 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left mt-10">
         {/* Logo & About */}
         <div>
           <Logo />

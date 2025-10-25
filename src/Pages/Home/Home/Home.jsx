@@ -55,12 +55,13 @@ const Home = () => {
       </section>
       <section>
         <Guarantee></Guarantee>
-        <FAQSection></FAQSection>
+        
       </section>
       <Testimonial></Testimonial>
       
       <section>
         <BankingCards></BankingCards>
+        <FAQSection></FAQSection>
       </section>
       <section>
         <Subscription></Subscription>
