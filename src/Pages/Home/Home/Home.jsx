@@ -1,4 +1,4 @@
-// import AdvancedBenefits from "../../../Components/AdvancedBenefits";
+import AdvancedBenefits from "../../../Components/AdvancedBenefits";
 import HowItWorks from "../../../Components/HowItWorks";
 import OurHistory from "../../../Components/OurHistory";
 import PaymentCard from "../../../Components/PaymentCard";
@@ -18,6 +18,7 @@ import OurMission from "../../../Components/ourMission/OurMission";
 import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 import Testimonial from "../../../Components/Testimonial/Testimonial";
+import FAQSection from "../../FAQSection/FAQSection";
 
 const Home = () => {
   return (
@@ -30,11 +31,9 @@ const Home = () => {
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
-      </section>
+      {/* </section>
       <OurShortCard></OurShortCard>
-      
-
-      <section>
+      <section> */}
         <OurMission></OurMission>
       </section>
       
@@ -48,7 +47,7 @@ const Home = () => {
           <TeamMarquee></TeamMarquee>
         </section>
         <section><HowItWorks></HowItWorks></section>
-        {/* <section><AdvancedBenefits></AdvancedBenefits></section> */}
+        <section><AdvancedBenefits></AdvancedBenefits></section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
@@ -56,8 +55,10 @@ const Home = () => {
       </section>
       <section>
         <Guarantee></Guarantee>
+        <FAQSection></FAQSection>
       </section>
       <Testimonial></Testimonial>
+      
       <section>
         <BankingCards></BankingCards>
       </section>
