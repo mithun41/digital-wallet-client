@@ -1,43 +1,27 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from '../redux/features/authSlice';
-import Loading from '../Components/loading/Loading';
-import Login from '../Pages/Login/Login';
-import Error from '../Components/Error/Error';
-import { useLocation } from 'react-router';
+import { useSelector, useDispatch } from "react-redux";
+import { Navigate, useLocation } from "react-router";
+import { useEffect } from "react";
+import { fetchUser } from "../redux/features/authSlice";
+import Loading from "../Components/loading/Loading";
 
-const PrivetRoute = ({children}) => {
-    // const dispatch = useDispatch()
+const PrivetRoute = ({ children }) => {
+  const { user, loading, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-    const location = useLocation()
-    console.log(location);
-
-    const {user, loading, error} = useSelector((state) => state.auth);
-
-    // useEffect(() => {
-    
-    //     if (!user) {
-    //       dispatch(fetchUser());
-    //     } 
-    //   }, [dispatch, user]);
-
-    console.log(user);
-    if(error){
-      return <Error></Error>
+  useEffect(() => {
+    if (!user && token) {
+      dispatch(fetchUser());
     }
+  }, [dispatch, user, token]);
 
-      if(loading){
-        return <Loading></Loading>
-      }
+  if (loading) return <Loading />;
 
-      if(!user){
-        location.state = location.pathname
-        return <Login></Login>
-      }
+  if (!user && !token) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  }
 
-      console.log(location);
-
-    return children;
+  return children;
 };
 
 export default PrivetRoute;

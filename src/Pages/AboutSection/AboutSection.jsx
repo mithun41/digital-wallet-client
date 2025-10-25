@@ -26,7 +26,7 @@ const AboutSection = () => {
     {
       id: 3,
       name: "Sumaiya Afroza",
-      role: "Frontend Developer",
+      role: "MERN Stack Developer",
       image: "https://i.ibb.co.com/k2nj506q/urmi-img-Dhjli-G9-J.png",
       bio: "Dedicated to crafting pixel-perfect layouts and enhancing user experiences through creative UI designs.",
       github: "#",
@@ -46,7 +46,7 @@ const AboutSection = () => {
     {
       id: 5,
       name: "Halima Akhter Shiuly",
-      role: "Frontend Developer",
+      role: "MERN Stack Developer",
       image: "https://i.ibb.co.com/0p6XVP8B/193291142.png",
       bio: "Creative front-end developer with expertise in React, Tailwind, and modern design principles, ensuring smooth and elegant user interfaces.",
       github: "https://github.com/shiuly-28",
