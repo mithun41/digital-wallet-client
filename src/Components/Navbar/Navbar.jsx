@@ -112,13 +112,17 @@ const Navbar = () => {
                     >
                       📊 Dashboard
                     </Link>
-                    <Link
-                      to="/dashboard/profile"
-                      className="block px-4 py-2 hover:bg-gray-100 font-medium"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      👤 Profile
-                    </Link>
+                    {user?.role === "admin" ? (
+                      ""
+                    ) : (
+                      <Link
+                        to="/dashboard/profile"
+                        className="block px-4 py-2 hover:bg-gray-100 font-medium"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        👤 Profile
+                      </Link>
+                    )}
                     <hr className="my-1" />
                     <button
                       onClick={handleLogout}
@@ -193,9 +197,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <>
               <Link
-                to={
-                  user?.role === "admin" ? "/admin/dashboard" : "/dashboard"
-                }
+                to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
                 className="hover:bg-green-600 rounded px-3 py-2"
                 onClick={() => setIsOpen(false)}
               >

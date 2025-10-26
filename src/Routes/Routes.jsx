@@ -35,6 +35,7 @@ import EducationFeeCalculator from "../Pages/dashboard/EducationFeeCalculator/Ed
 import Report from "../Components/Report/Report";
 import PrivetRoute from "../privetRoute/PrivetRout";
 import MerchantRequests from "../Pages/Admin/MerchantRequests";
+import AdminReports from "../Pages/Admin/AdminReport";
 
 export const router = createBrowserRouter([
   {
@@ -60,37 +61,176 @@ export const router = createBrowserRouter([
 
       {
         path: "/dashboard",
-        element: <PrivetRoute><DashboardLayout /></PrivetRoute>,
+        element: (
+          <PrivetRoute>
+            <DashboardLayout />
+          </PrivetRoute>
+        ),
         children: [
-          { index: true, element: <PrivetRoute><DashboardHome></DashboardHome></PrivetRoute> },
-          { path: "profile", element: <PrivetRoute><Profile></Profile></PrivetRoute> },
-          { path: "cashout", element: <PrivetRoute><CashOut></CashOut></PrivetRoute>  },
-          { path: "cashout/confirm", element: <PrivetRoute><CashoutStep2></CashoutStep2></PrivetRoute> },
-          { path: "addMoney", element: <PrivetRoute><AddMoney></AddMoney></PrivetRoute> },
-          { path: "mycard", element: <PrivetRoute><MyCard></MyCard></PrivetRoute> },
-          { path: "banktransfer", element: <PrivetRoute><BankTransfer></BankTransfer></PrivetRoute> },
-          { path: "mobileRecharge", element: <PrivetRoute><MobileRecharge></MobileRecharge></PrivetRoute> },
-          { path: "trans-history", element: <PrivetRoute><TransactionHistory></TransactionHistory></PrivetRoute>},
-          { path: "send-money", element: <PrivetRoute><SendMoney></SendMoney></PrivetRoute> },
-          { path: "pay-bill", element: <PrivetRoute><PayBill></PayBill></PrivetRoute> },
-          { path: "loan", element: <PrivetRoute><LoanPage></LoanPage></PrivetRoute> },
-          { path: "education", element: <PrivetRoute><EducationFeeCalculator></EducationFeeCalculator></PrivetRoute> },
+          {
+            index: true,
+            element: (
+              <PrivetRoute>
+                <DashboardHome></DashboardHome>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "profile",
+            element: (
+              <PrivetRoute>
+                <Profile></Profile>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "cashout",
+            element: (
+              <PrivetRoute>
+                <CashOut></CashOut>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "cashout/confirm",
+            element: (
+              <PrivetRoute>
+                <CashoutStep2></CashoutStep2>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "addMoney",
+            element: (
+              <PrivetRoute>
+                <AddMoney></AddMoney>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "mycard",
+            element: (
+              <PrivetRoute>
+                <MyCard></MyCard>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "banktransfer",
+            element: (
+              <PrivetRoute>
+                <BankTransfer></BankTransfer>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "mobileRecharge",
+            element: (
+              <PrivetRoute>
+                <MobileRecharge></MobileRecharge>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "trans-history",
+            element: (
+              <PrivetRoute>
+                <TransactionHistory></TransactionHistory>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "send-money",
+            element: (
+              <PrivetRoute>
+                <SendMoney></SendMoney>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "pay-bill",
+            element: (
+              <PrivetRoute>
+                <PayBill></PayBill>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "loan",
+            element: (
+              <PrivetRoute>
+                <LoanPage></LoanPage>
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "education",
+            element: (
+              <PrivetRoute>
+                <EducationFeeCalculator></EducationFeeCalculator>
+              </PrivetRoute>
+            ),
+          },
         ],
       },
     ],
   },
   {
     path: "/admin/dashboard",
-    element: <PrivetRoute><AdminLayout></AdminLayout></PrivetRoute>,
+    element: (
+      <PrivetRoute>
+        <AdminLayout></AdminLayout>
+      </PrivetRoute>
+    ),
     children: [
       {
         index: true,
-       element: <PrivetRoute><AdminDashboard></AdminDashboard></PrivetRoute>
+        element: (
+          <PrivetRoute>
+            <AdminDashboard></AdminDashboard>
+          </PrivetRoute>
+        ),
       },
-      { path: "users", element: <PrivetRoute><Users></Users></PrivetRoute>  },
-      { path: "transactions", element: <PrivetRoute><AdminTransactions></AdminTransactions></PrivetRoute> },
-      { path: "merchants", element: <PrivetRoute><MerchantRequests></MerchantRequests></PrivetRoute> },
-      { path: "loans", element: <PrivetRoute><AdminLoanList></AdminLoanList></PrivetRoute> },
+      {
+        path: "users",
+        element: (
+          <PrivetRoute>
+            <Users></Users>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "transactions",
+        element: (
+          <PrivetRoute>
+            <AdminTransactions></AdminTransactions>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "merchants",
+        element: (
+          <PrivetRoute>
+            <MerchantRequests></MerchantRequests>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "loans",
+        element: (
+          <PrivetRoute>
+            <AdminLoanList></AdminLoanList>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "reports",
+        element: (
+          <PrivetRoute>
+            <AdminReports></AdminReports>
+          </PrivetRoute>
+        ),
+      },
     ],
   },
 ]);

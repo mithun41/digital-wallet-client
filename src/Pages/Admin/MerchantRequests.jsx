@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
+import Loading from "../../Components/loading/Loading";
 
 const statusColors = {
   pending: "bg-yellow-100 text-yellow-700",
@@ -11,9 +12,9 @@ const statusColors = {
 const MerchantRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const axiosSecure = useAxiosSecure();
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
       const res = await axiosSecure.get("/api/user/upgrade-requests");
       setRequests(res.data);
@@ -30,6 +31,15 @@ const MerchantRequests = () => {
   }, []);
 
   const handleApprove = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Approve this request?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Approve",
+      cancelButtonText: "Cancel",
+    });
+    if (!confirm.isConfirmed) return;
+
     try {
       const res = await axiosSecure.put(`/api/admin/merchant/approve/${id}`);
       Swal.fire("Success", res.data.message, "success");
@@ -44,6 +54,15 @@ const MerchantRequests = () => {
   };
 
   const handleReject = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Reject this request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Reject",
+      cancelButtonText: "Cancel",
+    });
+    if (!confirm.isConfirmed) return;
+
     try {
       const res = await axiosSecure.delete(`/api/admin/merchant/reject/${id}`);
       Swal.fire("Success", res.data.message, "success");
@@ -57,7 +76,7 @@ const MerchantRequests = () => {
     }
   };
 
-  if (loading) return <p className="text-center py-10">Loading...</p>;
+  if (loading) return <Loading></Loading>;
   if (!requests.length)
     return <p className="text-center py-10">No merchant requests found.</p>;
 
@@ -67,14 +86,15 @@ const MerchantRequests = () => {
         Merchant Requests
       </h2>
 
-      {/* --- Responsive Table Wrapper --- */}
+      {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-100">
               <th className="p-3 text-left">#</th>
-              <th className="p-3 text-left">User Name</th>
+              <th className="p-3 text-left">Name</th>
               <th className="p-3 text-left">Phone</th>
+              <th className="p-3 text-left">Role</th>
               <th className="p-3 text-left">Status</th>
               <th className="p-3 text-center">Actions</th>
             </tr>
@@ -88,6 +108,7 @@ const MerchantRequests = () => {
                 <td className="p-3">{idx + 1}</td>
                 <td className="p-3">{req.name || "N/A"}</td>
                 <td className="p-3">{req.phone}</td>
+                <td className="p-3 capitalize">{req.role || "user"}</td>
                 <td className="p-3">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -114,7 +135,9 @@ const MerchantRequests = () => {
                       </button>
                     </>
                   ) : (
-                    <span className="text-gray-500 dark:text-gray-400">N/A</span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      N/A
+                    </span>
                   )}
                 </td>
               </tr>
@@ -123,7 +146,7 @@ const MerchantRequests = () => {
         </table>
       </div>
 
-      {/* --- Mobile View (Cards) --- */}
+      {/* Mobile Cards */}
       <div className="md:hidden grid gap-4">
         {requests.map((req, idx) => (
           <div
@@ -144,6 +167,9 @@ const MerchantRequests = () => {
             </div>
             <p className="text-gray-700 dark:text-gray-300 text-sm mb-1">
               <span className="font-medium">Phone:</span> {req.phone}
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm mb-1">
+              <span className="font-medium">Role:</span> {req.role || "user"}
             </p>
             <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">
               <span className="font-medium">Request ID:</span> {idx + 1}
