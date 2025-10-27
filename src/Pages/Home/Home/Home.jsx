@@ -18,6 +18,7 @@ import OurMission from "../../../Components/ourMission/OurMission";
 import QrCodeScanner from "../../../Components/scaner/QrCodeScanner";
 
 import Testimonial from "../../../Components/Testimonial/Testimonial";
+import FAQSection from "../../FAQSection/FAQSection";
 
 const Home = () => {
   return (
@@ -30,11 +31,9 @@ const Home = () => {
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
-      </section>
+      {/* </section>
       <OurShortCard></OurShortCard>
-      
-
-      <section>
+      <section> */}
         <OurMission></OurMission>
       </section>
       
@@ -56,10 +55,13 @@ const Home = () => {
       </section>
       <section>
         <Guarantee></Guarantee>
+        
       </section>
       <Testimonial></Testimonial>
+      
       <section>
         <BankingCards></BankingCards>
+        <FAQSection></FAQSection>
       </section>
       <section>
         <Subscription></Subscription>

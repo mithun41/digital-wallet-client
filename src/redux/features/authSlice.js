@@ -1,9 +1,6 @@
 // src/redux/features/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
-
-const axiosSecure = useAxiosSecure();
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 // ================= REGISTER USER =================
 export const registerUser = createAsyncThunk(
@@ -11,9 +8,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axiosSecure.post("/api/register", userData);
-      console.log(response.data);
       localStorage.setItem("token", response.data.token);
-
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -29,7 +24,6 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axiosSecure.post("/api/login", userData);
-      // console.log(response.data);
       localStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -45,9 +39,6 @@ export const resetPinUser = createAsyncThunk(
   "auth/resetPinUser",
   async ({ phone, oldPin, newPin }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("No token found");
-
       const response = await axiosSecure.post("/api/reset-pin", {
         phone,
         oldPin,
@@ -69,9 +60,7 @@ export const fetchUser = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-
       const response = await axiosSecure.get("/api/me");
-
       return response.data;
     } catch (error) {
       return rejectWithValue(

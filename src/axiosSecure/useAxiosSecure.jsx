@@ -1,23 +1,19 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://digital-wallet-server-tau.vercel.app/",
+const axiosSecure = axios.create({
+  // baseURL: "https://digital-wallet-server-tau.vercel.app/",
+  baseURL: "http://localhost:5000/",
 });
 
-// Token interceptor only once
+axiosSecure.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-const useAxiosSecure = () => {
-  instance.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      return config;
-    },
-    (error) => Promise.reject(error)
-  );
-  return instance;
-};
-
-export default useAxiosSecure;
+export default axiosSecure;

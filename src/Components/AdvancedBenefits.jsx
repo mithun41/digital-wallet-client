@@ -4,106 +4,108 @@ import "aos/dist/aos.css";
 
 // JSON Data
 const benefits = [
-    {
-        id: 1,
-        title: "Loyalty Points & Rewards",
-        description:
-            "Earn cashback and discounts on every transaction. Redeem points for gift vouchers and exclusive offers.",
-        icon: "🎁",
-        color: "bg-yellow-100 text-yellow-600",
-    },
-    {
-        id: 2,
-        title: "Multiple Wallets",
-        description:
-            "Manage personal, business, and savings wallets in one place with separate budgets and controls.",
-        icon: "💳",
-        color: "bg-blue-100 text-blue-600",
-    },
-    {
-        id: 3,
-        title: "Future-Ready Scalability",
-        description:
-            "Multi-currency support, recurring payments, and international transfers coming soon.",
-        icon: "🌍",
-        color: "bg-green-100 text-green-600",
-    },
-    {
-        id: 4,
-        title: "Real-Time Notifications",
-        description:
-            "Stay updated on every transaction with instant push notifications, emails, and SMS alerts.",
-        icon: "🔔",
-        color: "bg-purple-100 text-purple-600",
-    },
-    {
-        id: 5,
-        title: "AI Fraud Detection",
-        description:
-            "Advanced AI monitors unusual activity and protects your account in real time.",
-        icon: "🤖",
-        color: "bg-red-100 text-red-600",
-    },
-    {
-        id: 6,
-        title: "24/7 Support",
-        description:
-            "Get help anytime with live chat and customer support available round the clock.",
-        icon: "📞",
-        color: "bg-pink-100 text-pink-600",
-    },
+  {
+    id: 1,
+    title: "Loyalty Points & Rewards",
+    description:
+      "Earn cashback and discounts on every transaction. Redeem points for gift vouchers and exclusive offers.",
+    icon: "🎁",
+    color: "bg-yellow-100 text-yellow-600",
+  },
+  {
+    id: 2,
+    title: "Multiple Wallets",
+    description:
+      "Manage personal, business, and savings wallets in one place with separate budgets and controls.",
+    icon: "💳",
+    color: "bg-blue-100 text-blue-600",
+  },
+  {
+    id: 3,
+    title: "Future-Ready Scalability",
+    description:
+      "Multi-currency support, recurring payments, and international transfers coming soon.",
+    icon: "🌍",
+    color: "bg-green-100 text-green-600",
+  },
+  {
+    id: 4,
+    title: "Real-Time Notifications",
+    description:
+      "Stay updated on every transaction with instant push notifications, emails, and SMS alerts.",
+    icon: "🔔",
+    color: "bg-purple-100 text-purple-600",
+  },
+  {
+    id: 5,
+    title: "AI Fraud Detection",
+    description:
+      "Advanced AI monitors unusual activity and protects your account in real time.",
+    icon: "🤖",
+    color: "bg-red-100 text-red-600",
+  },
+  {
+    id: 6,
+    title: "24/7 Support",
+    description:
+      "Get help anytime with live chat and customer support available round the clock.",
+    icon: "📞",
+    color: "bg-pink-100 text-pink-600",
+  },
 ];
 
 const AdvancedBenefits = () => {
-    useEffect(() => {
-        AOS.init({ duration: 2000, once: true });
-    }, []);
+  useEffect(() => {
+    AOS.init({ duration: 2000, once: true });
+  }, []);
 
-    return (
-        <section className="py-16 ">
-            <div className="max-w-10/12 mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-                {/* Left Side */}
-                <div data-aos="fade-up-right">
-                    <h2 className="text-3xl font-bold text-green-500 mb-3">
-                        Advanced Benefits
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-8">
-                        Experience next-level digital banking features
-                    </p>
+  return (
+    <section className="py-16 bg-white dark:bg-gray-900">
+      <div className="max-w-10/12 mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        {/* Left Side */}
+        <div data-aos="fade-up-right">
+          <h2 className="text-3xl sm:text-4xl font-bold text-green-500 mb-3">
+            Advanced Benefits
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8 text-sm sm:text-base">
+            Experience next-level digital banking features
+          </p>
 
-                    <div className="space-y-6 ">
-                        {benefits.slice(0, 4).map((item) => (
-                            <div
-                                key={item.id}
-                                className="flex items-start border border-transparent hover:border-green-600 gap-4 p-4 rounded-xl  shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-                            >
-                                <div
-                                    className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
-                                >
-                                    {item.icon}
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+          <div className="space-y-6">
+            {benefits.slice(0, 4).map((item) => (
+              <div
+                key={item.id}
+                className="flex items-start border border-transparent hover:border-green-600 gap-4 p-4 rounded-xl shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer bg-white dark:bg-gray-800"
+              >
+                <div
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg ${item.color} text-lg`}
+                >
+                  {item.icon}
                 </div>
-
-                {/* Right Side */}
-                <div data-aos="fade-left" className="flex w-230 justify-center ">
-                    <img
-                        src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
-                        alt="Mobile App"
-                        className="rounded-2xl border border-transparent hover:border-green-500 shadow-lg transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
-                    />
+                <div>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-            </div>
-        </section>
-    );
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side */}
+        <div data-aos="fade-left" className="flex justify-center">
+          <img
+            src="https://i.ibb.co.com/1fmhtxM8/Whats-App-Image-2025-09-29-at-10-49-19-23395b3e.jpg"
+            alt="Mobile App"
+            className="max-w-full h-auto rounded-2xl border border-transparent hover:border-green-500 shadow-lg transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+          />
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default AdvancedBenefits;
