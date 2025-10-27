@@ -43,8 +43,8 @@ export default function FAQSection() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 md:px-8 py-10 ">
-      <div className="max-w-11/12 w-full grid md:grid-cols-2 gap-10 items-center">
+    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10">
+      <div className=" grid md:grid-cols-2 gap-10 items-center">
         
         {/* ✅ Left side - FAQ Content */}
         <div data-aos="fade-right" className="space-y-6 order-2 md:order-1">
@@ -114,18 +114,19 @@ export default function FAQSection() {
         </div>
 
         {/* ✅ Right side - Image (Visible on all screens) */}
-        <div
-          data-aos="fade-left"
-          className="order-1 md:order-2 flex justify-center"
-        >
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl ">
-            <img
-              src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
-              alt="Digital wallet illustration"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        </div>
+       <div
+  data-aos="fade-left"
+  className="order-1 md:order-2"
+>
+  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+    <img
+      src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
+      alt="Digital wallet illustration"
+      className="w-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+    />
+  </div>
+</div>
+
       </div>
     </div>
   );

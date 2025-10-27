@@ -1,338 +1,352 @@
-import React, { useState } from "react";
-import { Send, X, AlertCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  Send,
+  AlertCircle,
+  Clock,
+  CheckCircle,
+  XCircle,
+  FileText,
+} from "lucide-react";
+import { useSelector } from "react-redux";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
+
+const categories = [
+  { value: "", label: "Select Problem Category", icon: "📋" },
+  { value: "transaction", label: "Transaction", icon: "💳" },
+  { value: "login", label: "Login Issue", icon: "🔐" },
+  { value: "security", label: "Security", icon: "🛡️" },
+  { value: "bug", label: "Bug Report", icon: "🐛" },
+  { value: "other", label: "Other", icon: "📝" },
+];
 
 const Report = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const { user } = useSelector((state) => state.auth);
+
+  const [activeTab, setActiveTab] = useState("submit");
   const [category, setCategory] = useState("");
   const [issueText, setIssueText] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [myReports, setMyReports] = useState([]);
+  const [loadingReports, setLoadingReports] = useState(false);
 
-  const categories = [
-    { value: "", label: "Select Problem Category" },
-    { value: "transaction", label: "💳 Transaction" },
-    { value: "login", label: "🔐 Login Issue" },
-    { value: "security", label: "🛡️ Security" },
-    { value: "bug", label: "🐛 Bug Report" },
-    { value: "other", label: "📝 Other" },
-  ];
-
-  const openModal = () => {
-    setModalOpen(true);
-    setIsAnimating(true);
-  };
-
-  const closeModal = () => {
-    setIsAnimating(false);
-    setTimeout(() => {
-      setModalOpen(false);
-      setName("");
-      setPhone("");
-      setCategory("");
-      setIssueText("");
-      setError("");
-      setSuccess(false);
-    }, 300);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || !category || !issueText.trim()) {
-      setError("Please fill all fields and select a category");
+    if (!category || !issueText.trim()) {
+      setError("Please select a category and describe the issue");
       return;
     }
     setError("");
 
     try {
-      const res = fetch("https://digital-wallet-server-tau.vercel.app/api/report", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          type: category,
-          reportText: issueText,
-        }),
+      const res = await axiosSecure.post("/api/report", {
+        name: user?.name,
+        phone: user?.phone,
+        type: category,
+        reportText: issueText,
       });
-      
-      setSuccess(true);
-      setName("");
-      setPhone("");
-      setCategory("");
-      setIssueText("");
-      setTimeout(() => closeModal(), 2000);
+
+      if (res.data?.reportId) {
+        setSuccess(true);
+        setCategory("");
+        setIssueText("");
+        fetchMyReports();
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        setError("Failed to submit report");
+      }
     } catch {
       setError("Server error, please try again later");
     }
   };
 
+  const fetchMyReports = async () => {
+    setLoadingReports(true);
+    try {
+      const res = await axiosSecure.get("/api/report/all");
+      setMyReports(res.data.reports.filter((r) => r.phone === user?.phone));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingReports(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user) fetchMyReports();
+  }, [user]);
+
+  const getStatusBadge = (status) => {
+    const statusConfig = {
+      pending: {
+        bg: "bg-yellow-100 dark:bg-yellow-900/30",
+        text: "text-yellow-700 dark:text-yellow-400",
+        icon: Clock,
+      },
+      resolved: {
+        bg: "bg-green-100 dark:bg-green-900/30",
+        text: "text-green-700 dark:text-green-400",
+        icon: CheckCircle,
+      },
+      rejected: {
+        bg: "bg-red-100 dark:bg-red-900/30",
+        text: "text-red-700 dark:text-red-400",
+        icon: XCircle,
+      },
+    };
+    const config = statusConfig[status] || statusConfig.pending;
+    const Icon = config.icon;
+    return (
+      <span
+        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${config.bg} ${config.text}`}
+      >
+        <Icon size={14} />
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </span>
+    );
+  };
+
+  const getCategoryIcon = (type) => {
+    const cat = categories.find((c) => c.value === type);
+    return cat?.icon || "📋";
+  };
+
   return (
-    <>
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes pulse-ring {
-          0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-          70% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-        @keyframes slide-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes scale-in {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes bounce-check {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-        }
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @keyframes field-glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-          50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
-        }
-        @keyframes field-glow-dark {
-          0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
-          50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.7); }
-        }
-        
-        .float-btn { animation: float 3s ease-in-out infinite; }
-        
-        /* Light Mode */
-        .modal-backdrop { 
-          animation: fade-in 0.3s ease-out; 
-          background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.15), rgba(5, 150, 105, 0.1));
-        }
-        .modal-content { 
-          animation: scale-in 0.3s ease-out;
-          background: white;
-        }
-        .form-input { 
-          transition: all 0.3s ease;
-          background-size: 200% 200%;
-          animation: gradient-shift 3s ease infinite;
-        }
-        .form-input:hover {
-          animation: gradient-shift 1.5s ease infinite, field-glow 2s ease-in-out infinite;
-          transform: translateY(-2px);
-        }
-        .form-input:focus {
-          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 0 30px rgba(16, 185, 129, 0.5);
-          transform: translateY(-3px);
-          animation: gradient-shift 1s ease infinite;
-        }
-        
-        /* Dark Mode */
-        .dark .modal-backdrop { 
-          background: linear-gradient(135deg, rgba(5, 46, 38, 0.4), rgba(6, 78, 59, 0.5), rgba(4, 47, 46, 0.4));
-        }
-        .dark .modal-content {
-          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        }
-        .dark .form-input:hover {
-          animation: gradient-shift 1.5s ease infinite, field-glow-dark 2s ease-in-out infinite;
-          transform: translateY(-2px);
-        }
-        .dark .form-input:focus {
-          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5), 0 0 35px rgba(16, 185, 129, 0.7);
-          transform: translateY(-3px);
-          animation: gradient-shift 1s ease infinite;
-        }
-        .dark .label-text {
-          color: #d1d5db !important;
-        }
-        .dark .heading-text {
-          background: linear-gradient(to right, #10b981, #14b8a6);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        
-        .success-check {
-          animation: bounce-check 0.6s ease-out;
-        }
-        .success-animation {
-          animation: slide-up 0.5s ease-out;
-        }
-      `}</style>
-
-      <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80)',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-green-800/50 to-teal-900/60 backdrop-blur-[2px]"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-emerald-50/30 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-4 sm:p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+            Support Center
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Report issues and track your submissions
+          </p>
         </div>
 
-        {/* Floating Icons Animation */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 text-white/20 animate-pulse" style={{animation: 'float 4s ease-in-out infinite'}}>
-            <AlertCircle size={48} />
-          </div>
-          <div className="absolute top-40 right-20 text-white/20 animate-pulse" style={{animation: 'float 5s ease-in-out infinite', animationDelay: '1s'}}>
-            <Send size={40} />
-          </div>
-          <div className="absolute bottom-32 left-1/4 text-white/20 animate-pulse" style={{animation: 'float 6s ease-in-out infinite', animationDelay: '2s'}}>
-            <AlertCircle size={56} />
-          </div>
-          <div className="absolute bottom-20 right-1/3 text-white/20 animate-pulse" style={{animation: 'float 5.5s ease-in-out infinite', animationDelay: '1.5s'}}>
-            <Send size={44} />
-          </div>
+        {/* Tab Navigation */}
+        <div className="flex gap-2 mb-6 bg-white dark:bg-gray-800 p-2 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 w-fit">
+          <button
+            onClick={() => setActiveTab("submit")}
+            className={`px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+              activeTab === "submit"
+                ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-md"
+                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+            }`}
+          >
+            Submit Report
+          </button>
+          <button
+            onClick={() => setActiveTab("myReports")}
+            className={`px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 ${
+              activeTab === "myReports"
+                ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-md"
+                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+            }`}
+          >
+            <FileText size={18} />
+            My Reports {myReports.length > 0 && `(${myReports.length})`}
+          </button>
         </div>
 
-        {/* Main Button */}
-        <button
-          onClick={openModal}
-          className="float-btn group relative bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 text-white px-12 py-5 rounded-2xl hover:shadow-2xl transition-all duration-300 font-bold text-xl flex items-center gap-3 overflow-hidden z-10 border-2 border-white/30 hover:scale-105 active:scale-95"
-          style={{boxShadow: '0 10px 40px rgba(16, 185, 129, 0.4)'}}
-        >
-          <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-          <AlertCircle size={28} className="relative z-10" />
-          <span className="relative z-10">Report a Problem</span>
-        </button>
-      </div>
-
-      {modalOpen && (
-        <div className={`modal-backdrop fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm p-4`}>
-          <div className={`modal-content bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden`}>
-            {/* Gradient backgrounds */}
-            <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-100 rounded-full -mr-10 -mt-10 opacity-40"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-teal-100 rounded-full -ml-8 -mb-8 opacity-40"></div>
-
-            <div className="relative z-10">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold heading-text bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                  Report Issue
+        {/* Submit Tab */}
+        {activeTab === "submit" && (
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-500 to-green-500 p-6">
+                <h2 className="text-2xl font-bold text-white mb-1">
+                  Submit New Report
                 </h2>
-                <button
-                  onClick={closeModal}
-                  className="text-gray-400 hover:text-gray-600 transition-colors hover:scale-110"
-                >
-                  <X size={24} />
-                </button>
+                <p className="text-emerald-50">
+                  We're here to help resolve your issues
+                </p>
               </div>
 
-              {success ? (
-                <div className="success-animation text-center py-12">
-                  <div className="mb-4">
-                    <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                      <span className="text-4xl success-check">✓</span>
+              <div className="p-6 sm:p-8">
+                {success && (
+                  <div className="mb-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl p-4 flex items-center gap-3 animate-pulse">
+                    <div className="bg-green-500 rounded-full p-2">
+                      <CheckCircle className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-green-800 dark:text-green-300">
+                        Report Submitted Successfully!
+                      </p>
+                      <p className="text-sm text-green-600 dark:text-green-400">
+                        We'll review it and get back to you soon.
+                      </p>
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                    Thank You!
-                  </h3>
-                  <p className="text-gray-600">
-                    Your report has been submitted successfully. We'll review it soon.
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-4">
+                )}
+
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
-                    <label className="label-text block text-sm font-semibold text-gray-700 mb-2">
-                      📝 Your Name
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">
+                      Problem Category
                     </label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full border-2 text-white placeholder-white/70 border-white/30 rounded-lg px-4 py-3 focus:border-white focus:outline-none bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500"
-                      placeholder="Enter your name"
-                    />
+                    <div className="relative">
+                      <select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        className="w-full border-2 border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3.5 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 focus:outline-none bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 appearance-none cursor-pointer transition-all"
+                      >
+                        {categories.map((cat) => (
+                          <option key={cat.value} value={cat.value}>
+                            {cat.icon} {cat.label}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <svg
+                          className="w-5 h-5 text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
 
                   <div>
-                    <label className="label-text block text-sm font-semibold text-gray-700 mb-2">
-                      📞 Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full border-2 text-white placeholder-white/70 border-white/30 rounded-lg px-4 py-3 focus:border-white focus:outline-none bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500"
-                      placeholder="Enter your phone number"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="label-text block text-sm font-semibold text-gray-700 mb-2">
-                      🏷️ Problem Category
-                    </label>
-                    <select
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="w-full border-2 text-white border-white/30 rounded-lg px-4 py-3 focus:border-white focus:outline-none bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500"
-                    >
-                      {categories.map((cat) => (
-                        <option key={cat.value} value={cat.value} className="bg-emerald-600">
-                          {cat.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="label-text block text-sm text-gray-700 font-semibold mb-2">
-                      💬 Describe Your Issue
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">
+                      Describe Your Issue
                     </label>
                     <textarea
                       value={issueText}
                       onChange={(e) => setIssueText(e.target.value)}
-                      rows={4}
-                      className="form-input w-full border-2 text-white placeholder-white/70 border-white/30 rounded-lg p-3 focus:border-white focus:outline-none resize-none bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500"
-                      placeholder="Tell us more about the issue..."
+                      rows={6}
+                      className="w-full border-2 border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 focus:outline-none resize-none bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-all"
+                      placeholder="Please provide detailed information about the issue you're experiencing..."
                     />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      {issueText.length}/500 characters
+                    </p>
                   </div>
 
                   {error && (
-                    <div className="success-animation bg-red-50 border-2 border-red-200 rounded-lg p-3 flex gap-2">
-                      <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-red-700 text-sm">{error}</p>
+                    <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-xl p-4 flex items-start gap-3">
+                      <AlertCircle
+                        className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"
+                        size={20}
+                      />
+                      <p className="text-sm text-red-700 dark:text-red-400 font-medium">
+                        {error}
+                      </p>
                     </div>
                   )}
 
-                  <div className="flex gap-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={closeModal}
-                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-300 font-semibold text-gray-700 hover:border-gray-400"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleSubmit}
-                      className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 rounded-lg text-white hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
-                    >
-                      <Send size={18} />
-                      Submit
-                    </button>
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 px-6 py-4 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Send size={20} />
+                    Submit Report
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* My Reports Tab */}
+        {activeTab === "myReports" && (
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="bg-gradient-to-r from-emerald-500 to-green-500 p-6">
+              <h2 className="text-2xl font-bold text-white mb-1">My Reports</h2>
+              <p className="text-emerald-50">
+                Track the status of your submissions
+              </p>
+            </div>
+
+            <div className="p-6">
+              {loadingReports ? (
+                <div className="flex justify-center items-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-4 border-emerald-500 border-t-transparent"></div>
+                </div>
+              ) : myReports.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="bg-gray-100 dark:bg-gray-700 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <FileText
+                      className="text-gray-400 dark:text-gray-500"
+                      size={36}
+                    />
                   </div>
+                  <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    No Reports Yet
+                  </h3>
+                  <p className="text-gray-500 dark:text-gray-400 mb-6">
+                    You haven't submitted any reports
+                  </p>
+                  <button
+                    onClick={() => setActiveTab("submit")}
+                    className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all"
+                  >
+                    Submit Your First Report
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {myReports.map((report, idx) => (
+                    <div
+                      key={report._id}
+                      className="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all"
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="bg-white dark:bg-gray-800 rounded-lg p-2.5 text-2xl border border-gray-200 dark:border-gray-700">
+                            {getCategoryIcon(report.type)}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-gray-800 dark:text-gray-200 capitalize">
+                              {report.type} Issue
+                            </h3>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {new Date(report.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                }
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                        {getStatusBadge(report.status)}
+                      </div>
+
+                      <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 border border-gray-200 dark:border-gray-700">
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {report.reportText}
+                        </p>
+                      </div>
+
+                      {report.adminNote && (
+                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border-l-4 border-blue-500">
+                          <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 mb-1">
+                            Admin Response:
+                          </p>
+                          <p className="text-sm text-blue-900 dark:text-blue-300">
+                            {report.adminNote}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import {
   Bell,
   User,
-  Settings,
   LogOut,
-  Search,
   CreditCard,
   DollarSign,
   Home,
@@ -27,9 +25,9 @@ import Logo from "../../Components/Navbar/Logo";
 import Notifications from "../../Pages/dashboard/Notifications/Notifications";
 import { logout } from "../../redux/features/authSlice";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
-// Sidebar Menu Config
+// Sidebar menu
 const menuItems = [
   { name: "Overview", path: "/dashboard", icon: <Home size={22} /> },
   {
@@ -85,6 +83,7 @@ const menuItems = [
   },
 ];
 
+// Upgrade card
 const upgradeCard = {
   title: "Become A Merchant",
   desc: "Unlock premium features and get more benefits by upgrading your account.",
@@ -99,32 +98,31 @@ const DashboardLayout = () => {
   const [upgradeStatus, setUpgradeStatus] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const axiosSecure = useAxiosSecure();
-React.useEffect(() => {
+
+  // Fetch upgrade request status for this user
+  useEffect(() => {
     const fetchUpgradeStatus = async () => {
       if (!user?.phone) return;
       try {
         const res = await axiosSecure.get("/api/user/upgrade-requests");
-        const userRequest = res.data.find(
-          (req) => req.phone === user.phone
-        );
-        if (userRequest) setUpgradeStatus(userRequest.status); // pending or approved
+        const userRequest = res.data.find((req) => req.phone === user.phone);
+        if (userRequest) setUpgradeStatus(userRequest.status);
+        else setUpgradeStatus(null);
       } catch (err) {
         console.error("Error fetching upgrade requests:", err);
       }
     };
-
     fetchUpgradeStatus();
-  }, [user?.phone, axiosSecure]);
+  }, [user?.phone]);
 
-  // 🟢 Handle Logout
+  // Logout
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
 
-  // 🟢 Handle Upgrade Request
- const handleUpgrade = async () => {
+  // Request merchant upgrade
+  const handleUpgrade = async () => {
     if (!user?.name || !user?.phone || !user?.photo) {
       Swal.fire("Error", "Missing user info. Please log in again.", "error");
       return;
@@ -147,7 +145,7 @@ React.useEffect(() => {
         res.data.message || "Request sent successfully!",
         "success"
       );
-      setUpgradeStatus("pending"); // update local state immediately
+      setUpgradeStatus("pending");
     } catch (err) {
       Swal.fire(
         "Error",
@@ -161,7 +159,6 @@ React.useEffect(() => {
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Navbar */}
       <header className="fixed top-0 w-full z-50 bg-green-600 dark:bg-purple-800 shadow-md flex items-center justify-between px-4 md:px-8 py-3">
-        {/* Left: Logo + Menu */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -174,47 +171,32 @@ React.useEffect(() => {
           </Link>
         </div>
 
-        {/* Middle: Search */}
-        <div className="relative hidden sm:block">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="pl-10 pr-4 py-2 w-56 md:w-72 rounded-lg border border-gray-300 dark:border-gray-600 
-            bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-          <Search
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300"
-          />
-        </div>
-
-        {/* Right: Icons + Theme + User */}
         <div className="flex items-center gap-4 md:gap-6">
           <Notifications transactions={transactions || []} />
           <Theme />
-
           {user && (
             <div className="flex items-center gap-2">
               <img
                 src={user.photo || "https://i.pravatar.cc/40"}
-                alt={user.name || "User"}
+                alt={user.name}
                 className="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-600 object-cover"
               />
               <div className="hidden sm:block text-white">
-                <p className="text-sm font-semibold">{user.name || "Guest"}</p>
-                <p className="text-xs text-gray-200">{user.phone || "N/A"}</p>
+                <p className="text-sm font-semibold">{user.name}</p>
+                <p className="text-xs text-gray-200">{user.phone}</p>
               </div>
             </div>
           )}
         </div>
       </header>
 
-      {/* Sidebar + Content */}
+      {/* Sidebar + Main */}
       <div className="flex flex-1 pt-16">
         {/* Sidebar */}
         <aside
-          className={`fixed md:static top-0 left-0 z-40 h-full md:h-auto p-5 bg-white dark:bg-gray-800 shadow-lg w-56 sm:w-64 transform transition-transform duration-300 
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+          className={`fixed md:static top-0 left-0 z-40 h-full md:h-auto p-5 bg-white dark:bg-gray-800 shadow-lg w-56 sm:w-64 transform transition-transform duration-300 ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0`}
         >
           <div className="hidden md:block text-lg font-semibold mb-6 text-gray-700 dark:text-gray-200">
             Dashboard Overview
@@ -239,8 +221,6 @@ React.useEffect(() => {
                 <span className="text-sm font-medium">{item.name}</span>
               </NavLink>
             ))}
-
-            {/* Logout */}
             <button
               onClick={handleLogout}
               className="w-full flex items-center gap-3 px-3 py-2 mt-4 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900 transition"
@@ -250,40 +230,42 @@ React.useEffect(() => {
             </button>
           </nav>
 
-          {/* 🟢 Upgrade (Premium) Card */}
+          {/* Upgrade Card */}
           <div className="hidden md:block mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md">
-      <div className="flex flex-col items-center gap-2 mb-2">
-        <div>{upgradeCard.icon}</div>
-        <h4 className="text-lg text-black font-bold">{upgradeCard.title}</h4>
-      </div>
-      <p className="text-xs text-white/90 mb-3">{upgradeCard.desc}</p>
+            <div className="flex flex-col items-center gap-2 mb-2">
+              {upgradeCard.icon}
+              <h4 className="text-lg text-black font-bold">
+                {upgradeCard.title}
+              </h4>
+            </div>
+            <p className="text-xs text-white/90 mb-3">{upgradeCard.desc}</p>
 
-      {upgradeStatus === "approved" ? (
-        <p className="w-full py-2 text-center bg-green-500 text-white font-semibold text-sm rounded-lg">
-          You are a Merchant
-        </p>
-      ) : upgradeStatus === "pending" ? (
-        <p className="w-full py-2 text-center bg-yellow-500 text-white font-semibold text-sm rounded-lg">
-          Request Sent (Pending)
-        </p>
-      ) : (
-        <button
-          onClick={handleUpgrade}
-          className="w-full py-2 cursor-pointer bg-white text-blue-700 font-semibold text-sm rounded-lg hover:bg-black hover:text-white transition"
-        >
-          {upgradeCard.buttonText}
-        </button>
-      )}
-    </div>
+            {upgradeStatus === "approved" ? (
+              <p className="w-full py-2 text-center bg-green-500 text-white font-semibold text-sm rounded-lg">
+                You are a Merchant
+              </p>
+            ) : upgradeStatus === "pending" ? (
+              <p className="w-full py-2 text-center bg-yellow-500 text-white font-semibold text-sm rounded-lg">
+                Request Sent (Pending)
+              </p>
+            ) : (
+              <button
+                onClick={handleUpgrade}
+                className="w-full py-2 cursor-pointer bg-white text-blue-700 font-semibold text-sm rounded-lg hover:bg-black hover:text-white transition"
+              >
+                {upgradeCard.buttonText}
+              </button>
+            )}
+          </div>
         </aside>
 
-        {/* Main Outlet */}
+        {/* Main */}
         <main className="flex-1 px-3 sm:px-5 md:px-8 py-4 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 overflow-y-auto">
           <Outlet />
         </main>
       </div>
 
-      {/* Mobile Bottom Nav */}
+      {/* Mobile bottom nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg flex justify-around py-2">
         {menuItems.slice(0, 5).map((item) => (
           <NavLink
