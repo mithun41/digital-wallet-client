@@ -114,19 +114,18 @@ export default function FAQSection() {
         </div>
 
         {/* ✅ Right side - Image (Visible on all screens) */}
-       <div
-  data-aos="fade-left"
-  className="order-1 md:order-2"
->
-  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-    <img
-      src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
-      alt="Digital wallet illustration"
-      className="w-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-    />
-  </div>
-</div>
-
+        <div
+          data-aos="fade-left"
+          className="order-1 md:order-2 "
+        >
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl ">
+            <img
+              src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
+              alt="Digital wallet illustration"
+              className="w-full object-cover"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

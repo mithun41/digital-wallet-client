@@ -293,7 +293,7 @@ const Report = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {myReports.map((report, idx) => (
+                  {myReports.map((report) => (
                     <div
                       key={report._id}
                       className="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all"

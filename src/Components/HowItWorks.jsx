@@ -15,7 +15,7 @@ import {
 const steps = [
   {
     id: 1,
-    title: "Sign Up & Verify",
+    title: "My Card",
     description:
       "Create your account with email verification and complete KYC for enhanced security and higher transaction limits.",
     img: "https://i.ibb.co.com/1t87ZhSs/credit-card-close-shot-selective-600nw-567634105.webp",

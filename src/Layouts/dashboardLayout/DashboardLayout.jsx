@@ -46,11 +46,7 @@ const menuItems = [
     path: "/dashboard/send-money",
     icon: <DollarSign size={22} />,
   },
-  {
-    name: "Mobile Recharge",
-    path: "/dashboard/mobileRecharge",
-    icon: <Phone size={22} />,
-  },
+
   {
     name: "Cash Out",
     path: "/dashboard/cashOut",
@@ -173,7 +169,9 @@ const DashboardLayout = () => {
 
         <div className="flex items-center gap-4 md:gap-6">
           <Notifications transactions={transactions || []} />
-          <Theme />
+          <div className="hidden">
+            <Theme />
+          </div>
           {user && (
             <div className="flex items-center gap-2">
               <img

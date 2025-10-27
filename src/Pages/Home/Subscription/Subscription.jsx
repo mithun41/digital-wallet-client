@@ -17,7 +17,7 @@ const Subscription = () => {
 
   return (
     <div
-      className="max-w-10/12 mx-auto py-12 mb-10 mt-8 px-6 md:px-16 rounded-2xl flex flex-col md:flex-row items-center justify-between 
+      className="max-w-10/12 mx-auto py-12 mt-8 mb-16 px-6 md:px-16 rounded-2xl flex flex-col md:flex-row items-center justify-between 
       shadow-md border border-transparent 
       hover:border-green-400 transition-all duration-300
       bg-white dark:bg-gray-800 "
