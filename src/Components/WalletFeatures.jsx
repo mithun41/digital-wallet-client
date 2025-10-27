@@ -121,7 +121,7 @@ export default function WalletFeatures() {
 
                             <Link to={`/feature/${item.id}`}>
                             <button className="mt-3 px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow hover:bg-green-600 hover:text-white transition">
-                                Try Now →
+                                See More →
                             </button>
                             </Link>
                         </div>

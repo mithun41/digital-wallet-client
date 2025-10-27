@@ -147,7 +147,7 @@ const RewardsSection = () => {
 
   return (
     <div className="min-h-screen py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-10/12 mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-block bg-green-500 p-4 rounded-3xl mb-4">

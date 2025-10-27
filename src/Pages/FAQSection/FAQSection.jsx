@@ -42,19 +42,17 @@ export default function FAQSection() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-[#0a0a0f] dark:via-[#0f0f1a] dark:to-[#0c1810]">
-      <div className="max-w-7xl w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left side - FAQ Content */}
-          <div className="space-y-8 order-2 lg:order-1">
-            {/* Header */}
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 backdrop-blur-sm">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                  FAQ
-                </span>
-              </div>
+    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10">
+      <div className=" grid md:grid-cols-2 gap-10 items-center">
+        
+        {/* ✅ Left side - FAQ Content */}
+        <div data-aos="fade-right" className="space-y-6 order-2 md:order-1">
+          <div>
+            <h1 className="text-3xl sm:text-4xl text-black dark:text-white md:text-5xl font-extrabold leading-snug">
+                         Frequently Asked  <br /> <span className="text-green-500 dark:text-green-500">Questions</span>{" "}
+                        
+                    </h1>
+          </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight">
                 Frequently Asked{" "}
@@ -191,18 +189,20 @@ export default function FAQSection() {
                 </div>
               </div>
 
-              {/* Main Image Container */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10">
-                <div className="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-transparent pointer-events-none z-10"></div>
-                <img
-                  src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
-                  alt="Digital wallet illustration"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* ✅ Right side - Image (Visible on all screens) */}
+       <div
+  data-aos="fade-left"
+  className="order-1 md:order-2"
+>
+  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+    <img
+      src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
+      alt="Digital wallet illustration"
+      className="w-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+    />
+  </div>
+</div>
+
       </div>
     </div>
   );

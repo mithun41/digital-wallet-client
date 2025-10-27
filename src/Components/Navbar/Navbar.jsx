@@ -38,14 +38,14 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-green-600 dark:bg-primary shadow-md transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16 md:h-20 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16 sm:h-18 md:h-20 text-white">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <Logo />
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-5 lg:space-x-8 font-medium">
+        {/* Desktop & Tablet Menu */}
+        <div className="hidden md:flex items-center space-x-4 lg:space-x-6 xl:space-x-8 font-medium text-sm lg:text-base">
           <Link to="/" className="hover:text-gray-200 transition-colors">
             Home
           </Link>
@@ -84,17 +84,17 @@ const Navbar = () => {
                     <img
                       src={user.photo}
                       alt="Profile"
-                      className="w-9 h-9 md:w-10 md:h-10 rounded-full object-cover border-2 border-white"
+                      className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full object-cover border-2 border-white"
                     />
                   ) : (
-                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gray-100 text-gray-700 font-semibold flex items-center justify-center border-2 border-white">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-gray-100 text-gray-700 font-semibold flex items-center justify-center border-2 border-white">
                       {user?.name?.charAt(0)?.toUpperCase() || "U"}
                     </div>
                   )}
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-3 w-52 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-100">
+                  <div className="absolute right-0 mt-3 w-48 sm:w-52 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-100">
                     <div className="px-4 py-2 border-b border-gray-200">
                       <p className="text-sm font-semibold">{user?.name}</p>
                       <p className="text-xs text-gray-500 truncate">
@@ -112,9 +112,7 @@ const Navbar = () => {
                     >
                       📊 Dashboard
                     </Link>
-                    {user?.role === "admin" ? (
-                      ""
-                    ) : (
+                    {user?.role !== "admin" && (
                       <Link
                         to="/dashboard/profile"
                         className="block px-4 py-2 hover:bg-gray-100 font-medium"
@@ -138,13 +136,13 @@ const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="bg-white text-green-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors font-medium"
+                className="bg-white text-green-600 px-3 py-1.5 lg:px-4 lg:py-2 rounded hover:bg-gray-100 transition-colors font-medium"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="bg-green-500 px-4 py-2 rounded hover:bg-green-400 transition-colors font-medium"
+                className="bg-green-500 px-3 py-1.5 lg:px-4 lg:py-2 rounded hover:bg-green-400 transition-colors font-medium"
               >
                 Signup
               </Link>
@@ -167,11 +165,11 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed top-16 left-0 w-full bg-green-700 text-white shadow-lg z-40 transition-all duration-300 ${
+        className={`md:hidden fixed top-16 left-0 w-full bg-green-700 text-white shadow-lg z-40 transition-all duration-300 ease-in-out ${
           isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         }`}
       >
-        <div className="flex flex-col px-6 py-5 space-y-3 font-medium">
+        <div className="flex flex-col px-6 py-5 space-y-3 font-medium text-base">
           <Link
             to="/"
             className="hover:bg-green-600 rounded px-3 py-2"
