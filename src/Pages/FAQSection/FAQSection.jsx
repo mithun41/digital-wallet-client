@@ -43,134 +43,17 @@ export default function FAQSection() {
   };
 
   return (
-    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10">
+    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10 overflow-hidden">
       <div className=" grid md:grid-cols-2 gap-10 items-center">
-        
         {/* ✅ Left side - FAQ Content */}
         <div data-aos="fade-right" className="space-y-6 order-2 md:order-1">
           <div>
             <h1 className="text-3xl sm:text-4xl text-black dark:text-white md:text-5xl font-extrabold leading-snug">
-                         Frequently Asked  <br /> <span className="text-green-500 dark:text-green-500">Questions</span>{" "}
-                        
-                    </h1>
-          </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight">
-                Frequently Asked{" "}
-                <span className="bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
-                  Questions
-                </span>
-              </h1>
-
-              <p className="text-lg text-slate-600 dark:text-gray-400 leading-relaxed max-w-xl">
-                Find quick answers about how our digital wallet works, security
-                features, and how you can manage your transactions safely and
-                efficiently.
-              </p>
-            </div>
-
-            {/* FAQ Accordion */}
-            <div className="space-y-4">
-              {faqs.map((faq, index) => {
-                const Icon = faq.icon;
-                const isOpen = openIndex === index;
-
-                return (
-                  <div
-                    key={index}
-                    className={`group rounded-2xl overflow-hidden border transition-all duration-300 ${
-                      isOpen
-                        ? "border-green-500/50 shadow-lg shadow-green-500/10 dark:shadow-green-500/5"
-                        : "border-slate-200 dark:border-white/10 hover:border-green-500/30 dark:hover:border-green-500/30"
-                    }`}
-                  >
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className={`w-full px-6 py-5 flex items-start gap-4 text-left transition-all duration-300 ${
-                        isOpen
-                          ? "bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-green-500/10 dark:from-green-500/20 dark:via-emerald-500/20 dark:to-green-500/20"
-                          : "bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/70"
-                      }`}
-                    >
-                      {/* Icon */}
-                      <div
-                        className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                          isOpen
-                            ? "bg-green-500 shadow-lg shadow-green-500/30"
-                            : "bg-slate-100 dark:bg-slate-800 group-hover:bg-green-500/20 dark:group-hover:bg-green-500/20"
-                        }`}
-                      >
-                        <Icon
-                          className={`w-5 h-5 transition-colors ${
-                            isOpen
-                              ? "text-white"
-                              : "text-slate-600 dark:text-gray-400 group-hover:text-green-500"
-                          }`}
-                        />
-                      </div>
-
-                      {/* Question */}
-                      <div className="flex-1 min-w-0">
-                        <span
-                          className={`block font-semibold text-base sm:text-lg pr-4 transition-colors ${
-                            isOpen
-                              ? "text-slate-900 dark:text-white"
-                              : "text-slate-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400"
-                          }`}
-                        >
-                          {faq.question}
-                        </span>
-                      </div>
-
-                      {/* Toggle Icon */}
-                      <div
-                        className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                          isOpen
-                            ? "bg-green-500 rotate-180 shadow-md"
-                            : "bg-slate-100 dark:bg-slate-800 group-hover:bg-green-500/20 dark:group-hover:bg-green-500/20"
-                        }`}
-                      >
-                        {isOpen ? (
-                          <Minus className="w-4 h-4 text-white" />
-                        ) : (
-                          <Plus
-                            className={`w-4 h-4 transition-colors ${
-                              isOpen
-                                ? "text-white"
-                                : "text-slate-600 dark:text-gray-400 group-hover:text-green-500"
-                            }`}
-                          />
-                        )}
-                      </div>
-                    </button>
-
-                    {/* Answer */}
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        isOpen ? "max-h-96" : "max-h-0"
-                      }`}
-                    >
-                      <div className="px-6 py-5 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-200 dark:border-white/5">
-                        <p className="text-slate-600 dark:text-gray-400 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* CTA */}
-            <div className="pt-4">
-              <p className="text-sm text-slate-600 dark:text-gray-400 mb-4">
-                Still have questions? We're here to help!
-              </p>
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 active:scale-95">
-                <Headphones className="w-4 h-4" />
-                Contact Support
-              </button>
-            </div>
+              Frequently Asked <br />{" "}
+              <span className="text-green-500 dark:text-green-500">
+                Questions
+              </span>{" "}
+            </h1>
           </div>
 
           <p className="text-lg max-w-xl">
@@ -232,19 +115,15 @@ export default function FAQSection() {
         </div>
 
         {/* ✅ Right side - Image (Visible on all screens) */}
-       <div
-  data-aos="fade-left"
-  className="order-1 md:order-2"
->
-  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-    <img
-      src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
-      alt="Digital wallet illustration"
-      className="w-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-    />
-  </div>
-</div>
-
+        <div data-aos="fade-left" className="order-1 md:order-2 ">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl ">
+            <img
+              src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
+              alt="Digital wallet illustration"
+              className="w-full object-cover"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

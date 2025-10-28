@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import useAxiosSecure from "../../axiosSecure/useAxiosSecure";
+import axiosSecure from "../../axiosSecure/useAxiosSecure";
 
 const PayBill = () => {
   const [amount, setAmount] = useState("");
@@ -10,7 +10,6 @@ const PayBill = () => {
   const [details, setDetails] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const axiosSecure = useAxiosSecure()
 
   const navigate = useNavigate();
 
@@ -45,10 +44,12 @@ const PayBill = () => {
 
     try {
       setLoading(true);
-      const res = await axiosSecure.post(
-        "api/pay-bill",
-        { amount: addAmount, method, details, password },
-      );
+      const res = await axiosSecure.post("api/pay-bill", {
+        amount: addAmount,
+        method,
+        details,
+        password,
+      });
 
       // ✅ Success alert
       await Swal.fire({

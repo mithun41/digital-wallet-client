@@ -26,17 +26,20 @@ const Home = () => {
       <section>
         <Banner></Banner>
       </section>
+      <OurMission></OurMission>
+      <section>
+        <HowItWorks></HowItWorks>
+      </section>
       <section>
         <OurHistory></OurHistory>
       </section>
       <section>
         <WalletFeatures></WalletFeatures>
-      {/* </section>
+        {/* </section>
       <OurShortCard></OurShortCard>
       <section> */}
-        <OurMission></OurMission>
       </section>
-      
+
       <section>
         <Features></Features>
       </section>
@@ -46,8 +49,10 @@ const Home = () => {
         <section>
           <TeamMarquee></TeamMarquee>
         </section>
-        <section><HowItWorks></HowItWorks></section>
-        <section><AdvancedBenefits></AdvancedBenefits></section>
+
+        <section>
+          <AdvancedBenefits></AdvancedBenefits>
+        </section>
         <PaymentCard></PaymentCard>
       </section>
       <section>
@@ -55,10 +60,9 @@ const Home = () => {
       </section>
       <section>
         <Guarantee></Guarantee>
-        
       </section>
       <Testimonial></Testimonial>
-      
+
       <section>
         <BankingCards></BankingCards>
         <FAQSection></FAQSection>

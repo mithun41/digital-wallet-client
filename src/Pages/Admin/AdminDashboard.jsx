@@ -103,7 +103,7 @@ const AdminDashboard = () => {
 
   const lastTransactions = [...transactions]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 4);
+    .slice(0, 15);
 
   return (
     <div className="p-6 space-y-8 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-200">
