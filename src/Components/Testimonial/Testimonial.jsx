@@ -44,7 +44,7 @@ const Testimonial = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800 transition duration-300">
+    <section className="py-20 max-w-11/12 mx-auto bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800 transition duration-300">
       <div className="max-w-11/12 mx-auto">
         {/* Header */}
         <div className="text-center mb-12" data-aos="fade-up">
@@ -56,7 +56,11 @@ const Testimonial = () => {
             What Our Users Say 💬
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg max-w-3xl mx-auto">
-            Discover how <span className="text-green-600 font-semibold">Digital Wallet</span> is transforming lives — from freelancers and business owners to everyday users who enjoy fast, secure, and effortless financial management.
+            Discover how{" "}
+            <span className="text-green-600 font-semibold">Digital Wallet</span>{" "}
+            is transforming lives — from freelancers and business owners to
+            everyday users who enjoy fast, secure, and effortless financial
+            management.
           </p>
         </div>
 
@@ -82,7 +86,9 @@ const Testimonial = () => {
                   <h3 className="font-semibold text-green-600 dark:text-green-400 text-sm">
                     {testimonial.name}
                   </h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs">{testimonial.role}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-xs">
+                    {testimonial.role}
+                  </p>
                 </div>
               </div>
 

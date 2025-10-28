@@ -109,7 +109,7 @@ const HeroSection = () => {
       `}</style>
 
       <div
-        className="relative text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-500 bg-cover bg-center overflow-hidden"
+        className="relative text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-500 bg-cover bg-center overflow-hidden "
         style={{
           backgroundImage:
             "url('https://zdblogs.zohowebstatic.com/sites/payments/academy/files/04_2.png')",

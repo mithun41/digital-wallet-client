@@ -42,7 +42,7 @@ export default function FAQSection() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-[#0a0a0f] dark:via-[#0f0f1a] dark:to-[#0c1810]">
+    <div className="max-w-11/12 mx-auto min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-[#0a0a0f] dark:via-[#0f0f1a] dark:to-[#0c1810]">
       <div className="max-w-7xl w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left side - FAQ Content */}
