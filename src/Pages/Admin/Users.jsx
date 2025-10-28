@@ -9,6 +9,8 @@ const Users = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
   // Fetch all users
   const fetchUsers = async () => {
@@ -41,6 +43,7 @@ const Users = () => {
         u.name.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredUsers(filtered);
+    setCurrentPage(1);
   }, [search, users]);
 
   // Change user status
@@ -97,6 +100,13 @@ const Users = () => {
 
   if (loading) return <Loading></Loading>;
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-200">
       {/* Header + Search */}
@@ -138,8 +148,8 @@ const Users = () => {
           </thead>
 
           <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((u) => (
+            {paginatedUsers.length > 0 ? (
+              paginatedUsers.map((u) => (
                 <tr
                   key={u._id}
                   className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -215,6 +225,31 @@ const Users = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-lg font-medium">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
