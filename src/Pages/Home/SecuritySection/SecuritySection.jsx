@@ -42,7 +42,7 @@ const SecuritySection = () => {
   const goToSlide = (index) => setCurrentSlide(index);
 
   return (
-    <section className="max-w-11/12 mx-auto  py-20 overflow-hidden">
+    <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden space-y-10 overflow-hidden">
       {/* Section Heading */}
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full text-sm font-semibold mb-6">

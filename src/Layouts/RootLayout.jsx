@@ -34,7 +34,7 @@ const RootLayout = () => {
 
       {/* ✅ Content */}
       <main
-        className={`flex-1 relative z-10 dark:bg-gray-900 ${
+        className={`flex-1 relative z-10 dark:bg-gray-900  ${
           !isDashboard ? "pt-16" : ""
         }`}
       >

@@ -20,7 +20,7 @@ const Subscription = () => {
       className="max-w-10/12 mx-auto py-12 mt-8 mb-16 px-6 md:px-16 rounded-2xl flex flex-col md:flex-row items-center justify-between 
       shadow-md border border-transparent 
       hover:border-green-400 transition-all duration-300
-      bg-white dark:bg-gray-800 "
+      bg-white dark:bg-gray-800 overflow-hidden "
       style={{
         background:
           "linear-gradient(to right, rgba(34,197,94,0.15), rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, rgba(34,197,94,0.15))",
