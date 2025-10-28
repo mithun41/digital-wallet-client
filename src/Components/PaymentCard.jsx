@@ -42,7 +42,7 @@ const PaymentCard = () => {
   };
 
   return (
-    <section className="relative max-w-11/12 mx-auto px-4 py-16" ref={ref}>
+    <section className="relative max-w-11/12 mx-auto px-4 py-16 overflow-hidden" ref={ref}>
       {/* Header */}
       <div className="text-center mb-14">
         <motion.h2

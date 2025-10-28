@@ -36,6 +36,7 @@ import Report from "../Components/Report/Report";
 import PrivetRoute from "../privetRoute/PrivetRout";
 import MerchantRequests from "../Pages/Admin/MerchantRequests";
 import AdminReports from "../Pages/Admin/AdminReport";
+import myCardBlog from "../Pages/myCardBlog";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,7 @@ export const router = createBrowserRouter([
       { path: "/add_money", Component: AddMoneyBlogPages },
       { path: "/wallet", Component: WalletBlogPage },
       { path: "/report", Component: Report },
+      {path: "/myCardBlog/:id", Component: myCardBlog},
 
       {
         path: "/dashboard",

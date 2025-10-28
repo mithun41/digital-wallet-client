@@ -1,39 +1,40 @@
-import { useState } from "react";
-import { Plus, Minus, Shield, Zap, Users, Headphones } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Plus, Minus } from "lucide-react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
   const faqs = [
     {
       question: "What is a digital wallet and how does it work?",
       answer:
         "A digital wallet is a secure platform that allows you to store money, make online payments, and manage your transactions digitally. You can link your bank account or card, add funds, and use it for seamless transactions anytime, anywhere.",
-      icon: Zap,
     },
     {
       question: "Is my money safe in the digital wallet?",
       answer:
         "Absolutely. Your wallet is protected with end-to-end encryption, biometric authentication, and AI-powered fraud detection. Even if your device is lost, your funds remain safe and accessible through verified recovery methods.",
-      icon: Shield,
     },
     {
       question: "How can I add or withdraw money?",
       answer:
         "You can add funds using your bank account, credit/debit card, or mobile banking. Withdrawals can be made directly to your bank account or through supported cash-out agents instantly.",
-      icon: Users,
     },
     {
       question: "Can I send money to other users?",
       answer:
         "Yes, you can instantly transfer money to any registered user using their wallet ID, phone number, or QR code. Transfers are processed securely in real-time with zero hidden fees.",
-      icon: Users,
     },
     {
       question: "What should I do if I face a transaction issue?",
       answer:
         "If a transaction fails or is delayed, you can contact our support team via in-app chat or email. Refunds for unsuccessful transactions are automatically processed within 24–48 hours.",
-      icon: Headphones,
     },
   ];
 
@@ -172,22 +173,63 @@ export default function FAQSection() {
             </div>
           </div>
 
-          {/* Right side - Image */}
-          <div className="order-1 lg:order-2 flex justify-center lg:sticky lg:top-24 lg:self-start">
-            <div className="relative w-full max-w-lg">
-              {/* Decorative Elements */}
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-green-500/20 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
+          <p className="text-lg max-w-xl">
+            Find quick answers about how our digital wallet works, security
+            features, and how you can manage your transactions safely and
+            efficiently.
+          </p>
 
-              {/* Floating Badge - positioned above image */}
-              <div className="absolute -top-4 -right-4 z-20 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-white/10 backdrop-blur-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-sm font-semibold text-slate-900 dark:text-white">
-                    24/7 Support
+          <div className="space-y-4 pt-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="rounded-2xl overflow-hidden border border-green-500/30 backdrop-blur-sm transition-all duration-300"
+                style={{
+                  background:
+                    openIndex === index
+                      ? "linear-gradient(135deg, rgba(92, 246, 128, 0.15) 0%, rgba(118, 236, 72, 0.15) 100%)"
+                      : "rgba(15, 23, 42, 0.6)",
+                }}
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors duration-300"
+                  style={{
+                    background:
+                      openIndex === index
+                        ? "linear-gradient(90deg, rgba(92, 246, 146, 0.8) 0%, rgba(72, 217, 236, 0.8) 50%, rgba(60, 251, 105, 0.8) 100%)"
+                        : "transparent",
+                  }}
+                >
+                  <span className="text-white font-medium text-lg pr-4">
+                    {faq.question}
                   </span>
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    {openIndex === index ? (
+                      <Minus className="w-5 h-5 text-white" />
+                    ) : (
+                      <Plus className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    openIndex === index
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="px-6 py-5 bg-slate-900/50 border-t border-green-500/10">
+                    <p className="text-gray-300 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
 
         {/* ✅ Right side - Image (Visible on all screens) */}
        <div
