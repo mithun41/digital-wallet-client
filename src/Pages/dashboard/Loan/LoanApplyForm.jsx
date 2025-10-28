@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../axiosSecure/useAxiosSecure";
 import { useSelector } from "react-redux";
+import axiosSecure from "../../../axiosSecure/useAxiosSecure";
 
 const LoanApplyForm = () => {
-  const axiosSecure = useAxiosSecure();
   const user = useSelector((state) => state.auth.user);
 
   const [formData, setFormData] = useState({

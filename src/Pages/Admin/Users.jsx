@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axiosSecure from "../../axiosSecure/useAxiosSecure";
 import { Search } from "lucide-react";
+import Loading from "../../Components/loading/Loading";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -94,12 +95,7 @@ const Users = () => {
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-[60vh] text-gray-600 dark:text-gray-300">
-        Loading users...
-      </div>
-    );
+  if (loading) return <Loading></Loading>;
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-200">
@@ -156,12 +152,17 @@ const Users = () => {
                   <td className="p-3">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        u.role === "admin"
-                          ? "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
-                          : "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                        {
+                          admin:
+                            "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300",
+                          merchant:
+                            "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
+                          user: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
+                        }[u.role] ||
+                        "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300"
                       }`}
                     >
-                      {u.role === "admin" ? "Admin" : "User"}
+                      {u.role.charAt(0).toUpperCase() + u.role.slice(1)}
                     </span>
                   </td>
                   <td className="p-3">

@@ -3,8 +3,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-
-
+import jsPDF from "jspdf";
+import { autoTable } from "jspdf-autotable";
 
 // ================= StatCard =================
 const StatCard = ({ icon, title, value, colorClass }) => (
