@@ -32,7 +32,7 @@ const Guarantee = () => {
     ];
 
     return (
-        <div className=" text-white px-6 sm:px-8 py-12 sm:py-16">
+        <div className=" text-white px-6 sm:px-8 py-12 sm:py-16 overflow-hidden">
             <div className="max-w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                 {/* Left side features */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

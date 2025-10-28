@@ -43,7 +43,7 @@ export default function FAQSection() {
   };
 
   return (
-    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10">
+    <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10 overflow-hidden">
       <div className=" grid md:grid-cols-2 gap-10 items-center">
         
         {/* ✅ Left side - FAQ Content */}

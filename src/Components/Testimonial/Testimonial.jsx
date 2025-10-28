@@ -44,7 +44,7 @@ const Testimonial = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800 transition duration-300">
+    <section className="py-20 px-6 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800 transition duration-300 overflow-hidden">
       <div className="max-w-11/12 mx-auto">
         {/* Header */}
         <div className="text-center mb-12" data-aos="fade-up">

@@ -35,7 +35,7 @@ const BankingCards = () => {
   ];
 
   return (
-    <div className="mt-12 px-4 md:px-8 lg:px-16">
+    <div className="mt-12 px-4 md:px-8 lg:px-16 overflow-hidden">
       {/* Title Section */}
       <div className="text-center mb-10" data-aos="zoom-in">
         <h1 className="text-4xl md:text-4xl font-bold text-green-400">

@@ -76,7 +76,7 @@ export default function WalletFeatures() {
     }, []);
 
     return (
-        <section className="max-w-11/12 mx-auto px-6 py-12">
+        <section className="max-w-11/12 mx-auto px-6 py-12 overflow-hidden">
             {/* Heading */}
             <div className="text-center mb-10">
                 <h2 className=" text-green-500 text-4xl md:text-4xl font-bold ">
