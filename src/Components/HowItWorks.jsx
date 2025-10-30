@@ -303,7 +303,7 @@ const steps = [
     title: "CashOut & Transactions",
     description:
       "Withdraw money anytime to your bank account and track all your transactions with detailed reports and statements.",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    img: "https://i.postimg.cc/wTX4wh52/wallet.png",
     animation: "fade-up",
     icon: <ChartBarIcon className="h-8 w-8 text-white" />,
     badge: "Step 6",
