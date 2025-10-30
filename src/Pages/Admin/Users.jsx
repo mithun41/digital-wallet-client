@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axiosSecure from "../../axiosSecure/useAxiosSecure";
 import { Search } from "lucide-react";
+import Loading from "../../Components/loading/Loading";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
   // Fetch all users
   const fetchUsers = async () => {
@@ -40,6 +43,7 @@ const Users = () => {
         u.name.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredUsers(filtered);
+    setCurrentPage(1);
   }, [search, users]);
 
   // Change user status
@@ -94,12 +98,14 @@ const Users = () => {
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-[60vh] text-gray-600 dark:text-gray-300">
-        Loading users...
-      </div>
-    );
+  if (loading) return <Loading></Loading>;
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-200">
@@ -142,8 +148,8 @@ const Users = () => {
           </thead>
 
           <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((u) => (
+            {paginatedUsers.length > 0 ? (
+              paginatedUsers.map((u) => (
                 <tr
                   key={u._id}
                   className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -156,12 +162,17 @@ const Users = () => {
                   <td className="p-3">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        u.role === "admin"
-                          ? "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
-                          : "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                        {
+                          admin:
+                            "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300",
+                          merchant:
+                            "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
+                          user: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
+                        }[u.role] ||
+                        "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300"
                       }`}
                     >
-                      {u.role === "admin" ? "Admin" : "User"}
+                      {u.role.charAt(0).toUpperCase() + u.role.slice(1)}
                     </span>
                   </td>
                   <td className="p-3">
@@ -214,6 +225,31 @@ const Users = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-lg font-medium">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

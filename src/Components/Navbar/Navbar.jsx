@@ -16,8 +16,15 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
   const isLoggedIn = !!user;
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -36,11 +43,37 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const toggleButton = document.getElementById("mobile-toggle");
+
+      if (
+        isOpen &&
+        mobileMenu &&
+        !mobileMenu.contains(e.target) &&
+        !toggleButton.contains(e.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-green-600 dark:bg-primary shadow-md transition-all duration-300 overflow-hidden">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-green-600 dark:bg-primary shadow-md transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16 sm:h-18 md:h-20 text-white">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link
+          to="/"
+          className="flex items-center gap-2 relative z-50 flex-shrink-0"
+        >
           <Logo />
         </Link>
 
@@ -49,16 +82,22 @@ const Navbar = () => {
           <Link to="/" className="hover:text-gray-200 transition-colors">
             Home
           </Link>
-          <Link to="/about" className="hover:text-gray-200 transition-colors">
+          <Link
+            to="/about"
+            className="hover:text-gray-200 transition-colors whitespace-nowrap"
+          >
             About
           </Link>
-          <Link to="/blogs" className="hover:text-gray-200 transition-colors">
+          <Link
+            to="/blogs"
+            className="hover:text-gray-200 transition-colors whitespace-nowrap"
+          >
             Blogs
           </Link>
 
           <Link
             to={isLoggedIn ? "/rewards" : "#"}
-            className={`hover:text-gray-200 transition-colors ${
+            className={`hover:text-gray-200 transition-colors whitespace-nowrap ${
               !isLoggedIn ? "opacity-60 cursor-not-allowed" : ""
             }`}
           >
@@ -68,8 +107,8 @@ const Navbar = () => {
           {isLoggedIn ? (
             <>
               <Link
-                to="report"
-                className="hover:text-gray-200 transition-colors"
+                to="/report"
+                className="hover:text-gray-200 transition-colors whitespace-nowrap"
               >
                 Report
               </Link>
@@ -96,7 +135,9 @@ const Navbar = () => {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-3 w-48 sm:w-52 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-100">
                     <div className="px-4 py-2 border-b border-gray-200">
-                      <p className="text-sm font-semibold">{user?.name}</p>
+                      <p className="text-sm font-semibold truncate">
+                        {user?.name}
+                      </p>
                       <p className="text-xs text-gray-500 truncate">
                         {user?.email}
                       </p>
@@ -107,10 +148,17 @@ const Navbar = () => {
                           ? "/admin/dashboard"
                           : "/dashboard"
                       }
-                      className="block px-4 py-2 hover:bg-gray-100 font-medium"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 font-medium"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      📊 Dashboard
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/dashboard/profile"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 font-medium"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Profile
                     </Link>
                     {user?.role !== "admin" && (
                       <Link
@@ -124,9 +172,9 @@ const Navbar = () => {
                     <hr className="my-1" />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 font-medium"
+                      className="w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600 font-medium"
                     >
-                      🚪 Logout
+                      Logout
                     </button>
                   </div>
                 )}
@@ -152,13 +200,34 @@ const Navbar = () => {
           <Theme />
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+        {/* Mobile Menu Button & Theme */}
+        <div className="lg:hidden flex items-center gap-2 sm:gap-3 relative z-50">
+          <Theme />
           <button
+            id="mobile-toggle"
             onClick={toggleMenu}
-            className="focus:outline-none text-white text-3xl"
+            className="focus:outline-none p-1"
+            aria-label="Toggle menu"
           >
-            {isOpen ? <HiX /> : <HiMenu />}
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2">
+                {user.photo ? (
+                  <img
+                    src={user.photo}
+                    alt="Profile"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border-2 border-white"
+                  />
+                ) : (
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-100 text-gray-700 text-sm sm:text-base font-semibold flex items-center justify-center border-2 border-white">
+                    {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <span className="text-white text-2xl sm:text-3xl">
+                {isOpen ? <HiX /> : <HiMenu />}
+              </span>
+            )}
           </button>
         </div>
       </div>
@@ -172,21 +241,21 @@ const Navbar = () => {
         <div className="flex flex-col px-6 py-5 space-y-3 font-medium text-base">
           <Link
             to="/"
-            className="hover:bg-green-600 rounded px-3 py-2"
+            className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="hover:bg-green-600 rounded px-3 py-2"
+            className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             About
           </Link>
           <Link
             to="/blogs"
-            className="hover:bg-green-600 rounded px-3 py-2"
+            className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Blogs
@@ -196,47 +265,56 @@ const Navbar = () => {
             <>
               <Link
                 to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-                className="hover:bg-green-600 rounded px-3 py-2"
+                className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                📊 Dashboard
+                Dashboard
               </Link>
               <Link
                 to="/dashboard/profile"
-                className="hover:bg-green-600 rounded px-3 py-2"
+                className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                👤 Profile
+                Profile
               </Link>
               <Link
                 to="/rewards"
-                className="hover:bg-green-600 rounded px-3 py-2"
+                className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                🎁 Rewards
+                Rewards
               </Link>
+              <Link
+                to="/report"
+                className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Report
+              </Link>
+              <div className="border-t border-green-600 dark:border-slate-700 my-2"></div>
               <button
                 onClick={() => {
                   handleLogout();
                   setIsOpen(false);
                 }}
-                className="bg-red-500 rounded px-3 py-2 hover:bg-red-600 text-left transition"
+                className="bg-red-500 rounded px-3 py-2 hover:bg-red-600 text-left transition-colors"
               >
-                🚪 Logout
+                Logout
               </button>
             </>
           ) : (
             <>
+              <div className="border-t border-green-600 dark:border-slate-700 my-2"></div>
               <Link
                 to="/login"
-                className="bg-white text-green-600 text-center rounded px-3 py-2 hover:bg-gray-100 font-medium"
+                className="bg-white text-green-600 text-center rounded px-3 py-2 hover:bg-gray-100 font-medium transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="bg-green-500 text-center rounded px-3 py-2 hover:bg-green-400 font-medium"
+                className="bg-green-500 text-center rounded px-3 py-2 hover:bg-green-400 font-medium transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Signup

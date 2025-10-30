@@ -169,8 +169,6 @@
 
 // export default HowItWorks;
 
-
-
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -186,7 +184,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-
 const steps = [
   {
     id: 1,
@@ -198,17 +195,19 @@ const steps = [
     icon: <UserPlusIcon className="h-8 w-8 text-white" />,
     badge: "Step 1",
     details: {
-      fullDescription: "Our My Card feature provides you with a complete virtual and physical card management system. You can create multiple cards for different purposes, set spending limits, and control your finances with ease.",
+      fullDescription:
+        "Our My Card feature provides you with a complete virtual and physical card management system. You can create multiple cards for different purposes, set spending limits, and control your finances with ease.",
       features: [
         "Instant virtual card generation",
         "Physical card delivery within 3-5 days",
         "Customize card design and colors",
         "Set transaction limits per card",
         "Freeze/unfreeze cards anytime",
-        "Real-time transaction notifications"
+        "Real-time transaction notifications",
       ],
-      benefits: "Manage all your payment cards in one secure place with full control over spending and security."
-    }
+      benefits:
+        "Manage all your payment cards in one secure place with full control over spending and security.",
+    },
   },
   {
     id: 2,
@@ -220,17 +219,19 @@ const steps = [
     icon: <CreditCardIcon className="h-8 w-8 text-white" />,
     badge: "Step 2",
     details: {
-      fullDescription: "Adding money to your PayMate wallet is quick and secure. Connect multiple funding sources and enjoy seamless transactions across all platforms.",
+      fullDescription:
+        "Adding money to your PayMate wallet is quick and secure. Connect multiple funding sources and enjoy seamless transactions across all platforms.",
       features: [
         "Add money via bank transfer",
         "Credit/Debit card linking",
         "UPI and mobile banking support",
         "Auto-reload when balance is low",
         "Instant deposit confirmation",
-        "Multi-currency wallet support"
+        "Multi-currency wallet support",
       ],
-      benefits: "Never worry about payment failures. Keep your wallet loaded with multiple funding options."
-    }
+      benefits:
+        "Never worry about payment failures. Keep your wallet loaded with multiple funding options.",
+    },
   },
   {
     id: 3,
@@ -242,17 +243,19 @@ const steps = [
     icon: <ArrowsRightLeftIcon className="h-8 w-8 text-white" />,
     badge: "Step 3",
     details: {
-      fullDescription: "Experience lightning-fast payments and transfers with PayMate. Send money to anyone, anywhere, anytime with just a few taps.",
+      fullDescription:
+        "Experience lightning-fast payments and transfers with PayMate. Send money to anyone, anywhere, anytime with just a few taps.",
       features: [
         "Instant money transfer to any bank",
         "QR code payments at stores",
         "Bill payments (electricity, water, internet)",
         "Mobile recharge and DTH",
         "Split bills with friends",
-        "Request money feature"
+        "Request money feature",
       ],
-      benefits: "Complete all your payment needs from a single app with zero hassle and maximum speed."
-    }
+      benefits:
+        "Complete all your payment needs from a single app with zero hassle and maximum speed.",
+    },
   },
   {
     id: 4,
@@ -264,17 +267,19 @@ const steps = [
     icon: <BanknotesIcon className="h-8 w-8 text-white" />,
     badge: "Step 4",
     details: {
-      fullDescription: "Need quick cash? PayMate offers instant personal loans with minimal documentation and competitive interest rates. Get approved in minutes!",
+      fullDescription:
+        "Need quick cash? PayMate offers instant personal loans with minimal documentation and competitive interest rates. Get approved in minutes!",
       features: [
         "Loans from $100 to $10,000",
         "Instant approval in 2 minutes",
         "Flexible repayment options (3-36 months)",
         "No hidden charges",
         "Competitive interest rates starting at 8%",
-        "Pre-approved loan offers for eligible users"
+        "Pre-approved loan offers for eligible users",
       ],
-      benefits: "Access emergency funds instantly without any paperwork hassle or long waiting periods."
-    }
+      benefits:
+        "Access emergency funds instantly without any paperwork hassle or long waiting periods.",
+    },
   },
   {
     id: 5,
@@ -286,17 +291,19 @@ const steps = [
     icon: <ShieldCheckIcon className="h-8 w-8 text-white" />,
     badge: "Step 5",
     details: {
-      fullDescription: "Your security is our top priority. PayMate uses military-grade encryption and advanced fraud detection to protect every transaction.",
+      fullDescription:
+        "Your security is our top priority. PayMate uses military-grade encryption and advanced fraud detection to protect every transaction.",
       features: [
         "256-bit SSL encryption",
         "Biometric login (fingerprint/face ID)",
         "Two-factor authentication (2FA)",
         "Real-time fraud alerts",
         "Transaction PIN protection",
-        "Automatic logout on suspicious activity"
+        "Automatic logout on suspicious activity",
       ],
-      benefits: "Sleep peacefully knowing your money is protected by industry-leading security protocols."
-    }
+      benefits:
+        "Sleep peacefully knowing your money is protected by industry-leading security protocols.",
+    },
   },
   {
     id: 6,
@@ -308,17 +315,19 @@ const steps = [
     icon: <ChartBarIcon className="h-8 w-8 text-white" />,
     badge: "Step 6",
     details: {
-      fullDescription: "Take control of your finances with powerful analytics and insights. PayMate helps you understand where your money goes and how to save more.",
+      fullDescription:
+        "Take control of your finances with powerful analytics and insights. PayMate helps you understand where your money goes and how to save more.",
       features: [
         "Categorized spending reports",
         "Monthly budget planning",
         "AI-powered savings suggestions",
         "Custom spending alerts",
         "Export transaction history",
-        "Visual charts and graphs"
+        "Visual charts and graphs",
       ],
-      benefits: "Make smarter financial decisions with data-driven insights and personalized recommendations."
-    }
+      benefits:
+        "Make smarter financial decisions with data-driven insights and personalized recommendations.",
+    },
   },
 ];
 const HowItWorks = () => {
@@ -334,12 +343,12 @@ const HowItWorks = () => {
 
   const openModal = (step) => {
     setSelectedStep(step);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setSelectedStep(null);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = "unset";
   };
 
   return (
@@ -371,7 +380,8 @@ const HowItWorks = () => {
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              Everything you need for smart digital payments and financial management.
+              Everything you need for smart digital payments and financial
+              management.
             </p>
           </div>
 
@@ -417,7 +427,7 @@ const HowItWorks = () => {
                     {step.description}
                   </p>
 
-                  <button 
+                  <button
                     onClick={() => openModal(step)}
                     className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:translate-y-[-2px] hover:shadow-lg flex items-center justify-center gap-2 group/btn text-sm sm:text-base"
                   >
@@ -453,8 +463,12 @@ const HowItWorks = () => {
                     {selectedStep.icon}
                   </div>
                   <div>
-                    <span className="text-white/80 text-sm font-medium">{selectedStep.badge}</span>
-                    <h3 className="text-2xl font-bold text-white">{selectedStep.title}</h3>
+                    <span className="text-white/80 text-sm font-medium">
+                      {selectedStep.badge}
+                    </span>
+                    <h3 className="text-2xl font-bold text-white">
+                      {selectedStep.title}
+                    </h3>
                   </div>
                 </div>
                 <button
@@ -470,7 +484,9 @@ const HowItWorks = () => {
             <div className="p-6 sm:p-8">
               {/* Full Description */}
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Overview</h4>
+                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  Overview
+                </h4>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {selectedStep.details.fullDescription}
                 </p>
@@ -478,12 +494,19 @@ const HowItWorks = () => {
 
               {/* Features List */}
               <div className="mb-8">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Key Features</h4>
+                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                  Key Features
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedStep.details.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 p-3 rounded-xl">
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 p-3 rounded-xl"
+                    >
                       <CheckCircleIcon className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -502,7 +525,7 @@ const HowItWorks = () => {
 
               {/* Action Button */}
               <div className="mt-8">
-                <button 
+                <button
                   onClick={closeModal}
                   className="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:translate-y-[-2px] hover:shadow-lg"
                 >
@@ -513,8 +536,6 @@ const HowItWorks = () => {
           </div>
         </div>
       )}
-
-      
     </>
   );
 };

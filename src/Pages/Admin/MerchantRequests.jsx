@@ -102,7 +102,7 @@ const MerchantRequests = () => {
           <tbody>
             {requests.map((req, idx) => (
               <tr
-                key={req._id}
+                key={idx}
                 className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
               >
                 <td className="p-3">{idx + 1}</td>
@@ -150,7 +150,7 @@ const MerchantRequests = () => {
       <div className="md:hidden grid gap-4">
         {requests.map((req, idx) => (
           <div
-            key={req._id}
+            key={idx}
             className="border dark:border-gray-700 rounded-xl p-4 bg-gray-50 dark:bg-gray-900 shadow-sm"
           >
             <div className="flex justify-between items-center mb-2">

@@ -45,17 +45,18 @@ export default function FAQSection() {
   return (
     <div className="min-h-screen max-w-10/12 mx-auto md:px-8 py-10 overflow-hidden">
       <div className=" grid md:grid-cols-2 gap-10 items-center">
-        
         {/* ✅ Left side - FAQ Content */}
         <div data-aos="fade-right" className="space-y-6 order-2 md:order-1">
           <div>
             <h1 className="text-3xl sm:text-4xl text-black dark:text-white md:text-5xl font-extrabold leading-snug">
-                         Frequently Asked  <br /> <span className="text-green-500 dark:text-green-500">Questions</span>{" "}
-                        
-                    </h1>
+              Frequently Asked <br />{" "}
+              <span className="text-green-500 dark:text-green-500">
+                Questions
+              </span>{" "}
+            </h1>
           </div>
 
-          <p className="text-lg max-w-xl">
+          <p className="text-lg max-w-xl text-black dark:text-white">
             Find quick answers about how our digital wallet works, security
             features, and how you can manage your transactions safely and
             efficiently.
@@ -114,10 +115,7 @@ export default function FAQSection() {
         </div>
 
         {/* ✅ Right side - Image (Visible on all screens) */}
-        <div
-          data-aos="fade-left"
-          className="order-1 md:order-2 "
-        >
+        <div data-aos="fade-left" className="order-1 md:order-2 ">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl ">
             <img
               src="https://i.postimg.cc/9XLsvSh7/FAQ.png"
