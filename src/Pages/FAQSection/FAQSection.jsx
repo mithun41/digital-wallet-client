@@ -56,7 +56,7 @@ export default function FAQSection() {
             </h1>
           </div>
 
-          <p className="text-lg max-w-xl">
+          <p className="text-lg max-w-xl text-black dark:text-white">
             Find quick answers about how our digital wallet works, security
             features, and how you can manage your transactions safely and
             efficiently.

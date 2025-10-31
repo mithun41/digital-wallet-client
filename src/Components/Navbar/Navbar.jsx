@@ -153,22 +153,7 @@ const Navbar = () => {
                     >
                       Dashboard
                     </Link>
-                    <Link
-                      to="/dashboard/profile"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 font-medium"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Profile
-                    </Link>
-                    {user?.role !== "admin" && (
-                      <Link
-                        to="/dashboard/profile"
-                        className="block px-4 py-2 hover:bg-gray-100 font-medium"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        👤 Profile
-                      </Link>
-                    )}
+
                     <hr className="my-1" />
                     <button
                       onClick={handleLogout}
@@ -270,13 +255,13 @@ const Navbar = () => {
               >
                 Dashboard
               </Link>
-              <Link
+              {/* <Link
                 to="/dashboard/profile"
                 className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Profile
-              </Link>
+              </Link> */}
               <Link
                 to="/rewards"
                 className="hover:bg-green-600 dark:hover:bg-slate-800 rounded px-3 py-2 transition-colors"
