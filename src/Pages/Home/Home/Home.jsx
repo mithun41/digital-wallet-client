@@ -26,10 +26,10 @@ const Home = () => {
       <section>
         <Banner></Banner>
       </section>
-      <OurMission></OurMission>
       <section>
         <HowItWorks></HowItWorks>
       </section>
+      <OurMission></OurMission>
       <section>
         <OurHistory></OurHistory>
       </section>
