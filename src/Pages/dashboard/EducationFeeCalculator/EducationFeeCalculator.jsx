@@ -121,7 +121,8 @@ const EducationFeeCalculator = () => {
           <div>
             <p className="text-white font-semibold">Discount: {DISCOUNT_PERCENT}%</p>
             <p className="text-white text-sm">
-              একটি {DISCOUNT_PERCENT}% discount আপনার payment এ কম হবে।
+              
+              A {DISCOUNT_PERCENT}% discount will be deducted from your payment.
             </p>
           </div>
         </div>
