@@ -35,7 +35,7 @@ const BankingCards = () => {
   ];
 
   return (
-    <div className="mt-12 px-4 md:px-8 lg:px-16">
+    <div className="mt-12 px-4 md:px-8 lg:px-16 overflow-hidden">
       {/* Title Section */}
       <div className="text-center mb-10" data-aos="zoom-in">
         <h1 className="text-4xl md:text-4xl font-bold text-green-400">
@@ -69,10 +69,9 @@ const BankingCards = () => {
                 <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                   {cards[0].title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[0].desc}</p>
-                <button className="text-green-500 mt-4 font-semibold hover:underline">
-                  Learn More →
-                </button>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                  {cards[0].desc}
+                </p>
               </div>
             </div>
 
@@ -84,10 +83,9 @@ const BankingCards = () => {
               <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[3].title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[3].desc}</p>
-              <button className="text-green-500 mt-4 font-semibold hover:underline">
-                Learn More →
-              </button>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                {cards[3].desc}
+              </p>
             </div>
           </div>
 
@@ -107,10 +105,9 @@ const BankingCards = () => {
               <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
                 {cards[1].title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[1].desc}</p>
-              <button className="text-green-500 mt-4 font-semibold hover:underline">
-                Learn More →
-              </button>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                {cards[1].desc}
+              </p>
             </div>
           </div>
         </div>
@@ -131,10 +128,9 @@ const BankingCards = () => {
             <h2 className="text-lg font-bold text-gray-600 dark:text-gray-300">
               {cards[2].title}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{cards[2].desc}</p>
-            <button className="text-green-500 mt-4 font-semibold hover:underline">
-              Learn More →
-            </button>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+              {cards[2].desc}
+            </p>
           </div>
         </div>
       </div>

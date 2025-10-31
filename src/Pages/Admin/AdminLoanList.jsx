@@ -16,6 +16,8 @@ const AdminLoanList = () => {
   const [filteredLoans, setFilteredLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
   const fetchLoans = async () => {
     try {
@@ -44,6 +46,7 @@ const AdminLoanList = () => {
         loan.status?.toLowerCase().includes(lower)
     );
     setFilteredLoans(filtered);
+    setCurrentPage(1);
   }, [search, loans]);
 
   const handleApprove = async (id) => {
@@ -81,12 +84,12 @@ const AdminLoanList = () => {
       </div>
     );
 
-  if (!loans.length)
-    return (
-      <div className="text-center py-10 text-gray-500 dark:text-gray-400">
-        No loans found.
-      </div>
-    );
+  // Pagination logic
+  const totalPages = Math.ceil(filteredLoans.length / itemsPerPage);
+  const paginatedLoans = filteredLoans.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-200">
@@ -127,13 +130,15 @@ const AdminLoanList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredLoans.length > 0 ? (
-              filteredLoans.map((loan, idx) => (
+            {paginatedLoans.length > 0 ? (
+              paginatedLoans.map((loan, idx) => (
                 <tr
                   key={loan._id}
                   className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
-                  <td className="p-3">{idx + 1}</td>
+                  <td className="p-3">
+                    {(currentPage - 1) * itemsPerPage + idx + 1}
+                  </td>
                   <td className="p-3">{loan.userPhone}</td>
                   <td className="p-3 font-semibold">৳{loan.amount}</td>
                   <td className="p-3">{loan.duration} mo</td>
@@ -184,6 +189,31 @@ const AdminLoanList = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-lg font-medium">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
