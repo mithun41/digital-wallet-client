@@ -83,7 +83,7 @@ export default function OurMission() {
   };
 
   return (
-    <div className="my-16 relative flex items-center justify-center py-16 px-4 sm:px-6 lg:px-12 overflow-hidden">
+    <div className="mb-14 relative flex items-center justify-center px-4 sm:px-6 lg:px-12 overflow-hidden">
       <div className="max-w-10/12 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="space-y-4 sm:space-y-6 lg:space-y-8 z-10 order-2 lg:order-1">
