@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight, Sparkles, Zap, Shield } from "lucide-react";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -39,13 +40,13 @@ const Banner = () => {
           payments — all in one wallet.
         </p>
 
-        <button className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full text-sm sm:text-base md:text-lg font-semibold text-white shadow-lg hover:scale-105 transition-all duration-300">
+        <Link to="/about" className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full text-sm sm:text-base md:text-lg font-semibold text-white shadow-lg hover:scale-105 transition-all duration-300">
           <span>Get Started</span>
           <ArrowRight
             size={18}
             className="sm:size-20 animate-[wiggle_1s_ease-in-out_infinite]"
           />
-        </button>
+        </Link>
       </div>
 
       {/* 🔹 Floating Card (hidden on mobile) */}

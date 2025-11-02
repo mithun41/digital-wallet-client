@@ -31,19 +31,17 @@ const SecuritySection = () => {
     },
   ];
 
-  // 🟢 Auto slide effect (continuous loop)
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % features.length);
-    }, 3000); // every 3 seconds change slide
+    }, 3000);
     return () => clearTimeout(timer);
   }, [currentSlide, features.length]);
 
   const goToSlide = (index) => setCurrentSlide(index);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden space-y-10 overflow-hidden">
-      {/* Section Heading */}
+    <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden space-y-10">
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full text-sm font-semibold mb-6">
           <Shield size={18} />
@@ -58,7 +56,6 @@ const SecuritySection = () => {
         </p>
       </div>
 
-      {/* Slider */}
       <div className="relative">
         <div className="overflow-hidden rounded-3xl">
           <div
@@ -74,11 +71,14 @@ const SecuritySection = () => {
                       "linear-gradient(to right, rgba(16, 231, 95, 0.15), #ffffff 20%, #f9f9f9 50%, rgba(34, 216, 101, 0.15))",
                   }}
                 >
-                  <div className="rounded-3xl p-10 md:p-10 h-full flex items-center gap-8">
+                  {/* ✅ UPDATED FLEX CLASSES */}
+                  <div className="rounded-3xl p-10 h-full flex flex-col md:flex-row items-center text-center md:text-left gap-6 md:gap-8">
+
                     <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-md">
                       {feature.icon}
                     </div>
-                    <div className="flex-1 text-left">
+
+                    <div className="flex-1">
                       <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">
                         {feature.title}
                       </h3>
@@ -86,6 +86,7 @@ const SecuritySection = () => {
                         {feature.description}
                       </p>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -93,7 +94,6 @@ const SecuritySection = () => {
           </div>
         </div>
 
-        {/* Pagination Dots */}
         <div className="flex justify-center gap-3 mt-10">
           {features.map((_, index) => (
             <button
