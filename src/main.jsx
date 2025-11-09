@@ -7,11 +7,13 @@ import { RouterProvider } from "react-router";
 import { router } from "./Routes/Routes.jsx";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
+import AIChatbot from "./Components/AIChatbot/AIChatbot.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <AIChatbot></AIChatbot>
     </Provider>
   </StrictMode>
 );
