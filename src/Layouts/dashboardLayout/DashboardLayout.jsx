@@ -100,7 +100,7 @@ const DashboardLayout = () => {
     const fetchUpgradeStatus = async () => {
       if (!user?.phone) return;
       try {
-        const res = await axiosSecure.get("/api/user/upgrade-requests");
+        const res = await axiosSecure.get("api/user/upgrade-requests");
         const userRequest = res.data.find((req) => req.phone === user.phone);
         if (userRequest) setUpgradeStatus(userRequest.status);
         else setUpgradeStatus(null);
