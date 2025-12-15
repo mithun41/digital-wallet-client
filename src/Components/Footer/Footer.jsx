@@ -208,7 +208,7 @@ const Footer = () => {
             </span>
             by{" "}
             <span className="font-semibold text-green-400 hover:text-green-300 transition-colors cursor-pointer">
-              6 LogicPlas Team
+              6 LogicPulse Team
             </span>
           </p>
         </div>
